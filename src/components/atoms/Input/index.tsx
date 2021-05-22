@@ -9,6 +9,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
+import StyleGuide from '../../../util/StyleGuide';
 import styles from './styles';
 
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
@@ -33,7 +34,7 @@ const Input: React.FC<InputProps> = ({ placeholder }) => {
       borderColor: interpolateColor(
         focusAnimation.value,
         [0, 1],
-        ['#888888', '#00ff00'],
+        [StyleGuide.palette.secondary, StyleGuide.palette.app],
       ),
     };
   }, [focusAnimation, valueAnimation]);
@@ -50,7 +51,7 @@ const Input: React.FC<InputProps> = ({ placeholder }) => {
       color: interpolateColor(
         focusAnimation.value,
         [0, 1],
-        ['#888888', '#00ff00'],
+        [StyleGuide.palette.secondary, StyleGuide.palette.app],
       ),
     };
   }, [valueAnimation, focusAnimation]);

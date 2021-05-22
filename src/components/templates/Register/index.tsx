@@ -1,4 +1,9 @@
-import React, { ReactNode } from 'react';
+import React, {
+  forwardRef,
+  ReactNode,
+  useImperativeHandle,
+  useRef,
+} from 'react';
 import { View, ScrollView, Dimensions } from 'react-native';
 import styles from './styles';
 
@@ -9,31 +14,52 @@ type RegisterProps = {
   steps: ReactNode[];
 };
 
-const Register: React.FC<RegisterProps> = ({ logo, steps }) => {
-  return (
-    <>
-      <ScrollView
-        horizontal
-        overScrollMode="never"
-        keyboardShouldPersistTaps="handled"
-        snapToInterval={width}
-        disableIntervalMomentum
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.contentContainer}
-        scrollEnabled={false}>
-        {steps.map((step, index) => (
-          <View key={index} style={styles.step}>
-            <ScrollView
-              overScrollMode="never"
-              contentContainerStyle={styles.contentContainer}>
-              <View style={styles.logo}>{logo}</View>
-              {step}
-            </ScrollView>
-          </View>
-        ))}
-      </ScrollView>
-    </>
-  );
+export type RegisterHandler = {
+  scrollToIndex: (index: number) => void;
 };
 
-export default Register;
+const Register: React.ForwardRefRenderFunction<RegisterHandler, RegisterProps> =
+  ({ logo, steps }, ref) => {
+    const scrollRef = useRef<ScrollView>(null);
+
+    const scrollToIndex = (index: number) => {
+      scrollRef.current?.scrollTo({ x: index * width });
+    };
+
+    useImperativeHandle(
+      ref,
+      () => ({
+        scrollToIndex,
+      }),
+      [],
+    );
+
+    return (
+      <>
+        <ScrollView
+          ref={scrollRef}
+          horizontal
+          overScrollMode="never"
+          keyboardShouldPersistTaps="handled"
+          snapToInterval={width}
+          disableIntervalMomentum
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.contentContainer}
+          scrollEnabled={false}>
+          {steps.map((step, index) => (
+            <View key={index} style={styles.step}>
+              <ScrollView
+                showsVerticalScrollIndicator={false}
+                overScrollMode="never"
+                contentContainerStyle={{ flexGrow: 1 }}>
+                <View style={styles.logo}>{logo}</View>
+                {step}
+              </ScrollView>
+            </View>
+          ))}
+        </ScrollView>
+      </>
+    );
+  };
+
+export default forwardRef(Register);

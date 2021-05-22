@@ -7,8 +7,8 @@ const App = () => {
     <>
       <StatusBar
         translucent
-        backgroundColor="transparent"
-        barStyle="dark-content"
+        backgroundColor="rgba(0, 0, 0, 0.25)"
+        barStyle="light-content"
       />
       <Routes />
     </>

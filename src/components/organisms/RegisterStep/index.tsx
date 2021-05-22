@@ -7,9 +7,17 @@ type RegisterProps = {
   form: ReactNode;
   title: string;
   description: string;
+  confirmTitle: string;
+  onNext: () => void;
 };
 
-const Register: React.FC<RegisterProps> = ({ form, title, description }) => {
+const Register: React.FC<RegisterProps> = ({
+  form,
+  title,
+  description,
+  confirmTitle,
+  onNext,
+}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
@@ -19,8 +27,8 @@ const Register: React.FC<RegisterProps> = ({ form, title, description }) => {
         {form}
 
         <Button
-          onPress={() => {}}
-          title="Seguinte"
+          onPress={onNext}
+          title={confirmTitle}
           containerStyle={styles.button}
         />
       </View>

@@ -1,15 +1,16 @@
 import { StyleSheet } from 'react-native';
+import StyleGuide from '../../../util/StyleGuide';
 
 export default StyleSheet.create({
   container: { width: '100%', flexGrow: 1 },
   title: {
-    fontSize: 22,
+    ...StyleGuide.typography.title3,
     textAlign: 'center',
   },
   description: {
-    fontSize: 16,
+    ...StyleGuide.typography.caption,
+    color: StyleGuide.palette.secondary,
     textAlign: 'center',
-    color: '#444',
     marginBottom: 12,
   },
   content: {
@@ -18,7 +19,7 @@ export default StyleSheet.create({
   },
   button: {
     marginLeft: 'auto',
-    width: 100,
+    width: 120,
     height: 37,
     borderRadius: 0,
     marginBottom: 20,

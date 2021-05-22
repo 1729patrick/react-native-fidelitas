@@ -4,7 +4,7 @@ export default StyleSheet.create({
   buttons: {
     marginTop: 'auto',
     flexDirection: 'row',
-    paddingBottom: 30,
+    paddingBottom: 35,
   },
   button: { paddingHorizontal: 8, flex: 1 },
 });

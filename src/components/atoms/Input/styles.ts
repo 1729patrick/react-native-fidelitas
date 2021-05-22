@@ -1,14 +1,14 @@
 import { StyleSheet } from 'react-native';
+import StyleGuide from '../../../util/StyleGuide';
 
 export default StyleSheet.create({
   container: { height: 55, marginTop: 26 },
   input: {
     borderWidth: 1,
-    borderColor: '#888',
     height: 55,
     borderRadius: 4,
     paddingLeft: 19,
-    color: '#444',
+    color: StyleGuide.palette.primary,
   },
   placeholderContainer: {
     position: 'absolute',
@@ -20,7 +20,7 @@ export default StyleSheet.create({
   },
   placeholder: {
     backgroundColor: 'rgb(242, 242, 242)',
-    color: '#888',
+    color: StyleGuide.palette.primary,
     paddingHorizontal: 8,
   },
 });

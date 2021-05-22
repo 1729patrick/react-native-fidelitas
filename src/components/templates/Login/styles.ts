@@ -5,7 +5,7 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 8,
+    padding: 20,
   },
   logo: { marginBottom: 20 },
 });

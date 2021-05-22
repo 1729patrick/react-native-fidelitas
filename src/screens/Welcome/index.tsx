@@ -27,11 +27,13 @@ export default () => {
         title="Iniciar sessão"
         containerStyle={styles.button}
         onPress={onLogin}
+        borderRadius={8}
       />
       <Button
         title="Registe-se"
         containerStyle={styles.button}
         onPress={onRegister}
+        borderRadius={8}
       />
     </View>
   );

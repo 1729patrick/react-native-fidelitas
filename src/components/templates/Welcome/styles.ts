@@ -16,11 +16,25 @@ export default StyleSheet.create({
   leftAction: {
     width: width / 2,
     height,
-    backgroundColor: 'yellow',
   },
   rightAction: {
     width: width / 2,
     height,
-    backgroundColor: 'red',
+  },
+  top: {
+    ...StyleSheet.absoluteFillObject,
+    marginTop: 10,
+    flexDirection: 'row',
+  },
+  indicators: {
+    ...StyleSheet.absoluteFillObject,
+    flexDirection: 'row',
+    overflow: 'hidden',
+  },
+  indicator: {
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    height: 4,
+    marginTop: 40,
+    borderRadius: 10,
   },
 });

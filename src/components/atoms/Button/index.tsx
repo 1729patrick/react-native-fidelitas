@@ -7,6 +7,7 @@ type ButtonProps = {
   title: string;
   containerStyle?: StyleProp<ViewStyle>;
   titleStyle?: StyleProp<ViewStyle>;
+  borderRadius?: number;
   onPress: () => void;
 };
 
@@ -15,11 +16,12 @@ const Button: React.FC<ButtonProps> = ({
   containerStyle,
   titleStyle,
   onPress,
+  borderRadius = 4,
 }) => {
   return (
     <View style={[styles.container, containerStyle]}>
-      <RectButton style={[styles.button]} onPress={onPress}>
-        <Text style={titleStyle}>{title}</Text>
+      <RectButton style={[styles.button, { borderRadius }]} onPress={onPress}>
+        <Text style={[styles.title, titleStyle]}>{title}</Text>
       </RectButton>
     </View>
   );
