@@ -1,11 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
+
+const { width } = Dimensions.get('window');
 
 export default StyleSheet.create({
   contentContainer: {
-    paddingTop: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 8,
+    flexGrow: 1,
   },
-  logo: { marginBottom: 20 },
+  logo: { marginBottom: 30, marginTop: 70 },
+  step: { width, paddingHorizontal: 20 },
 });

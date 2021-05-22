@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { View, TextInput } from 'react-native';
 import Animated, {
+  Easing,
   Extrapolate,
   interpolate,
   interpolateColor,
@@ -61,10 +62,12 @@ const Input: React.FC<InputProps> = ({ placeholder }) => {
 
   const onBlur = () => {
     if (!valueRef.current) {
-      valueAnimation.value = withTiming(0, { duration: 100 });
+      valueAnimation.value = withTiming(0, {
+        duration: 40,
+      });
     }
 
-    focusAnimation.value = withTiming(0, { duration: 100 });
+    focusAnimation.value = withTiming(0, { duration: 40 });
   };
 
   const onChangeText = (value: string) => {

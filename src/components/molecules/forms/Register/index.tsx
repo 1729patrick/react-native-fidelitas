@@ -1,31 +1,42 @@
 import React from 'react';
 import { View } from 'react-native';
-import Button from '../../../atoms/Button';
 import Input from '../../../atoms/Input';
 
-type RegisterFormProps = {
+type RegisterProps = {
   signIn?: (args: any) => void;
 };
 
-const RegisterForm: React.FC<RegisterFormProps> = ({ signIn }) => {
-  const onSubmit = () => {
-    // signIn({
-    //   user: { name: 'Apple', email: 'general@apple.com' },
-    //   token: 'AAPL',
-    // });
-  };
-
+export const Step1: React.FC<RegisterProps> = () => {
   return (
     <View style={{ width: '100%' }}>
       <Input placeholder="Nome" />
       <Input placeholder="Apelido" />
-      <Input placeholder="NIF" />
-      <Input placeholder="E-mail" />
-      <Input placeholder="Telemóvel" />
-      <Input placeholder="Senha" />
-      <Button onPress={onSubmit} title="Submit" />
     </View>
   );
 };
 
-export default RegisterForm;
+export const Step2: React.FC<RegisterProps> = () => {
+  return (
+    <View style={{ width: '100%' }}>
+      <Input placeholder="Data de nascimento" />
+      <Input placeholder="Género" />
+    </View>
+  );
+};
+
+export const Step3: React.FC<RegisterProps> = () => {
+  return (
+    <View style={{ width: '100%' }}>
+      <Input placeholder="Telemóvel" />
+      <Input placeholder="E-mail" />
+    </View>
+  );
+};
+
+export const Step4: React.FC<RegisterProps> = () => {
+  return (
+    <View style={{ width: '100%' }}>
+      <Input placeholder="Palavra-passe" />
+    </View>
+  );
+};

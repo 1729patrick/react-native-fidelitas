@@ -8,6 +8,7 @@ export default StyleSheet.create({
     height: 55,
     borderRadius: 4,
     paddingLeft: 19,
+    color: '#444',
   },
   placeholderContainer: {
     position: 'absolute',

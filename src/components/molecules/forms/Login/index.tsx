@@ -3,11 +3,11 @@ import { View } from 'react-native';
 import Button from '../../../atoms/Button';
 import Input from '../../../atoms/Input';
 
-type LoginFormProps = {
+type LoginProps = {
   signIn?: (args: any) => void;
 };
 
-const LoginForm: React.FC<LoginFormProps> = ({ signIn }) => {
+const Login: React.FC<LoginProps> = ({ signIn }) => {
   const onSubmit = () => {
     // signIn({
     //   user: { name: 'Apple', email: 'general@apple.com' },
@@ -24,4 +24,4 @@ const LoginForm: React.FC<LoginFormProps> = ({ signIn }) => {
   );
 };
 
-export default LoginForm;
+export default Login;

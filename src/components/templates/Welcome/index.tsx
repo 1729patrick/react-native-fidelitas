@@ -1,12 +1,12 @@
-import React, { useRef } from 'react';
+import React, { ReactNode, useRef } from 'react';
 import { Dimensions, ScrollView, TouchableOpacity, View } from 'react-native';
 import styles from './styles';
 
 const { width } = Dimensions.get('window');
 
 type SlidesProps = {
-  items: React.ReactElement[];
-  buttons: React.ReactElement;
+  items: ReactNode[];
+  buttons: ReactNode;
 };
 
 const Welcome: React.FC<SlidesProps> = ({ items, buttons }) => {

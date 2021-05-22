@@ -1,13 +1,14 @@
 import React from 'react';
 import { Image } from 'react-native';
-import styles from './styles';
 
-type LogoProps = {};
+type LogoProps = {
+  size?: number;
+};
 
-const Logo: React.FC<LogoProps> = () => {
+const Logo: React.FC<LogoProps> = ({ size = 1 }) => {
   return (
     <Image
-      style={styles.container}
+      style={{ width: '100%', height: 45 * size }}
       resizeMode="contain"
       source={require('../../../assets/logo.png')}
     />

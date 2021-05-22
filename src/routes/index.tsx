@@ -45,9 +45,9 @@ export default () => {
   return (
     <NavigationContainer theme={theme}>
       <Stack.Navigator screenOptions={{ headerMode: false }}>
+        <Stack.Screen name="Register" component={Register} options={options} />
         <Stack.Screen name="Welcome" component={Welcome} options={options} />
         <Stack.Screen name="Login" component={Login} options={options} />
-        <Stack.Screen name="Register" component={Register} options={options} />
       </Stack.Navigator>
     </NavigationContainer>
   );
