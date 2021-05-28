@@ -5,6 +5,7 @@ export default StyleSheet.create({
     marginTop: 'auto',
     flexDirection: 'row',
     paddingBottom: 35,
+    paddingHorizontal: 16,
   },
-  button: { paddingHorizontal: 8, flex: 1 },
+  button: { flex: 1, paddingHorizontal: 8 },
 });

@@ -1,10 +1,8 @@
 import React, { ReactNode, useRef } from 'react';
 import { Dimensions, ScrollView, TouchableOpacity, View } from 'react-native';
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-} from 'react-native-reanimated';
-import Indicator from '../../atoms/Indicator';
+
+import LinearGradient from 'react-native-linear-gradient';
+import Indicators, { IndicatorsHandler } from '../../molecules/Indicators';
 import styles from './styles';
 
 const { width } = Dimensions.get('window');
@@ -15,10 +13,13 @@ type SlidesProps = {
 };
 
 const Welcome: React.FC<SlidesProps> = ({ items, buttons }) => {
-  const animation = useSharedValue(1);
   const scrollRef = useRef<ScrollView>(null);
+  const indicatorsRef = useRef<IndicatorsHandler>(null);
 
-  const onRightPress = (index: number = 1) => {
+  const onRightPress = (
+    index: number = 1,
+    changeIndicator?: boolean = true,
+  ) => {
     const nextIndex = Math.min(index + 1, items.length - 1);
 
     scrollRef.current?.scrollTo({
@@ -26,25 +27,21 @@ const Welcome: React.FC<SlidesProps> = ({ items, buttons }) => {
       animated: false,
     });
 
-    animation.value = (nextIndex + 1) / items.length;
+    if (changeIndicator) {
+      indicatorsRef.current?.changeIndicator(nextIndex + 1);
+    }
   };
 
   const onLeftPress = (index: number = 1) => {
-    const previousIndex = Math.max(index - 1, 0);
+    const previousIndex = Math.max(index - 1, -1);
 
     scrollRef.current?.scrollTo({
       x: previousIndex * width,
       animated: false,
     });
 
-    animation.value = (previousIndex + 1) / items.length;
+    indicatorsRef.current?.changeIndicator(previousIndex + 1);
   };
-
-  const animatedIndicator = useAnimatedStyle(() => {
-    return {
-      width: animation.value * width,
-    };
-  }, [animation]);
 
   return (
     <>
@@ -59,6 +56,13 @@ const Welcome: React.FC<SlidesProps> = ({ items, buttons }) => {
             {Item}
 
             <View style={styles.overlay} pointerEvents={'box-none'}>
+              <LinearGradient
+                start={{ x: 0, y: 0 }}
+                end={{ x: 0, y: 1 }}
+                colors={['rgba(0,0,0,0.6)', 'transparent']}
+                style={styles.linearGradient}
+              />
+
               <View style={styles.navigation} pointerEvents={'box-none'}>
                 <TouchableOpacity
                   style={styles.leftAction}
@@ -78,25 +82,13 @@ const Welcome: React.FC<SlidesProps> = ({ items, buttons }) => {
       </ScrollView>
 
       <View style={styles.top} pointerEvents={'none'}>
-        {items.map((_, index) => (
-          <Indicator
-            key={index}
-            width={width / items.length - 12}
-            backgroundColor="rgba(255, 255, 255, 0.5)"
-          />
-        ))}
-
-        <Animated.View style={[styles.indicators, animatedIndicator]}>
-          {items.map((_, index) => (
-            <Indicator
-              key={index}
-              animation={animation}
-              index={index}
-              width={width / items.length - 12}
-              backgroundColor="#fff"
-            />
-          ))}
-        </Animated.View>
+        <Indicators
+          width={width}
+          indicatorWidth={width / items.length - 12}
+          length={items.length}
+          ref={indicatorsRef}
+          onNext={(index: number) => onRightPress(index, false)}
+        />
       </View>
     </>
   );

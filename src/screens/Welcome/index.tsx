@@ -8,6 +8,7 @@ import {
   Screen3,
 } from '../../components/molecules/slides/Welcome';
 import Welcome from '../../components/templates/Welcome';
+import StyleGuide from '../../util/StyleGuide';
 import styles from './styles';
 
 export default () => {
@@ -31,7 +32,8 @@ export default () => {
       />
       <Button
         title="Registe-se"
-        containerStyle={styles.button}
+        containerStyle={[styles.button]}
+        backgroundColor={StyleGuide.palette.secondary}
         onPress={onRegister}
         borderRadius={8}
       />

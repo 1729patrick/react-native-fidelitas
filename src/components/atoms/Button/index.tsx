@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleProp, Text, View, ViewStyle } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
+import StyleGuide from '../../../util/StyleGuide';
 import styles from './styles';
 
 type ButtonProps = {
@@ -9,6 +10,7 @@ type ButtonProps = {
   titleStyle?: StyleProp<ViewStyle>;
   borderRadius?: number;
   onPress: () => void;
+  backgroundColor?: string;
 };
 
 const Button: React.FC<ButtonProps> = ({
@@ -17,10 +19,13 @@ const Button: React.FC<ButtonProps> = ({
   titleStyle,
   onPress,
   borderRadius = 4,
+  backgroundColor = StyleGuide.palette.app,
 }) => {
   return (
     <View style={[styles.container, containerStyle]}>
-      <RectButton style={[styles.button, { borderRadius }]} onPress={onPress}>
+      <RectButton
+        style={[styles.button, { borderRadius, backgroundColor }]}
+        onPress={onPress}>
         <Text style={[styles.title, titleStyle]}>{title}</Text>
       </RectButton>
     </View>
