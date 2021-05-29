@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import { StatusBar, View } from 'react-native';
-import Button from '../../components/atoms/Button';
+import RectButton from '../../components/atoms/buttons/Rect';
 import {
   Screen1,
   Screen2,
@@ -25,13 +25,13 @@ export default () => {
 
   const buttons = (
     <View style={styles.buttons}>
-      <Button
+      <RectButton
         title="Iniciar sessão"
         containerStyle={styles.button}
         onPress={onLogin}
         borderRadius={8}
       />
-      <Button
+      <RectButton
         title="Registe-se"
         containerStyle={[styles.button]}
         backgroundColor={StyleGuide.palette.secondary}

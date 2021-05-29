@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Text, View } from 'react-native';
-import Button from '../../atoms/Button';
+import RectButton from '../../atoms/buttons/Rect';
 import styles from './styles';
 
 type RegisterProps = {
@@ -26,7 +26,7 @@ const Register: React.FC<RegisterProps> = ({
       <View style={styles.content}>
         {form}
 
-        <Button
+        <RectButton
           onPress={onNext}
           title={confirmTitle}
           containerStyle={styles.button}

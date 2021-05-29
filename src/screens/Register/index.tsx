@@ -1,22 +1,46 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useRef } from 'react';
-import { StatusBar } from 'react-native';
+import React, { useEffect, useMemo, useRef } from 'react';
+import { BackHandler, StatusBar } from 'react-native';
+import Header from '../../components/atoms/Header';
 import Logo from '../../components/atoms/Logo';
 import { Step1, Step2, Step3 } from '../../components/molecules/forms/Register';
 import RegisterStep from '../../components/organisms/RegisterStep';
+import styles from './styles';
 import Register, { RegisterHandler } from '../../components/templates/Register';
 
 export default () => {
+  const currentIndexRef = useRef(0);
   const registerRef = useRef<RegisterHandler>(null);
-  const { replace } = useNavigation();
+  const { replace, pop } = useNavigation();
 
   const onComplete = () => {
     replace('Auth');
   };
 
   const onScrollTo = (index: number) => {
+    currentIndexRef.current = index;
     registerRef.current?.scrollToIndex(index);
   };
+
+  const onBack = () => {
+    if (currentIndexRef.current - 1 < 0) {
+      pop();
+      return;
+    }
+
+    onScrollTo(currentIndexRef.current - 1);
+  };
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', function () {
+      if (currentIndexRef.current - 1 >= 0) {
+        onScrollTo(currentIndexRef.current - 1);
+        return true;
+      }
+
+      return false;
+    });
+  }, []);
 
   return (
     <>
@@ -25,9 +49,10 @@ export default () => {
         backgroundColor="rgba(0, 0, 0, 0)"
         barStyle="dark-content"
       />
+      <Header backgroundColor={'transparent'} onBack={onBack} />
       <Register
         ref={registerRef}
-        logo={<Logo size={0.4} style={{ width: '100%' }} />}
+        logo={<Logo size={0.4} style={styles.logo} />}
         steps={[
           <RegisterStep
             title="Crie uma Conta Subway"

@@ -32,7 +32,8 @@ export default StyleSheet.create({
   description: {
     ...StyleGuide.typography.title1,
     fontSize: 29,
-    paddingHorizontal: 20,
+    paddingLeft: 20,
+    paddingRight: 30,
     marginTop: 70,
     color: StyleGuide.palette.background,
     lineHeight: 40,

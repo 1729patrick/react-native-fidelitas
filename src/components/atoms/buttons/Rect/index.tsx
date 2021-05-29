@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleProp, Text, View, ViewStyle } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
-import StyleGuide from '../../../util/StyleGuide';
+import StyleGuide from '../../../../util/StyleGuide';
 import styles from './styles';
 
 type ButtonProps = {
