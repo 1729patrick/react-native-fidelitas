@@ -1,16 +1,17 @@
 import React from 'react';
-import { Image, ImageStyle, StyleProp } from 'react-native';
+import { ImageStyle, StyleProp } from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 type LogoProps = {
   size?: number;
   style?: StyleProp<ImageStyle>;
 };
 
-const Logo: React.FC<LogoProps> = ({ size = 1, style = {} }) => {
+const Logo: React.FC<LogoProps> = ({ size = 1, style }) => {
   return (
-    <Image
+    <FastImage
       style={[{ height: 45 * size }, style]}
-      resizeMode="contain"
+      resizeMode={FastImage.resizeMode.contain}
       source={require('../../../assets/logo.png')}
     />
   );

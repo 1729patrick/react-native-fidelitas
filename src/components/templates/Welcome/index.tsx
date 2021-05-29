@@ -1,4 +1,4 @@
-import React, { ReactNode, useRef } from 'react';
+import React, { ReactNode, useEffect, useRef } from 'react';
 import {
   Dimensions,
   ScrollView,
@@ -6,6 +6,7 @@ import {
   View,
   Text,
   GestureResponderEvent,
+  BackHandler,
 } from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
@@ -21,6 +22,7 @@ type SlidesProps = {
 
 const Welcome: React.FC<SlidesProps> = ({ items, buttons }) => {
   const scrollRef = useRef<ScrollView>(null);
+  const currentIndexRef = useRef(0);
   const indicatorsRef = useRef<IndicatorsHandler>(null);
 
   const onNext = (index: number = 1, changeIndicator: boolean = true) => {
@@ -35,6 +37,7 @@ const Welcome: React.FC<SlidesProps> = ({ items, buttons }) => {
       animated: false,
     });
 
+    currentIndexRef.current = nextIndex;
     if (changeIndicator) {
       indicatorsRef.current?.changeIndicator(nextIndex);
     }
@@ -51,12 +54,13 @@ const Welcome: React.FC<SlidesProps> = ({ items, buttons }) => {
       x: previousIndex * width,
       animated: false,
     });
-
+    currentIndexRef.current = previousIndex;
     indicatorsRef.current?.changeIndicator(previousIndex);
   };
 
   const onAction = (event: GestureResponderEvent, index: number) => {
     const { locationX } = event.nativeEvent;
+
     if (locationX > width / 2) {
       onNext(index);
       return;
@@ -64,6 +68,16 @@ const Welcome: React.FC<SlidesProps> = ({ items, buttons }) => {
 
     onPrevious(index);
   };
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', function () {
+      if (currentIndexRef.current - 1 >= 0) {
+        onPrevious(currentIndexRef.current);
+        return true;
+      }
+      return false;
+    });
+  }, []);
 
   return (
     <>
