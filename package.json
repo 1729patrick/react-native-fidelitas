@@ -7,7 +7,8 @@
     "ios": "react-native run-ios --verbose",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "release:android": "cd android && ./gradlew assembleRelease && cd .. && open android/app/build/outputs/apk/release"
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.0.0-next.11",
