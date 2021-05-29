@@ -14,12 +14,8 @@ export default StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     flexDirection: 'row',
   },
-  leftAction: {
-    width: width / 2,
-    height,
-  },
-  rightAction: {
-    width: width / 2,
+  action: {
+    width,
     height,
   },
   top: {

@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   View,
   Text,
+  GestureResponderEvent,
 } from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
@@ -22,10 +23,7 @@ const Welcome: React.FC<SlidesProps> = ({ items, buttons }) => {
   const scrollRef = useRef<ScrollView>(null);
   const indicatorsRef = useRef<IndicatorsHandler>(null);
 
-  const onRightPress = (
-    index: number = 1,
-    changeIndicator?: boolean = true,
-  ) => {
+  const onNext = (index: number = 1, changeIndicator: boolean = true) => {
     const nextIndex = index + 1;
 
     if (nextIndex > items.length - 1) {
@@ -42,7 +40,7 @@ const Welcome: React.FC<SlidesProps> = ({ items, buttons }) => {
     }
   };
 
-  const onLeftPress = (index: number = 1) => {
+  const onPrevious = (index: number = 1) => {
     const previousIndex = index - 1;
 
     if (previousIndex < 0) {
@@ -55,6 +53,16 @@ const Welcome: React.FC<SlidesProps> = ({ items, buttons }) => {
     });
 
     indicatorsRef.current?.changeIndicator(previousIndex);
+  };
+
+  const onAction = (event: GestureResponderEvent, index: number) => {
+    const { locationX } = event.nativeEvent;
+    if (locationX > width / 2) {
+      onNext(index);
+      return;
+    }
+
+    onPrevious(index);
   };
 
   return (
@@ -80,14 +88,12 @@ const Welcome: React.FC<SlidesProps> = ({ items, buttons }) => {
 
               <View style={styles.navigation} pointerEvents={'box-none'}>
                 <TouchableOpacity
-                  style={styles.leftAction}
-                  onPress={() => onLeftPress(index)}
+                  style={styles.action}
+                  onPress={event => onAction(event, index)}
                   activeOpacity={1}
-                />
-                <TouchableOpacity
-                  style={styles.rightAction}
-                  onPress={() => onRightPress(index)}
-                  activeOpacity={1}
+                  onLongPress={() => {}}
+                  onPressIn={() => indicatorsRef.current?.onPause()}
+                  onPressOut={() => indicatorsRef.current?.onResume()}
                 />
               </View>
               {buttons}
@@ -102,7 +108,7 @@ const Welcome: React.FC<SlidesProps> = ({ items, buttons }) => {
           indicatorMarginHorizontal={3}
           length={items.length}
           ref={indicatorsRef}
-          onNext={(index: number) => onRightPress(index, false)}
+          onNext={(index: number) => onNext(index, false)}
         />
       </View>
     </>

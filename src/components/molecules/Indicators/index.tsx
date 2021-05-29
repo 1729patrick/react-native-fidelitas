@@ -3,8 +3,10 @@ import React, {
   useCallback,
   useEffect,
   useImperativeHandle,
+  useRef,
 } from 'react';
 import Animated, {
+  cancelAnimation,
   Easing,
   runOnJS,
   useAnimatedStyle,
@@ -13,6 +15,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import styles from './styles';
 import Indicator from '../../atoms/Indicator';
+import { DURATION } from './constants';
 
 type IndicatorsProps = {
   length: number;
@@ -23,6 +26,8 @@ type IndicatorsProps = {
 
 export type IndicatorsHandler = {
   changeIndicator: (index: number) => void;
+  onPause: () => void;
+  onResume: () => void;
 };
 
 const Indicators: React.ForwardRefRenderFunction<
@@ -30,25 +35,27 @@ const Indicators: React.ForwardRefRenderFunction<
   IndicatorsProps
 > = ({ length, width, indicatorMarginHorizontal, onNext }, ref) => {
   const animation = useSharedValue(0);
+  const nextValueRef = useRef(0);
 
   const runTimer = useCallback(
-    nextValue => {
+    (value: number, duration: number = DURATION) => {
+      nextValueRef.current = value;
       animation.value = withTiming(
-        nextValue,
-        { duration: 7500, easing: Easing.linear },
+        value,
+        { duration, easing: Easing.linear },
         isFinished => {
           const next = Math.ceil(
-            nextValue * length + (indicatorMarginHorizontal * 2) / width,
+            value * length + (indicatorMarginHorizontal * 2) / width,
           );
 
           if (!isFinished || next > length) {
             return;
           }
 
-          animation.value = nextValue + (indicatorMarginHorizontal * 2) / width;
+          animation.value = value + (indicatorMarginHorizontal * 2) / width;
           runOnJS(onNext)(next - 1);
           runOnJS(runTimer)(
-            nextValue +
+            value +
               (indicatorMarginHorizontal * 2) / width +
               1 / length -
               (indicatorMarginHorizontal * 2) / width,
@@ -60,8 +67,8 @@ const Indicators: React.ForwardRefRenderFunction<
   );
 
   useEffect(() => {
-    runTimer(1 / length);
-  }, [animation, length, runTimer]);
+    runTimer(1 / length - (indicatorMarginHorizontal * 2) / width);
+  }, [animation, indicatorMarginHorizontal, length, runTimer, width]);
 
   const animatedIndicator = useAnimatedStyle(() => {
     return {
@@ -81,7 +88,27 @@ const Indicators: React.ForwardRefRenderFunction<
     [animation, indicatorMarginHorizontal, length, runTimer, width],
   );
 
-  useImperativeHandle(ref, () => ({ changeIndicator }), [changeIndicator]);
+  const onPause = useCallback(() => {
+    cancelAnimation(animation);
+  }, [animation]);
+
+  const onResume = useCallback(() => {
+    const indicatorWidth = (1 / length) * width;
+    const indicatorCompleted = (animation.value * width) % indicatorWidth;
+
+    const duration = Math.max(
+      (1 - indicatorCompleted / indicatorWidth) * DURATION,
+      0,
+    );
+
+    runTimer(nextValueRef.current, duration);
+  }, [length, width, animation.value, runTimer]);
+
+  useImperativeHandle(ref, () => ({ changeIndicator, onPause, onResume }), [
+    changeIndicator,
+    onPause,
+    onResume,
+  ]);
 
   return (
     <>
