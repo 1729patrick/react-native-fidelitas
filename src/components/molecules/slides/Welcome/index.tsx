@@ -39,3 +39,15 @@ export const Screen3 = () => {
     </View>
   );
 };
+
+export const Screen4 = () => {
+  return (
+    <View style={styles.container}>
+      <Image
+        source={require('../../../../assets/welcome/welcome_4.jpeg')}
+        style={{ height, width }}
+        resizeMode="cover"
+      />
+    </View>
+  );
+};

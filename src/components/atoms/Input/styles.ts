@@ -4,6 +4,7 @@ import StyleGuide from '../../../util/StyleGuide';
 export default StyleSheet.create({
   container: { height: 55, marginTop: 26 },
   input: {
+    ...StyleGuide.typography.caption,
     borderWidth: 1,
     height: 55,
     borderRadius: 4,
@@ -19,6 +20,7 @@ export default StyleSheet.create({
     left: -2,
   },
   placeholder: {
+    ...StyleGuide.typography.caption,
     backgroundColor: 'rgb(242, 242, 242)',
     color: StyleGuide.palette.primary,
     paddingHorizontal: 8,

@@ -1,11 +1,12 @@
 import { useNavigation } from '@react-navigation/core';
 import React from 'react';
-import { View } from 'react-native';
+import { StatusBar, View } from 'react-native';
 import Button from '../../components/atoms/Button';
 import {
   Screen1,
   Screen2,
   Screen3,
+  Screen4,
 } from '../../components/molecules/slides/Welcome';
 import Welcome from '../../components/templates/Welcome';
 import StyleGuide from '../../util/StyleGuide';
@@ -41,9 +42,36 @@ export default () => {
   );
 
   return (
-    <Welcome
-      items={[<Screen1 />, <Screen2 />, <Screen3 />]}
-      buttons={buttons}
-    />
+    <>
+      <StatusBar
+        translucent
+        backgroundColor="rgba(0, 0, 0, 0)"
+        barStyle="light-content"
+      />
+      <Welcome
+        items={[
+          {
+            component: <Screen1 />,
+            description:
+              'O verdadeiro sabor da comida portuguesa na sua refeição',
+          },
+          {
+            component: <Screen2 />,
+            description:
+              'Temos um pastel de bacalhau tão bom, que da dó de vender',
+          },
+          {
+            component: <Screen3 />,
+            description:
+              'A vida é boa demais para não comer um pastel de bacalhau de vez em quando',
+          },
+          {
+            component: <Screen4 />,
+            description: 'Experimente o melhor pastel de bacalhau',
+          },
+        ]}
+        buttons={buttons}
+      />
+    </>
   );
 };

@@ -16,9 +16,9 @@ import TabBar from '../components/organisms/TabBar';
 const config = {
   animation: 'spring',
   config: {
-    stiffness: 1000,
-    damping: 500,
-    mass: 3,
+    stiffness: 6000,
+    damping: 3000,
+    mass: 0.5,
     overshootClamping: true,
     restDisplacementThreshold: 0.01,
     restSpeedThreshold: 0.01,
@@ -26,12 +26,13 @@ const config = {
 };
 
 const options = {
-  cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+  cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid,
   transitionSpec: {
     open: config,
     close: config,
   },
 };
+
 const theme = {
   dark: false,
   colors: {

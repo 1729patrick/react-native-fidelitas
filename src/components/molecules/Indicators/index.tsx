@@ -5,6 +5,7 @@ import React, {
   useImperativeHandle,
 } from 'react';
 import Animated, {
+  Easing,
   runOnJS,
   useAnimatedStyle,
   useSharedValue,
@@ -15,7 +16,7 @@ import Indicator from '../../atoms/Indicator';
 
 type IndicatorsProps = {
   length: number;
-  indicatorWidth: number;
+  indicatorMarginHorizontal: number;
   width: number;
   onNext: (index: number) => void;
 };
@@ -27,26 +28,35 @@ export type IndicatorsHandler = {
 const Indicators: React.ForwardRefRenderFunction<
   IndicatorsHandler,
   IndicatorsProps
-> = ({ length, width, indicatorWidth, onNext }, ref) => {
+> = ({ length, width, indicatorMarginHorizontal, onNext }, ref) => {
   const animation = useSharedValue(0);
 
   const runTimer = useCallback(
     nextValue => {
       animation.value = withTiming(
         nextValue,
-        { duration: 5000 },
+        { duration: 7500, easing: Easing.linear },
         isFinished => {
-          if (!isFinished) {
+          const next = Math.ceil(
+            nextValue * length + (indicatorMarginHorizontal * 2) / width,
+          );
+
+          if (!isFinished || next > length) {
             return;
           }
 
-          console.log(nextValue * length);
-          runOnJS(onNext)(nextValue * length);
-          runOnJS(runTimer)(nextValue + 1 / length);
+          animation.value = nextValue + (indicatorMarginHorizontal * 2) / width;
+          runOnJS(onNext)(next - 1);
+          runOnJS(runTimer)(
+            nextValue +
+              (indicatorMarginHorizontal * 2) / width +
+              1 / length -
+              (indicatorMarginHorizontal * 2) / width,
+          );
         },
       );
     },
-    [animation, length, onNext],
+    [animation, indicatorMarginHorizontal, length, onNext, width],
   );
 
   useEffect(() => {
@@ -61,10 +71,14 @@ const Indicators: React.ForwardRefRenderFunction<
 
   const changeIndicator = useCallback(
     (index: number) => {
-      animation.value = index / length;
-      runTimer(index / length + 1 / length);
+      const currentValue = index / length + indicatorMarginHorizontal / width;
+      animation.value = index / length + indicatorMarginHorizontal / width;
+
+      const nextValue =
+        currentValue + 1 / length - (indicatorMarginHorizontal * 2) / width;
+      runTimer(nextValue);
     },
-    [animation, length, runTimer],
+    [animation, indicatorMarginHorizontal, length, runTimer, width],
   );
 
   useImperativeHandle(ref, () => ({ changeIndicator }), [changeIndicator]);
@@ -74,7 +88,8 @@ const Indicators: React.ForwardRefRenderFunction<
       {[...new Array(length)].map((_, index) => (
         <Indicator
           key={index}
-          width={indicatorWidth}
+          marginHorizontal={indicatorMarginHorizontal}
+          width={width / length - indicatorMarginHorizontal * 2}
           backgroundColor="rgba(255, 255, 255, 0.5)"
         />
       ))}
@@ -83,7 +98,8 @@ const Indicators: React.ForwardRefRenderFunction<
         {[...new Array(length)].map((_, index) => (
           <Indicator
             key={index}
-            width={indicatorWidth}
+            marginHorizontal={indicatorMarginHorizontal}
+            width={width / length - indicatorMarginHorizontal * 2}
             backgroundColor="#fff"
           />
         ))}

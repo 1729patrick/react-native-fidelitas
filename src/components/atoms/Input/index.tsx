@@ -64,11 +64,11 @@ const Input: React.FC<InputProps> = ({ placeholder }) => {
   const onBlur = () => {
     if (!valueRef.current) {
       valueAnimation.value = withTiming(0, {
-        duration: 40,
+        duration: 100,
       });
     }
 
-    focusAnimation.value = withTiming(0, { duration: 40 });
+    focusAnimation.value = withTiming(0, { duration: 100 });
   };
 
   const onChangeText = (value: string) => {

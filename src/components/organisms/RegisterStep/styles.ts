@@ -20,8 +20,7 @@ export default StyleSheet.create({
   button: {
     marginLeft: 'auto',
     width: 120,
-    height: 37,
-    borderRadius: 0,
+    height: 38,
     marginBottom: 20,
   },
 });

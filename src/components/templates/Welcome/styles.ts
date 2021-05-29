@@ -1,4 +1,5 @@
 import { Dimensions, StyleSheet } from 'react-native';
+import StyleGuide from '../../../util/StyleGuide';
 
 const { width, height } = Dimensions.get('window');
 
@@ -27,5 +28,13 @@ export default StyleSheet.create({
   },
   linearGradient: {
     flex: 1,
+  },
+  description: {
+    ...StyleGuide.typography.title1,
+    fontSize: 29,
+    paddingHorizontal: 20,
+    marginTop: 70,
+    color: StyleGuide.palette.background,
+    lineHeight: 40,
   },
 });

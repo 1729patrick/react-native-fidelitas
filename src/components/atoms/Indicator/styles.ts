@@ -5,7 +5,6 @@ export default StyleSheet.create({
     height: 2,
     borderRadius: 10,
     backgroundColor: 'rgba(255, 255, 255, 0.5)',
-    marginTop: 40,
-    marginHorizontal: 6,
+    marginTop: 30,
   },
 });

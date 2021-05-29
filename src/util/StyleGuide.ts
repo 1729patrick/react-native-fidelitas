@@ -39,7 +39,7 @@ const StyleGuide = {
     },
     caption: {
       fontFamily: 'Montserrat-Medium',
-      fontSize: 15,
+      fontSize: 14,
     },
     headline: {
       fontSize: 16,
