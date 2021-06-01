@@ -9,8 +9,8 @@ import {
   Screen4,
 } from '../../components/molecules/slides/Welcome';
 import Welcome from '../../components/templates/Welcome';
-import StyleGuide from '../../util/StyleGuide';
 import styles from './styles';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 export default () => {
   const { navigate } = useNavigation();
@@ -27,16 +27,18 @@ export default () => {
     <View style={styles.buttons}>
       <RectButton
         title="Iniciar sessão"
-        containerStyle={styles.button}
         onPress={onLogin}
         borderRadius={8}
+        icon={<Icon name="arrowright" size={23} color="#fff" />}
       />
       <RectButton
         title="Registe-se"
-        containerStyle={[styles.button]}
-        backgroundColor={StyleGuide.palette.secondary}
         onPress={onRegister}
+        backgroundColor={'#fff'}
         borderRadius={8}
+        icon={<Icon name="arrowright" size={23} color={'#fff'} />}
+        containerStyle={styles.button}
+        outline
       />
     </View>
   );

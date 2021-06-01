@@ -2,6 +2,8 @@ import React from 'react';
 import { View } from 'react-native';
 import RectButton from '../../../atoms/buttons/Rect';
 import Input from '../../../atoms/Input';
+import Icon from 'react-native-vector-icons/AntDesign';
+import styles from './styles';
 
 type LoginProps = {
   onLogin: () => void;
@@ -9,10 +11,15 @@ type LoginProps = {
 
 const Login: React.FC<LoginProps> = ({ onLogin }) => {
   return (
-    <View style={{ width: '100%' }}>
+    <View style={styles.container}>
       <Input placeholder="E-mail" />
       <Input placeholder="Password" />
-      <RectButton onPress={onLogin} title="Acessar" />
+      <RectButton
+        onPress={onLogin}
+        title="Acessar"
+        containerStyle={styles.button}
+        icon={<Icon name="arrowright" size={23} color="#fff" />}
+      />
     </View>
   );
 };

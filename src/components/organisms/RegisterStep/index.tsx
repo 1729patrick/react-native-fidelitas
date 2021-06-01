@@ -9,6 +9,7 @@ type RegisterProps = {
   description: string;
   confirmTitle: string;
   onNext: () => void;
+  confirmIcon?: ReactNode;
 };
 
 const Register: React.FC<RegisterProps> = ({
@@ -16,6 +17,7 @@ const Register: React.FC<RegisterProps> = ({
   title,
   description,
   confirmTitle,
+  confirmIcon,
   onNext,
 }) => {
   return (
@@ -30,6 +32,7 @@ const Register: React.FC<RegisterProps> = ({
           onPress={onNext}
           title={confirmTitle}
           containerStyle={styles.button}
+          icon={confirmIcon}
         />
       </View>
     </View>

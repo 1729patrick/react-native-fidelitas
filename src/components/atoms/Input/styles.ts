@@ -2,11 +2,11 @@ import { StyleSheet } from 'react-native';
 import StyleGuide from '../../../util/StyleGuide';
 
 export default StyleSheet.create({
-  container: { height: 55, marginTop: 26 },
+  container: { height: 50, marginTop: 26 },
   input: {
     ...StyleGuide.typography.caption,
     borderWidth: 1,
-    height: 55,
+    height: 50,
     borderRadius: 4,
     paddingLeft: 19,
     color: StyleGuide.palette.primary,
@@ -14,7 +14,7 @@ export default StyleSheet.create({
   placeholderContainer: {
     position: 'absolute',
     paddingHorizontal: 12,
-    height: 55,
+    height: 50,
     alignItems: 'center',
     justifyContent: 'center',
     left: -2,

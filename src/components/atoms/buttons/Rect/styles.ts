@@ -2,12 +2,17 @@ import { StyleSheet } from 'react-native';
 import StyleGuide from '../../../../util/StyleGuide';
 
 export default StyleSheet.create({
-  container: { height: 50, marginTop: 22 },
+  container: {
+    height: 45,
+    marginTop: 22,
+    overflow: 'hidden',
+  },
   button: {
     height: '100%',
     alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 4,
+    paddingHorizontal: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   title: {
     ...StyleGuide.typography.callout,

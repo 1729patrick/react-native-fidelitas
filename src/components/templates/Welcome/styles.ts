@@ -23,6 +23,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   linearGradient: {
+    ...StyleSheet.absoluteFillObject,
     flex: 1,
   },
   description: {

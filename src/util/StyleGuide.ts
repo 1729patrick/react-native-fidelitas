@@ -17,7 +17,7 @@ const light = {
   background: '#fafafa',
   backgroundPrimary: '#fafafa',
   backgroundSecondary: '#f1f1f1',
-  border: '#EAEAEA',
+  border: '#CACACA',
   app: '#16CA61',
   red: '#DF2935',
 };

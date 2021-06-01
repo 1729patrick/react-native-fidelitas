@@ -19,7 +19,6 @@ export default StyleSheet.create({
   },
   button: {
     marginLeft: 'auto',
-    width: 120,
     height: 38,
     marginBottom: 20,
   },

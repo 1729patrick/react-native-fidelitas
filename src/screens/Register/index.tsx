@@ -7,6 +7,7 @@ import { Step1, Step2, Step3 } from '../../components/molecules/forms/Register';
 import RegisterStep from '../../components/organisms/RegisterStep';
 import styles from './styles';
 import Register, { RegisterHandler } from '../../components/templates/Register';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 export default () => {
   const currentIndexRef = useRef(0);
@@ -58,6 +59,7 @@ export default () => {
             title="Crie uma Conta Subway"
             description="Introduza o seu nome"
             confirmTitle={'Prosseguir'}
+            confirmIcon={<Icon name="arrowright" size={23} color="#fff" />}
             form={<Step1 />}
             onNext={() => onScrollTo(1)}
           />,
@@ -65,6 +67,7 @@ export default () => {
             title="Seus contatos"
             description="Introduza o seu número de telemóvel e e-mail"
             confirmTitle={'Prosseguir'}
+            confirmIcon={<Icon name="arrowright" size={23} color="#fff" />}
             form={<Step2 />}
             onNext={() => onScrollTo(2)}
           />,
@@ -72,6 +75,7 @@ export default () => {
             title="Crie a palavra-passe"
             description="Crie uma palavra-passe forte com mistura de letras e números"
             confirmTitle={'Finalizar'}
+            confirmIcon={<Icon name="check" size={23} color="#fff" />}
             form={<Step3 />}
             onNext={onComplete}
           />,

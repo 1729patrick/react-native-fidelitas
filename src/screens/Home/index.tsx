@@ -1,7 +1,8 @@
 import React from 'react';
 import { StatusBar, View } from 'react-native';
+import Home from '../../components/templates/Home';
 
-const Home = () => {
+export default () => {
   return (
     <>
       <StatusBar
@@ -9,9 +10,7 @@ const Home = () => {
         backgroundColor="rgba(0, 0, 0, 0)"
         barStyle="dark-content"
       />
-      <View style={{ backgroundColor: 'red', width: 100, height: 100 }} />
+      <Home />
     </>
   );
 };
-
-export default Home;
