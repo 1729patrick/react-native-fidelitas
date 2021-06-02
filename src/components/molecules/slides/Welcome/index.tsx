@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, Dimensions } from 'react-native';
+import { View, Dimensions } from 'react-native';
 import styles from './styles';
 import FastImage from 'react-native-fast-image';
 
@@ -8,10 +8,10 @@ const { height, width } = Dimensions.get('window');
 export const Screen1 = () => {
   return (
     <View style={styles.container}>
-      <Image
+      <FastImage
         source={require('../../../../assets/welcome/welcome_3.jpg')}
         style={{ height, width }}
-        resizeMode="cover"
+        resizeMode={FastImage.resizeMode.cover}
       />
     </View>
   );
@@ -23,7 +23,7 @@ export const Screen2 = () => {
       <FastImage
         source={require('../../../../assets/welcome/welcome_2.jpg')}
         style={{ height, width }}
-        resizeMode="cover"
+        resizeMode={FastImage.resizeMode.cover}
       />
     </View>
   );
@@ -35,7 +35,7 @@ export const Screen3 = () => {
       <FastImage
         source={require('../../../../assets/welcome/welcome_1.jpg')}
         style={{ height, width }}
-        resizeMode="cover"
+        resizeMode={FastImage.resizeMode.cover}
       />
     </View>
   );
@@ -47,7 +47,7 @@ export const Screen4 = () => {
       <FastImage
         source={require('../../../../assets/welcome/welcome_4.jpg')}
         style={{ height, width }}
-        resizeMode="cover"
+        resizeMode={FastImage.resizeMode.cover}
       />
     </View>
   );

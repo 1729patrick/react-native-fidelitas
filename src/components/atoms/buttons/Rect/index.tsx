@@ -31,14 +31,16 @@ const Button: React.FC<ButtonProps> = ({
         styles.container,
         containerStyle,
         { borderRadius },
-        outline ? { borderColor: backgroundColor, borderWidth: 2 } : {},
+        outline ? { borderColor: backgroundColor, borderWidth: 1.5 } : {},
       ]}>
       <RectButton
+        rippleColor={outline ? backgroundColor : undefined}
         style={[
           styles.button,
           {
-            backgroundColor: outline ? 'rgba(0,0,0,0.25)' : backgroundColor,
+            backgroundColor: outline ? 'transparent' : backgroundColor,
           },
+          icon ? { justifyContent: 'space-between' } : {},
         ]}
         onPress={onPress}>
         <Text

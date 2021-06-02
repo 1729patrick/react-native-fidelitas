@@ -12,7 +12,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 16,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
   },
   title: {
     ...StyleGuide.typography.callout,

@@ -12,37 +12,26 @@ import Register from '../screens/Register';
 import Home from '../screens/Home';
 
 import TabBar from '../components/organisms/TabBar';
+import StyleGuide from '../util/StyleGuide';
 
 const config = {
   animation: 'spring',
   config: {
     stiffness: 600,
     damping: 300,
-    mass: 0.5,
+    mass: 1,
     overshootClamping: true,
-    restDisplacementThreshold: 0.01,
-    restSpeedThreshold: 0.01,
+    restDisplacementThreshold: 1,
+    restSpeedThreshold: 1,
   },
 };
 
 const options = {
-  cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid,
+  cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
   // transitionSpec: {
   //   open: config,
   //   close: config,
   // },
-};
-
-const theme = {
-  dark: false,
-  colors: {
-    primary: 'rgb(255, 45, 85)',
-    background: 'rgb(242, 242, 242)',
-    card: 'rgb(255, 255, 255)',
-    text: 'rgb(28, 28, 30)',
-    border: 'rgb(199, 199, 204)',
-    notification: 'rgb(255, 69, 58)',
-  },
 };
 
 const PublicStack = createStackNavigator();
@@ -63,7 +52,7 @@ const Auth = () => {
 
 export default () => {
   return (
-    <NavigationContainer theme={theme}>
+    <NavigationContainer theme={StyleGuide.navigation}>
       <PublicStack.Navigator screenOptions={{ headerMode: false }}>
         <PublicStack.Screen
           name="Welcome"
