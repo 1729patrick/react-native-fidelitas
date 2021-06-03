@@ -31,27 +31,11 @@ export default StyleSheet.create({
     paddingHorizontal: StyleGuide.spacing * 3,
     backgroundColor: StyleGuide.navigation.colors.background,
   },
-  areas: { flexDirection: 'row' },
-  area: {
-    ...StyleGuide.typography.caption,
-    color: StyleGuide.palette.primary,
-    marginRight: StyleGuide.spacing / 2,
-  },
+
   line: {
     marginTop: StyleGuide.spacing * 2,
     marginBottom: StyleGuide.spacing * 2,
     backgroundColor: StyleGuide.palette.border,
     height: 1,
-  },
-  status: {
-    color: StyleGuide.palette.green,
-  },
-  buttonContainer: {
-    alignItems: 'center',
-  },
-  buttonTitle: {
-    color: StyleGuide.palette.primary,
-    width: '100%',
-    textAlign: 'center',
   },
 });

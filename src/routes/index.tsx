@@ -1,8 +1,10 @@
 import React from 'react';
+import { Animated } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import {
   CardStyleInterpolators,
   createStackNavigator,
+  StackCardInterpolationProps,
 } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -13,25 +15,44 @@ import Home from '../screens/Home';
 
 import TabBar from '../components/organisms/TabBar';
 import StyleGuide from '../util/StyleGuide';
+const { multiply } = Animated;
 
-const config = {
-  animation: 'spring',
-  config: {
-    stiffness: 600,
-    damping: 300,
-    mass: 1,
-    overshootClamping: true,
-    restDisplacementThreshold: 1,
-    restSpeedThreshold: 1,
-  },
-};
+function forBottomSheetAndroid({
+  current,
+  inverted,
+  layouts: { screen },
+}: StackCardInterpolationProps) {
+  const translateY = multiply(
+    current.progress.interpolate({
+      inputRange: [0, 1],
+      outputRange: [screen.height, 0],
+      extrapolate: 'clamp',
+    }),
+    inverted,
+  );
+
+  const overlayOpacity = current.progress.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 0.3],
+    extrapolate: 'clamp',
+  });
+
+  return {
+    cardStyle: {
+      transform: [
+        {
+          translateY,
+        },
+      ],
+    },
+    overlayStyle: {
+      opacity: overlayOpacity,
+    },
+  };
+}
 
 const options = {
-  cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
-  // transitionSpec: {
-  //   open: config,
-  //   close: config,
-  // },
+  cardStyleInterpolator: forBottomSheetAndroid,
 };
 
 const PublicStack = createStackNavigator();
