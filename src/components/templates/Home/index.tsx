@@ -14,6 +14,7 @@ import Facilities from '../../organisms/Facilities';
 import Contacts from '../../organisms/Contacts';
 import CompanyStatus from '../../organisms/CompanyStatus';
 import Location from '../../organisms/Location';
+import WorkingHours from '../../organisms/WorkingHours';
 
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
@@ -88,6 +89,8 @@ const Home = () => {
           <Contacts />
           <View style={styles.line} />
           <Location />
+          <View style={styles.line} />
+          <WorkingHours />
         </View>
       </Animated.ScrollView>
     </>

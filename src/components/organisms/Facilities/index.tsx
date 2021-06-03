@@ -77,7 +77,7 @@ const Facilities = () => {
       <Text style={styles.subtitle}>Facilidades</Text>
 
       {facilities.map(({ title, icon }) => (
-        <View style={styles.item}>
+        <View style={styles.item} key={title}>
           <Text style={styles.itemTitle}>{title}</Text>
           {icon}
         </View>

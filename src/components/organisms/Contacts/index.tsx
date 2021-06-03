@@ -24,7 +24,7 @@ const Contacts = () => {
       <Text style={styles.subtitle}>Contatos</Text>
 
       {contacts.map(({ contact, type }) => (
-        <View style={styles.item}>
+        <View style={styles.item} key={contact}>
           <Text style={styles.itemTitle}>{contact}</Text>
           <MaterialIcon
             name={type}

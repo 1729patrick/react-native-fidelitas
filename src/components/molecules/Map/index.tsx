@@ -29,7 +29,6 @@ const Map: React.FC<MapProps> = ({ width }) => {
     },
     markers: [
       {
-        key: 'company',
         image: require('../../../assets/map_pin.png'),
         coordinate: {
           latitude: 38.6898261,
@@ -45,11 +44,10 @@ const Map: React.FC<MapProps> = ({ width }) => {
         style={styles.map}
         initialRegion={state.region}
         customMapStyle={customMapStyle}>
-        {state.markers.map(marker => (
+        {state.markers.map((marker, index) => (
           <Marker
-            title={marker.key}
             image={marker.image}
-            key={marker.key}
+            key={index}
             coordinate={marker.coordinate}
           />
         ))}
