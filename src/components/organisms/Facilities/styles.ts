@@ -4,6 +4,7 @@ import StyleGuide from '../../../util/StyleGuide';
 export default StyleSheet.create({
   buttonContainer: {
     alignItems: 'center',
+    marginTop: StyleGuide.spacing,
   },
   buttonTitle: {
     color: StyleGuide.palette.primary,

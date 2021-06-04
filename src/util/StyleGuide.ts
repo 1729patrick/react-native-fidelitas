@@ -85,8 +85,8 @@ const StyleGuide = {
       letterSpacing: 0.21,
     },
     tabBarLabel: {
-      fontSize: 13,
-      fontFamily: 'Montserrat-SemiBold',
+      fontSize: 12,
+      fontFamily: 'Montserrat-Medium',
     },
   },
 };

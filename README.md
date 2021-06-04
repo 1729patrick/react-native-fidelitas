@@ -1,6 +1,7 @@
-Detalhes do restaurante
+Detalhes do restaurante X
 
 Sistema de pontos
+
 Sistema de reservas
 
 Ementa

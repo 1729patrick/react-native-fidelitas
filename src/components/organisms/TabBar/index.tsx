@@ -7,8 +7,13 @@ import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 
 import { ActiveHome, InactiveHome } from '../../atoms/icons/Home';
 import { ActiveProfile, InactiveProfile } from '../../atoms/icons/Profile';
-import { ActiveQRCode, InactiveQRCode } from '../../atoms/icons/QRCode';
 import StyleGuide from '../../../util/StyleGuide';
+import { ActiveWinner, InactiveWinner } from '../../atoms/icons/Winner';
+import { ActiveMenu, InactiveMenu } from '../../atoms/icons/Menu';
+import {
+  ActiveReservation,
+  InactiveReservation,
+} from '../../atoms/icons/Reservation';
 
 const TABS = [
   {
@@ -18,10 +23,22 @@ const TABS = [
     ActiveIcon: ActiveHome,
   },
   {
-    name: 'QRCode',
+    name: 'Challenges',
     title: 'Pontos',
-    InactiveIcon: InactiveQRCode,
-    ActiveIcon: ActiveQRCode,
+    InactiveIcon: InactiveWinner,
+    ActiveIcon: ActiveWinner,
+  },
+  {
+    name: 'Menu',
+    title: 'Ementa',
+    InactiveIcon: InactiveMenu,
+    ActiveIcon: ActiveMenu,
+  },
+  {
+    name: 'Reservation',
+    title: 'Reservas',
+    InactiveIcon: InactiveReservation,
+    ActiveIcon: ActiveReservation,
   },
   {
     name: 'Profile',
@@ -35,7 +52,6 @@ const TabBar: React.FC<BottomTabBarProps> = ({
   state,
   navigation,
   descriptors,
-  insets,
 }) => {
   const jumpTo = useCallback(
     ({ name }: { name: string }) => {
@@ -64,44 +80,24 @@ const TabBar: React.FC<BottomTabBarProps> = ({
           <View style={[styles.border]} />
         </View>
         {TABS.map((tab, index) => {
-          if (index !== 1) {
-            return (
-              <BorderlessButton
-                style={styles.tab}
-                onPress={() => jumpTo(tab)}
-                key={tab.name}>
-                {isFocused(index) ? <tab.ActiveIcon /> : <tab.InactiveIcon />}
-                <Text
-                  style={[
-                    styles.title,
-                    {
-                      color: isFocused(index)
-                        ? StyleGuide.palette.app
-                        : StyleGuide.palette.secondary,
-                    },
-                  ]}>
-                  {tab.title}
-                </Text>
-              </BorderlessButton>
-            );
-          }
-
           return (
-            <RectButton
-              style={{
-                width: 60,
-                height: 60,
-                backgroundColor: StyleGuide.palette.app,
-                borderRadius: 30,
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginTop: -20,
-                elevation: 5,
-              }}
+            <BorderlessButton
+              style={styles.tab}
               onPress={() => jumpTo(tab)}
               key={tab.name}>
               {isFocused(index) ? <tab.ActiveIcon /> : <tab.InactiveIcon />}
-            </RectButton>
+              <Text
+                style={[
+                  styles.title,
+                  {
+                    color: isFocused(index)
+                      ? StyleGuide.palette.app
+                      : StyleGuide.palette.secondary,
+                  },
+                ]}>
+                {tab.title}
+              </Text>
+            </BorderlessButton>
           );
         })}
       </View>

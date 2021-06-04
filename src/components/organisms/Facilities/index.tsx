@@ -49,26 +49,6 @@ const facilities = [
       />
     ),
   },
-  {
-    title: 'Aceitamos Multibanco',
-    icon: (
-      <MaterialIcon
-        name="credit-card"
-        color={StyleGuide.palette.primary}
-        size={27}
-      />
-    ),
-  },
-  {
-    title: 'Aceitamos Dinheiro',
-    icon: (
-      <MaterialIcon
-        name="attach-money"
-        color={StyleGuide.palette.primary}
-        size={27}
-      />
-    ),
-  },
 ];
 
 type FacilitiesProps = {
