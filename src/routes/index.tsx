@@ -2,7 +2,6 @@ import React from 'react';
 import { Animated } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import {
-  CardStyleInterpolators,
   createStackNavigator,
   StackCardInterpolationProps,
 } from '@react-navigation/stack';
@@ -15,6 +14,9 @@ import Home from '../screens/Home';
 
 import TabBar from '../components/organisms/TabBar';
 import StyleGuide from '../util/StyleGuide';
+import Facilities from '../screens/Facilities';
+import Map from '../screens/Map';
+
 const { multiply } = Animated;
 
 function forBottomSheetAndroid({
@@ -55,21 +57,50 @@ const options = {
   cardStyleInterpolator: forBottomSheetAndroid,
 };
 
-const PublicStack = createStackNavigator();
+const getTabBarVisibility = ({ route, navigation }) => {
+  return true;
+};
+
+const HomeStack = createStackNavigator();
+
+const HomeNavigator = () => {
+  return (
+    <HomeStack.Navigator screenOptions={{ headerMode: false }}>
+      <HomeStack.Screen name="Main" component={Home} options={options} />
+      <HomeStack.Screen
+        name="Facilities"
+        component={Facilities}
+        options={options}
+      />
+      <HomeStack.Screen name="Map" component={Map} options={options} />
+    </HomeStack.Navigator>
+  );
+};
 
 const AuthTabNavigator = createBottomTabNavigator();
 
 const Auth = () => {
   return (
     <AuthTabNavigator.Navigator
-      screenOptions={{ header: () => null }}
-      tabBar={props => <TabBar {...props} />}>
-      <AuthTabNavigator.Screen name="Home" component={Home} />
+      tabBar={props => <TabBar {...props} />}
+      screenOptions={({ route }) => ({
+        header: () => null,
+      })}>
+      <AuthTabNavigator.Screen
+        name="Home"
+        component={HomeNavigator}
+        options={({ route, navigation }) => ({
+          header: () => null,
+          tabBarVisible: getTabBarVisibility({ route, navigation }),
+        })}
+      />
       <AuthTabNavigator.Screen name="QRCode" component={Home} />
       <AuthTabNavigator.Screen name="Profile" component={Home} />
     </AuthTabNavigator.Navigator>
   );
 };
+
+const PublicStack = createStackNavigator();
 
 export default () => {
   return (

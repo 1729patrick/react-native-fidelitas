@@ -1,4 +1,5 @@
 import React, { memo, useMemo } from 'react';
+import { StyleProp, ViewStyle } from 'react-native';
 import { BorderlessButton } from 'react-native-gesture-handler';
 import StyleGuide from '../../../../util/StyleGuide';
 
@@ -6,10 +7,10 @@ import styles from './styles';
 
 type RoundButtonProp = {
   Icon: any;
-  name: any;
-  size: any;
+  name: string;
+  size: number;
   onPress: any;
-  style?: any;
+  style?: StyleProp<ViewStyle>;
   color?: string;
   disabled?: boolean;
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import RectButton from '../../../atoms/buttons/Rect';
+import RectButton from '../../../atoms/buttons/RectButton';
 import Input from '../../../atoms/Input';
 import Icon from 'react-native-vector-icons/AntDesign';
 import styles from './styles';

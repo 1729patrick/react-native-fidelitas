@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Linking } from 'react-native';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import StyleGuide from '../../../util/StyleGuide';
+import RoundButton from '../../atoms/buttons/RoundButton';
 import styles from './styles';
 
 const contacts = [
@@ -19,6 +20,21 @@ const contacts = [
   },
 ];
 const Contacts = () => {
+  const types = {
+    mail: 'mailto:',
+    phone: 'tel:',
+  };
+
+  const openContact = ({
+    type,
+    contact,
+  }: {
+    type: 'phone' | 'mail';
+    contact: string;
+  }) => {
+    Linking.openURL(`${types[type]}${contact}`);
+  };
+
   return (
     <View>
       <Text style={styles.subtitle}>Contatos</Text>
@@ -26,10 +42,13 @@ const Contacts = () => {
       {contacts.map(({ contact, type }) => (
         <View style={styles.item} key={contact}>
           <Text style={styles.itemTitle}>{contact}</Text>
-          <MaterialIcon
+
+          <RoundButton
+            Icon={MaterialIcon}
             name={type}
-            color={StyleGuide.palette.primary}
             size={27}
+            color={StyleGuide.palette.primary}
+            onPress={() => openContact({ type, contact })}
           />
         </View>
       ))}

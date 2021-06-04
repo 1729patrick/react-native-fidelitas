@@ -15,6 +15,7 @@ import Contacts from '../../organisms/Contacts';
 import CompanyStatus from '../../organisms/CompanyStatus';
 import Location from '../../organisms/Location';
 import WorkingHours from '../../organisms/WorkingHours';
+import { useNavigation } from '@react-navigation/native';
 
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
@@ -25,6 +26,7 @@ const company = {
 const Home = () => {
   const [dark, setDark] = useState(false);
   const translationY = useSharedValue(0);
+  const { navigate } = useNavigation();
 
   const scrollHandler = useAnimatedScrollHandler(event => {
     translationY.value = event.contentOffset.y;
@@ -59,6 +61,14 @@ const Home = () => {
     };
   }, [translationY, dark]);
 
+  const openFacilities = () => {
+    navigate('Facilities');
+  };
+
+  const openMap = () => {
+    navigate('Map');
+  };
+
   return (
     <>
       <StatusBar
@@ -84,11 +94,11 @@ const Home = () => {
           <Animated.Text style={[styles.title]}>{company.name}</Animated.Text>
           <CompanyStatus />
           <View style={styles.line} />
-          <Facilities />
+          <Facilities openAll={openFacilities} />
           <View style={styles.line} />
           <Contacts />
           <View style={styles.line} />
-          <Location />
+          <Location openMap={openMap} />
           <View style={styles.line} />
           <WorkingHours />
         </View>

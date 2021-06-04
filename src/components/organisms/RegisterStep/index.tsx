@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Text, View } from 'react-native';
-import RectButton from '../../atoms/buttons/Rect';
+import RectButton from '../../atoms/buttons/RectButton';
 import styles from './styles';
 
 type RegisterProps = {

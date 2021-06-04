@@ -13,7 +13,7 @@ import { HEADER_HEIGHT } from './constants';
 
 import styles from './styles';
 import { Image, Text, View } from 'react-native';
-import RoundButton from '../buttons/Round';
+import RoundButton from '../buttons/RoundButton';
 import { useNavigation } from '@react-navigation/native';
 
 import { StackNavigationProp } from '@react-navigation/stack';

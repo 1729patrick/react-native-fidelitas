@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import RectButton from '../../atoms/buttons/RectButton';
+import { View, Text, ScrollView } from 'react-native';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
-import StyleGuide from '../../../util/StyleGuide';
 import styles from './styles';
+import StyleGuide from '../../util/StyleGuide';
+import Header from '../../components/atoms/Header';
 
 const facilities = [
   {
@@ -71,32 +71,23 @@ const facilities = [
   },
 ];
 
-type FacilitiesProps = {
-  openAll: () => void;
-};
+type FacilitiesProps = {};
 
-const Facilities: React.FC<FacilitiesProps> = ({ openAll }) => {
+const Facilities: React.FC<FacilitiesProps> = () => {
   return (
-    <View>
-      <Text style={styles.subtitle}>Facilidades</Text>
-
-      {facilities.map(({ title, icon }) => (
-        <View style={styles.item} key={title}>
-          <Text style={styles.itemTitle}>{title}</Text>
-          {icon}
-        </View>
-      ))}
-
-      <RectButton
-        title="Ver todas as 23 facilidades"
-        onPress={openAll}
-        borderRadius={8}
-        containerStyle={styles.buttonContainer}
-        titleStyle={styles.buttonTitle}
-        backgroundColor={StyleGuide.palette.primary}
-        outline
-      />
-    </View>
+    <>
+      <Header title="Facilidades" />
+      <ScrollView contentContainerStyle={styles.contentContainer}>
+        {[...facilities, ...facilities, ...facilities, ...facilities].map(
+          ({ title, icon }, index) => (
+            <View style={styles.item} key={index}>
+              <Text style={styles.itemTitle}>{title}</Text>
+              {icon}
+            </View>
+          ),
+        )}
+      </ScrollView>
+    </>
   );
 };
 

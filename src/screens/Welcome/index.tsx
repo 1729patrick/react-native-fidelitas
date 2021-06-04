@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import { StatusBar, View } from 'react-native';
-import RectButton from '../../components/atoms/buttons/Rect';
+import RectButton from '../../components/atoms/buttons/RectButton';
 import {
   Screen1,
   Screen2,

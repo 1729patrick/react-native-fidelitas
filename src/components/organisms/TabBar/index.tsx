@@ -3,10 +3,7 @@ import { Text, View } from 'react-native';
 
 import styles from './styles';
 import { BorderlessButton, RectButton } from 'react-native-gesture-handler';
-import {
-  BottomTabBarProps,
-  BottomTabBarOptions,
-} from '@react-navigation/bottom-tabs';
+import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 
 import { ActiveHome, InactiveHome } from '../../atoms/icons/Home';
 import { ActiveProfile, InactiveProfile } from '../../atoms/icons/Profile';
@@ -34,9 +31,12 @@ const TABS = [
   },
 ];
 
-type TabBarProps = BottomTabBarProps<BottomTabBarOptions>;
-
-const TabBar: React.FC<TabBarProps> = ({ state, navigation }) => {
+const TabBar: React.FC<BottomTabBarProps> = ({
+  state,
+  navigation,
+  descriptors,
+  insets,
+}) => {
   const jumpTo = useCallback(
     ({ name }: { name: string }) => {
       //@ts-ignore
@@ -51,6 +51,11 @@ const TabBar: React.FC<TabBarProps> = ({ state, navigation }) => {
     },
     [state.index],
   );
+  const focusedOptions = descriptors[state.routes[state.index].key].options;
+
+  if (focusedOptions.tabBarVisible === false) {
+    return null;
+  }
 
   return (
     <>

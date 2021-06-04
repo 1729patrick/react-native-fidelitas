@@ -5,7 +5,12 @@ import Map from '../../molecules/Map';
 import styles from './styles';
 
 const { width } = Dimensions.get('window');
-const Location = () => {
+
+type LocationProps = {
+  openMap: () => void;
+};
+
+const Location: React.FC<LocationProps> = ({ openMap }) => {
   return (
     <View>
       <Text style={styles.subtitle}>Localização</Text>
@@ -13,7 +18,11 @@ const Location = () => {
       <Text style={styles.address}>
         Avenida Professor Orlando Ribeiro, 2910-278, Setúbal, Portugal
       </Text>
-      <Map width={width - StyleGuide.spacing * 6} />
+      <Map
+        width={width - StyleGuide.spacing * 6}
+        height={width - StyleGuide.spacing * 6}
+        openMap={openMap}
+      />
     </View>
   );
 };

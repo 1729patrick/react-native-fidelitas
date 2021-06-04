@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { StyleProp, Text, TextStyle, View, ViewStyle } from 'react-native';
-import { RectButton } from 'react-native-gesture-handler';
+import { RectButton as RNRectButton } from 'react-native-gesture-handler';
 import StyleGuide from '../../../../util/StyleGuide';
 import styles from './styles';
 
@@ -15,7 +15,7 @@ type ButtonProps = {
   outline?: boolean;
 };
 
-const Button: React.FC<ButtonProps> = ({
+const RectButton: React.FC<ButtonProps> = ({
   title,
   containerStyle,
   titleStyle,
@@ -33,7 +33,7 @@ const Button: React.FC<ButtonProps> = ({
         { borderRadius },
         outline ? { borderColor: backgroundColor, borderWidth: 1.5 } : {},
       ]}>
-      <RectButton
+      <RNRectButton
         rippleColor={outline ? backgroundColor : undefined}
         style={[
           styles.button,
@@ -48,9 +48,9 @@ const Button: React.FC<ButtonProps> = ({
           {title}
         </Text>
         {icon}
-      </RectButton>
+      </RNRectButton>
     </View>
   );
 };
 
-export default Button;
+export default RectButton;

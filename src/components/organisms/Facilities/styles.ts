@@ -18,7 +18,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: StyleGuide.spacing * 1.5,
+    marginBottom: StyleGuide.spacing * 2,
   },
   itemTitle: {
     ...StyleGuide.typography.caption,
