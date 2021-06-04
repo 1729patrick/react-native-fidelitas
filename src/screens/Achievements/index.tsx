@@ -1,7 +1,8 @@
-import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
-import CircularProgress from '../../components/atoms/CircularProgress';
+import { useNavigation } from '@react-navigation/native';
+import React, { useEffect } from 'react';
+import { StatusBar, Text } from 'react-native';
 import Header from '../../components/atoms/Header';
+import Achievements from '../../components/templates/Achievements';
 import styles from './styles';
 
 const achievements = [
@@ -24,37 +25,39 @@ const achievements = [
 ];
 
 export default () => {
+  const { addListener, removeListener } = useNavigation();
+
+  useEffect(() => {
+    const listener = addListener('focus', () => {
+      StatusBar.setBarStyle('dark-content');
+    });
+
+    return () => removeListener('focus', listener);
+  });
+
+  const achievements_ = [
+    ...achievements,
+    ...achievements,
+    ...achievements,
+    ...achievements,
+  ];
+
   return (
     <>
+      <StatusBar
+        translucent
+        backgroundColor="rgba(0, 0, 0, 0)"
+        barStyle="dark-content"
+      />
       <Header
+        showBack={false}
         title="Conquistas"
+        elevation={1}
         RightContent={
-          <Text style={styles.progressGlobal}>0/{achievements.length}</Text>
+          <Text style={styles.progressGlobal}>0/{achievements_.length}</Text>
         }
       />
-      <ScrollView contentContainerStyle={styles.contentContainer}>
-        {[
-          ...achievements,
-          ...achievements,
-          ...achievements,
-          ...achievements,
-        ].map(({ title, description, promotion, total, completed }, index) => (
-          <View style={styles.item} key={index}>
-            <View style={styles.progress}>
-              <CircularProgress progress={(completed / total) * 100} />
-              <Text style={styles.needMore}>
-                Precisa {'\n'}de mais {total - completed}
-              </Text>
-            </View>
-
-            <View style={styles.info}>
-              <Text style={styles.title}>{title}</Text>
-              <Text style={styles.description}>{description}</Text>
-              <Text style={styles.promotion}>{promotion}</Text>
-            </View>
-          </View>
-        ))}
-      </ScrollView>
+      <Achievements achievements={achievements_} />
     </>
   );
 };

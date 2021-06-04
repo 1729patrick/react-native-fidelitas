@@ -81,6 +81,17 @@ const HomeNavigator = () => {
   );
 };
 
+const MenuStack = createStackNavigator();
+
+const MenuNavigator = () => {
+  return (
+    <MenuStack.Navigator screenOptions={{ headerMode: false }}>
+      <MenuStack.Screen name="Main" component={Menu} options={options} />
+      <MenuStack.Screen name="Category" component={Menu} options={options} />
+    </MenuStack.Navigator>
+  );
+};
+
 const AuthTabNavigator = createBottomTabNavigator();
 
 const Auth = () => {
@@ -89,6 +100,7 @@ const Auth = () => {
       tabBar={props => <TabBar {...props} />}
       screenOptions={({ route }) => ({
         header: () => null,
+        lazy: true,
       })}>
       <AuthTabNavigator.Screen
         name="Home"
@@ -98,9 +110,9 @@ const Auth = () => {
           tabBarVisible: getTabBarVisibility({ route, navigation }),
         })}
       />
-      <AuthTabNavigator.Screen name="Achievements" component={Achievements} />
-      <AuthTabNavigator.Screen name="Menu" component={Menu} />
+      <AuthTabNavigator.Screen name="Menu" component={MenuNavigator} />
       <AuthTabNavigator.Screen name="Reservation" component={Reservation} />
+      <AuthTabNavigator.Screen name="Achievements" component={Achievements} />
       <AuthTabNavigator.Screen name="Profile" component={Profile} />
     </AuthTabNavigator.Navigator>
   );

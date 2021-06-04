@@ -23,12 +23,6 @@ const TABS = [
     ActiveIcon: ActiveHome,
   },
   {
-    name: 'Achievements',
-    title: 'Conquistas',
-    InactiveIcon: InactiveWinner,
-    ActiveIcon: ActiveWinner,
-  },
-  {
     name: 'Menu',
     title: 'Ementa',
     InactiveIcon: InactiveMenu,
@@ -39,6 +33,12 @@ const TABS = [
     title: 'Reservas',
     InactiveIcon: InactiveReservation,
     ActiveIcon: ActiveReservation,
+  },
+  {
+    name: 'Achievements',
+    title: 'Conquistas',
+    InactiveIcon: InactiveWinner,
+    ActiveIcon: ActiveWinner,
   },
   {
     name: 'Profile',

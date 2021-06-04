@@ -7,12 +7,11 @@ import Animated, {
   useDerivedValue,
 } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/AntDesign';
-import IonIcon from 'react-native-vector-icons/Ionicons';
 
 import { HEADER_HEIGHT } from './constants';
 
 import styles from './styles';
-import { Image, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import RoundButton from '../buttons/RoundButton';
 import { useNavigation } from '@react-navigation/native';
 

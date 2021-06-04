@@ -82,6 +82,7 @@ const Welcome: React.FC<SlidesProps> = ({ items, buttons }) => {
   return (
     <>
       <ScrollView
+        overScrollMode="never"
         ref={scrollRef}
         horizontal
         scrollEnabled={false}

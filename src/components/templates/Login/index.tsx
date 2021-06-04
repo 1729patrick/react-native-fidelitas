@@ -11,6 +11,7 @@ const Login: React.FC<LoginProps> = ({ logo, form }) => {
   return (
     <ScrollView
       keyboardShouldPersistTaps="handled"
+      overScrollMode="never"
       contentContainerStyle={styles.contentContainer}>
       <View style={styles.logo}>{logo}</View>
       {form}

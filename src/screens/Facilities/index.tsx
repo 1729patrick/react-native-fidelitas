@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, StatusBar } from 'react-native';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import styles from './styles';
@@ -76,8 +76,15 @@ type FacilitiesProps = {};
 const Facilities: React.FC<FacilitiesProps> = () => {
   return (
     <>
-      <Header title="Facilidades" />
-      <ScrollView contentContainerStyle={styles.contentContainer}>
+      <StatusBar
+        translucent
+        backgroundColor="rgba(0, 0, 0, 0)"
+        barStyle="dark-content"
+      />
+      <Header title="Facilidades" elevation={1} />
+      <ScrollView
+        contentContainerStyle={styles.contentContainer}
+        overScrollMode="never">
         {[...facilities, ...facilities, ...facilities, ...facilities].map(
           ({ title, icon }, index) => (
             <View style={styles.item} key={index}>

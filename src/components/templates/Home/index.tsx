@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StatusBar } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import styles from './styles';
@@ -26,7 +26,21 @@ const company = {
 const Home = () => {
   const [dark, setDark] = useState(false);
   const translationY = useSharedValue(0);
-  const { navigate } = useNavigation();
+  const { navigate, addListener, removeListener } = useNavigation();
+
+  useEffect(() => {
+    const listener = addListener('focus', () => {
+      if (translationY.value < 287.5) {
+        StatusBar.setBarStyle('light-content');
+      }
+    });
+
+    return () => removeListener('focus', listener);
+  }, [addListener, removeListener, translationY.value]);
+
+  useEffect(() => {
+    StatusBar.setBarStyle(dark ? 'dark-content' : 'light-content');
+  }, [dark]);
 
   const scrollHandler = useAnimatedScrollHandler(event => {
     translationY.value = event.contentOffset.y;
