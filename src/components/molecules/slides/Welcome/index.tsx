@@ -11,7 +11,7 @@ export const Screen1 = () => {
       <FastImage
         source={require('../../../../assets/welcome/welcome_3.jpg')}
         style={{ height, width }}
-        resizeMode={FastImage.resizeMode.cover}
+        resizeMode={FastImage.resizeMode.stretch}
       />
     </View>
   );
@@ -23,7 +23,7 @@ export const Screen2 = () => {
       <FastImage
         source={require('../../../../assets/welcome/welcome_2.jpg')}
         style={{ height, width }}
-        resizeMode={FastImage.resizeMode.cover}
+        resizeMode={FastImage.resizeMode.stretch}
       />
     </View>
   );
@@ -35,7 +35,7 @@ export const Screen3 = () => {
       <FastImage
         source={require('../../../../assets/welcome/welcome_1.jpg')}
         style={{ height, width }}
-        resizeMode={FastImage.resizeMode.cover}
+        resizeMode={FastImage.resizeMode.stretch}
       />
     </View>
   );
@@ -47,7 +47,7 @@ export const Screen4 = () => {
       <FastImage
         source={require('../../../../assets/welcome/welcome_4.jpg')}
         style={{ height, width }}
-        resizeMode={FastImage.resizeMode.cover}
+        resizeMode={FastImage.resizeMode.stretch}
       />
     </View>
   );

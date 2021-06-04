@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { StatusBar, Text } from 'react-native';
 import Header from '../../components/atoms/Header';
 import Achievements from '../../components/templates/Achievements';
+import useStatusBar from '../../hooks/useStatusBar';
 import styles from './styles';
 
 const achievements = [
@@ -25,15 +26,7 @@ const achievements = [
 ];
 
 export default () => {
-  const { addListener, removeListener } = useNavigation();
-
-  useEffect(() => {
-    const listener = addListener('focus', () => {
-      StatusBar.setBarStyle('dark-content');
-    });
-
-    return () => removeListener('focus', listener);
-  });
+  useStatusBar(true);
 
   const achievements_ = [
     ...achievements,

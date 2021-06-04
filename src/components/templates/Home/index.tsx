@@ -16,6 +16,7 @@ import CompanyStatus from '../../organisms/CompanyStatus';
 import Location from '../../organisms/Location';
 import WorkingHours from '../../organisms/WorkingHours';
 import { useNavigation } from '@react-navigation/native';
+import useStatusBar from '../../../hooks/useStatusBar';
 
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
@@ -26,17 +27,8 @@ const company = {
 const Home = () => {
   const [dark, setDark] = useState(false);
   const translationY = useSharedValue(0);
-  const { navigate, addListener, removeListener } = useNavigation();
-
-  useEffect(() => {
-    const listener = addListener('focus', () => {
-      if (translationY.value < 287.5) {
-        StatusBar.setBarStyle('light-content');
-      }
-    });
-
-    return () => removeListener('focus', listener);
-  }, [addListener, removeListener, translationY.value]);
+  const { navigate } = useNavigation();
+  useStatusBar(dark);
 
   useEffect(() => {
     StatusBar.setBarStyle(dark ? 'dark-content' : 'light-content');

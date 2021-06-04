@@ -1,6 +1,5 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useEffect } from 'react';
-import { ScrollView, StatusBar, Text, View } from 'react-native';
+import React from 'react';
+import { ScrollView, Text, View } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import StyleGuide from '../../../util/StyleGuide';
 import CircularProgress from '../../atoms/CircularProgress';
@@ -16,16 +15,6 @@ type AchievementsProps = {
   }[];
 };
 const Achievements: React.FC<AchievementsProps> = ({ achievements }) => {
-  const { addListener, removeListener } = useNavigation();
-
-  useEffect(() => {
-    const listener = addListener('focus', () => {
-      StatusBar.setBarStyle('dark-content');
-    });
-
-    return () => removeListener('focus', listener);
-  });
-
   return (
     <ScrollView
       contentContainerStyle={styles.contentContainer}

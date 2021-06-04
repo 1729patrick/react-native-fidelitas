@@ -1,46 +1,66 @@
-import { useNavigation, useRoute } from '@react-navigation/core';
-import { CommonActions } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/core';
 import React, { useRef } from 'react';
+import Header from '../../components/atoms/Header';
 import Menu from '../../components/templates/Menu';
+import useStatusBar from '../../hooks/useStatusBar';
 
-const menu = [
+export type Item = {
+  title: string;
+  type: 'category' | 'product';
+  description?: string;
+  image: any;
+  price?: number;
+  items?: Item[];
+};
+
+const image = require('../../assets/background_home.jpg');
+const items: Item[] = [
   {
     title: 'Para Veganos',
     type: 'category',
+    image,
+
     items: [
       {
         title: 'Produtos Naturais',
         type: 'category',
+        image,
         items: [
           {
             title: 'Bebidas Naturais',
             type: 'category',
+            image,
             items: [
               {
                 title: 'Chá Clássico',
                 description: 'Camomila, Capim Limão, Hortelã',
                 type: 'product',
+                image,
               },
               {
                 title: 'Chocolate Quente',
                 description: 'Chocolate Quente meio amargo - 230ml',
                 type: 'product',
+                image,
               },
             ],
           },
           {
             title: 'Comidas Naturais',
             type: 'category',
+            image,
             items: [
               {
                 title: 'Pão Clássico',
                 description: 'Camomila, Capim Limão, Hortelã',
                 type: 'product',
+                image,
               },
               {
                 title: 'Batata Quente',
                 description: 'Chocolate Quente meio amargo - 230ml',
                 type: 'product',
+                image,
               },
             ],
           },
@@ -49,36 +69,96 @@ const menu = [
       {
         title: 'Produtos Muito Naturais',
         type: 'category',
+        image,
         items: [
           {
             title: 'Bebidas Naturais',
             type: 'category',
+            image,
             items: [
               {
                 title: 'Chá Clássico',
                 description: 'Camomila, Capim Limão, Hortelã',
                 type: 'product',
+                image,
+                price: 12,
               },
               {
                 title: 'Chocolate Quente',
                 description: 'Chocolate Quente meio amargo - 230ml',
                 type: 'product',
+                image,
+                price: 2,
               },
             ],
           },
           {
             title: 'Comidas Naturais',
             type: 'category',
+            image,
             items: [
               {
                 title: 'Pão Clássico',
                 description: 'Camomila, Capim Limão, Hortelã',
                 type: 'product',
+                image,
+                price: 2,
               },
               {
                 title: 'Batata Quente',
                 description: 'Chocolate Quente meio amargo - 230ml',
                 type: 'product',
+                image,
+                price: 12,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        title: 'Produtos Muito Mais Naturais',
+        type: 'category',
+        image,
+        items: [
+          {
+            title: 'Bebidas Naturais',
+            type: 'category',
+            image,
+            items: [
+              {
+                title: 'Chá Clássico',
+                description: 'Camomila, Capim Limão, Hortelã',
+                type: 'product',
+                image,
+                price: 12,
+              },
+              {
+                title: 'Chocolate Quente',
+                description: 'Chocolate Quente meio amargo - 230ml',
+                type: 'product',
+                image,
+                price: 5,
+              },
+            ],
+          },
+          {
+            title: 'Comidas Naturais',
+            type: 'category',
+            image,
+            items: [
+              {
+                title: 'Pão Clássico',
+                description: 'Camomila, Capim Limão, Hortelã',
+                type: 'product',
+                image,
+                price: 7,
+              },
+              {
+                title: 'Batata Quente',
+                description: 'Chocolate Quente meio amargo - 230ml',
+                type: 'product',
+                image,
+                price: 9,
               },
             ],
           },
@@ -88,38 +168,43 @@ const menu = [
   },
 ];
 
+type ParamList = {
+  Menu: { title: string; items: Item };
+};
+
 export default () => {
-  const { dispatch } = useNavigation();
-  const { params } = useRoute();
+  useStatusBar(true);
+  const { push } = useNavigation();
+  const { params } = useRoute<RouteProp<ParamList, 'Menu'>>();
 
-  const preventDuplicateNavigationRef = useRef(false);
+  const preventDuplicateNavigationRef = useRef<number>(0);
 
-  const openCategory = menu => {
-    // if (preventDuplicateNavigationRef.current) {
-    //   return;
-    // }
+  const openCategory = ({ items, title }: Category) => {
+    const fiveSeconds = 600 * 2;
+    if (
+      new Date().getTime() - preventDuplicateNavigationRef.current <=
+      fiveSeconds
+    ) {
+      return;
+    }
 
-    // preventDuplicateNavigationRef.current = true;
+    preventDuplicateNavigationRef.current = new Date().getTime();
 
-    dispatch(
-      CommonActions.navigate({
-        name: 'Category',
-        params: {
-          menu,
-        },
-      }),
-    );
+    push('Category', { items, title });
   };
 
-  const openProduct = product => {
+  const openProduct = (product: Item) => {
     console.log('product', product);
   };
 
   return (
-    <Menu
-      data={params?.menu || menu}
-      openCategory={openCategory}
-      openProduct={openProduct}
-    />
+    <>
+      <Header title={params?.title || 'Ementa'} showBack={!!params?.title} />
+      <Menu
+        items={params?.items || items}
+        openCategory={openCategory}
+        openProduct={openProduct}
+      />
+    </>
   );
 };

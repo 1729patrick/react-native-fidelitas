@@ -1,10 +1,6 @@
 import React from 'react';
-import { Animated } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import {
-  createStackNavigator,
-  StackCardInterpolationProps,
-} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Welcome from '../screens/Welcome';
@@ -20,45 +16,15 @@ import Achievements from '../screens/Achievements';
 import Menu from '../screens/Menu';
 import Reservation from '../screens/Reservation';
 import Profile from '../screens/Profile';
+import vertical from './animations/vertical';
+import horizontal from './animations/horizontal';
 
-const { multiply } = Animated;
+const optionsVertical = {
+  cardStyleInterpolator: vertical,
+};
 
-function forBottomSheetAndroid({
-  current,
-  inverted,
-  layouts: { screen },
-}: StackCardInterpolationProps) {
-  const translateY = multiply(
-    current.progress.interpolate({
-      inputRange: [0, 1],
-      outputRange: [screen.height, 0],
-      extrapolate: 'clamp',
-    }),
-    inverted,
-  );
-
-  const overlayOpacity = current.progress.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 0.3],
-    extrapolate: 'clamp',
-  });
-
-  return {
-    cardStyle: {
-      transform: [
-        {
-          translateY,
-        },
-      ],
-    },
-    overlayStyle: {
-      opacity: overlayOpacity,
-    },
-  };
-}
-
-const options = {
-  cardStyleInterpolator: forBottomSheetAndroid,
+const optionsHorizontal = {
+  cardStyleInterpolator: horizontal,
 };
 
 const getTabBarVisibility = ({ route, navigation }) => {
@@ -70,13 +36,17 @@ const HomeStack = createStackNavigator();
 const HomeNavigator = () => {
   return (
     <HomeStack.Navigator screenOptions={{ headerMode: false }}>
-      <HomeStack.Screen name="Main" component={Home} options={options} />
+      <HomeStack.Screen
+        name="Main"
+        component={Home}
+        options={optionsVertical}
+      />
       <HomeStack.Screen
         name="Facilities"
         component={Facilities}
-        options={options}
+        options={optionsVertical}
       />
-      <HomeStack.Screen name="Map" component={Map} options={options} />
+      <HomeStack.Screen name="Map" component={Map} options={optionsVertical} />
     </HomeStack.Navigator>
   );
 };
@@ -86,8 +56,16 @@ const MenuStack = createStackNavigator();
 const MenuNavigator = () => {
   return (
     <MenuStack.Navigator screenOptions={{ headerMode: false }}>
-      <MenuStack.Screen name="Main" component={Menu} options={options} />
-      <MenuStack.Screen name="Category" component={Menu} options={options} />
+      <MenuStack.Screen
+        name="Main"
+        component={Menu}
+        options={optionsVertical}
+      />
+      <MenuStack.Screen
+        name="Category"
+        component={Menu}
+        options={optionsHorizontal}
+      />
     </MenuStack.Navigator>
   );
 };
@@ -127,16 +105,24 @@ export default () => {
         <PublicStack.Screen
           name="Welcome"
           component={Welcome}
-          options={options}
+          options={optionsVertical}
         />
         <PublicStack.Screen
           name="Register"
           component={Register}
-          options={options}
+          options={optionsVertical}
         />
 
-        <PublicStack.Screen name="Login" component={Login} options={options} />
-        <PublicStack.Screen name="Auth" component={Auth} options={options} />
+        <PublicStack.Screen
+          name="Login"
+          component={Login}
+          options={optionsVertical}
+        />
+        <PublicStack.Screen
+          name="Auth"
+          component={Auth}
+          options={optionsVertical}
+        />
       </PublicStack.Navigator>
     </NavigationContainer>
   );
