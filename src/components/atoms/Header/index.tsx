@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo, ReactElement, useCallback } from 'react';
 
 import Animated, {
   Extrapolate,
@@ -25,7 +25,7 @@ type HeaderProps = {
   title?: string;
   backgroundColor?: string;
   showBack?: boolean;
-  showRightButtons?: boolean;
+  RightContent?: ReactElement;
   elevation?: number;
   onBack?: () => void;
 };
@@ -35,11 +35,11 @@ const Header: React.FC<HeaderProps> = ({
   title,
   backgroundColor,
   showBack = true,
-  showRightButtons = false,
   elevation = 0,
   onBack,
+  RightContent,
 }) => {
-  const { navigate, pop } = useNavigation<StackNavigationProp<any>>();
+  const { pop } = useNavigation<StackNavigationProp<any>>();
 
   const y = useDerivedValue(() => {
     if (!translateY) {
@@ -65,10 +65,6 @@ const Header: React.FC<HeaderProps> = ({
   const styleContent = useAnimatedStyle(() => {
     return { opacity: interpolate(y.value, [-HEADER_HEIGHT, 0], [0, 1]) };
   });
-
-  const onOpenSearch = useCallback(() => {
-    navigate('Search');
-  }, [navigate]);
 
   const onBackPress = useCallback(() => {
     if (onBack) {
@@ -104,16 +100,7 @@ const Header: React.FC<HeaderProps> = ({
           <Text style={styles.title}>{title}</Text>
         </View>
 
-        {showRightButtons && (
-          <View style={styles.rightButtons}>
-            <RoundButton
-              size={22}
-              name="md-search-outline"
-              onPress={onOpenSearch}
-              Icon={IonIcon}
-            />
-          </View>
-        )}
+        {RightContent}
       </Animated.View>
     </Animated.View>
   );

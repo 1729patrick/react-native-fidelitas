@@ -16,7 +16,7 @@ import TabBar from '../components/organisms/TabBar';
 import StyleGuide from '../util/StyleGuide';
 import Facilities from '../screens/Facilities';
 import Map from '../screens/Map';
-import Challenges from '../screens/Challenges';
+import Achievements from '../screens/Achievements';
 import Menu from '../screens/Menu';
 import Reservation from '../screens/Reservation';
 import Profile from '../screens/Profile';
@@ -98,7 +98,7 @@ const Auth = () => {
           tabBarVisible: getTabBarVisibility({ route, navigation }),
         })}
       />
-      <AuthTabNavigator.Screen name="Challenges" component={Challenges} />
+      <AuthTabNavigator.Screen name="Achievements" component={Achievements} />
       <AuthTabNavigator.Screen name="Menu" component={Menu} />
       <AuthTabNavigator.Screen name="Reservation" component={Reservation} />
       <AuthTabNavigator.Screen name="Profile" component={Profile} />
