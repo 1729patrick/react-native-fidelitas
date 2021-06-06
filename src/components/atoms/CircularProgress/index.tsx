@@ -1,8 +1,15 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import Svg, { Defs, LinearGradient, Stop, Circle } from 'react-native-svg';
 import StyleGuide from '../../../util/StyleGuide';
 import { Text, View } from 'react-native';
 import styles from './styles';
+import Animated, {
+  Easing,
+  interpolate,
+  useAnimatedProps,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
 
 const size = 55;
 const strokeWidth = 4;
@@ -15,11 +22,29 @@ const cy = size / 2;
 interface CircularProgressProps {
   progress: number;
 }
+const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 const CircularProgress: React.FC<CircularProgressProps> = ({ progress }) => {
+  const animation = useSharedValue(0);
   const circumference = 2 * PI * r;
 
-  const strokeDashoffset = ((100 - progress) / 100) * circumference;
+  useEffect(() => {
+    animation.value = withTiming(1, {
+      duration: progress * 50,
+      easing: Easing.linear,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const animatedProps = useAnimatedProps(() => {
+    const strokeDashoffset = interpolate(
+      animation.value,
+      [0, 1],
+      [circumference, ((100 - progress) / 100) * circumference],
+    );
+
+    return { strokeDashoffset };
+  }, [animation]);
 
   return (
     <View>
@@ -39,7 +64,7 @@ const CircularProgress: React.FC<CircularProgressProps> = ({ progress }) => {
           cy={cy}
           r={r}
         />
-        <Circle
+        <AnimatedCircle
           fill="none"
           stroke="url(#grad)"
           strokeDasharray={circumference}
@@ -47,7 +72,7 @@ const CircularProgress: React.FC<CircularProgressProps> = ({ progress }) => {
           cx={cx}
           cy={cy}
           r={r}
-          strokeDashoffset={strokeDashoffset}
+          animatedProps={animatedProps}
         />
       </Svg>
       <View style={[styles.container, { width: size, height: size }]}>

@@ -17,6 +17,7 @@ import Location from '../../organisms/Location';
 import WorkingHours from '../../organisms/WorkingHours';
 import { useNavigation } from '@react-navigation/native';
 import useStatusBar from '../../../hooks/useStatusBar';
+import Line from '../../atoms/Line';
 
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
@@ -99,13 +100,13 @@ const Home = () => {
         <View style={styles.container}>
           <Animated.Text style={[styles.title]}>{company.name}</Animated.Text>
           <CompanyStatus />
-          <View style={styles.line} />
+          <Line />
           <Facilities openAll={openFacilities} />
-          <View style={styles.line} />
+          <Line />
           <Contacts />
-          <View style={styles.line} />
+          <Line />
           <Location openMap={openMap} />
-          <View style={styles.line} />
+          <Line />
           <WorkingHours />
         </View>
       </Animated.ScrollView>

@@ -88,6 +88,12 @@ const StyleGuide = {
       fontSize: 12,
       fontFamily: 'Montserrat-Medium',
     },
+    link: {
+      fontSize: 14,
+      fontFamily: 'Montserrat-Medium',
+      color: 'blue',
+      paddingVertical: 4,
+    },
   },
 };
 

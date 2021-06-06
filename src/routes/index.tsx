@@ -27,15 +27,11 @@ const optionsHorizontal = {
   cardStyleInterpolator: horizontal,
 };
 
-const getTabBarVisibility = ({ route, navigation }) => {
-  return true;
-};
-
 const HomeStack = createStackNavigator();
 
 const HomeNavigator = () => {
   return (
-    <HomeStack.Navigator screenOptions={{ headerMode: false }}>
+    <HomeStack.Navigator screenOptions={{ headerShown: false }}>
       <HomeStack.Screen
         name="Main"
         component={Home}
@@ -55,7 +51,7 @@ const MenuStack = createStackNavigator();
 
 const MenuNavigator = () => {
   return (
-    <MenuStack.Navigator screenOptions={{ headerMode: false }}>
+    <MenuStack.Navigator screenOptions={{ headerShown: false }}>
       <MenuStack.Screen
         name="Main"
         component={Menu}
@@ -76,18 +72,8 @@ const Auth = () => {
   return (
     <AuthTabNavigator.Navigator
       tabBar={props => <TabBar {...props} />}
-      screenOptions={({ route }) => ({
-        header: () => null,
-        lazy: true,
-      })}>
-      <AuthTabNavigator.Screen
-        name="Home"
-        component={HomeNavigator}
-        options={({ route, navigation }) => ({
-          header: () => null,
-          tabBarVisible: getTabBarVisibility({ route, navigation }),
-        })}
-      />
+      screenOptions={{ lazy: true, headerShown: false }}>
+      <AuthTabNavigator.Screen name="Home" component={HomeNavigator} />
       <AuthTabNavigator.Screen name="Menu" component={MenuNavigator} />
       <AuthTabNavigator.Screen name="Reservation" component={Reservation} />
       <AuthTabNavigator.Screen name="Achievements" component={Achievements} />
@@ -101,7 +87,7 @@ const PublicStack = createStackNavigator();
 export default () => {
   return (
     <NavigationContainer theme={StyleGuide.navigation}>
-      <PublicStack.Navigator screenOptions={{ headerMode: false }}>
+      <PublicStack.Navigator screenOptions={{ headerShown: false }}>
         <PublicStack.Screen
           name="Welcome"
           component={Welcome}

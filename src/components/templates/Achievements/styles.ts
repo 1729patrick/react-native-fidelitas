@@ -31,7 +31,7 @@ export default StyleSheet.create({
     color: StyleGuide.palette.primary,
   },
   description: {
-    ...StyleGuide.typography.caption,
+    ...StyleGuide.typography.subhead,
     color: StyleGuide.palette.light,
     marginTop: StyleGuide.spacing / 2,
   },

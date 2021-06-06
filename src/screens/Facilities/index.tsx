@@ -1,10 +1,12 @@
 import React from 'react';
-import { View, Text, ScrollView, StatusBar } from 'react-native';
+import { Text, ScrollView, StatusBar } from 'react-native';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import styles from './styles';
 import StyleGuide from '../../util/StyleGuide';
 import Header from '../../components/atoms/Header';
+import useHideTabBar from '../../hooks/useHideTabBar';
+import { RectButton } from 'react-native-gesture-handler';
 
 const facilities = [
   {
@@ -74,6 +76,8 @@ const facilities = [
 type FacilitiesProps = {};
 
 const Facilities: React.FC<FacilitiesProps> = () => {
+  useHideTabBar();
+
   return (
     <>
       <StatusBar
@@ -87,10 +91,13 @@ const Facilities: React.FC<FacilitiesProps> = () => {
         overScrollMode="never">
         {[...facilities, ...facilities, ...facilities, ...facilities].map(
           ({ title, icon }, index) => (
-            <View style={styles.item} key={index}>
+            <RectButton
+              style={styles.item}
+              key={index}
+              rippleColor={StyleGuide.palette.primary}>
               <Text style={styles.itemTitle}>{title}</Text>
               {icon}
-            </View>
+            </RectButton>
           ),
         )}
       </ScrollView>

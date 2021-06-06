@@ -31,11 +31,4 @@ export default StyleSheet.create({
     paddingHorizontal: StyleGuide.spacing * 3,
     backgroundColor: StyleGuide.navigation.colors.background,
   },
-
-  line: {
-    marginTop: StyleGuide.spacing * 2,
-    marginBottom: StyleGuide.spacing * 2,
-    backgroundColor: StyleGuide.palette.border,
-    height: 1,
-  },
 });

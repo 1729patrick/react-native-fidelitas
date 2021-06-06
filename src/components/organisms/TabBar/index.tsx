@@ -2,7 +2,7 @@ import React, { memo, useCallback } from 'react';
 import { Text, View } from 'react-native';
 
 import styles from './styles';
-import { BorderlessButton, RectButton } from 'react-native-gesture-handler';
+import { BorderlessButton } from 'react-native-gesture-handler';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 
 import { ActiveHome, InactiveHome } from '../../atoms/icons/Home';

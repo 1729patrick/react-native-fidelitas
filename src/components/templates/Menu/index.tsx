@@ -22,12 +22,12 @@ const Menu: React.FC<MenuProps> = ({ items, openCategory, openProduct }) => {
           return (
             <View style={styles.category} key={item.title}>
               <TouchableOpacity
-                hitSlop={{ bottom: 100 }}
                 onPress={() => openCategory(item)}
                 activeOpacity={0.7}>
                 <FastImage source={item.image} style={styles.image} />
+
+                <Text style={styles.categoryTitle}>{item.title}</Text>
               </TouchableOpacity>
-              <Text style={styles.categoryTitle}>{item.title}</Text>
             </View>
           );
         }
