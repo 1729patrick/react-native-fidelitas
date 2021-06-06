@@ -1,8 +1,12 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/core';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import React, { useRef } from 'react';
+import { Text, View } from 'react-native';
 import Header from '../../components/atoms/Header';
+import TabBar from '../../components/organisms/TabBar/Top';
 import Menu from '../../components/templates/Menu';
 import useStatusBar from '../../hooks/useStatusBar';
+import styles from './styles';
 
 export type Item = {
   title: string;
@@ -14,465 +18,141 @@ export type Item = {
 };
 
 const image = require('../../assets/background_home.jpg');
+
+const items_ = [
+  {
+    title: 'Produtos Naturais',
+    type: 'category',
+    image,
+    items: [
+      {
+        title: 'Chá Clássico',
+        description: 'Camomila, Capim Limão, Hortelã',
+        type: 'product',
+        image,
+        price: 2,
+      },
+      {
+        title: 'Chocolate Quente',
+        description: 'Chocolate Quente meio amargo - 230ml',
+        type: 'product',
+        image,
+        price: 4,
+      },
+      {
+        title: 'Pão Clássico',
+        description: 'Camomila, Capim Limão, Hortelã',
+        type: 'product',
+        image,
+        price: 8,
+      },
+      {
+        title: 'Batata Quente',
+        description: 'Chocolate Quente meio amargo - 230ml',
+        type: 'product',
+        image,
+        price: 16,
+      },
+    ],
+  },
+  {
+    title: 'Produtos Muito Naturais',
+    type: 'category',
+    image,
+    items: [
+      {
+        title: 'Chá Clássico',
+        description: 'Camomila, Capim Limão, Hortelã',
+        type: 'product',
+        image,
+        price: 2,
+      },
+      {
+        title: 'Chocolate Quente',
+        description: 'Chocolate Quente meio amargo - 230ml',
+        type: 'product',
+        image,
+        price: 4,
+      },
+      {
+        title: 'Pão Clássico',
+        description: 'Camomila, Capim Limão, Hortelã',
+        type: 'product',
+        image,
+        price: 8,
+      },
+      {
+        title: 'Batata Quente',
+        description: 'Chocolate Quente meio amargo - 230ml',
+        type: 'product',
+        image,
+        price: 16,
+      },
+    ],
+  },
+  {
+    title: 'Produtos Muito Mais Naturais',
+    type: 'category',
+    image,
+    items: [
+      {
+        title: 'Chá Clássico',
+        description: 'Camomila, Capim Limão, Hortelã',
+        type: 'product',
+        image,
+        price: 2,
+      },
+      {
+        title: 'Chocolate Quente',
+        description: 'Chocolate Quente meio amargo - 230ml',
+        type: 'product',
+        image,
+        price: 4,
+      },
+      {
+        title: 'Pão Clássico',
+        description: 'Camomila, Capim Limão, Hortelã',
+        type: 'product',
+        image,
+        price: 8,
+      },
+      {
+        title: 'Batata Quente',
+        description: 'Chocolate Quente meio amargo - 230ml',
+        type: 'product',
+        image,
+        price: 16,
+      },
+    ],
+  },
+];
+
 const items: Item[] = [
   {
     title: 'Para Veganos',
     type: 'category',
     image,
-
-    items: [
-      {
-        title: 'Produtos Naturais',
-        type: 'category',
-        image,
-        items: [
-          {
-            title: 'Bebidas Naturais',
-            type: 'category',
-            image,
-            items: [
-              {
-                title: 'Chá Clássico',
-                description: 'Camomila, Capim Limão, Hortelã',
-                type: 'product',
-                image,
-              },
-              {
-                title: 'Chocolate Quente',
-                description: 'Chocolate Quente meio amargo - 230ml',
-                type: 'product',
-                image,
-              },
-            ],
-          },
-          {
-            title: 'Comidas Naturais',
-            type: 'category',
-            image,
-            items: [
-              {
-                title: 'Pão Clássico',
-                description: 'Camomila, Capim Limão, Hortelã',
-                type: 'product',
-                image,
-              },
-              {
-                title: 'Batata Quente',
-                description: 'Chocolate Quente meio amargo - 230ml',
-                type: 'product',
-                image,
-              },
-            ],
-          },
-        ],
-      },
-      {
-        title: 'Produtos Muito Naturais',
-        type: 'category',
-        image,
-        items: [
-          {
-            title: 'Bebidas Naturais',
-            type: 'category',
-            image,
-            items: [
-              {
-                title: 'Chá Clássico',
-                description: 'Camomila, Capim Limão, Hortelã',
-                type: 'product',
-                image,
-                price: 12,
-              },
-              {
-                title: 'Chocolate Quente',
-                description: 'Chocolate Quente meio amargo - 230ml',
-                type: 'product',
-                image,
-                price: 2,
-              },
-            ],
-          },
-          {
-            title: 'Comidas Naturais',
-            type: 'category',
-            image,
-            items: [
-              {
-                title: 'Pão Clássico',
-                description: 'Camomila, Capim Limão, Hortelã',
-                type: 'product',
-                image,
-                price: 2,
-              },
-              {
-                title: 'Batata Quente',
-                description: 'Chocolate Quente meio amargo - 230ml',
-                type: 'product',
-                image,
-                price: 12,
-              },
-            ],
-          },
-        ],
-      },
-      {
-        title: 'Produtos Muito Mais Naturais',
-        type: 'category',
-        image,
-        items: [
-          {
-            title: 'Bebidas Naturais',
-            type: 'category',
-            image,
-            items: [
-              {
-                title: 'Chá Clássico',
-                description: 'Camomila, Capim Limão, Hortelã',
-                type: 'product',
-                image,
-                price: 12,
-              },
-              {
-                title: 'Chocolate Quente',
-                description: 'Chocolate Quente meio amargo - 230ml',
-                type: 'product',
-                image,
-                price: 5,
-              },
-            ],
-          },
-          {
-            title: 'Comidas Naturais',
-            type: 'category',
-            image,
-            items: [
-              {
-                title: 'Pão Clássico',
-                description: 'Camomila, Capim Limão, Hortelã',
-                type: 'product',
-                image,
-                price: 7,
-              },
-              {
-                title: 'Batata Quente',
-                description: 'Chocolate Quente meio amargo - 230ml',
-                type: 'product',
-                image,
-                price: 9,
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    title: 'Para Vegetarianos',
-    type: 'category',
-    image,
-
-    items: [
-      {
-        title: 'Produtos Naturais',
-        type: 'category',
-        image,
-        items: [
-          {
-            title: 'Bebidas Naturais',
-            type: 'category',
-            image,
-            items: [
-              {
-                title: 'Chá Clássico',
-                description: 'Camomila, Capim Limão, Hortelã',
-                type: 'product',
-                image,
-              },
-              {
-                title: 'Chocolate Quente',
-                description: 'Chocolate Quente meio amargo - 230ml',
-                type: 'product',
-                image,
-              },
-            ],
-          },
-          {
-            title: 'Comidas Naturais',
-            type: 'category',
-            image,
-            items: [
-              {
-                title: 'Pão Clássico',
-                description: 'Camomila, Capim Limão, Hortelã',
-                type: 'product',
-                image,
-              },
-              {
-                title: 'Batata Quente',
-                description: 'Chocolate Quente meio amargo - 230ml',
-                type: 'product',
-                image,
-              },
-            ],
-          },
-        ],
-      },
-      {
-        title: 'Produtos Muito Naturais',
-        type: 'category',
-        image,
-        items: [
-          {
-            title: 'Bebidas Naturais',
-            type: 'category',
-            image,
-            items: [
-              {
-                title: 'Chá Clássico',
-                description: 'Camomila, Capim Limão, Hortelã',
-                type: 'product',
-                image,
-                price: 12,
-              },
-              {
-                title: 'Chocolate Quente',
-                description: 'Chocolate Quente meio amargo - 230ml',
-                type: 'product',
-                image,
-                price: 2,
-              },
-            ],
-          },
-          {
-            title: 'Comidas Naturais',
-            type: 'category',
-            image,
-            items: [
-              {
-                title: 'Pão Clássico',
-                description: 'Camomila, Capim Limão, Hortelã',
-                type: 'product',
-                image,
-                price: 2,
-              },
-              {
-                title: 'Batata Quente',
-                description: 'Chocolate Quente meio amargo - 230ml',
-                type: 'product',
-                image,
-                price: 12,
-              },
-            ],
-          },
-        ],
-      },
-      {
-        title: 'Produtos Muito Mais Naturais',
-        type: 'category',
-        image,
-        items: [
-          {
-            title: 'Bebidas Naturais',
-            type: 'category',
-            image,
-            items: [
-              {
-                title: 'Chá Clássico',
-                description: 'Camomila, Capim Limão, Hortelã',
-                type: 'product',
-                image,
-                price: 12,
-              },
-              {
-                title: 'Chocolate Quente',
-                description: 'Chocolate Quente meio amargo - 230ml',
-                type: 'product',
-                image,
-                price: 5,
-              },
-            ],
-          },
-          {
-            title: 'Comidas Naturais',
-            type: 'category',
-            image,
-            items: [
-              {
-                title: 'Pão Clássico',
-                description: 'Camomila, Capim Limão, Hortelã',
-                type: 'product',
-                image,
-                price: 7,
-              },
-              {
-                title: 'Batata Quente',
-                description: 'Chocolate Quente meio amargo - 230ml',
-                type: 'product',
-                image,
-                price: 9,
-              },
-            ],
-          },
-        ],
-      },
-    ],
+    items: items_,
   },
   {
     title: 'Carnes',
     type: 'category',
     image,
-
-    items: [
-      {
-        title: 'Produtos Naturais',
-        type: 'category',
-        image,
-        items: [
-          {
-            title: 'Bebidas Naturais',
-            type: 'category',
-            image,
-            items: [
-              {
-                title: 'Chá Clássico',
-                description: 'Camomila, Capim Limão, Hortelã',
-                type: 'product',
-                image,
-              },
-              {
-                title: 'Chocolate Quente',
-                description: 'Chocolate Quente meio amargo - 230ml',
-                type: 'product',
-                image,
-              },
-            ],
-          },
-          {
-            title: 'Comidas Naturais',
-            type: 'category',
-            image,
-            items: [
-              {
-                title: 'Pão Clássico',
-                description: 'Camomila, Capim Limão, Hortelã',
-                type: 'product',
-                image,
-              },
-              {
-                title: 'Batata Quente',
-                description: 'Chocolate Quente meio amargo - 230ml',
-                type: 'product',
-                image,
-              },
-            ],
-          },
-        ],
-      },
-      {
-        title: 'Produtos Muito Naturais',
-        type: 'category',
-        image,
-        items: [
-          {
-            title: 'Bebidas Naturais',
-            type: 'category',
-            image,
-            items: [
-              {
-                title: 'Chá Clássico',
-                description: 'Camomila, Capim Limão, Hortelã',
-                type: 'product',
-                image,
-                price: 12,
-              },
-              {
-                title: 'Chocolate Quente',
-                description: 'Chocolate Quente meio amargo - 230ml',
-                type: 'product',
-                image,
-                price: 2,
-              },
-            ],
-          },
-          {
-            title: 'Comidas Naturais',
-            type: 'category',
-            image,
-            items: [
-              {
-                title: 'Pão Clássico',
-                description: 'Camomila, Capim Limão, Hortelã',
-                type: 'product',
-                image,
-                price: 2,
-              },
-              {
-                title: 'Batata Quente',
-                description: 'Chocolate Quente meio amargo - 230ml',
-                type: 'product',
-                image,
-                price: 12,
-              },
-            ],
-          },
-        ],
-      },
-      {
-        title: 'Produtos Muito Mais Naturais',
-        type: 'category',
-        image,
-        items: [
-          {
-            title: 'Bebidas Naturais',
-            type: 'category',
-            image,
-            items: [
-              {
-                title: 'Chá Clássico',
-                description: 'Camomila, Capim Limão, Hortelã',
-                type: 'product',
-                image,
-                price: 12,
-              },
-              {
-                title: 'Chocolate Quente',
-                description: 'Chocolate Quente meio amargo - 230ml',
-                type: 'product',
-                image,
-                price: 5,
-              },
-            ],
-          },
-          {
-            title: 'Comidas Naturais',
-            type: 'category',
-            image,
-            items: [
-              {
-                title: 'Pão Clássico',
-                description: 'Camomila, Capim Limão, Hortelã',
-                type: 'product',
-                image,
-                price: 7,
-              },
-              {
-                title: 'Batata Quente',
-                description: 'Chocolate Quente meio amargo - 230ml',
-                type: 'product',
-                image,
-                price: 9,
-              },
-            ],
-          },
-        ],
-      },
-    ],
+    items: items_,
+  },
+  {
+    title: 'Bebidas',
+    type: 'category',
+    image,
+    items: items_,
   },
 ];
 
 type ParamList = {
   Menu: { title: string; items: Item[] };
 };
+
+const MenuTab = createMaterialTopTabNavigator();
 
 export default () => {
   useStatusBar(true);
@@ -501,16 +181,14 @@ export default () => {
 
   return (
     <>
-      <Header
-        title={params?.title || 'Ementa'}
-        showBack={!!params?.title}
-        elevation={1}
-      />
-      <Menu
-        items={params?.items || items}
-        openCategory={openCategory}
-        openProduct={openProduct}
-      />
+      <Header title={params?.title || 'Ementa'} showBack={!!params?.title} />
+      <View style={styles.container}>
+        <Menu
+          items={params?.items || items}
+          openCategory={openCategory}
+          openProduct={openProduct}
+        />
+      </View>
     </>
   );
 };

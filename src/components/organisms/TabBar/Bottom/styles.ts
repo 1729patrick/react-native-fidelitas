@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet } from 'react-native';
-import StyleGuide from '../../../util/StyleGuide';
+import StyleGuide from '../../../../util/StyleGuide';
 import { BOTTOM_TAB_BAR_HEIGHT } from './constants';
 
 const { height } = Dimensions.get('window');

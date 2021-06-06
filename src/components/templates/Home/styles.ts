@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import StyleGuide from '../../../util/StyleGuide';
-import { BOTTOM_TAB_BAR_HEIGHT } from '../../organisms/TabBar/constants';
+import { BOTTOM_TAB_BAR_HEIGHT } from '../../organisms/TabBar/Bottom/constants';
 
 export default StyleSheet.create({
   image: {

@@ -5,15 +5,15 @@ import styles from './styles';
 import { BorderlessButton } from 'react-native-gesture-handler';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 
-import { ActiveHome, InactiveHome } from '../../atoms/icons/Home';
-import { ActiveProfile, InactiveProfile } from '../../atoms/icons/Profile';
-import StyleGuide from '../../../util/StyleGuide';
-import { ActiveWinner, InactiveWinner } from '../../atoms/icons/Winner';
-import { ActiveMenu, InactiveMenu } from '../../atoms/icons/Menu';
+import { ActiveHome, InactiveHome } from '../../../atoms/icons/Home';
+import { ActiveProfile, InactiveProfile } from '../../../atoms/icons/Profile';
+import StyleGuide from '../../../../util/StyleGuide';
+import { ActiveWinner, InactiveWinner } from '../../../atoms/icons/Winner';
+import { ActiveMenu, InactiveMenu } from '../../../atoms/icons/Menu';
 import {
   ActiveReservation,
   InactiveReservation,
-} from '../../atoms/icons/Reservation';
+} from '../../../atoms/icons/Reservation';
 
 const TABS = [
   {

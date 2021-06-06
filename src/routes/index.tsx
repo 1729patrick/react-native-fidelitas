@@ -8,7 +8,7 @@ import Login from '../screens/Login';
 import Register from '../screens/Register';
 import Home from '../screens/Home';
 
-import TabBar from '../components/organisms/TabBar';
+import TabBar from '../components/organisms/TabBar/Bottom';
 import StyleGuide from '../util/StyleGuide';
 import Facilities from '../screens/Facilities';
 import Map from '../screens/Map';

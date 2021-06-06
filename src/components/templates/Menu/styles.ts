@@ -1,7 +1,7 @@
 import { Dimensions, StyleSheet } from 'react-native';
 import StyleGuide from '../../../util/StyleGuide';
 import { TOTAL_HEADER_HEIGHT } from '../../atoms/Header/constants';
-import { BOTTOM_TAB_BAR_HEIGHT } from '../../organisms/TabBar/constants';
+import { BOTTOM_TAB_BAR_HEIGHT } from '../../organisms/TabBar/Bottom/constants';
 
 const { width } = Dimensions.get('window');
 
