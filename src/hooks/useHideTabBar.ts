@@ -3,7 +3,7 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
 const useHideTabBar = () => {
   const { getParent } = useNavigation();
-
+  
   useFocusEffect(
     React.useCallback(() => {
       // hide

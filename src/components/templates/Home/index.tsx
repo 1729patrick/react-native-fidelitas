@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, StatusBar } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import styles from './styles';
@@ -30,10 +30,6 @@ const Home = () => {
   const translationY = useSharedValue(0);
   const { navigate } = useNavigation();
   useStatusBar(dark);
-
-  useEffect(() => {
-    StatusBar.setBarStyle(dark ? 'dark-content' : 'light-content');
-  }, [dark]);
 
   const scrollHandler = useAnimatedScrollHandler(event => {
     translationY.value = event.contentOffset.y;

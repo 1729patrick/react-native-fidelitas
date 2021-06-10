@@ -1,11 +1,10 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/core';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import React, { useRef } from 'react';
-import { Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import Header from '../../components/atoms/Header';
-import TabBar from '../../components/organisms/TabBar/Top';
 import Menu from '../../components/templates/Menu';
 import useStatusBar from '../../hooks/useStatusBar';
+import StyleGuide from '../../util/StyleGuide';
 import styles from './styles';
 
 export type Item = {
@@ -152,8 +151,6 @@ type ParamList = {
   Menu: { title: string; items: Item[] };
 };
 
-const MenuTab = createMaterialTopTabNavigator();
-
 export default () => {
   useStatusBar(true);
   const { push } = useNavigation();
@@ -183,11 +180,27 @@ export default () => {
     <>
       <Header title={params?.title || 'Ementa'} showBack={!!params?.title} />
       <View style={styles.container}>
-        <Menu
+        <ScrollView horizontal>
+          {items.map(item => (
+            <View
+              key={item.title}
+              style={{
+                width: 100,
+                height: 100,
+                borderRadius: StyleGuide.borderRadius * 2,
+                elevation: 5,
+                backgroundColor: '#fff',
+                margin: 10,
+              }}>
+              <Text style={{ color: 'red' }}>{item.title}</Text>
+            </View>
+          ))}
+        </ScrollView>
+        {/* <Menu
           items={params?.items || items}
           openCategory={openCategory}
           openProduct={openProduct}
-        />
+        /> */}
       </View>
     </>
   );
