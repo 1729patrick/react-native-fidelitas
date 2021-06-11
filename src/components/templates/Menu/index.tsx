@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { RectButton } from 'react-native-gesture-handler';
 import { Item } from '../../../screens/Menu';
@@ -16,7 +16,9 @@ const Menu: React.FC<MenuProps> = ({ items, openCategory, openProduct }) => {
   return (
     <ScrollView
       contentContainerStyle={styles.contentContainer}
-      overScrollMode="never">
+      overScrollMode="never"
+      showsVerticalScrollIndicator={false}>
+      <Text style={styles.title}>Cardápio</Text>
       {items.map(item => {
         if (item.type === 'category') {
           return (
@@ -24,9 +26,12 @@ const Menu: React.FC<MenuProps> = ({ items, openCategory, openProduct }) => {
               <TouchableOpacity
                 onPress={() => openCategory(item)}
                 activeOpacity={0.7}>
-                <FastImage source={item.image} style={styles.image} />
+                <Image source={item.image} style={styles.image} />
 
                 <Text style={styles.categoryTitle}>{item.title}</Text>
+                <Text style={styles.categoryDescriptions}>
+                  {item.items?.length} produtos
+                </Text>
               </TouchableOpacity>
             </View>
           );
@@ -40,7 +45,7 @@ const Menu: React.FC<MenuProps> = ({ items, openCategory, openProduct }) => {
               onPress={() => openProduct(item)}
               activeOpacity={0.7}
               rippleColor={StyleGuide.palette.secondary}>
-              <FastImage source={item.image} style={styles.image1} />
+              <Image source={item.image} style={styles.image1} />
 
               <View style={styles.productInfo}>
                 <Text style={styles.productTitle}>{item.title}</Text>

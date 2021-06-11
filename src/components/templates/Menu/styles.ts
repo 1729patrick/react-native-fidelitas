@@ -7,12 +7,18 @@ const { width } = Dimensions.get('window');
 
 export default StyleSheet.create({
   contentContainer: {
-    paddingTop: TOTAL_HEADER_HEIGHT + StyleGuide.spacing * 2,
+    paddingTop: 327,
     paddingBottom: BOTTOM_TAB_BAR_HEIGHT + StyleGuide.spacing,
     paddingHorizontal: StyleGuide.spacing * 2,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
+  },
+  title: {
+    ...StyleGuide.typography.title2,
+    color: StyleGuide.palette.primary,
+    width: '100%',
+    marginVertical: StyleGuide.spacing * 2,
   },
   category: {
     paddingBottom: StyleGuide.spacing * 2,
@@ -22,12 +28,17 @@ export default StyleSheet.create({
     width: (width - StyleGuide.spacing * 6) / 2,
     height: (width - StyleGuide.spacing * 6) / 2,
     backgroundColor: StyleGuide.palette.background,
-    borderRadius: StyleGuide.borderRadius * 2,
+    borderRadius: StyleGuide.borderRadius * 6,
   },
   categoryTitle: {
     ...StyleGuide.typography.headline,
     fontSize: 13.5,
     marginTop: StyleGuide.spacing,
+  },
+  categoryDescriptions: {
+    ...StyleGuide.typography.subhead,
+    color: StyleGuide.palette.secondary,
+    // fontSize: 13.5,
   },
 
   product: {

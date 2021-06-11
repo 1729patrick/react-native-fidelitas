@@ -24,7 +24,7 @@ const TABS = [
   },
   {
     name: 'Menu',
-    title: 'Ementa',
+    title: 'Cardápio',
     InactiveIcon: InactiveMenu,
     ActiveIcon: ActiveMenu,
   },

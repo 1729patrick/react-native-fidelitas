@@ -1,11 +1,14 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/core';
 import React, { useRef } from 'react';
-import { ScrollView, Text, View } from 'react-native';
-import Header from '../../components/atoms/Header';
-import Menu from '../../components/templates/Menu';
+import { Text, View } from 'react-native';
+import FastImage from 'react-native-fast-image';
+import { TextInput } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/AntDesign';
 import useStatusBar from '../../hooks/useStatusBar';
-import StyleGuide from '../../util/StyleGuide';
+import LinearGradient from 'react-native-linear-gradient';
 import styles from './styles';
+import StyleGuide from '../../util/StyleGuide';
+import Menu from '../../components/templates/Menu';
 
 export type Item = {
   title: string;
@@ -152,7 +155,7 @@ type ParamList = {
 };
 
 export default () => {
-  useStatusBar(true);
+  useStatusBar(false);
   const { push } = useNavigation();
   const { params } = useRoute<RouteProp<ParamList, 'Menu'>>();
 
@@ -178,29 +181,35 @@ export default () => {
 
   return (
     <>
-      <Header title={params?.title || 'Ementa'} showBack={!!params?.title} />
       <View style={styles.container}>
-        <ScrollView horizontal>
-          {items.map(item => (
-            <View
-              key={item.title}
-              style={{
-                width: 100,
-                height: 100,
-                borderRadius: StyleGuide.borderRadius * 2,
-                elevation: 5,
-                backgroundColor: '#fff',
-                margin: 10,
-              }}>
-              <Text style={{ color: 'red' }}>{item.title}</Text>
-            </View>
-          ))}
-        </ScrollView>
-        {/* <Menu
+        <FastImage
+          source={require('../../assets/background_menu.jpg')}
+          resizeMode={FastImage.resizeMode.cover}
+          style={[styles.image]}
+        />
+        <LinearGradient
+          start={{ x: 0, y: 0 }}
+          end={{ x: 0, y: 1 }}
+          colors={['rgba(0,0,0,0.8)', 'rgba(0,0,0,0.1)']}
+          style={styles.linearGradient}>
+          <Text style={styles.title}>
+            {params?.title || 'Encontre as melhores comidas de Setúbal'}
+          </Text>
+        </LinearGradient>
+
+        <View style={styles.search}>
+          <Icon name="search1" size={23} color={StyleGuide.palette.secondary} />
+          <TextInput
+            placeholder={'Procurar'}
+            placeholderTextColor={StyleGuide.palette.secondary}
+            style={styles.input}
+          />
+        </View>
+        <Menu
           items={params?.items || items}
           openCategory={openCategory}
           openProduct={openProduct}
-        /> */}
+        />
       </View>
     </>
   );
