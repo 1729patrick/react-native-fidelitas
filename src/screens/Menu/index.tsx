@@ -5,10 +5,24 @@ import FastImage from 'react-native-fast-image';
 import { TextInput } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
 import useStatusBar from '../../hooks/useStatusBar';
-import LinearGradient from 'react-native-linear-gradient';
+
 import styles from './styles';
 import StyleGuide from '../../util/StyleGuide';
 import Menu from '../../components/templates/Menu';
+import { StackNavigationProp } from '@react-navigation/stack';
+import Animated, {
+  Extrapolate,
+  interpolate,
+  interpolateColors,
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  useSharedValue,
+  interpolateColor,
+} from 'react-native-reanimated';
+
+import { ScrollView } from 'react-native-gesture-handler';
+
+const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
 
 export type Item = {
   title: string;
@@ -21,7 +35,7 @@ export type Item = {
 
 const image = require('../../assets/background_home.jpg');
 
-const items_ = [
+const items_: Item[] = [
   {
     title: 'Produtos Naturais',
     type: 'category',
@@ -155,13 +169,18 @@ type ParamList = {
 };
 
 export default () => {
-  useStatusBar(false);
-  const { push } = useNavigation();
+  useStatusBar(true);
+  const { push } = useNavigation<StackNavigationProp<any>>();
   const { params } = useRoute<RouteProp<ParamList, 'Menu'>>();
+  const translationY = useSharedValue(0);
+
+  const scrollHandler = useAnimatedScrollHandler(event => {
+    translationY.value = event.contentOffset.y;
+  });
 
   const preventDuplicateNavigationRef = useRef<number>(0);
 
-  const openCategory = ({ items, title }: Item) => {
+  const openProducts = ({ items, title }: Item) => {
     const fiveSeconds = 600 * 2;
     if (
       new Date().getTime() - preventDuplicateNavigationRef.current <=
@@ -172,44 +191,68 @@ export default () => {
 
     preventDuplicateNavigationRef.current = new Date().getTime();
 
-    push('Category', { items, title });
+    push('Products', { items, title });
   };
 
-  const openProduct = (product: Item) => {
-    console.log('product', product);
-  };
+  const searchStyles = useAnimatedStyle(() => {
+    const top = interpolate(
+      translationY.value,
+      [0, 35],
+      [35, 0],
+      Extrapolate.CLAMP,
+    );
+
+    const backgroundColor = interpolateColor(
+      translationY.value,
+      [34.99, 35],
+      ['transparent', 'white'],
+    );
+
+    const elevation = interpolate(
+      translationY.value,
+      [34.99, 35],
+      [0, 2],
+      Extrapolate.CLAMP,
+    );
+
+    return {
+      top,
+      backgroundColor,
+      elevation,
+    };
+  }, [translationY]);
 
   return (
     <>
       <View style={styles.container}>
-        <FastImage
-          source={require('../../assets/background_menu.jpg')}
-          resizeMode={FastImage.resizeMode.cover}
-          style={[styles.image]}
-        />
-        <LinearGradient
-          start={{ x: 0, y: 0 }}
-          end={{ x: 0, y: 1 }}
-          colors={['rgba(0,0,0,0.8)', 'rgba(0,0,0,0.1)']}
-          style={styles.linearGradient}>
-          <Text style={styles.title}>
-            {params?.title || 'Encontre as melhores comidas de Setúbal'}
-          </Text>
-        </LinearGradient>
+        <AnimatedScrollView
+          overScrollMode="never"
+          onScroll={scrollHandler}
+          scrollEventThrottle={16}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 80 }}>
+          <FastImage
+            source={require('../../assets/background_menu.jpg')}
+            resizeMode={FastImage.resizeMode.cover}
+            style={[styles.image]}>
+            <Text style={styles.title}>
+              Encontre as melhores comidas de Setúbal
+            </Text>
+          </FastImage>
 
-        <View style={styles.search}>
-          <Icon name="search1" size={23} color={StyleGuide.palette.secondary} />
-          <TextInput
-            placeholder={'Procurar'}
-            placeholderTextColor={StyleGuide.palette.secondary}
-            style={styles.input}
-          />
-        </View>
-        <Menu
-          items={params?.items || items}
-          openCategory={openCategory}
-          openProduct={openProduct}
-        />
+          <Menu items={params?.items || items} openProducts={openProducts} />
+        </AnimatedScrollView>
+
+        <Animated.View style={[styles.searchContainer, searchStyles]}>
+          <View style={[styles.search]}>
+            <Icon name="search1" size={23} color={StyleGuide.palette.app} />
+            <TextInput
+              placeholder={'O que você quer comer?'}
+              placeholderTextColor={StyleGuide.palette.secondary}
+              style={styles.input}
+            />
+          </View>
+        </Animated.View>
       </View>
     </>
   );

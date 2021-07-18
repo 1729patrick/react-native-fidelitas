@@ -31,9 +31,9 @@ const horizontal = ({
         },
       ],
     },
-    overlayStyle: {
-      opacity: overlayOpacity,
-    },
+    // overlayStyle: {
+    //   opacity: overlayOpacity,
+    // },
   };
 };
 

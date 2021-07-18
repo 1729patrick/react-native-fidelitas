@@ -75,13 +75,15 @@ export default () => {
 
       <View style={styles.items}>
         {items.map(item => (
-          <RectButton
-            key={item.title}
-            style={styles.item}
-            rippleColor={StyleGuide.palette.primary}>
-            {item.icon}
-            <Text style={styles.itemTitle}>{item.title}</Text>
-          </RectButton>
+          <View style={styles.border} key={item.title}>
+            <RectButton
+              key={item.title}
+              style={styles.item}
+              rippleColor={StyleGuide.palette.primary}>
+              {item.icon}
+              <Text style={styles.itemTitle}>{item.title}</Text>
+            </RectButton>
+          </View>
         ))}
       </View>
     </View>

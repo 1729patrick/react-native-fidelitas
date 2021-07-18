@@ -14,6 +14,7 @@ export default StyleSheet.create({
     zIndex: 60,
     position: 'absolute',
     flexDirection: 'row',
+    elevation: 5,
   },
   borderContainer: {
     left: 0,

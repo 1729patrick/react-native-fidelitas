@@ -9,11 +9,16 @@ export default StyleSheet.create({
     paddingBottom: BOTTOM_TAB_BAR_HEIGHT + StyleGuide.spacing,
     paddingHorizontal: StyleGuide.spacing * 2,
   },
+  border: {
+    borderWidth: 1,
+    borderColor: StyleGuide.palette.border,
+    marginBottom: StyleGuide.spacing * 2,
+    borderRadius: StyleGuide.borderRadius * 2,
+  },
   item: {
     flexDirection: 'row',
     paddingHorizontal: StyleGuide.spacing,
     paddingVertical: StyleGuide.spacing * 2,
-    marginBottom: StyleGuide.spacing * 2,
     backgroundColor: StyleGuide.palette.background,
     borderRadius: StyleGuide.borderRadius * 2,
   },

@@ -31,9 +31,9 @@ const vertical = ({
         },
       ],
     },
-    overlayStyle: {
-      opacity: overlayOpacity,
-    },
+    // overlayStyle: {
+    //   opacity: overlayOpacity,
+    // },
   };
 };
 

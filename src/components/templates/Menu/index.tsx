@@ -1,64 +1,43 @@
 import React from 'react';
-import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
-import FastImage from 'react-native-fast-image';
-import { RectButton } from 'react-native-gesture-handler';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
+import Animated from 'react-native-reanimated';
 import { Item } from '../../../screens/Menu';
-import StyleGuide from '../../../util/StyleGuide';
 import styles from './styles';
+import { ScrollView } from 'react-native-gesture-handler';
+
+const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
 
 type MenuProps = {
-  openCategory: (args: Item) => void;
-  openProduct: (args: Item) => void;
+  openProducts: (args: Item) => void;
   items: Item[];
 };
 
-const Menu: React.FC<MenuProps> = ({ items, openCategory, openProduct }) => {
+const Menu: React.FC<MenuProps> = ({ items, openProducts }) => {
   return (
-    <ScrollView
-      contentContainerStyle={styles.contentContainer}
-      overScrollMode="never"
-      showsVerticalScrollIndicator={false}>
-      <Text style={styles.title}>Cardápio</Text>
-      {items.map(item => {
-        if (item.type === 'category') {
-          return (
-            <View style={styles.category} key={item.title}>
-              <TouchableOpacity
-                onPress={() => openCategory(item)}
-                activeOpacity={0.7}>
-                <Image source={item.image} style={styles.image} />
-
-                <Text style={styles.categoryTitle}>{item.title}</Text>
-                <Text style={styles.categoryDescriptions}>
-                  {item.items?.length} produtos
-                </Text>
-              </TouchableOpacity>
+    <>
+      {items.map(item => (
+        <View key={item.title}>
+          <Text style={styles.title}>{item.title}</Text>
+          <AnimatedScrollView
+            overScrollMode="never"
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            contentContainerStyle={styles.contentContainer}>
+            <View style={styles.categories}>
+              {item.items?.map(category => (
+                <TouchableOpacity
+                  onPress={() => openProducts(category)}
+                  activeOpacity={0.7}
+                  style={styles.category}>
+                  <Image source={category.image} style={styles.categoryImage} />
+                  <Text style={styles.categoryTitle}>{category.title}</Text>
+                </TouchableOpacity>
+              ))}
             </View>
-          );
-        }
-
-        if (item.type === 'product') {
-          return (
-            <RectButton
-              style={styles.product}
-              key={item.title}
-              onPress={() => openProduct(item)}
-              activeOpacity={0.7}
-              rippleColor={StyleGuide.palette.secondary}>
-              <Image source={item.image} style={styles.image1} />
-
-              <View style={styles.productInfo}>
-                <Text style={styles.productTitle}>{item.title}</Text>
-                <Text style={styles.productDescription}>
-                  {item.description}
-                </Text>
-                <Text style={styles.productPrice}>€ {item.price}</Text>
-              </View>
-            </RectButton>
-          );
-        }
-      })}
-    </ScrollView>
+          </AnimatedScrollView>
+        </View>
+      ))}
+    </>
   );
 };
 

@@ -2,14 +2,14 @@ import { useNavigation } from '@react-navigation/core';
 import { useEffect, useRef } from 'react';
 import { StatusBar } from 'react-native';
 
-const useStatusBar = (condition: boolean) => {
-  const conditionRef = useRef(condition);
+const useStatusBar = (dark: boolean) => {
+  const conditionRef = useRef(dark);
 
   const { addListener, removeListener } = useNavigation();
   useEffect(() => {
-    conditionRef.current = condition;
-    StatusBar.setBarStyle(condition ? 'dark-content' : 'light-content');
-  }, [condition]);
+    conditionRef.current = dark;
+    StatusBar.setBarStyle(dark ? 'dark-content' : 'light-content');
+  }, [dark]);
 
   useEffect(() => {
     const listener = addListener('focus', () => {
@@ -21,7 +21,7 @@ const useStatusBar = (condition: boolean) => {
     });
 
     return () => removeListener('focus', listener);
-  }, [addListener, condition, removeListener]);
+  }, [addListener, dark, removeListener]);
 };
 
 export default useStatusBar;

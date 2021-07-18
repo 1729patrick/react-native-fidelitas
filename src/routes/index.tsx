@@ -18,6 +18,7 @@ import Reservation from '../screens/Reservation';
 import Profile from '../screens/Profile';
 import vertical from './animations/vertical';
 import horizontal from './animations/horizontal';
+import Products from '../screens/Products';
 
 const optionsVertical = {
   cardStyleInterpolator: vertical,
@@ -58,9 +59,9 @@ const MenuNavigator = () => {
         options={optionsVertical}
       />
       <MenuStack.Screen
-        name="Category"
-        component={Menu}
-        options={optionsHorizontal}
+        name="Products"
+        component={Products}
+        options={optionsVertical}
       />
     </MenuStack.Navigator>
   );

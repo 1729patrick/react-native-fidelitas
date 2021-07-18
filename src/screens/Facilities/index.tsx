@@ -85,7 +85,7 @@ const Facilities: React.FC<FacilitiesProps> = () => {
         backgroundColor="rgba(0, 0, 0, 0)"
         barStyle="dark-content"
       />
-      <Header title="Facilidades" elevation={1} />
+      <Header title="Facilidades" elevation={2} />
       <ScrollView
         contentContainerStyle={styles.contentContainer}
         overScrollMode="never">
