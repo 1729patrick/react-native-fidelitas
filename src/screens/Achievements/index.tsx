@@ -1,6 +1,6 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StatusBar, Text } from 'react-native';
+import AchievementList from '~/components/organisms/lists/Archievements';
 import Header from '../../components/atoms/Header';
 import Achievements from '../../components/templates/Achievements';
 import useStatusBar from '../../hooks/useStatusBar';
@@ -28,29 +28,32 @@ const achievements = [
 export default () => {
   useStatusBar(true);
 
-  const achievements_ = [
-    ...achievements,
-    ...achievements,
-    ...achievements,
-    ...achievements,
-  ];
-
   return (
-    <>
-      <StatusBar
-        translucent
-        backgroundColor="rgba(0, 0, 0, 0)"
-        barStyle="dark-content"
-      />
-      <Header
-        showBack={false}
-        title="Conquistas"
-        elevation={1}
-        RightContent={
-          <Text style={styles.progressGlobal}>0/{achievements_.length}</Text>
-        }
-      />
-      <Achievements achievements={achievements_} />
-    </>
+    <Achievements
+      statusBar={
+        <StatusBar
+          translucent
+          backgroundColor="rgba(0, 0, 0, 0)"
+          barStyle="dark-content"
+        />
+      }
+      header={
+        <Header
+          showBack={false}
+          title="Conquistas"
+          elevation={1}
+          RightContent={
+            <Text style={styles.progressGlobal}>0/{achievements.length}</Text>
+          }
+        />
+      }
+      list={
+        <AchievementList
+          data={achievements}
+          style={styles.contentContainer}
+          onPress={e => console.log(e)}
+        />
+      }
+    />
   );
 };

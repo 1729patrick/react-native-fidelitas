@@ -1,9 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { BackHandler, StatusBar } from 'react-native';
 import Header from '../../components/atoms/Header';
 import Logo from '../../components/atoms/Logo';
-import { Step1, Step2, Step3 } from '../../components/molecules/forms/Register';
+import { Step1, Step2, Step3 } from '../../components/organisms/forms/Register';
 import RegisterStep from '../../components/organisms/RegisterStep';
 import styles from './styles';
 import Register, { RegisterHandler } from '../../components/templates/Register';

@@ -18,6 +18,7 @@ import WorkingHours from '../../organisms/WorkingHours';
 import { useNavigation } from '@react-navigation/native';
 import useStatusBar from '../../../hooks/useStatusBar';
 import Line from '../../atoms/Line';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
@@ -28,7 +29,7 @@ const company = {
 const Home = () => {
   const [dark, setDark] = useState(false);
   const translationY = useSharedValue(0);
-  const { navigate } = useNavigation();
+  const { navigate } = useNavigation<StackNavigationProp<any>>();
   useStatusBar(dark);
 
   const scrollHandler = useAnimatedScrollHandler(event => {

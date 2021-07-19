@@ -1,14 +1,7 @@
 import { StyleSheet } from 'react-native';
-import StyleGuide from '../../../util/StyleGuide';
-import { TOTAL_HEADER_HEIGHT } from '../../atoms/Header/constants';
-import { BOTTOM_TAB_BAR_HEIGHT } from '../../organisms/TabBar/Bottom/constants';
+import StyleGuide from '~/util/StyleGuide';
 
 export default StyleSheet.create({
-  contentContainer: {
-    paddingTop: TOTAL_HEADER_HEIGHT + StyleGuide.spacing * 2,
-    paddingBottom: BOTTOM_TAB_BAR_HEIGHT + StyleGuide.spacing,
-    paddingHorizontal: StyleGuide.spacing * 2,
-  },
   border: {
     borderWidth: 1,
     borderColor: StyleGuide.palette.border,

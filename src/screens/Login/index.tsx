@@ -3,7 +3,7 @@ import React from 'react';
 import { Dimensions, StatusBar } from 'react-native';
 import Logo from '../../components/atoms/Logo';
 import Header from '../../components/atoms/Header';
-import LoginForm from '../../components/molecules/forms/Login';
+import LoginForm from '../../components/organisms/forms/Login';
 import Login from '../../components/templates/Login';
 
 const { width } = Dimensions.get('window');
