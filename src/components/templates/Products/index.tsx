@@ -1,9 +1,8 @@
 import React from 'react';
 import { Image, Text, View } from 'react-native';
-import Animated from 'react-native-reanimated';
 import { Item } from '../../../screens/Products';
 import styles from './styles';
-import { RectButton, ScrollView } from 'react-native-gesture-handler';
+import { RectButton } from 'react-native-gesture-handler';
 import StyleGuide from '../../../util/StyleGuide';
 
 type MenuProps = {
@@ -14,7 +13,7 @@ const Products: React.FC<MenuProps> = ({ items }) => {
   return (
     <View style={styles.container}>
       {items.map(item => (
-        <View style={styles.border}>
+        <View style={styles.border} key={item.title}>
           <RectButton
             style={styles.product}
             key={item.title}

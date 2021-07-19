@@ -1,6 +1,6 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/core';
-import React, { useRef } from 'react';
-import { Text, View } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { StatusBar, Text, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { TextInput } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -18,6 +18,7 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   interpolateColor,
+  runOnJS,
 } from 'react-native-reanimated';
 
 import { ScrollView } from 'react-native-gesture-handler';
@@ -169,10 +170,11 @@ type ParamList = {
 };
 
 export default () => {
-  useStatusBar(true);
   const { push } = useNavigation<StackNavigationProp<any>>();
   const { params } = useRoute<RouteProp<ParamList, 'Menu'>>();
   const translationY = useSharedValue(0);
+  const [dark, setDark] = useState(false);
+  useStatusBar(dark);
 
   const scrollHandler = useAnimatedScrollHandler(event => {
     translationY.value = event.contentOffset.y;
@@ -215,6 +217,8 @@ export default () => {
       Extrapolate.CLAMP,
     );
 
+    runOnJS(setDark)(translationY.value >= 34.99);
+
     return {
       top,
       backgroundColor,
@@ -225,6 +229,12 @@ export default () => {
   return (
     <>
       <View style={styles.container}>
+        <StatusBar
+          translucent
+          backgroundColor="rgba(0, 0, 0, 0)"
+          barStyle={dark ? 'dark-content' : 'light-content'}
+        />
+
         <AnimatedScrollView
           overScrollMode="never"
           onScroll={scrollHandler}
