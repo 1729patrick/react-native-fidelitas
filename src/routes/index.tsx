@@ -1,6 +1,9 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  StackNavigationOptions,
+} from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Welcome from '../screens/Welcome';
@@ -19,13 +22,26 @@ import Profile from '../screens/Profile';
 import vertical from './animations/vertical';
 import horizontal from './animations/horizontal';
 import Products from '../screens/Products';
+import { TransitionSpec } from '@react-navigation/stack/lib/typescript/src/types';
 
-const optionsVertical = {
-  cardStyleInterpolator: vertical,
+type TransitionSpecType = {
+  open: TransitionSpec;
+  close: TransitionSpec;
 };
 
-const optionsHorizontal = {
+const transitionSpec: TransitionSpecType = {
+  open: { animation: 'timing', config: { duration: 250 } },
+  close: { animation: 'timing', config: { duration: 250 } },
+};
+
+const optionsVertical: StackNavigationOptions = {
+  cardStyleInterpolator: vertical,
+  transitionSpec,
+};
+
+const optionsHorizontal: StackNavigationOptions = {
   cardStyleInterpolator: horizontal,
+  transitionSpec,
 };
 
 const HomeStack = createStackNavigator();
