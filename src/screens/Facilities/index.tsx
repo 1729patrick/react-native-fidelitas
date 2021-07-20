@@ -1,21 +1,24 @@
 import React from 'react';
-import { Text, ScrollView, StatusBar } from 'react-native';
+import { StatusBar } from 'react-native';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
-import styles from './styles';
 import StyleGuide from '../../util/StyleGuide';
 import Header from '../../components/atoms/Header';
 import useHideTabBar from '../../hooks/useHideTabBar';
-import { RectButton } from 'react-native-gesture-handler';
+import FacilitiesList from '~/components/organisms/lists/Facilities';
+import styles from './styles';
+import Facilities from '~/components/templates/Facilities';
 
 const facilities = [
   {
+    id: 'Wifi',
     title: 'Wifi',
     icon: (
       <MaterialIcon name="wifi" color={StyleGuide.palette.primary} size={27} />
     ),
   },
   {
+    id: 'Permitido Fumar',
     title: 'Permitido Fumar',
     icon: (
       <MaterialIcon
@@ -26,12 +29,14 @@ const facilities = [
     ),
   },
   {
+    id: 'Bebidas alcoólica',
     title: 'Bebidas alcoólica',
     icon: (
       <EntypoIcon name="drink" color={StyleGuide.palette.primary} size={23} />
     ),
   },
   {
+    id: 'Bom para almoçar',
     title: 'Bom para almoçar',
     icon: (
       <MaterialIcon
@@ -42,6 +47,7 @@ const facilities = [
     ),
   },
   {
+    id: 'Bom para jantar',
     title: 'Bom para jantar',
     icon: (
       <MaterialIcon
@@ -52,6 +58,7 @@ const facilities = [
     ),
   },
   {
+    id: 'Aceitamos Multibanco',
     title: 'Aceitamos Multibanco',
     icon: (
       <MaterialIcon
@@ -62,6 +69,7 @@ const facilities = [
     ),
   },
   {
+    id: 'Aceitamos Dinheiro',
     title: 'Aceitamos Dinheiro',
     icon: (
       <MaterialIcon
@@ -73,36 +81,24 @@ const facilities = [
   },
 ];
 
-type FacilitiesProps = {};
-
-const Facilities: React.FC<FacilitiesProps> = () => {
+export default () => {
   useHideTabBar();
 
   return (
     <>
-      <StatusBar
-        translucent
-        backgroundColor="rgba(0, 0, 0, 0)"
-        barStyle="dark-content"
+      <Facilities
+        statusBar={
+          <StatusBar
+            translucent
+            backgroundColor="rgba(0, 0, 0, 0)"
+            barStyle="dark-content"
+          />
+        }
+        header={<Header title="Facilidades" elevation={2} />}
+        list={
+          <FacilitiesList data={facilities} style={styles.contentContainer} />
+        }
       />
-      <Header title="Facilidades" elevation={2} />
-      <ScrollView
-        contentContainerStyle={styles.contentContainer}
-        overScrollMode="never">
-        {[...facilities, ...facilities, ...facilities, ...facilities].map(
-          ({ title, icon }, index) => (
-            <RectButton
-              style={styles.item}
-              key={index}
-              rippleColor={StyleGuide.palette.primary}>
-              <Text style={styles.itemTitle}>{title}</Text>
-              {icon}
-            </RectButton>
-          ),
-        )}
-      </ScrollView>
     </>
   );
 };
-
-export default Facilities;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dimensions, Text, View } from 'react-native';
-import StyleGuide from '../../../util/StyleGuide';
-import Map from '../../molecules/Map';
+import Map from '~/components/molecules/Map';
+import StyleGuide from '~/util/StyleGuide';
 import styles from './styles';
 
 const { width } = Dimensions.get('window');

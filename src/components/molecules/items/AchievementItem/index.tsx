@@ -14,7 +14,7 @@ export type AchievementType = {
 };
 
 type AchievementProps = {
-  onPress: (args: Partial<AchievementType>) => void;
+  onPress?: (args: Partial<AchievementType>) => void;
 } & AchievementType;
 
 const AchievementItem: React.FC<AchievementProps> = ({
@@ -30,7 +30,7 @@ const AchievementItem: React.FC<AchievementProps> = ({
       <RectButton
         style={styles.item}
         rippleColor={StyleGuide.palette.secondary}
-        onPress={() => onPress({ title })}>
+        onPress={() => onPress?.({ title })}>
         <View style={styles.progress}>
           <CircularProgress progress={(completed / total) * 100} />
           <Text style={styles.needMore}>

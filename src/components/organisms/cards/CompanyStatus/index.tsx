@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import StyleGuide from '../../../util/StyleGuide';
+import StyleGuide from '~/util/StyleGuide';
 import styles from './styles';
 
 const areas = ['Portuguesa', '•', 'Tradicional', '•', 'Marinha'];

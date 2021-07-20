@@ -1,22 +1,22 @@
 import React from 'react';
 import { View, Text, Linking } from 'react-native';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import StyleGuide from '../../../util/StyleGuide';
-import RoundButton from '../../atoms/buttons/RoundButton';
+import RoundButton from '~/components/atoms/buttons/RoundButton';
+import StyleGuide from '~/util/StyleGuide';
 import styles from './styles';
 
 const contacts = [
   {
     contact: '+351 999111313',
-    type: 'phone',
+    type: 'phone' as 'phone' | 'mail',
   },
   {
     contact: '+351 87f3281802',
-    type: 'phone',
+    type: 'phone' as 'phone' | 'mail',
   },
   {
     contact: 'pastel@bacalhau.pt',
-    type: 'mail',
+    type: 'mail' as 'phone' | 'mail',
   },
 ];
 const Contacts = () => {

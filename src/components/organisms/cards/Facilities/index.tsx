@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import RectButton from '../../atoms/buttons/RectButton';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
-import StyleGuide from '../../../util/StyleGuide';
 import styles from './styles';
+import RectButton from '~/components/atoms/buttons/RectButton';
+import StyleGuide from '~/util/StyleGuide';
 
 const facilities = [
   {
