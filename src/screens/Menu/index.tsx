@@ -8,12 +8,10 @@ import useStatusBar from '../../hooks/useStatusBar';
 
 import styles from './styles';
 import StyleGuide from '../../util/StyleGuide';
-import Menu from '../../components/templates/Menu';
 import { StackNavigationProp } from '@react-navigation/stack';
 import Animated, {
   Extrapolate,
   interpolate,
-  interpolateColors,
   useAnimatedScrollHandler,
   useAnimatedStyle,
   useSharedValue,
@@ -22,27 +20,23 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { ScrollView } from 'react-native-gesture-handler';
+import Categories from '~/components/organisms/lists/Categories';
+import { CategoryType } from '~/components/molecules/items/CategoryItem';
+import Menu from '~/components/templates/Menu';
 
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
 
-export type Item = {
-  title: string;
-  type: 'category' | 'product';
-  description?: string;
-  image: any;
-  price?: number;
-  items?: Item[];
-};
-
 const image = require('../../assets/background_home.jpg');
 
-const items_: Item[] = [
+const items_: CategoryType[] = [
   {
+    id: 'Produtos Naturais',
     title: 'Produtos Naturais',
     type: 'category',
     image,
     items: [
       {
+        id: 'Chá Clássico',
         title: 'Chá Clássico',
         description: 'Camomila, Capim Limão, Hortelã',
         type: 'product',
@@ -50,6 +44,7 @@ const items_: Item[] = [
         price: 2,
       },
       {
+        id: 'Chocolate Quente',
         title: 'Chocolate Quente',
         description: 'Chocolate Quente meio amargo - 230ml',
         type: 'product',
@@ -57,6 +52,7 @@ const items_: Item[] = [
         price: 4,
       },
       {
+        id: 'Pão Clássico',
         title: 'Pão Clássico',
         description: 'Camomila, Capim Limão, Hortelã',
         type: 'product',
@@ -64,6 +60,7 @@ const items_: Item[] = [
         price: 8,
       },
       {
+        id: 'Batata Quente',
         title: 'Batata Quente',
         description: 'Chocolate Quente meio amargo - 230ml',
         type: 'product',
@@ -73,11 +70,13 @@ const items_: Item[] = [
     ],
   },
   {
+    id: 'Produtos Muito Naturais',
     title: 'Produtos Muito Naturais',
     type: 'category',
     image,
     items: [
       {
+        id: 'Chá Clássico',
         title: 'Chá Clássico',
         description: 'Camomila, Capim Limão, Hortelã',
         type: 'product',
@@ -85,6 +84,7 @@ const items_: Item[] = [
         price: 2,
       },
       {
+        id: 'Chocolate Quente',
         title: 'Chocolate Quente',
         description: 'Chocolate Quente meio amargo - 230ml',
         type: 'product',
@@ -92,6 +92,7 @@ const items_: Item[] = [
         price: 4,
       },
       {
+        id: 'Pão Clássico',
         title: 'Pão Clássico',
         description: 'Camomila, Capim Limão, Hortelã',
         type: 'product',
@@ -99,6 +100,7 @@ const items_: Item[] = [
         price: 8,
       },
       {
+        id: 'Batata Quente',
         title: 'Batata Quente',
         description: 'Chocolate Quente meio amargo - 230ml',
         type: 'product',
@@ -108,11 +110,13 @@ const items_: Item[] = [
     ],
   },
   {
+    id: 'Produtos Muito Mais Naturais',
     title: 'Produtos Muito Mais Naturais',
     type: 'category',
     image,
     items: [
       {
+        id: 'Chá Clássico',
         title: 'Chá Clássico',
         description: 'Camomila, Capim Limão, Hortelã',
         type: 'product',
@@ -120,6 +124,7 @@ const items_: Item[] = [
         price: 2,
       },
       {
+        id: 'Chocolate Quente',
         title: 'Chocolate Quente',
         description: 'Chocolate Quente meio amargo - 230ml',
         type: 'product',
@@ -127,6 +132,7 @@ const items_: Item[] = [
         price: 4,
       },
       {
+        id: 'Pão Clássico',
         title: 'Pão Clássico',
         description: 'Camomila, Capim Limão, Hortelã',
         type: 'product',
@@ -134,6 +140,7 @@ const items_: Item[] = [
         price: 8,
       },
       {
+        id: 'Batata Quente',
         title: 'Batata Quente',
         description: 'Chocolate Quente meio amargo - 230ml',
         type: 'product',
@@ -166,7 +173,7 @@ const items: Item[] = [
 ];
 
 type ParamList = {
-  Menu: { title: string; items: Item[] };
+  Menu: { title: string; items: CategoryType[] };
 };
 
 export default () => {
@@ -182,7 +189,7 @@ export default () => {
 
   const preventDuplicateNavigationRef = useRef<number>(0);
 
-  const openProducts = ({ items, title }: Item) => {
+  const openProducts = ({ items, title }: CategoryType) => {
     const fiveSeconds = 600 * 2;
     if (
       new Date().getTime() - preventDuplicateNavigationRef.current <=
@@ -227,14 +234,27 @@ export default () => {
   }, [translationY]);
 
   return (
-    <>
-      <View style={styles.container}>
+    <Menu
+      statusBar={
         <StatusBar
           translucent
           backgroundColor="rgba(0, 0, 0, 0)"
           barStyle={dark ? 'dark-content' : 'light-content'}
         />
-
+      }
+      search={
+        <Animated.View style={[styles.searchContainer, searchStyles]}>
+          <View style={[styles.search]}>
+            <Icon name="search1" size={23} color={StyleGuide.palette.app} />
+            <TextInput
+              placeholder={'O que você quer comer?'}
+              placeholderTextColor={StyleGuide.palette.secondary}
+              style={styles.input}
+            />
+          </View>
+        </Animated.View>
+      }
+      content={
         <AnimatedScrollView
           overScrollMode="never"
           onScroll={scrollHandler}
@@ -250,20 +270,9 @@ export default () => {
             </Text>
           </FastImage>
 
-          <Menu items={params?.items || items} openProducts={openProducts} />
+          <Categories data={params?.items || items} onPress={openProducts} />
         </AnimatedScrollView>
-
-        <Animated.View style={[styles.searchContainer, searchStyles]}>
-          <View style={[styles.search]}>
-            <Icon name="search1" size={23} color={StyleGuide.palette.app} />
-            <TextInput
-              placeholder={'O que você quer comer?'}
-              placeholderTextColor={StyleGuide.palette.secondary}
-              style={styles.input}
-            />
-          </View>
-        </Animated.View>
-      </View>
-    </>
+      }
+    />
   );
 };

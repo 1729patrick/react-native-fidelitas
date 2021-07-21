@@ -7,6 +7,7 @@ type ListProps = {
   keyExtractor?: any;
   style?: StyleProp<ViewStyle>;
   onPress?: (args: any) => void;
+  horizontal?: boolean;
 };
 
 const List: React.FC<ListProps> = ({
@@ -15,6 +16,7 @@ const List: React.FC<ListProps> = ({
   keyExtractor = ({ id }: { id: number | string }) => id,
   style,
   onPress,
+  horizontal,
 }) => {
   return (
     <FlatList
@@ -24,6 +26,7 @@ const List: React.FC<ListProps> = ({
       keyExtractor={keyExtractor}
       contentContainerStyle={style}
       overScrollMode="never"
+      horizontal={horizontal}
     />
   );
 };

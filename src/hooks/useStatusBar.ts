@@ -1,11 +1,14 @@
 import { useNavigation } from '@react-navigation/core';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useEffect, useRef } from 'react';
 import { StatusBar } from 'react-native';
 
 const useStatusBar = (dark: boolean) => {
   const conditionRef = useRef(dark);
 
-  const { addListener, removeListener } = useNavigation();
+  const { addListener, removeListener } =
+    useNavigation<StackNavigationProp<any>>();
+
   useEffect(() => {
     conditionRef.current = dark;
     StatusBar.setBarStyle(dark ? 'dark-content' : 'light-content');

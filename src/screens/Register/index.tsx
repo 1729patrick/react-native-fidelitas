@@ -8,11 +8,12 @@ import RegisterStep from '../../components/organisms/RegisterStep';
 import styles from './styles';
 import Register, { RegisterHandler } from '../../components/templates/Register';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 export default () => {
   const currentIndexRef = useRef(0);
   const registerRef = useRef<RegisterHandler>(null);
-  const { replace, pop } = useNavigation();
+  const { replace, pop } = useNavigation<StackNavigationProp<any>>();
 
   const onComplete = () => {
     replace('Auth');

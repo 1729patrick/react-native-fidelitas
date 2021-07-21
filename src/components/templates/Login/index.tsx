@@ -3,6 +3,8 @@ import { View, ScrollView } from 'react-native';
 import styles from './styles';
 
 type LoginProps = {
+  statusBar: ReactNode;
+  header: ReactNode;
   logo: ReactNode;
   form: ReactNode;
 };

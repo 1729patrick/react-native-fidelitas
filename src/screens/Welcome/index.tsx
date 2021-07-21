@@ -11,9 +11,10 @@ import {
 import Welcome from '../../components/templates/Welcome';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 export default () => {
-  const { navigate } = useNavigation();
+  const { navigate } = useNavigation<StackNavigationProp<any>>();
 
   const onLogin = () => {
     navigate('Login');

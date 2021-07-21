@@ -1,9 +1,10 @@
 import React from 'react';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const useHideTabBar = () => {
-  const { getParent } = useNavigation();
-  
+  const { getParent } = useNavigation<StackNavigationProp<any>>();
+
   useFocusEffect(
     React.useCallback(() => {
       // hide
