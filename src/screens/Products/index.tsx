@@ -3,8 +3,11 @@ import React from 'react';
 
 import useStatusBar from '../../hooks/useStatusBar';
 
-import Products from '../../components/templates/Products';
 import Header from '../../components/atoms/Header';
+import ProductsList from '~/components/organisms/lists/Products';
+import { ProductType } from '~/components/molecules/items/ProductItem';
+import Product from '~/components/templates/Products';
+import styles from './styles';
 
 export type Item = {
   title: string;
@@ -16,7 +19,7 @@ export type Item = {
 };
 
 type ParamList = {
-  Products: { title: string; items: Item[] };
+  Products: { title: string; items: ProductType[] };
 };
 
 export default () => {
@@ -24,9 +27,15 @@ export default () => {
   const { params } = useRoute<RouteProp<ParamList, 'Products'>>();
 
   return (
-    <>
-      <Header title={params.title} elevation={2} />
-      <Products items={params.items} />
-    </>
+    <Product
+      header={<Header title={params.title} elevation={2} />}
+      list={
+        <ProductsList
+          data={params.items || []}
+          style={styles.contentContainer}
+          onPress={x => console.log(x)}
+        />
+      }
+    />
   );
 };

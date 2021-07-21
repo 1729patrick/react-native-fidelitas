@@ -26,7 +26,7 @@ const AchievementItem: React.FC<AchievementProps> = ({
   onPress,
 }) => {
   return (
-    <View style={styles.border} key={title}>
+    <View style={styles.border}>
       <RectButton
         style={styles.item}
         rippleColor={StyleGuide.palette.secondary}
