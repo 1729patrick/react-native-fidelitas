@@ -4,10 +4,7 @@ import { FlatList, StyleProp, ViewStyle } from 'react-native';
 type ListProps = {
   data: { [key: string]: any }[];
   item: ElementType;
-  keyExtractor?: (
-    args: { [key: string]: any },
-    index: number,
-  ) => string | undefined;
+  keyExtractor?: any;
   style?: StyleProp<ViewStyle>;
   onPress?: (args: any) => void;
   horizontal?: boolean;
@@ -26,7 +23,9 @@ const List: React.FC<ListProps> = ({
   return (
     <FlatList
       showsVerticalScrollIndicator={false}
-      renderItem={({ item }) => <Item {...item} onPress={onPress} />}
+      renderItem={({ item }) => (
+        <Item {...item} onPress={item.onPress || onPress} />
+      )}
       data={data}
       keyExtractor={keyExtractor}
       contentContainerStyle={style}

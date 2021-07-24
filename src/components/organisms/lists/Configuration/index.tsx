@@ -14,7 +14,6 @@ type ConfigurationListProps = {
 
 const ConfigurationList: React.FC<ConfigurationListProps> = ({
   style,
-  onPress,
   data,
   header,
 }) => {
@@ -23,9 +22,8 @@ const ConfigurationList: React.FC<ConfigurationListProps> = ({
       item={ConfigurationItem}
       data={data}
       style={style}
-      onPress={onPress}
       header={header}
-      keyExtractor={({ title }) => title}
+      keyExtractor={({ title }: ConfigurationType) => title}
     />
   );
 };

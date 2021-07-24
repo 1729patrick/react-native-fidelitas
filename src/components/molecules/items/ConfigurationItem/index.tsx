@@ -8,11 +8,10 @@ import styles from './styles';
 export type ConfigurationType = {
   title: string;
   icon: ReactElement;
+  onPress: () => void;
 };
 
-type ConfigurationProps = {
-  onPress: (args: Partial<ConfigurationType>) => void;
-} & ConfigurationType;
+type ConfigurationProps = {} & ConfigurationType;
 
 const ConfigurationItem: React.FC<ConfigurationProps> = ({
   title,
@@ -25,7 +24,7 @@ const ConfigurationItem: React.FC<ConfigurationProps> = ({
         key={title}
         style={styles.button}
         rippleColor={StyleGuide.palette.primary}
-        onPress={() => onPress({ title })}>
+        onPress={onPress}>
         {icon}
         <Text style={styles.title}>{title}</Text>
       </RectButton>

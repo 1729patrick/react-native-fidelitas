@@ -23,6 +23,9 @@ import vertical from './animations/vertical';
 import horizontal from './animations/horizontal';
 import Products from '../screens/Products';
 import { TransitionSpec } from '@react-navigation/stack/lib/typescript/src/types';
+import Notifications from '~/screens/Notifications';
+import TermsAndPrivacy from '~/screens/TermsAndPrivacy';
+import Languages from '~/screens/Languages';
 
 type TransitionSpecType = {
   open: TransitionSpec;
@@ -83,6 +86,35 @@ const MenuNavigator = () => {
   );
 };
 
+const ProfileStack = createStackNavigator();
+
+const ProfileNavigator = () => {
+  return (
+    <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
+      <ProfileStack.Screen
+        name="Main"
+        component={Profile}
+        options={optionsVertical}
+      />
+      <ProfileStack.Screen
+        name="Notifications"
+        component={Notifications}
+        options={optionsVertical}
+      />
+      <ProfileStack.Screen
+        name="TermsAndPrivacy"
+        component={TermsAndPrivacy}
+        options={optionsVertical}
+      />
+      <ProfileStack.Screen
+        name="Languages"
+        component={Languages}
+        options={optionsVertical}
+      />
+    </ProfileStack.Navigator>
+  );
+};
+
 const AuthTabNavigator = createBottomTabNavigator();
 
 const Auth = () => {
@@ -94,7 +126,7 @@ const Auth = () => {
       <AuthTabNavigator.Screen name="Menu" component={MenuNavigator} />
       <AuthTabNavigator.Screen name="Reservation" component={Reservation} />
       <AuthTabNavigator.Screen name="Achievements" component={Achievements} />
-      <AuthTabNavigator.Screen name="Profile" component={Profile} />
+      <AuthTabNavigator.Screen name="Profile" component={ProfileNavigator} />
     </AuthTabNavigator.Navigator>
   );
 };

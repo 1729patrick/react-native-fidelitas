@@ -7,17 +7,15 @@ export default StyleSheet.create({
     borderColor: StyleGuide.palette.border,
     marginBottom: StyleGuide.spacing * 2,
     borderRadius: StyleGuide.borderRadius * 2,
-  },
-  button: {
     padding: StyleGuide.spacing * 1.75,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#fff',
-    borderRadius: StyleGuide.borderRadius * 2,
   },
   title: {
     ...StyleGuide.typography.subhead,
     color: StyleGuide.palette.primary,
     paddingLeft: StyleGuide.spacing * 2,
   },
+  checkbox: { marginLeft: 'auto' },
 });
