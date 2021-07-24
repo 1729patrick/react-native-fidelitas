@@ -30,12 +30,6 @@ export default () => {
       ),
       onPress: () => navigate('Languages'),
     },
-    // {
-    //   title: 'Envie-nos um feedback',
-    //   icon: (
-    //     <MdIcon name="feedback" color={StyleGuide.palette.primary} size={25} />
-    //   ),
-    // },
     {
       title: 'Whatsapp',
       icon: (

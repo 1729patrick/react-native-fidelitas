@@ -1,5 +1,11 @@
-import React, { ElementType, ReactElement } from 'react';
-import { FlatList, StyleProp, ViewStyle } from 'react-native';
+import React, { ElementType, ReactElement, useRef } from 'react';
+import {
+  FlatList,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 
 type ListProps = {
   data: { [key: string]: any }[];
@@ -9,6 +15,8 @@ type ListProps = {
   onPress?: (args: any) => void;
   horizontal?: boolean;
   header?: ReactElement;
+  onScrollUp?: () => void;
+  onScrollDown?: () => void;
 };
 
 const List: React.FC<ListProps> = ({
@@ -19,7 +27,30 @@ const List: React.FC<ListProps> = ({
   onPress,
   horizontal,
   header,
+  onScrollUp,
+  onScrollDown,
 }) => {
+  const lastOffsetRef = useRef(0);
+  const maxOffsetRef = useRef(0);
+
+  const onScroll = ({
+    nativeEvent,
+  }: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const { y } = nativeEvent.contentOffset;
+
+    if (y > lastOffsetRef.current) {
+      maxOffsetRef.current = y - 50;
+
+      onScrollDown?.();
+    } else if (y < maxOffsetRef.current) {
+      maxOffsetRef.current = y;
+
+      onScrollUp?.();
+    }
+
+    lastOffsetRef.current = y;
+  };
+
   return (
     <FlatList
       showsVerticalScrollIndicator={false}
@@ -27,9 +58,11 @@ const List: React.FC<ListProps> = ({
         <Item {...item} onPress={item.onPress || onPress} />
       )}
       data={data}
+      onScroll={onScrollUp && onScrollDown ? onScroll : undefined}
       keyExtractor={keyExtractor}
       contentContainerStyle={style}
       overScrollMode="never"
+      scrollEventThrottle={16}
       horizontal={horizontal}
       ListHeaderComponent={header}
     />

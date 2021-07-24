@@ -6,10 +6,12 @@ import Header from '../../components/atoms/Header';
 import LoginForm from '../../components/organisms/forms/Login';
 import Login from '../../components/templates/Login';
 import { StackNavigationProp } from '@react-navigation/stack';
+import useStatusBar from '~/hooks/useStatusBar';
 
 const { width } = Dimensions.get('window');
 
 export default () => {
+  useStatusBar(true);
   const { replace } = useNavigation<StackNavigationProp<any>>();
 
   const onLogin = () => {

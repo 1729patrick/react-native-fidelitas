@@ -7,9 +7,9 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
+    width: 70,
+    height: 70,
+    borderRadius: 35,
   },
   info: {
     paddingLeft: StyleGuide.spacing * 2,

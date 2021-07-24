@@ -31,7 +31,7 @@ export default () => {
       header={<Header title={params.title} elevation={2} />}
       list={
         <ProductsList
-          data={[...params.items, ...params.items] || []}
+          data={params.items || []}
           style={styles.contentContainer}
           onPress={x => console.log(x)}
         />

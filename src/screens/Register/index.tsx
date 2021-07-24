@@ -9,8 +9,11 @@ import styles from './styles';
 import Register, { RegisterHandler } from '../../components/templates/Register';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { StackNavigationProp } from '@react-navigation/stack';
+import useStatusBar from '~/hooks/useStatusBar';
 
 export default () => {
+  useStatusBar(true);
+
   const currentIndexRef = useRef(0);
   const registerRef = useRef<RegisterHandler>(null);
   const { replace, pop } = useNavigation<StackNavigationProp<any>>();

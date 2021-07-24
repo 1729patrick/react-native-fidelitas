@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { StatusBar, Text } from 'react-native';
+import FloatingButton, {
+  FloatingButtonHandler,
+} from '~/components/atoms/buttons/FloatingButton';
 import AchievementList from '~/components/organisms/lists/Archievements';
 import Header from '../../components/atoms/Header';
 import Achievements from '../../components/templates/Achievements';
@@ -28,6 +31,8 @@ const achievements = [
 ];
 
 export default () => {
+  const floatingButtonRef = useRef<FloatingButtonHandler>();
+
   useStatusBar(true);
 
   return (
@@ -51,11 +56,14 @@ export default () => {
       }
       list={
         <AchievementList
-          data={achievements}
+          data={[...achievements, ...achievements, ...achievements]}
           style={styles.contentContainer}
           onPress={e => console.log(e)}
+          onScrollUp={() => floatingButtonRef.current?.show()}
+          onScrollDown={() => floatingButtonRef.current?.hide()}
         />
       }
+      action={<FloatingButton ref={floatingButtonRef} />}
     />
   );
 };

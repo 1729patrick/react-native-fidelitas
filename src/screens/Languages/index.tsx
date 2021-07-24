@@ -12,15 +12,18 @@ export default () => {
 
   const items = [
     {
+      id: 'pt',
       title: 'Português',
 
       onPress: () => console.log('pt'),
     },
     {
+      id: 'en',
       title: 'Inglês',
       onPress: () => console.log('en'),
     },
     {
+      id: 'es',
       title: 'Espanhol',
       onPress: () => console.log('es'),
     },

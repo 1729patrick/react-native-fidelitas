@@ -9,15 +9,26 @@ type AchievementListProps = {
   style?: StyleProp<ViewStyle>;
   onPress?: (args: AlertType) => void;
   data: AchievementType[];
+  onScrollUp: () => void;
+  onScrollDown: () => void;
 };
 
 const AchievementList: React.FC<AchievementListProps> = ({
   style,
   onPress,
   data,
+  onScrollUp,
+  onScrollDown,
 }) => {
   return (
-    <List item={AchievementItem} data={data} style={style} onPress={onPress} />
+    <List
+      item={AchievementItem}
+      data={data}
+      style={style}
+      onPress={onPress}
+      onScrollUp={onScrollUp}
+      onScrollDown={onScrollDown}
+    />
   );
 };
 
