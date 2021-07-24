@@ -1,13 +1,17 @@
-import React, { ElementType } from 'react';
+import React, { ElementType, ReactElement } from 'react';
 import { FlatList, StyleProp, ViewStyle } from 'react-native';
 
 type ListProps = {
   data: { [key: string]: any }[];
   item: ElementType;
-  keyExtractor?: any;
+  keyExtractor?: (
+    args: { [key: string]: any },
+    index: number,
+  ) => string | undefined;
   style?: StyleProp<ViewStyle>;
   onPress?: (args: any) => void;
   horizontal?: boolean;
+  header?: ReactElement;
 };
 
 const List: React.FC<ListProps> = ({
@@ -17,6 +21,7 @@ const List: React.FC<ListProps> = ({
   style,
   onPress,
   horizontal,
+  header,
 }) => {
   return (
     <FlatList
@@ -27,6 +32,7 @@ const List: React.FC<ListProps> = ({
       contentContainerStyle={style}
       overScrollMode="never"
       horizontal={horizontal}
+      ListHeaderComponent={header}
     />
   );
 };

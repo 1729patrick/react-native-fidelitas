@@ -8,6 +8,7 @@ import styles from './styles';
 
 const achievements = [
   {
+    id: 'Crítico de Bacalhau',
     title: 'Crítico de Bacalhau',
     description:
       'Nos conte o que achou sobre o pedido feito através da aplicação.',
@@ -16,6 +17,7 @@ const achievements = [
     completed: 17,
   },
   {
+    id: 'Influenciador digital',
     title: 'Influenciador digital',
     description:
       'Indique a aplicação para 10 amigos que não possuem a aplicação instalada.',

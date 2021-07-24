@@ -91,7 +91,7 @@ const StyleGuide = {
     link: {
       fontSize: 14,
       fontFamily: 'Montserrat-Medium',
-      color: 'blue',
+      color: '#0582CA',
       paddingVertical: 4,
     },
   },

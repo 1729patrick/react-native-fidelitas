@@ -1,6 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
-import FastImage from 'react-native-fast-image';
+import { View } from 'react-native';
 import Line from '../../components/atoms/Line';
 import useStatusBar from '../../hooks/useStatusBar';
 import styles from './styles';
@@ -8,7 +7,10 @@ import styles from './styles';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import MdIcon from 'react-native-vector-icons/MaterialIcons';
 import StyleGuide from '../../util/StyleGuide';
-import { RectButton } from 'react-native-gesture-handler';
+import User from '~/components/atoms/User';
+
+import Profile from '~/components/templates/Profile';
+import ConfigurationList from '~/components/organisms/lists/Configuration';
 
 const items = [
   {
@@ -56,36 +58,27 @@ const items = [
     icon: <MdIcon name="logout" color={StyleGuide.palette.primary} size={25} />,
   },
 ];
+
 export default () => {
   useStatusBar(true);
 
   return (
     <View style={styles.container}>
-      <View style={styles.profile}>
-        <FastImage
-          source={{ uri: 'https://picsum.photos/200' }}
-          style={styles.image}
-        />
-        <View style={styles.profileInfo}>
-          <Text style={styles.userName}>Francisco Ferdinando</Text>
-          <Text style={styles.link}>Ver Perfil</Text>
-        </View>
-      </View>
-      <Line />
-
-      <View style={styles.items}>
-        {items.map(item => (
-          <View style={styles.border} key={item.title}>
-            <RectButton
-              key={item.title}
-              style={styles.item}
-              rippleColor={StyleGuide.palette.primary}>
-              {item.icon}
-              <Text style={styles.itemTitle}>{item.title}</Text>
-            </RectButton>
-          </View>
-        ))}
-      </View>
+      <Profile
+        list={
+          <ConfigurationList
+            data={items}
+            onPress={x => console.log(x)}
+            style={styles.contentContainer}
+            header={
+              <>
+                <User />
+                <Line />
+              </>
+            }
+          />
+        }
+      />
     </View>
   );
 };
