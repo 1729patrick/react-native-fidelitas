@@ -38,11 +38,11 @@ const List: React.FC<ListProps> = ({
   }: NativeSyntheticEvent<NativeScrollEvent>) => {
     const { y } = nativeEvent.contentOffset;
 
-    if (y > lastOffsetRef.current) {
+    if (y > lastOffsetRef.current && y > 0) {
       maxOffsetRef.current = y - 50;
 
       onScrollDown?.();
-    } else if (y < maxOffsetRef.current) {
+    } else if (y <= Math.max(maxOffsetRef.current, 0)) {
       maxOffsetRef.current = y;
 
       onScrollUp?.();
