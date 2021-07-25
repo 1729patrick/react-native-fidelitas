@@ -31,9 +31,9 @@ const company = {
 
 export default () => {
   const [dark, setDark] = useState(false);
+  useStatusBar(dark);
   const translationY = useSharedValue(0);
   const { navigate } = useNavigation<StackNavigationProp<any>>();
-  useStatusBar(dark);
 
   const scrollHandler = useAnimatedScrollHandler(event => {
     translationY.value = event.contentOffset.y;

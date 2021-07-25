@@ -1,3 +1,5 @@
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useRef } from 'react';
 import { StatusBar, Text } from 'react-native';
 import FloatingButton, {
@@ -31,9 +33,14 @@ const achievements = [
 ];
 
 export default () => {
-  const floatingButtonRef = useRef<FloatingButtonHandler>();
+  const floatingButtonRef = useRef<FloatingButtonHandler>(null);
+  const { navigate } = useNavigation<StackNavigationProp<any>>();
 
   useStatusBar(true);
+
+  const openQRCode = () => {
+    navigate('QRCode');
+  };
 
   return (
     <Achievements
@@ -63,7 +70,7 @@ export default () => {
           onScrollDown={() => floatingButtonRef.current?.hide()}
         />
       }
-      action={<FloatingButton ref={floatingButtonRef} />}
+      action={<FloatingButton ref={floatingButtonRef} onPress={openQRCode} />}
     />
   );
 };

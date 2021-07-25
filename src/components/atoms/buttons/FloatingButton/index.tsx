@@ -7,7 +7,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { ANIMATION_DURATION } from './contants';
+import { ANIMATION_DURATION } from './constants';
 import styles from './styles';
 
 export type FloatingButtonHandler = {
@@ -15,12 +15,12 @@ export type FloatingButtonHandler = {
   hide: () => void;
 };
 
-type FloatingButtonProps = {};
+type FloatingButtonProps = { onPress: () => void };
 
 const FloatingButton: React.ForwardRefRenderFunction<
   FloatingButtonHandler,
   FloatingButtonProps
-> = ({}, ref) => {
+> = ({ onPress }, ref) => {
   const animation = useSharedValue(1);
 
   const hide = useCallback(() => {
@@ -46,7 +46,7 @@ const FloatingButton: React.ForwardRefRenderFunction<
 
   return (
     <Animated.View style={[styles.container, containerStyle]}>
-      <RectButton style={styles.button}>
+      <RectButton style={styles.button} onPress={onPress}>
         <Icon name="qr-code-outline" color="#fff" size={26} />
       </RectButton>
     </Animated.View>

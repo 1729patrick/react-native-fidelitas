@@ -26,6 +26,7 @@ import { TransitionSpec } from '@react-navigation/stack/lib/typescript/src/types
 import Notifications from '~/screens/Notifications';
 import TermsAndPrivacy from '~/screens/TermsAndPrivacy';
 import Languages from '~/screens/Languages';
+import QRCode from '~/screens/QRCode';
 
 type TransitionSpecType = {
   open: TransitionSpec;
@@ -115,6 +116,25 @@ const ProfileNavigator = () => {
   );
 };
 
+const AchievementsStack = createStackNavigator();
+
+const AchievementsNavigator = () => {
+  return (
+    <AchievementsStack.Navigator screenOptions={{ headerShown: false }}>
+      <AchievementsStack.Screen
+        name="Main"
+        component={Achievements}
+        options={optionsVertical}
+      />
+      <AchievementsStack.Screen
+        name="QRCode"
+        component={QRCode}
+        options={optionsVertical}
+      />
+    </AchievementsStack.Navigator>
+  );
+};
+
 const AuthTabNavigator = createBottomTabNavigator();
 
 const Auth = () => {
@@ -125,7 +145,10 @@ const Auth = () => {
       <AuthTabNavigator.Screen name="Home" component={HomeNavigator} />
       <AuthTabNavigator.Screen name="Menu" component={MenuNavigator} />
       <AuthTabNavigator.Screen name="Reservation" component={Reservation} />
-      <AuthTabNavigator.Screen name="Achievements" component={Achievements} />
+      <AuthTabNavigator.Screen
+        name="Achievements"
+        component={AchievementsNavigator}
+      />
       <AuthTabNavigator.Screen name="Profile" component={ProfileNavigator} />
     </AuthTabNavigator.Navigator>
   );
