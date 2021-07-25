@@ -3,8 +3,7 @@ import StyleGuide from '~/util/StyleGuide';
 import { CAMERA_HEIGHT, CAMERA_WIDTH, SCANNER_SIZE } from './constants';
 
 export default StyleSheet.create({
-  container: {},
-  camera: { height: CAMERA_HEIGHT },
+  container: { ...StyleSheet.absoluteFillObject },
   left: {
     position: 'absolute',
     left: 0,
