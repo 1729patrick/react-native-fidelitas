@@ -20,8 +20,8 @@ import Location from '~/components/organisms/cards/Location';
 import WorkingHours from '~/components/organisms/cards/WorkingHours';
 import Facilities from '~/components/organisms/cards/Facilities';
 import useStatusBar from '~/hooks/useStatusBar';
-import { Line } from 'react-native-svg';
 import Home from '~/components/templates/Home';
+import Line from '~/components/atoms/Line';
 
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
@@ -88,7 +88,7 @@ export default () => {
       header={
         <>
           <AnimatedFastImage
-            source={require('../../assets/background_home.jpg')}
+            source={require('../../../assets/background_home.jpg')}
             resizeMode={FastImage.resizeMode.cover}
             style={[styles.image, animatedImage]}
           />

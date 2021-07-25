@@ -5,10 +5,11 @@ import { StatusBar, Text } from 'react-native';
 import FloatingButton, {
   FloatingButtonHandler,
 } from '~/components/atoms/buttons/FloatingButton';
+import Header from '~/components/atoms/Header';
 import AchievementList from '~/components/organisms/lists/Archievements';
-import Header from '../../components/atoms/Header';
-import Achievements from '../../components/templates/Achievements';
-import useStatusBar from '../../hooks/useStatusBar';
+import Achievements from '~/components/templates/Achievements';
+import useStatusBar from '~/hooks/useStatusBar';
+
 import styles from './styles';
 
 const achievements = [

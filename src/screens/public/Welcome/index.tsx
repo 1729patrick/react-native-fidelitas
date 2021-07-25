@@ -1,18 +1,19 @@
 import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import { StatusBar, View } from 'react-native';
-import RectButton from '../../components/atoms/buttons/RectButton';
+
+import styles from './styles';
+import Icon from 'react-native-vector-icons/AntDesign';
+import { StackNavigationProp } from '@react-navigation/stack';
+import useStatusBar from '~/hooks/useStatusBar';
+import RectButton from '~/components/atoms/buttons/RectButton';
+import Welcome from '~/components/templates/Welcome';
 import {
   Screen1,
   Screen2,
   Screen3,
   Screen4,
-} from '../../components/molecules/slides/Welcome';
-import Welcome from '../../components/templates/Welcome';
-import styles from './styles';
-import Icon from 'react-native-vector-icons/AntDesign';
-import { StackNavigationProp } from '@react-navigation/stack';
-import useStatusBar from '~/hooks/useStatusBar';
+} from '~/components/molecules/slides/Welcome';
 
 export default () => {
   useStatusBar(false);

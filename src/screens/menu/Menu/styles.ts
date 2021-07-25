@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet } from 'react-native';
-import StyleGuide from '../../util/StyleGuide';
+import StyleGuide from '~/util/StyleGuide';
 
 const { height } = Dimensions.get('window');
 

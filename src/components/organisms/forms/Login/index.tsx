@@ -9,7 +9,7 @@ type LoginProps = {
   onLogin: () => void;
 };
 
-const Login: React.FC<LoginProps> = ({ onLogin }) => {
+const LoginForm: React.FC<LoginProps> = ({ onLogin }) => {
   return (
     <View style={styles.container}>
       <Input placeholder="E-mail" />
@@ -24,4 +24,4 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   );
 };
 
-export default Login;
+export default LoginForm;

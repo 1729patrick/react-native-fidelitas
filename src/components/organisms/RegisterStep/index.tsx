@@ -12,7 +12,7 @@ type RegisterProps = {
   confirmIcon?: ReactNode;
 };
 
-const Register: React.FC<RegisterProps> = ({
+const RegisterStep: React.FC<RegisterProps> = ({
   form,
   title,
   description,
@@ -39,4 +39,4 @@ const Register: React.FC<RegisterProps> = ({
   );
 };
 
-export default Register;
+export default RegisterStep;

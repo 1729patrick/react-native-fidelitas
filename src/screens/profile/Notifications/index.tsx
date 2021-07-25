@@ -13,6 +13,7 @@ export default () => {
 
   const items = [
     {
+      id: 'E-mail',
       title: 'E-mail',
       icon: (
         <Ionicons
@@ -24,6 +25,7 @@ export default () => {
       onPress: () => console.log('mail'),
     },
     {
+      id: 'Push Notification',
       title: 'Push Notification',
       icon: (
         <Ionicons
@@ -35,6 +37,7 @@ export default () => {
       onPress: () => console.log('push'),
     },
     {
+      id: 'Mensagem de texto',
       title: 'Mensagem de texto',
       icon: (
         <Ionicons

@@ -4,10 +4,8 @@ import { StatusBar, Text, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { TextInput } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
-import useStatusBar from '../../hooks/useStatusBar';
 
 import styles from './styles';
-import StyleGuide from '../../util/StyleGuide';
 import { StackNavigationProp } from '@react-navigation/stack';
 import Animated, {
   Extrapolate,
@@ -23,10 +21,13 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Categories from '~/components/organisms/lists/Categories';
 import { CategoryType } from '~/components/molecules/items/CategoryItem';
 import Menu from '~/components/templates/Menu';
+import { Item } from '../Products';
+import useStatusBar from '~/hooks/useStatusBar';
+import StyleGuide from '~/util/StyleGuide';
 
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
 
-const image = require('../../assets/background_home.jpg');
+const image = require('../../../assets/background_home.jpg');
 
 const items_: CategoryType[] = [
   {
@@ -262,7 +263,7 @@ export default () => {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 80 }}>
           <FastImage
-            source={require('../../assets/background_menu.jpg')}
+            source={require('../../../assets/background_menu.jpg')}
             resizeMode={FastImage.resizeMode.cover}
             style={[styles.image]}>
             <Text style={styles.title}>

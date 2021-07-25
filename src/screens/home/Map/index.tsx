@@ -1,9 +1,9 @@
 import React from 'react';
 import { Dimensions, View } from 'react-native';
-import Header from '../../components/atoms/Header';
-import Map from '../../components/molecules/Map';
-import useHideTabBar from '../../hooks/useHideTabBar';
-import useStatusBar from '../../hooks/useStatusBar';
+import Header from '~/components/atoms/Header';
+import Map from '~/components/molecules/Map';
+import useHideTabBar from '~/hooks/useHideTabBar';
+import useStatusBar from '~/hooks/useStatusBar';
 
 const { width, height } = Dimensions.get('window');
 

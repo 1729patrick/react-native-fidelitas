@@ -5,29 +5,27 @@ import {
   StackNavigationOptions,
 } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-import Welcome from '../screens/Welcome';
-import Login from '../screens/Login';
-import Register from '../screens/Register';
-import Home from '../screens/Home';
-
-import TabBar from '../components/organisms/TabBar/Bottom';
-import StyleGuide from '../util/StyleGuide';
-import Facilities from '../screens/Facilities';
-import Map from '../screens/Map';
-import Achievements from '../screens/Achievements';
-import Menu from '../screens/Menu';
-import Reservation from '../screens/Reservation';
-import Profile from '../screens/Profile';
 import vertical from './animations/vertical';
 import horizontal from './animations/horizontal';
-import Products from '../screens/Products';
 import { TransitionSpec } from '@react-navigation/stack/lib/typescript/src/types';
-import Notifications from '~/screens/Notifications';
-import TermsAndPrivacy from '~/screens/TermsAndPrivacy';
-import Languages from '~/screens/Languages';
-import QRCode from '~/screens/QRCode';
-import PersonalInformation from '~/screens/PersonalInformation';
+import Facilities from '~/screens/home/Facilities';
+import Map from '~/screens/home/Map';
+import Home from '~/screens/home/Home';
+import Menu from '~/screens/menu/Menu';
+import Products from '~/screens/menu/Products';
+import Profile from '~/screens/profile/Profile';
+import Notifications from '~/screens/profile/Notifications';
+import TermsAndPrivacy from '~/screens/profile/TermsAndPrivacy';
+import Languages from '~/screens/profile/Languages';
+import PersonalInformation from '~/screens/profile/PersonalInformation';
+import QRCode from '~/screens/achievements/QRCode';
+import Reservation from '~/screens/reservation/Reservation';
+import StyleGuide from '~/util/StyleGuide';
+import Welcome from '~/screens/public/Welcome';
+import Login from '~/screens/public/Login';
+import Register from '~/screens/public/Register';
+import Achievements from '~/screens/achievements/Achievements';
+import TabBar from '~/components/organisms/TabBar/Bottom';
 
 type TransitionSpecType = {
   open: TransitionSpec;

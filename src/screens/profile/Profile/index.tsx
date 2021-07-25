@@ -1,18 +1,18 @@
 import React from 'react';
 import { Linking, View } from 'react-native';
-import Line from '../../components/atoms/Line';
-import useStatusBar from '../../hooks/useStatusBar';
 import styles from './styles';
 
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import MdIcon from 'react-native-vector-icons/MaterialIcons';
-import StyleGuide from '../../util/StyleGuide';
 
 import Profile from '~/components/templates/Profile';
 import ConfigurationList from '~/components/organisms/lists/Configuration';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import User from '~/components/molecules/User';
+import StyleGuide from '~/util/StyleGuide';
+import useStatusBar from '~/hooks/useStatusBar';
+import Line from '~/components/atoms/Line';
 
 export default () => {
   useStatusBar(true);

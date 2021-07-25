@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from '~/components/atoms/Header';
 import LanguagesList from '~/components/organisms/lists/Languages';
-import NotificationsList from '~/components/organisms/lists/Notifications';
 import Notifications from '~/components/templates/Notifications';
 import useHideTabBar from '~/hooks/useHideTabBar';
 

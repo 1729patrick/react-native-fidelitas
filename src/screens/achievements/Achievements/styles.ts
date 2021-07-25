@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import StyleGuide from '../../util/StyleGuide';
 import { TOTAL_HEADER_HEIGHT } from '~/components/atoms/Header/constants';
 import { BOTTOM_TAB_BAR_HEIGHT } from '~/components/organisms/TabBar/Bottom/constants';
+import StyleGuide from '~/util/StyleGuide';
 
 export default StyleSheet.create({
   progressGlobal: {

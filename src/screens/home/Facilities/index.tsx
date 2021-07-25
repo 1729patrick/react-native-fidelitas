@@ -2,12 +2,12 @@ import React from 'react';
 import { StatusBar } from 'react-native';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
-import StyleGuide from '../../util/StyleGuide';
-import Header from '../../components/atoms/Header';
-import useHideTabBar from '../../hooks/useHideTabBar';
 import FacilitiesList from '~/components/organisms/lists/Facilities';
 import styles from './styles';
 import Facilities from '~/components/templates/Facilities';
+import StyleGuide from '~/util/StyleGuide';
+import useHideTabBar from '~/hooks/useHideTabBar';
+import Header from '~/components/atoms/Header';
 
 const facilities = [
   {

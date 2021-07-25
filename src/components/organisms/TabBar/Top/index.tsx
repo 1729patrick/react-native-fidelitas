@@ -5,6 +5,7 @@ import { LayoutChangeEvent } from 'react-native';
 import styles from './styles';
 import { MaterialTopTabBarProps } from '@react-navigation/material-top-tabs';
 import Tab from '../../../molecules/Tab';
+import StyleGuide from '~/util/StyleGuide';
 
 type TabBarProps = {
   translateY: Animated.SharedValue<number>;
