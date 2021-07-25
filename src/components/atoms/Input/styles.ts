@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import StyleGuide from '../../../util/StyleGuide';
 
 export default StyleSheet.create({
-  container: { height: 50, marginTop: 26 },
+  container: { height: 50, marginTop: StyleGuide.spacing * 3 },
   input: {
     ...StyleGuide.typography.caption,
     borderWidth: 1,

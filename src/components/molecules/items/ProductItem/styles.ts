@@ -5,7 +5,7 @@ export default StyleSheet.create({
   container: {
     borderWidth: 1,
     borderColor: StyleGuide.palette.border,
-    marginBottom: StyleGuide.spacing * 2,
+    marginBottom: StyleGuide.spacing * 1.5,
     marginHorizontal: StyleGuide.spacing * 2,
     borderRadius: StyleGuide.borderRadius * 2,
   },

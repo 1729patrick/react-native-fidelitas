@@ -27,6 +27,7 @@ import Notifications from '~/screens/Notifications';
 import TermsAndPrivacy from '~/screens/TermsAndPrivacy';
 import Languages from '~/screens/Languages';
 import QRCode from '~/screens/QRCode';
+import PersonalInformation from '~/screens/PersonalInformation';
 
 type TransitionSpecType = {
   open: TransitionSpec;
@@ -110,6 +111,11 @@ const ProfileNavigator = () => {
       <ProfileStack.Screen
         name="Languages"
         component={Languages}
+        options={optionsVertical}
+      />
+      <ProfileStack.Screen
+        name="PersonalInformation"
+        component={PersonalInformation}
         options={optionsVertical}
       />
     </ProfileStack.Navigator>

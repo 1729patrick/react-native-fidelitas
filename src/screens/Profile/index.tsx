@@ -7,12 +7,12 @@ import styles from './styles';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import MdIcon from 'react-native-vector-icons/MaterialIcons';
 import StyleGuide from '../../util/StyleGuide';
-import User from '~/components/atoms/User';
 
 import Profile from '~/components/templates/Profile';
 import ConfigurationList from '~/components/organisms/lists/Configuration';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import User from '~/components/molecules/User';
 
 export default () => {
   useStatusBar(true);
@@ -67,6 +67,10 @@ export default () => {
     },
   ];
 
+  const openPersonalInformation = () => {
+    navigate('PersonalInformation');
+  };
+
   return (
     <View style={styles.container}>
       <Profile
@@ -76,7 +80,7 @@ export default () => {
             style={styles.contentContainer}
             header={
               <>
-                <User />
+                <User onPress={openPersonalInformation} />
                 <Line />
               </>
             }

@@ -27,6 +27,7 @@ type HeaderProps = {
   RightContent?: ReactElement;
   elevation?: number;
   onBack?: () => void;
+  color?: string;
 };
 
 const Header: React.FC<HeaderProps> = ({
@@ -37,6 +38,7 @@ const Header: React.FC<HeaderProps> = ({
   elevation = 0,
   onBack,
   RightContent,
+  color,
 }) => {
   const { pop } = useNavigation<StackNavigationProp<any>>();
 
@@ -93,6 +95,7 @@ const Header: React.FC<HeaderProps> = ({
               size={24}
               Icon={Icon}
               style={styles.backButton}
+              color={color}
             />
           )}
 

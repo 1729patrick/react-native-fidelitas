@@ -1,8 +1,13 @@
 import React from 'react';
 import { Image, Text, View } from 'react-native';
+import LinkButton from '~/components/atoms/buttons/LinkButton';
 import styles from './styles';
 
-const User = () => {
+type UserProps = {
+  onPress: () => void;
+};
+
+const User: React.FC<UserProps> = ({ onPress }) => {
   return (
     <View style={styles.container}>
       <Image
@@ -11,7 +16,12 @@ const User = () => {
       />
       <View style={styles.info}>
         <Text style={styles.userName}>Francisco Ferdinando</Text>
-        <Text style={styles.link}>Ver Perfil</Text>
+
+        <LinkButton
+          title="Ver Perfil"
+          onPress={onPress}
+          style={styles.button}
+        />
       </View>
     </View>
   );

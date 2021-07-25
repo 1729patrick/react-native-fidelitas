@@ -6,7 +6,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: StyleGuide.spacing * 2,
+    paddingHorizontal: StyleGuide.spacing * 1.5,
     paddingVertical: StyleGuide.spacing * 1.5,
   },
   title: {

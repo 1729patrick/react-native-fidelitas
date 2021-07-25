@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { View, TextInput } from 'react-native';
+import { View, TextInput, ViewStyle, StyleProp } from 'react-native';
 import Animated, {
   Easing,
   Extrapolate,
@@ -16,9 +16,10 @@ const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 
 type InputProps = {
   placeholder: string;
+  style?: StyleProp<ViewStyle>;
 };
 
-const Input: React.FC<InputProps> = ({ placeholder }) => {
+const Input: React.FC<InputProps> = ({ placeholder, style }) => {
   const valueRef = useRef<string>('');
   const focusAnimation = useSharedValue(0);
   const valueAnimation = useSharedValue(0);
@@ -76,7 +77,7 @@ const Input: React.FC<InputProps> = ({ placeholder }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <AnimatedTextInput
         style={[styles.input, animatedInput]}
         onFocus={onFocus}

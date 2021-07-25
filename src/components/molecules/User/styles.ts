@@ -13,12 +13,11 @@ export default StyleSheet.create({
   },
   info: {
     paddingLeft: StyleGuide.spacing * 2,
+    flexDirection: 'column',
   },
   userName: {
     ...StyleGuide.typography.title3,
     color: StyleGuide.palette.primary,
   },
-  link: {
-    ...StyleGuide.typography.link,
-  },
+  button: { marginRight: 'auto' },
 });

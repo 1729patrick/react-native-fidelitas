@@ -11,6 +11,7 @@ import useStatusBar from '~/hooks/useStatusBar';
 
 import styles from './styles';
 import { View } from 'react-native';
+import Header from '~/components/atoms/Header';
 
 const QRCode = () => {
   useStatusBar(false);
@@ -61,6 +62,7 @@ const QRCode = () => {
 
   return (
     <View style={styles.container}>
+      <Header backgroundColor={'transparent'} color={'#fff'} />
       {renderCamera()}
       <QRCodeMask />
     </View>
