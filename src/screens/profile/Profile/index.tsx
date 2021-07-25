@@ -54,6 +54,13 @@ export default () => {
       onPress: () => navigate('Notifications'),
     },
     {
+      title: 'Apagar conta',
+      icon: (
+        <MdIcon name="delete" color={StyleGuide.palette.primary} size={25} />
+      ),
+      onPress: () => console.log('delete'),
+    },
+    {
       title: 'Termos de Privacidade',
       icon: <MdIcon name="lock" color={StyleGuide.palette.primary} size={25} />,
       onPress: () => navigate('TermsAndPrivacy'),
