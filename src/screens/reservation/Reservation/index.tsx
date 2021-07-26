@@ -1,101 +1,73 @@
-/* eslint-disable */
-
-import React from 'react';
-import { Calendar } from 'react-native-calendars';
-import StyleGuide from '~/util/StyleGuide';
-import RoundButton from '~/components/atoms/buttons/RoundButton';
-import Icon from 'react-native-vector-icons/AntDesign';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import React, { useRef } from 'react';
+import { StatusBar } from 'react-native';
+import FloatingButton, {
+  FloatingButtonHandler,
+} from '~/components/atoms/buttons/FloatingButton';
+import Header from '~/components/atoms/Header';
+import { ActiveQRCode } from '~/components/atoms/icons/QRCode';
+import ReservationList from '~/components/organisms/lists/Reservation';
+import Reservation from '~/components/templates/Reservation';
 import useStatusBar from '~/hooks/useStatusBar';
+import Icon from 'react-native-vector-icons/AntDesign';
+import styles from './styles';
+
+const reservations = [
+  {
+    id: 'Almoço para 3 em 12 de Julho de 2021 às 12h:30m',
+    type: 'Almoço',
+    size: 3,
+    date: '12 de Jul de 2021 às 12h:30m',
+    deposit: 70,
+    status: 'Confirmado',
+  },
+  {
+    id: 'Jantar para 3 em 15 de Julho de 2021 às 18h:00m',
+    type: 'Jantar',
+    size: 3,
+    date: '12 de Jul de 2021 às 12h:30m',
+    deposit: 70,
+    status: 'Confirmado',
+  },
+];
 
 export default () => {
+  const floatingButtonRef = useRef<FloatingButtonHandler>(null);
+  const { navigate } = useNavigation<StackNavigationProp<any>>();
+
   useStatusBar(true);
 
+  const openQRCode = () => {
+    navigate('QRCode');
+  };
+
   return (
-    <Calendar
-      style={{ marginTop: 25 }}
-      // Initially visible month. Default = Date()
-      // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
-      minDate={new Date()}
-      // Enable horizontal scrolling, default = false
-      horizontal={true}
-      // Enable paging on horizontal, default = false
-      pagingEnabled={true}
-      // Set custom calendarWidth.
-      calendarWidth={320}
-      // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
-      // Handler which gets executed on day press. Default = undefined
-      onDayPress={day => {
-        console.log('selected day', day);
-      }}
-      // Handler which gets executed on day long press. Default = undefined
-      onDayLongPress={day => {
-        console.log('selected day', day);
-      }}
-      // Handler which gets executed when visible month changes in calendar. Default = undefined
-      onMonthChange={month => {
-        console.log('month changed', month);
-      }}
-      // Replace default arrows with custom ones (direction can be 'left' or 'right')
-      renderArrow={direction => {
-        return (
-          <RoundButton
-            onPress={() => {}}
-            name={direction === 'left' ? 'arrowleft' : 'arrowright'}
-            size={24}
-            Icon={Icon}
-            color={StyleGuide.palette.primary}
-          />
-        );
-      }}
-      // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday
-      firstDay={0}
-      // Hide day names. Default = false
-      // hideDayNames={true}
-      // Show week numbers to the left. Default = false
-      // showWeekNumbers={true}
-      // Handler which gets executed when press arrow icon left. It receive a callback can go back month
-      onPressArrowLeft={subtractMonth => subtractMonth()}
-      // Handler which gets executed when press arrow icon right. It receive a callback can go next month
-      onPressArrowRight={addMonth => addMonth()}
-      // Disable left arrow. Default = false
-      disableArrowLeft={false}
-      // Disable right arrow. Default = false
-      disableArrowRight={false}
-      markingType="simple"
-      // Disable all touch events for disabled days. can be override with disableTouchEvent in markedDates
-      disableAllTouchEventsForDisabledDays={true}
-      theme={{
-        backgroundColor: '#ffffff',
-        calendarBackground: '#ffffff',
-        textSectionTitleColor: StyleGuide.palette.secondary,
-        selectedDayBackgroundColor: StyleGuide.palette.app,
-        selectedDayTextColor: '#ffffff',
-        todayTextColor: StyleGuide.palette.app,
-        dayTextColor: StyleGuide.palette.primary,
-        textDisabledColor: '#d9e1e8',
-        dotColor: StyleGuide.palette.app,
-        selectedDotColor: '#ffffff',
-        arrowColor: 'orange',
-        monthTextColor: StyleGuide.palette.primary,
-        textDayFontFamily: 'Montserrat-Medium',
-        textMonthFontFamily: 'Montserrat-SemiBold',
-        textDayHeaderFontFamily: 'Montserrat-Medium',
-        textDayFontSize: 14,
-        textMonthFontSize: 14,
-        textDayHeaderFontSize: 13,
-      }}
-      markedDates={{
-        '2021-07-27': { selected: true },
-        '2021-07-28': {
-          disabled: true,
-        },
-        '2021-07-30': {
-          disabled: true,
-        },
-      }}
-      hideExtraDays={true}
-      // Enable the option to swipe between months. Default = false
-      enableSwipeMonths={true}
+    <Reservation
+      statusBar={
+        <StatusBar
+          translucent
+          backgroundColor="rgba(0, 0, 0, 0)"
+          barStyle="dark-content"
+        />
+      }
+      header={<Header showBack={false} title="Reservas" elevation={1} />}
+      list={
+        <ReservationList
+          data={reservations}
+          style={styles.contentContainer}
+          onPress={e => console.log(e)}
+          onScrollUp={() => floatingButtonRef.current?.show()}
+          onScrollDown={() => floatingButtonRef.current?.hide()}
+        />
+      }
+      action={
+        <FloatingButton
+          ref={floatingButtonRef}
+          onPress={openQRCode}
+          icon={<Icon name="plus" color="#fff" size={30} />}
+        />
+      }
     />
   );
 };

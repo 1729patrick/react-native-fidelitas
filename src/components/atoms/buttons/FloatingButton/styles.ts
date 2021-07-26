@@ -11,7 +11,7 @@ export default StyleSheet.create({
     width: BUTTON_SIZE,
     height: BUTTON_SIZE,
     bottom: BOTTOM_TAB_BAR_HEIGHT + 20,
-    right: width / 2 - BUTTON_SIZE / 2,
+    right: 20,
     borderRadius: BUTTON_SIZE,
     backgroundColor: StyleGuide.palette.app,
     elevation: 5,

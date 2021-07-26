@@ -6,6 +6,7 @@ import FloatingButton, {
   FloatingButtonHandler,
 } from '~/components/atoms/buttons/FloatingButton';
 import Header from '~/components/atoms/Header';
+import { ActiveQRCode } from '~/components/atoms/icons/QRCode';
 import AchievementList from '~/components/organisms/lists/Archievements';
 import Achievements from '~/components/templates/Achievements';
 import useStatusBar from '~/hooks/useStatusBar';
@@ -71,7 +72,13 @@ export default () => {
           onScrollDown={() => floatingButtonRef.current?.hide()}
         />
       }
-      action={<FloatingButton ref={floatingButtonRef} onPress={openQRCode} />}
+      action={
+        <FloatingButton
+          ref={floatingButtonRef}
+          onPress={openQRCode}
+          icon={<ActiveQRCode />}
+        />
+      }
     />
   );
 };
