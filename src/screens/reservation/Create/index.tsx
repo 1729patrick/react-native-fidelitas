@@ -18,7 +18,7 @@ export default () => {
 
   const currentIndexRef = useRef(0);
   const registerRef = useRef<RegisterHandler>(null);
-  const { replace, pop } = useNavigation<StackNavigationProp<any>>();
+  const { pop } = useNavigation<StackNavigationProp<any>>();
 
   const onComplete = () => {
     pop();
