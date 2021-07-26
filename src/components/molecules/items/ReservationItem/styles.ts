@@ -27,6 +27,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginVertical: StyleGuide.spacing * 0.15,
   },
   title: {
     ...StyleGuide.typography.callout,
@@ -43,7 +44,7 @@ export default StyleSheet.create({
   size: {
     borderWidth: 2,
     borderColor: StyleGuide.palette.border,
-    paddingVertical: StyleGuide.spacing * 0.5,
+    paddingVertical: StyleGuide.spacing * 0.25,
     paddingHorizontal: StyleGuide.spacing,
     borderRadius: StyleGuide.borderRadius * 4,
   },

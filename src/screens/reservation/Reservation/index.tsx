@@ -6,7 +6,6 @@ import FloatingButton, {
   FloatingButtonHandler,
 } from '~/components/atoms/buttons/FloatingButton';
 import Header from '~/components/atoms/Header';
-import { ActiveQRCode } from '~/components/atoms/icons/QRCode';
 import ReservationList from '~/components/organisms/lists/Reservation';
 import Reservation from '~/components/templates/Reservation';
 import useStatusBar from '~/hooks/useStatusBar';
@@ -25,7 +24,7 @@ const reservations = [
   {
     id: 'Jantar para 3 em 15 de Julho de 2021 às 18h:00m',
     type: 'Jantar',
-    size: 3,
+    size: 5,
     date: '12 de Jul de 2021 às 12h:30m',
     deposit: 70,
     status: 'Confirmado',
@@ -38,8 +37,8 @@ export default () => {
 
   useStatusBar(true);
 
-  const openQRCode = () => {
-    navigate('QRCode');
+  const openCreate = () => {
+    navigate('Create');
   };
 
   return (
@@ -51,7 +50,7 @@ export default () => {
           barStyle="dark-content"
         />
       }
-      header={<Header showBack={false} title="Reservas" elevation={1} />}
+      header={<Header showBack={false} title="Reservas" elevation={2} />}
       list={
         <ReservationList
           data={reservations}
@@ -64,7 +63,7 @@ export default () => {
       action={
         <FloatingButton
           ref={floatingButtonRef}
-          onPress={openQRCode}
+          onPress={openCreate}
           icon={<Icon name="plus" color="#fff" size={30} />}
         />
       }

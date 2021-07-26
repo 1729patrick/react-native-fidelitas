@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 export type ReservationType = {
   type: string;
-  size: string;
+  size: number;
   date: string;
   deposit: number;
   status: string;

@@ -26,6 +26,7 @@ import Login from '~/screens/public/Login';
 import Register from '~/screens/public/Register';
 import Achievements from '~/screens/achievements/Achievements';
 import TabBar from '~/components/organisms/TabBar/Bottom';
+import Create from '~/screens/reservation/Create';
 
 type TransitionSpecType = {
   open: TransitionSpec;
@@ -139,6 +140,25 @@ const AchievementsNavigator = () => {
   );
 };
 
+const ReservationStack = createStackNavigator();
+
+const ReservationNavigator = () => {
+  return (
+    <ReservationStack.Navigator screenOptions={{ headerShown: false }}>
+      <ReservationStack.Screen
+        name="Main"
+        component={Reservation}
+        options={optionsVertical}
+      />
+      <ReservationStack.Screen
+        name="Create"
+        component={Create}
+        options={optionsVertical}
+      />
+    </ReservationStack.Navigator>
+  );
+};
+
 const AuthTabNavigator = createBottomTabNavigator();
 
 const Auth = () => {
@@ -148,7 +168,10 @@ const Auth = () => {
       screenOptions={{ lazy: true, headerShown: false }}>
       <AuthTabNavigator.Screen name="Home" component={HomeNavigator} />
       <AuthTabNavigator.Screen name="Menu" component={MenuNavigator} />
-      <AuthTabNavigator.Screen name="Reservation" component={Reservation} />
+      <AuthTabNavigator.Screen
+        name="Reservation"
+        component={ReservationNavigator}
+      />
       <AuthTabNavigator.Screen
         name="Achievements"
         component={AchievementsNavigator}

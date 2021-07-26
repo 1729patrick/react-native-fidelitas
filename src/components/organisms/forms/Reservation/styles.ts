@@ -2,8 +2,7 @@ import { StyleSheet } from 'react-native';
 import StyleGuide from '~/util/StyleGuide';
 
 export default StyleSheet.create({
-  logo: { width: '100%' },
-  stepContainer: {
-    paddingHorizontal: StyleGuide.spacing * 2.5,
-  },
+  container: {},
+  dinner: { marginTop: StyleGuide.spacing * 4 },
+  incrementDecrement: { marginTop: StyleGuide.spacing * 4 },
 });

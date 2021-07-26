@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { ReactNode } from 'react';
 import { StyleProp, Text, TextStyle, View, ViewStyle } from 'react-native';
 import { RectButton as RNRectButton } from 'react-native-gesture-handler';

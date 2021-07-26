@@ -10,7 +10,7 @@ import styles from './styles';
 const { width } = Dimensions.get('window');
 
 type RegisterProps = {
-  logo: ReactNode;
+  logo?: ReactNode;
   steps: ReactNode[];
 };
 
@@ -47,7 +47,7 @@ const Register: React.ForwardRefRenderFunction<RegisterHandler, RegisterProps> =
           contentContainerStyle={styles.contentContainer}
           scrollEnabled={false}>
           {steps.map((step, index) => (
-            <View key={index} style={styles.step}>
+            <View key={index} style={[styles.step]}>
               <ScrollView
                 showsVerticalScrollIndicator={false}
                 overScrollMode="never"

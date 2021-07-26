@@ -1,25 +1,27 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useRef } from 'react';
-import { BackHandler, StatusBar } from 'react-native';
-import styles from './styles';
+import { BackHandler, StatusBar, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { StackNavigationProp } from '@react-navigation/stack';
 import useStatusBar from '~/hooks/useStatusBar';
 import Register, { RegisterHandler } from '~/components/templates/Register';
 import Header from '~/components/atoms/Header';
-import Logo from '~/components/atoms/Logo';
-import { Step1, Step2, Step3 } from '~/components/organisms/forms/Register';
+import { Step2, Step3 } from '~/components/organisms/forms/Reservation';
 import RegisterStep from '~/components/organisms/RegisterStep';
+import useHideTabBar from '~/hooks/useHideTabBar';
+import Calendar from '~/components/atoms/Calendar';
+import styles from './styles';
 
 export default () => {
   useStatusBar(true);
+  useHideTabBar();
 
   const currentIndexRef = useRef(0);
   const registerRef = useRef<RegisterHandler>(null);
   const { replace, pop } = useNavigation<StackNavigationProp<any>>();
 
   const onComplete = () => {
-    replace('Auth');
+    pop();
   };
 
   const onScrollTo = (index: number) => {
@@ -48,7 +50,7 @@ export default () => {
   }, []);
 
   return (
-    <>
+    <View style={{ backgroundColor: '#fff', flex: 1 }}>
       <StatusBar
         translucent
         backgroundColor="rgba(0, 0, 0, 0)"
@@ -57,37 +59,36 @@ export default () => {
       <Header backgroundColor={'transparent'} onBack={onBack} />
       <Register
         ref={registerRef}
-        logo={<Logo size={0.4} style={styles.logo} />}
         steps={[
           <RegisterStep
-            title="Crie uma Conta Subway"
-            description="Introduza o seu nome"
+            title="Escolha a data"
             confirmTitle={'Prosseguir'}
             confirmIcon={<Icon name="arrowright" size={23} color="#fff" />}
-            form={<Step1 />}
+            form={<Calendar />}
             onNext={() => onScrollTo(1)}
-            contentStyle={styles.stepContainer}
+            buttonStyle={styles.nextButton}
+            titleStyle={styles.stepTitle}
           />,
           <RegisterStep
-            title="Seus contatos"
-            description="Introduza o seu número de telemóvel e e-mail"
+            title="Escolha o horário"
             confirmTitle={'Prosseguir'}
             confirmIcon={<Icon name="arrowright" size={23} color="#fff" />}
             form={<Step2 />}
             onNext={() => onScrollTo(2)}
             contentStyle={styles.stepContainer}
+            titleStyle={styles.stepTitle}
           />,
           <RegisterStep
-            title="Crie a palavra-passe"
-            description="Crie uma palavra-passe forte com mistura de letras e números"
+            title="Número de pessoas"
             confirmTitle={'Finalizar'}
             confirmIcon={<Icon name="check" size={23} color="#fff" />}
             form={<Step3 />}
             onNext={onComplete}
             contentStyle={styles.stepContainer}
+            titleStyle={styles.stepTitle}
           />,
         ]}
       />
-    </>
+    </View>
   );
 };

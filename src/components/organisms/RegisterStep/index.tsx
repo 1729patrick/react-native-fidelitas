@@ -1,15 +1,18 @@
 import React, { ReactNode } from 'react';
-import { Text, View } from 'react-native';
+import { StyleProp, Text, TextStyle, View, ViewStyle } from 'react-native';
 import RectButton from '../../atoms/buttons/RectButton';
 import styles from './styles';
 
 type RegisterProps = {
   form: ReactNode;
   title: string;
-  description: string;
+  description?: string;
   confirmTitle: string;
   onNext: () => void;
   confirmIcon?: ReactNode;
+  contentStyle?: StyleProp<ViewStyle>;
+  buttonStyle?: ViewStyle;
+  titleStyle?: TextStyle;
 };
 
 const RegisterStep: React.FC<RegisterProps> = ({
@@ -19,19 +22,22 @@ const RegisterStep: React.FC<RegisterProps> = ({
   confirmTitle,
   confirmIcon,
   onNext,
+  contentStyle,
+  buttonStyle,
+  titleStyle,
 }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
+      <Text style={[styles.title, titleStyle]}>{title}</Text>
       <Text style={styles.description}>{description}</Text>
 
-      <View style={styles.content}>
+      <View style={[styles.content, contentStyle]}>
         {form}
 
         <RectButton
           onPress={onNext}
           title={confirmTitle}
-          containerStyle={styles.button}
+          containerStyle={{ ...styles.button, ...buttonStyle }}
           icon={confirmIcon}
         />
       </View>
