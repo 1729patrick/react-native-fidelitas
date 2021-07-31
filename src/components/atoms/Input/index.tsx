@@ -35,7 +35,7 @@ const Input: React.FC<InputProps> = ({ placeholder, style }) => {
       borderColor: interpolateColor(
         focusAnimation.value,
         [0, 1],
-        [StyleGuide.palette.secondary, StyleGuide.palette.app],
+        ['#cccccc', StyleGuide.palette.app],
       ),
     };
   }, [focusAnimation, valueAnimation]);

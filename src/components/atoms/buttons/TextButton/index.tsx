@@ -2,18 +2,18 @@ import React from 'react';
 import { StyleProp, Text, TouchableOpacity, ViewStyle } from 'react-native';
 import styles from './styles';
 
-type LinkButtonProps = {
+type TextButtonProps = {
   title: string;
   onPress: () => void;
   style?: StyleProp<ViewStyle>;
 };
 
-const LinkButton: React.FC<LinkButtonProps> = ({ title, onPress, style }) => {
+const TextButton: React.FC<TextButtonProps> = ({ title, onPress, style }) => {
   return (
     <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
-      <Text style={styles.link}>{title}</Text>
+      <Text style={styles.button}>{title}</Text>
     </TouchableOpacity>
   );
 };
 
-export default LinkButton;
+export default TextButton;

@@ -1,5 +1,6 @@
 import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import TextButton from '~/components/atoms/buttons/TextButton';
 import Header from '~/components/atoms/Header';
 import Input from '~/components/atoms/Input';
 import useHideTabBar from '~/hooks/useHideTabBar';
@@ -10,7 +11,12 @@ const PersonalInformation = () => {
 
   return (
     <View>
-      <Header title="Informações Pessoais" />
+      <Header
+        title="Informações Pessoais"
+        RightContent={
+          <TextButton title="Salvar" onPress={() => console.log('save')} />
+        }
+      />
       <ScrollView
         overScrollMode="never"
         scrollEventThrottle={16}
