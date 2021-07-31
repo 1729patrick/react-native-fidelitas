@@ -18,7 +18,7 @@ export default StyleSheet.create({
     backgroundColor: StyleGuide.navigation.colors.background,
   },
   contentContainer: {
-    paddingBottom: BOTTOM_TAB_BAR_HEIGHT + StyleGuide.spacing * 3,
+    paddingBottom: BOTTOM_TAB_BAR_HEIGHT,
     paddingTop: 300,
   },
   title: {

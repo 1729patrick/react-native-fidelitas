@@ -4,7 +4,7 @@ import { RectButton as RNRectButton } from 'react-native-gesture-handler';
 import StyleGuide from '~/util/StyleGuide';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { STATUS } from './constants';
+import { CARD_HEIGHT, STATUS } from './constants';
 import { Status } from '~/screens/reservation/Reservation';
 import Animated, {
   interpolate,
@@ -43,7 +43,7 @@ const ReservationItem: React.FC<ReservationProps> = ({
     const height = interpolate(
       animation.value,
       [0, 1],
-      [88, 88 + footerHeight],
+      [CARD_HEIGHT, CARD_HEIGHT + footerHeight],
     );
     return {
       height,
@@ -110,8 +110,8 @@ const ReservationItem: React.FC<ReservationProps> = ({
             onPress={() => {}}
             borderRadius={8}
             containerStyle={styles.cancel}
-            titleStyle={{ color: StyleGuide.palette.red }}
-            backgroundColor={StyleGuide.palette.red}
+            titleStyle={{ color: StyleGuide.palette.primary }}
+            backgroundColor={StyleGuide.palette.primary}
             outline
           />
         )}

@@ -5,13 +5,14 @@ export default StyleSheet.create({
   container: { width: '100%', flexGrow: 1 },
   title: {
     ...StyleGuide.typography.title3,
+    marginTop: StyleGuide.spacing,
     textAlign: 'center',
   },
   description: {
     ...StyleGuide.typography.caption,
     color: StyleGuide.palette.secondary,
+    marginVertical: StyleGuide.spacing,
     textAlign: 'center',
-    marginBottom: 12,
   },
   content: {
     flexGrow: 1,

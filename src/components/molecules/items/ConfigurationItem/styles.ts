@@ -3,7 +3,7 @@ import StyleGuide from '~/util/StyleGuide';
 
 export default StyleSheet.create({
   container: {
-    borderWidth: 1,
+    borderWidth: 0.5,
     borderColor: StyleGuide.palette.border,
     marginBottom: StyleGuide.spacing * 1.5,
     borderRadius: StyleGuide.borderRadius * 2,

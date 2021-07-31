@@ -29,7 +29,7 @@ const Input: React.FC<InputProps> = ({ placeholder, style }) => {
       borderWidth: interpolate(
         focusAnimation.value,
         [0.8, 1],
-        [1, 2],
+        [1.5, 2],
         Extrapolate.CLAMP,
       ),
       borderColor: interpolateColor(

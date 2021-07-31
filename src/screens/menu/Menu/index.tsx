@@ -261,7 +261,7 @@ export default () => {
           onScroll={scrollHandler}
           scrollEventThrottle={16}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 80 }}>
+          contentContainerStyle={styles.contentContainer}>
           <FastImage
             source={require('../../../assets/background_menu.jpg')}
             resizeMode={FastImage.resizeMode.cover}

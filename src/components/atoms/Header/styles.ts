@@ -5,7 +5,6 @@ import { HEADER_HEIGHT, STATUS_BAR_HEIGHT } from './constants';
 export default StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'red',
     justifyContent: 'center',
     paddingHorizontal: StyleGuide.spacing * 2,
     height: HEADER_HEIGHT + STATUS_BAR_HEIGHT,

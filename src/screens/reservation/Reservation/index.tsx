@@ -63,7 +63,7 @@ export default () => {
           barStyle="dark-content"
         />
       }
-      header={<Header showBack={false} title="Reservas" elevation={2} />}
+      header={<Header showBack={false} title="Reservas" />}
       list={
         <ReservationList
           data={reservations}

@@ -57,7 +57,6 @@ export default () => {
         <Header
           showBack={false}
           title="Conquistas"
-          elevation={1}
           RightContent={
             <Text style={styles.progressGlobal}>0/{achievements.length}</Text>
           }

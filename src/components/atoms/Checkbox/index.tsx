@@ -6,21 +6,11 @@ import RoundButton from '../buttons/RoundButton';
 
 type CheckboxProps = {
   style?: StyleProp<ViewStyle>;
-  onChange: (value: boolean) => void;
+  toggleCheck: (value: boolean) => void;
+  checked: boolean;
 };
 
-const Checkbox = ({ style, onChange }: CheckboxProps) => {
-  const [checked, setChecked] = useState(false);
-
-  const toggleCheck = () => {
-    setChecked(previousState => {
-      const newState = !previousState;
-
-      onChange(newState);
-      return newState;
-    });
-  };
-
+const Checkbox = ({ style, toggleCheck, checked }: CheckboxProps) => {
   return (
     <RoundButton
       Icon={MaterialIcons}
@@ -28,7 +18,7 @@ const Checkbox = ({ style, onChange }: CheckboxProps) => {
       size={27}
       style={style}
       color={StyleGuide.palette.primary}
-      onPress={() => toggleCheck()}
+      onPress={toggleCheck}
     />
   );
 };

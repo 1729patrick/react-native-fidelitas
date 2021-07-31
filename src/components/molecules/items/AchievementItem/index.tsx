@@ -10,6 +10,7 @@ import Animated, {
 import RectButton from '~/components/atoms/buttons/RectButton';
 import CircularProgress from '~/components/atoms/CircularProgress';
 import StyleGuide from '~/util/StyleGuide';
+import { CARD_HEIGHT } from './constants';
 import styles from './styles';
 
 export type AchievementType = {
@@ -39,7 +40,7 @@ const AchievementItem: React.FC<AchievementProps> = ({
     const height = interpolate(
       animation.value,
       [0, 1],
-      [143, 143 + footerHeight],
+      [CARD_HEIGHT, CARD_HEIGHT + footerHeight],
     );
 
     return {
@@ -83,8 +84,8 @@ const AchievementItem: React.FC<AchievementProps> = ({
             onPress={() => {}}
             borderRadius={8}
             containerStyle={styles.getAchievement}
-            titleStyle={{ color: StyleGuide.palette.green }}
-            backgroundColor={StyleGuide.palette.green}
+            titleStyle={{ color: StyleGuide.palette.primary }}
+            backgroundColor={StyleGuide.palette.primary}
             outline
           />
         </View>

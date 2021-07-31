@@ -14,7 +14,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   border: {
-    borderWidth: 1,
+    borderWidth: 0.5,
     borderColor: StyleGuide.palette.border,
     marginBottom: StyleGuide.spacing * 2,
     marginHorizontal: StyleGuide.spacing * 2,

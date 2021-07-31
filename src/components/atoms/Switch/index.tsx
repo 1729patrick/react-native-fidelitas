@@ -5,21 +5,11 @@ import { Switch } from 'react-native-gesture-handler';
 import StyleGuide from '~/util/StyleGuide';
 
 type SwitchProps = {
-  onPress: (value: boolean) => void;
+  toggleSwitch: (value: boolean) => void;
+  isEnabled: boolean;
   style: StyleProp<ViewStyle>;
 };
-export default ({ onPress, style }: SwitchProps) => {
-  const [isEnabled, setIsEnabled] = useState(false);
-
-  const toggleSwitch = () => {
-    setIsEnabled(previousState => {
-      const newState = !previousState;
-
-      onPress(newState);
-      return newState;
-    });
-  };
-
+export default ({ toggleSwitch, style, isEnabled }: SwitchProps) => {
   return (
     <Switch
       style={style}

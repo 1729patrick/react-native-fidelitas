@@ -27,7 +27,7 @@ export default () => {
 
   return (
     <Product
-      header={<Header title={params.title} elevation={2} />}
+      header={<Header title={params.title} />}
       list={
         <ProductsList
           data={params.items || []}

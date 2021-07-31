@@ -30,7 +30,7 @@ export default () => {
 
   return (
     <Notifications
-      header={<Header title="Idioma" elevation={2} />}
+      header={<Header title="Idioma" />}
       list={<LanguagesList data={items} style={styles.contentContainer} />}
     />
   );

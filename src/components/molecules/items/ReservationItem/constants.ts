@@ -15,3 +15,5 @@ export const STATUS = {
     color: StyleGuide.palette.blue,
   },
 };
+
+export const CARD_HEIGHT = 86;

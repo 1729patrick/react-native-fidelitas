@@ -5,7 +5,6 @@ export default StyleSheet.create({
   container: { height: 50, marginTop: StyleGuide.spacing * 3 },
   input: {
     ...StyleGuide.typography.caption,
-    borderWidth: 1,
     height: 50,
     borderRadius: 4,
     paddingLeft: 19,
@@ -21,7 +20,7 @@ export default StyleSheet.create({
   },
   placeholder: {
     ...StyleGuide.typography.caption,
-    backgroundColor: 'rgb(242, 242, 242)',
+    backgroundColor: StyleGuide.navigation.colors.background,
     color: StyleGuide.palette.primary,
     paddingHorizontal: 8,
   },

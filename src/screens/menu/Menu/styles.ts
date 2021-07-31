@@ -1,4 +1,5 @@
 import { Dimensions, StyleSheet } from 'react-native';
+import { BOTTOM_TAB_BAR_HEIGHT } from '~/components/organisms/TabBar/constants';
 import StyleGuide from '~/util/StyleGuide';
 
 const { height } = Dimensions.get('window');
@@ -12,7 +13,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     paddingTop: 25,
     zIndex: 2,
-    backgroundColor: '#fff',
+    backgroundColor: StyleGuide.palette.background,
   },
   search: {
     flexDirection: 'row',
@@ -37,9 +38,12 @@ export default StyleSheet.create({
   },
   title: {
     ...StyleGuide.typography.title1,
+    color: StyleGuide.palette.background,
     fontSize: 27,
     textAlign: 'center',
-    color: '#fff',
     marginTop: 80 + 48,
+  },
+  contentContainer: {
+    paddingBottom: BOTTOM_TAB_BAR_HEIGHT + StyleGuide.spacing * 5,
   },
 });

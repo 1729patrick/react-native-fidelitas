@@ -53,12 +53,23 @@ export default () => {
       ),
       onPress: () => navigate('Notifications'),
     },
+    // {
+    //   title: 'Apagar Conta',
+    //   icon: (
+    //     <MdIcon name="delete" color={StyleGuide.palette.primary} size={25} />
+    //   ),
+    //   onPress: () => console.log('delete'),
+    // },
     {
-      title: 'Apagar Conta',
+      title: 'Endereços',
       icon: (
-        <MdIcon name="delete" color={StyleGuide.palette.primary} size={25} />
+        <MdIcon
+          name="location-pin"
+          color={StyleGuide.palette.primary}
+          size={25}
+        />
       ),
-      onPress: () => console.log('delete'),
+      onPress: () => console.log('history'),
     },
     {
       title: 'Histórico de Pedidos',

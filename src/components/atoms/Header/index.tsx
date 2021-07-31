@@ -82,7 +82,8 @@ const Header: React.FC<HeaderProps> = ({
         styles.container,
         styleContainer,
         {
-          backgroundColor: backgroundColor || StyleGuide.palette.background,
+          backgroundColor:
+            backgroundColor || StyleGuide.navigation.colors.background,
           elevation,
         },
       ]}>
