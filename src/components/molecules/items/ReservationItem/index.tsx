@@ -1,16 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text } from 'react-native';
-import { RectButton } from 'react-native-gesture-handler';
+import { RectButton as RNRectButton } from 'react-native-gesture-handler';
 import StyleGuide from '~/util/StyleGuide';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { STATUS } from './constants';
+import { Status } from '~/screens/reservation/Reservation';
+import Animated, {
+  interpolate,
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from 'react-native-reanimated';
+import RectButton from '~/components/atoms/buttons/RectButton';
 
 export type ReservationType = {
   type: string;
   size: number;
   date: string;
-  deposit: number;
-  status: string;
+  status: Status;
+  message?: string;
 };
 
 type ReservationProps = {
@@ -22,21 +31,50 @@ const ReservationItem: React.FC<ReservationProps> = ({
   size,
   date,
   status,
+  message,
   onPress,
 }) => {
-  return (
-    <View style={styles.border}>
-      <RectButton
-        style={styles.item}
-        rippleColor={StyleGuide.palette.secondary}
-        onPress={() => onPress?.({ date })}>
+  const [footerHeight, setFooterHeight] = useState(0);
+
+  const animation = useSharedValue(0);
+  const status_ = STATUS[status];
+
+  const containerStyle = useAnimatedStyle(() => {
+    const height = interpolate(
+      animation.value,
+      [0, 1],
+      [88, 88 + footerHeight],
+    );
+    return {
+      height,
+    };
+  }, [animation, footerHeight]);
+
+  const onCollapse = () => {
+    animation.value = withSpring(+!animation.value);
+  };
+
+  const renderHeader = () => {
+    return (
+      <View style={styles.header}>
         <View style={styles.info}>
           <View style={styles.row}>
-            <Text style={styles.title}>{type}</Text>
-            <Text style={[styles.description, styles.status]}>{status}</Text>
+            <Text style={styles.title} numberOfLines={1}>
+              {type}
+            </Text>
+            <Text
+              style={[
+                styles.description,
+                styles.status,
+                { color: status_.color },
+              ]}>
+              {status_.title}
+            </Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.description}>{date}</Text>
+            <Text style={styles.description} numberOfLines={1}>
+              {date}
+            </Text>
 
             <View style={[styles.row, styles.size]}>
               <Icon
@@ -49,8 +87,50 @@ const ReservationItem: React.FC<ReservationProps> = ({
             </View>
           </View>
         </View>
-      </RectButton>
-    </View>
+      </View>
+    );
+  };
+
+  const renderFooter = () => {
+    return (
+      <View
+        style={styles.footer}
+        onLayout={({ nativeEvent }) =>
+          setFooterHeight(nativeEvent.layout.height)
+        }>
+        {message && (
+          <>
+            <Text style={[styles.messageTitle]}>Sua mensagem</Text>
+            <Text style={styles.messageDescription}>{message}</Text>
+          </>
+        )}
+        {status !== Status.Canceled && (
+          <RectButton
+            title="Cancelar"
+            onPress={() => {}}
+            borderRadius={8}
+            containerStyle={styles.cancel}
+            titleStyle={{ color: StyleGuide.palette.red }}
+            backgroundColor={StyleGuide.palette.red}
+            outline
+          />
+        )}
+      </View>
+    );
+  };
+
+  return (
+    <Animated.View style={[styles.border, containerStyle]}>
+      <RNRectButton
+        style={styles.item}
+        rippleColor={StyleGuide.palette.secondary}
+        onPress={onCollapse}>
+        {/* <View style={[styles.statusBar, { backgroundColor: status_.color }]} /> */}
+
+        {renderHeader()}
+        {renderFooter()}
+      </RNRectButton>
+    </Animated.View>
   );
 };
 

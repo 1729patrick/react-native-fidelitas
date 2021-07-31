@@ -7,18 +7,30 @@ export default StyleSheet.create({
     borderColor: StyleGuide.palette.border,
     marginBottom: StyleGuide.spacing * 1.5,
     borderRadius: StyleGuide.borderRadius * 2,
+    overflow: 'hidden',
   },
   item: {
+    height: '100%',
+    backgroundColor: StyleGuide.palette.background,
+    borderRadius: StyleGuide.borderRadius * 2,
+  },
+  header: {
     flexDirection: 'row',
     paddingHorizontal: StyleGuide.spacing * 2,
     paddingVertical: StyleGuide.spacing * 2,
-    backgroundColor: StyleGuide.palette.background,
-    borderRadius: StyleGuide.borderRadius * 2,
+    borderBottomWidth: 1,
+    borderBottomColor: StyleGuide.palette.border,
   },
   progress: {
     paddingLeft: StyleGuide.spacing,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  statusBar: {
+    ...StyleSheet.absoluteFillObject,
+    width: 5,
+    left: 0,
+    elevation: 1,
   },
   info: {
     flex: 1,
@@ -47,5 +59,23 @@ export default StyleSheet.create({
     paddingVertical: StyleGuide.spacing * 0.25,
     paddingHorizontal: StyleGuide.spacing,
     borderRadius: StyleGuide.borderRadius * 4,
+  },
+  footer: {
+    paddingHorizontal: StyleGuide.spacing * 2,
+    paddingVertical: StyleGuide.spacing,
+  },
+  messageTitle: {
+    ...StyleGuide.typography.caption,
+    color: StyleGuide.palette.secondary,
+    marginTop: StyleGuide.spacing,
+  },
+  messageDescription: {
+    ...StyleGuide.typography.caption,
+    color: StyleGuide.palette.primary,
+    marginBottom: StyleGuide.spacing,
+  },
+  cancel: {
+    marginTop: StyleGuide.spacing,
+    marginBottom: StyleGuide.spacing,
   },
 });

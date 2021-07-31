@@ -7,7 +7,9 @@ const dark = {
   backgroundSecondary: '#303137',
   border: '#27282c',
   app: '#16CA61',
-  red: '#DF2935',
+  green: '#16CA61',
+  red: '#D9594C',
+  blue: '#3E6990',
 };
 
 const light = {
@@ -20,7 +22,8 @@ const light = {
   border: '#eaeaea',
   app: '#16CA61',
   green: '#16CA61',
-  red: '#DF2935',
+  red: '#D9594C',
+  blue: '#3E6990',
 };
 
 export const palette = { dark, light };

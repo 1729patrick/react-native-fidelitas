@@ -38,7 +38,7 @@ const IncrementDecrement: React.FC<IncrementDecrementProps> = ({
           rippleColor={StyleGuide.palette.secondary}
           onPress={onDecrement}>
           <View style={[styles.round]}>
-            <Icon name="minus" color={StyleGuide.palette.secondary} size={20} />
+            <Icon name="minus" color={StyleGuide.palette.primary} size={20} />
           </View>
         </RectButton>
 
@@ -48,7 +48,7 @@ const IncrementDecrement: React.FC<IncrementDecrementProps> = ({
           rippleColor={StyleGuide.palette.secondary}
           onPress={onIncrement}>
           <View style={[styles.round]}>
-            <Icon name="plus" color={StyleGuide.palette.secondary} size={20} />
+            <Icon name="plus" color={StyleGuide.palette.primary} size={20} />
           </View>
         </RectButton>
       </View>

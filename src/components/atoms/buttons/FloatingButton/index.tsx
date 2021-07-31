@@ -4,6 +4,7 @@ import { RectButton } from 'react-native-gesture-handler';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
+  withSpring,
   withTiming,
 } from 'react-native-reanimated';
 
@@ -28,7 +29,7 @@ const FloatingButton: React.ForwardRefRenderFunction<
   }, [animation]);
 
   const show = useCallback(() => {
-    animation.value = withTiming(1, { duration: ANIMATION_DURATION });
+    animation.value = withSpring(1);
   }, [animation]);
 
   const containerStyle = useAnimatedStyle(() => {

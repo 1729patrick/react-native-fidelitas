@@ -15,7 +15,7 @@ export default StyleSheet.create({
   buttons: { flexDirection: 'row', alignItems: 'center' },
   round: {
     borderWidth: 1.5,
-    borderColor: StyleGuide.palette.secondary,
+    borderColor: StyleGuide.palette.primary,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 18,
