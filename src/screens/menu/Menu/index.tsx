@@ -1,12 +1,10 @@
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/core';
 import React, { useRef, useState } from 'react';
-import { StatusBar, Text, View } from 'react-native';
+import { Dimensions, StatusBar, Text, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { TextInput } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 import styles from './styles';
-import { StackNavigationProp } from '@react-navigation/stack';
 import Animated, {
   Extrapolate,
   interpolate,
@@ -18,19 +16,20 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { ScrollView } from 'react-native-gesture-handler';
-import Categories from '~/components/organisms/lists/Categories';
 
 import Menu from '~/components/templates/Menu';
 import { Item, MenuType } from '../Products';
 import useStatusBar from '~/hooks/useStatusBar';
 import StyleGuide from '~/util/StyleGuide';
 import GroupedProductsList from '~/components/organisms/lists/GroupedProducts';
-import RectButton from '~/components/atoms/buttons/RectButton';
 import { IMAGE_HEIGHT } from './constants';
+import CategoryIndicator from '~/components/molecules/CategoryIndicator';
 
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
 
 const image = require('../../../assets/background_home.jpg');
+
+const { width } = Dimensions.get('window');
 
 const generic = {
   id: 'Produtos Naturais',
@@ -243,13 +242,9 @@ const items: Item[] = [
   { ...generic, id: '333', title: 'Molhos' },
 ];
 
-type ParamList = {
-  Menu: { title: string; items: Item[] };
-};
-
 export default () => {
-  const { navigate } = useNavigation<StackNavigationProp<any>>();
-  const { params } = useRoute<RouteProp<ParamList, 'Menu'>>();
+  const indicatorsWidthsRef = useRef<number[]>([]);
+  const translationX = useSharedValue(0);
   const translationY = useSharedValue(0);
   const [dark, setDark] = useState(false);
   useStatusBar(dark);
@@ -257,12 +252,6 @@ export default () => {
   const scrollHandler = useAnimatedScrollHandler(event => {
     translationY.value = event.contentOffset.y;
   });
-
-  const openProducts = ({ items, title }: Item) => {
-    const [{ type }] = items || [{}];
-
-    navigate('Products', { items, title, type });
-  };
 
   const searchStyles = useAnimatedStyle(() => {
     const top = interpolate(
@@ -308,6 +297,30 @@ export default () => {
     return { top, borderColor, backgroundColor };
   }, []);
 
+  const x = useSharedValue(0);
+
+  const onEndDrag = () => {
+    const indicatorWidths = indicatorsWidthsRef.current;
+
+    const widthsAcc = indicatorWidths.map((_, index) =>
+      indicatorWidths.slice(0, index).reduce((a, b) => a + b, 8),
+    );
+    const widths = indicatorWidths.map((_, index) => index * width);
+    const left = interpolate(translationX.value, widths, widthsAcc);
+    const width_ = interpolate(translationX.value, widths, indicatorWidths);
+    const center = (width - width_) / 2;
+    if (!indicatorWidths.length) {
+      return {};
+    }
+    const translateX = interpolate(
+      -(left - center),
+      [width - 763, 0],
+      [width - 763, 0],
+      Extrapolate.CLAMP,
+    );
+    x.value = translateX - 8;
+  };
+
   return (
     <Menu
       statusBar={
@@ -330,27 +343,13 @@ export default () => {
         </Animated.View>
       }
       categoryIndicator={
-        <Animated.View
-          style={[styles.categoryIndicator, categoryIndicatorStyles]}>
-          <ScrollView
-            horizontal
-            contentContainerStyle={{ paddingHorizontal: 8 }}>
-            {items.map(category => (
-              <View
-                style={{
-                  height: 35,
-                  marginHorizontal: 8,
-                  borderWidth: 1,
-                  borderColor: StyleGuide.palette.primary,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  paddingHorizontal: 8,
-                }}>
-                <Text>{category.title}</Text>
-              </View>
-            ))}
-          </ScrollView>
-        </Animated.View>
+        <CategoryIndicator
+          data={items}
+          translationX={translationX}
+          x={x}
+          categoryIndicatorStyles={categoryIndicatorStyles}
+          indicatorsWidthsRef={indicatorsWidthsRef}
+        />
       }
       content={
         <AnimatedScrollView
@@ -371,6 +370,9 @@ export default () => {
             data={items}
             style={styles.contentContainer}
             onPress={x => console.log(x)}
+            onEndDrag={() => onEndDrag()}
+            translationX={translationX}
+            x={x}
           />
         </AnimatedScrollView>
       }

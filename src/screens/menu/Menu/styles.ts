@@ -47,12 +47,4 @@ export default StyleSheet.create({
     paddingTop: 35 + StyleGuide.spacing * 3 + StyleGuide.spacing * 4,
     paddingBottom: StyleGuide.spacing * 4,
   },
-  categoryIndicator: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    alignItems: 'center',
-    paddingVertical: StyleGuide.spacing * 1.5,
-    borderBottomWidth: 1,
-  },
 });
