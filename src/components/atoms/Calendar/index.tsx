@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Calendar, DateObject } from 'react-native-calendars';
 import StyleGuide from '~/util/StyleGuide';
 import RoundButton from '~/components/atoms/buttons/RoundButton';
-import Icon from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import useStatusBar from '~/hooks/useStatusBar';
 import { add, format } from 'date-fns';
 import { DATE_FORMAT, MONTH_FORMAT } from '~/util/Constants';
@@ -33,7 +33,7 @@ export default () => {
         return (
           <RoundButton
             onPress={() => {}}
-            name={direction === 'left' ? 'arrowleft' : 'arrowright'}
+            name={direction === 'left' ? 'navigate-before' : 'navigate-next'}
             disabled={disableArrowLeft && direction === 'left'}
             size={24}
             Icon={Icon}

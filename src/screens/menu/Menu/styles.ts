@@ -1,6 +1,6 @@
 import { Dimensions, StyleSheet } from 'react-native';
-import { BOTTOM_TAB_BAR_HEIGHT } from '~/components/organisms/TabBar/constants';
 import StyleGuide from '~/util/StyleGuide';
+import { IMAGE_HEIGHT } from './constants';
 
 const { height } = Dimensions.get('window');
 
@@ -32,7 +32,7 @@ export default StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: height * 0.7,
+    height: IMAGE_HEIGHT,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -44,6 +44,15 @@ export default StyleSheet.create({
     marginTop: 80 + 48,
   },
   contentContainer: {
-    paddingBottom: BOTTOM_TAB_BAR_HEIGHT + StyleGuide.spacing * 5,
+    paddingTop: 35 + StyleGuide.spacing * 3 + StyleGuide.spacing * 4,
+    paddingBottom: StyleGuide.spacing * 4,
+  },
+  categoryIndicator: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+    paddingVertical: StyleGuide.spacing * 1.5,
+    borderBottomWidth: 1,
   },
 });

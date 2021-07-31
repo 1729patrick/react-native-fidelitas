@@ -8,9 +8,9 @@ export default StyleSheet.create({
     overflow: 'hidden',
   },
   button: {
+    paddingHorizontal: StyleGuide.spacing * 2,
     height: '100%',
     alignItems: 'center',
-    paddingHorizontal: 16,
     flexDirection: 'row',
     justifyContent: 'center',
   },

@@ -24,10 +24,54 @@ import Menu from '~/components/templates/Menu';
 import { Item, MenuType } from '../Products';
 import useStatusBar from '~/hooks/useStatusBar';
 import StyleGuide from '~/util/StyleGuide';
+import GroupedProductsList from '~/components/organisms/lists/GroupedProducts';
+import RectButton from '~/components/atoms/buttons/RectButton';
+import { IMAGE_HEIGHT } from './constants';
 
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
 
 const image = require('../../../assets/background_home.jpg');
+
+const generic = {
+  id: 'Produtos Naturais',
+  title: 'Entrada',
+  type: MenuType.Category,
+  image,
+  items: [
+    {
+      id: 'Chá Clássico',
+      title: 'Chá Clássico',
+      description: 'Camomila, Capim Limão, Hortelã',
+      type: MenuType.Product,
+      image,
+      price: 2,
+    },
+    {
+      id: 'Chocolate Quente',
+      title: 'Chocolate Quente',
+      description: 'Chocolate Quente meio amargo - 230ml',
+      type: MenuType.Product,
+      image,
+      price: 4,
+    },
+    {
+      id: 'Pão Clássico',
+      title: 'Pão Clássico',
+      description: 'Camomila, Capim Limão, Hortelã',
+      type: MenuType.Product,
+      image,
+      price: 8,
+    },
+    {
+      id: 'Batata Quente',
+      title: 'Batata Quente',
+      description: 'Chocolate Quente meio amargo - 230ml',
+      type: MenuType.Product,
+      image,
+      price: 16,
+    },
+  ],
+};
 
 const items_: Item[] = [
   {
@@ -193,25 +237,10 @@ const items_: Item[] = [
 ];
 
 const items: Item[] = [
-  {
-    id: 'Para Veganos',
-    title: 'Para Veganos',
-    type: MenuType.Category,
-    image,
-    items: items_,
-  },
-  // {
-  //   title: 'Carnes',
-  //   type: MenuType.Category,
-  //   image,
-  //   items: items_,
-  // },
-  // {
-  //   title: 'Bebidas',
-  //   type: MenuType.Category,
-  //   image,
-  //   items: items_,
-  // },
+  ...items_,
+  { ...generic, id: '111', title: 'Promoções' },
+  { ...generic, id: '222', title: 'Especialidades da casa' },
+  { ...generic, id: '333', title: 'Molhos' },
 ];
 
 type ParamList = {
@@ -238,8 +267,8 @@ export default () => {
   const searchStyles = useAnimatedStyle(() => {
     const top = interpolate(
       translationY.value,
-      [0, 35],
-      [35, 0],
+      [0, 40],
+      [40, 0],
       Extrapolate.CLAMP,
     );
 
@@ -249,21 +278,35 @@ export default () => {
       ['transparent', 'white'],
     );
 
-    const elevation = interpolate(
-      translationY.value,
-      [34.99, 35],
-      [0, 2],
-      Extrapolate.CLAMP,
-    );
-
     runOnJS(setDark)(translationY.value >= 34.99);
 
     return {
       top,
       backgroundColor,
-      elevation,
     };
   }, [translationY]);
+
+  const categoryIndicatorStyles = useAnimatedStyle(() => {
+    const top = interpolate(
+      translationY.value,
+      [0, IMAGE_HEIGHT - 93],
+      [IMAGE_HEIGHT, 93],
+      Extrapolate.CLAMP,
+    );
+
+    const borderColor = interpolateColor(
+      translationY.value,
+      [IMAGE_HEIGHT - 93.1, IMAGE_HEIGHT - 93],
+      ['transparent', StyleGuide.palette.border],
+    );
+    const backgroundColor = interpolateColor(
+      translationY.value,
+      [IMAGE_HEIGHT - 93.1, IMAGE_HEIGHT - 93],
+      ['transparent', 'white'],
+    );
+
+    return { top, borderColor, backgroundColor };
+  }, []);
 
   return (
     <Menu
@@ -286,13 +329,35 @@ export default () => {
           </View>
         </Animated.View>
       }
+      categoryIndicator={
+        <Animated.View
+          style={[styles.categoryIndicator, categoryIndicatorStyles]}>
+          <ScrollView
+            horizontal
+            contentContainerStyle={{ paddingHorizontal: 8 }}>
+            {items.map(category => (
+              <View
+                style={{
+                  height: 35,
+                  marginHorizontal: 8,
+                  borderWidth: 1,
+                  borderColor: StyleGuide.palette.primary,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  paddingHorizontal: 8,
+                }}>
+                <Text>{category.title}</Text>
+              </View>
+            ))}
+          </ScrollView>
+        </Animated.View>
+      }
       content={
         <AnimatedScrollView
           overScrollMode="never"
           onScroll={scrollHandler}
           scrollEventThrottle={16}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.contentContainer}>
+          showsVerticalScrollIndicator={false}>
           <FastImage
             source={require('../../../assets/background_menu.jpg')}
             resizeMode={FastImage.resizeMode.cover}
@@ -302,7 +367,11 @@ export default () => {
             </Text>
           </FastImage>
 
-          <Categories data={params?.items || items} onPress={openProducts} />
+          <GroupedProductsList
+            data={items}
+            style={styles.contentContainer}
+            onPress={x => console.log(x)}
+          />
         </AnimatedScrollView>
       }
     />
