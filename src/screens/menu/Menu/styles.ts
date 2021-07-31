@@ -21,7 +21,7 @@ export default StyleSheet.create({
     borderRadius: 200,
     height: 48,
     paddingHorizontal: 20,
-    marginHorizontal: StyleGuide.spacing * 3,
+    marginHorizontal: StyleGuide.spacing * 2,
     alignItems: 'center',
   },
   input: {

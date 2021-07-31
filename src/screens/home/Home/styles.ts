@@ -28,7 +28,7 @@ export default StyleSheet.create({
     paddingBottom: StyleGuide.spacing,
   },
   container: {
-    paddingHorizontal: StyleGuide.spacing * 3,
+    paddingHorizontal: StyleGuide.spacing * 2,
     backgroundColor: StyleGuide.navigation.colors.background,
   },
 });

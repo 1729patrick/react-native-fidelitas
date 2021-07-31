@@ -19,9 +19,9 @@ import Animated, {
 
 import { ScrollView } from 'react-native-gesture-handler';
 import Categories from '~/components/organisms/lists/Categories';
-import { CategoryType } from '~/components/molecules/items/CategoryItem';
+
 import Menu from '~/components/templates/Menu';
-import { Item } from '../Products';
+import { Item, MenuType } from '../Products';
 import useStatusBar from '~/hooks/useStatusBar';
 import StyleGuide from '~/util/StyleGuide';
 
@@ -29,18 +29,18 @@ const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
 
 const image = require('../../../assets/background_home.jpg');
 
-const items_: CategoryType[] = [
+const items_: Item[] = [
   {
     id: 'Produtos Naturais',
-    title: 'Produtos Naturais',
-    type: 'category',
+    title: 'Entrada',
+    type: MenuType.Category,
     image,
     items: [
       {
         id: 'Chá Clássico',
         title: 'Chá Clássico',
         description: 'Camomila, Capim Limão, Hortelã',
-        type: 'product',
+        type: MenuType.Product,
         image,
         price: 2,
       },
@@ -48,7 +48,7 @@ const items_: CategoryType[] = [
         id: 'Chocolate Quente',
         title: 'Chocolate Quente',
         description: 'Chocolate Quente meio amargo - 230ml',
-        type: 'product',
+        type: MenuType.Product,
         image,
         price: 4,
       },
@@ -56,7 +56,7 @@ const items_: CategoryType[] = [
         id: 'Pão Clássico',
         title: 'Pão Clássico',
         description: 'Camomila, Capim Limão, Hortelã',
-        type: 'product',
+        type: MenuType.Product,
         image,
         price: 8,
       },
@@ -64,7 +64,7 @@ const items_: CategoryType[] = [
         id: 'Batata Quente',
         title: 'Batata Quente',
         description: 'Chocolate Quente meio amargo - 230ml',
-        type: 'product',
+        type: MenuType.Product,
         image,
         price: 16,
       },
@@ -72,15 +72,15 @@ const items_: CategoryType[] = [
   },
   {
     id: 'Produtos Muito Naturais',
-    title: 'Produtos Muito Naturais',
-    type: 'category',
+    title: 'Prato Principal',
+    type: MenuType.Category,
     image,
     items: [
       {
         id: 'Chá Clássico',
         title: 'Chá Clássico',
         description: 'Camomila, Capim Limão, Hortelã',
-        type: 'product',
+        type: MenuType.Product,
         image,
         price: 2,
       },
@@ -88,7 +88,7 @@ const items_: CategoryType[] = [
         id: 'Chocolate Quente',
         title: 'Chocolate Quente',
         description: 'Chocolate Quente meio amargo - 230ml',
-        type: 'product',
+        type: MenuType.Product,
         image,
         price: 4,
       },
@@ -96,7 +96,7 @@ const items_: CategoryType[] = [
         id: 'Pão Clássico',
         title: 'Pão Clássico',
         description: 'Camomila, Capim Limão, Hortelã',
-        type: 'product',
+        type: MenuType.Product,
         image,
         price: 8,
       },
@@ -104,7 +104,7 @@ const items_: CategoryType[] = [
         id: 'Batata Quente',
         title: 'Batata Quente',
         description: 'Chocolate Quente meio amargo - 230ml',
-        type: 'product',
+        type: MenuType.Product,
         image,
         price: 16,
       },
@@ -112,15 +112,15 @@ const items_: CategoryType[] = [
   },
   {
     id: 'Produtos Muito Mais Naturais',
-    title: 'Produtos Muito Mais Naturais',
-    type: 'category',
+    title: 'Sobremesa',
+    type: MenuType.Category,
     image,
     items: [
       {
         id: 'Chá Clássico',
         title: 'Chá Clássico',
         description: 'Camomila, Capim Limão, Hortelã',
-        type: 'product',
+        type: MenuType.Product,
         image,
         price: 2,
       },
@@ -128,7 +128,7 @@ const items_: CategoryType[] = [
         id: 'Chocolate Quente',
         title: 'Chocolate Quente',
         description: 'Chocolate Quente meio amargo - 230ml',
-        type: 'product',
+        type: MenuType.Product,
         image,
         price: 4,
       },
@@ -136,7 +136,7 @@ const items_: CategoryType[] = [
         id: 'Pão Clássico',
         title: 'Pão Clássico',
         description: 'Camomila, Capim Limão, Hortelã',
-        type: 'product',
+        type: MenuType.Product,
         image,
         price: 8,
       },
@@ -144,7 +144,47 @@ const items_: CategoryType[] = [
         id: 'Batata Quente',
         title: 'Batata Quente',
         description: 'Chocolate Quente meio amargo - 230ml',
-        type: 'product',
+        type: MenuType.Product,
+        image,
+        price: 16,
+      },
+    ],
+  },
+  {
+    id: 'Bebidas',
+    title: 'Bebidas',
+    type: MenuType.Category,
+    image,
+    items: [
+      {
+        id: 'Chá Clássico',
+        title: 'Chá Clássico',
+        description: 'Camomila, Capim Limão, Hortelã',
+        type: MenuType.Product,
+        image,
+        price: 2,
+      },
+      {
+        id: 'Chocolate Quente',
+        title: 'Chocolate Quente',
+        description: 'Chocolate Quente meio amargo - 230ml',
+        type: MenuType.Product,
+        image,
+        price: 4,
+      },
+      {
+        id: 'Pão Clássico',
+        title: 'Pão Clássico',
+        description: 'Camomila, Capim Limão, Hortelã',
+        type: MenuType.Product,
+        image,
+        price: 8,
+      },
+      {
+        id: 'Batata Quente',
+        title: 'Batata Quente',
+        description: 'Chocolate Quente meio amargo - 230ml',
+        type: MenuType.Product,
         image,
         price: 16,
       },
@@ -154,31 +194,32 @@ const items_: CategoryType[] = [
 
 const items: Item[] = [
   {
+    id: 'Para Veganos',
     title: 'Para Veganos',
-    type: 'category',
+    type: MenuType.Category,
     image,
     items: items_,
   },
-  {
-    title: 'Carnes',
-    type: 'category',
-    image,
-    items: items_,
-  },
-  {
-    title: 'Bebidas',
-    type: 'category',
-    image,
-    items: items_,
-  },
+  // {
+  //   title: 'Carnes',
+  //   type: MenuType.Category,
+  //   image,
+  //   items: items_,
+  // },
+  // {
+  //   title: 'Bebidas',
+  //   type: MenuType.Category,
+  //   image,
+  //   items: items_,
+  // },
 ];
 
 type ParamList = {
-  Menu: { title: string; items: CategoryType[] };
+  Menu: { title: string; items: Item[] };
 };
 
 export default () => {
-  const { push } = useNavigation<StackNavigationProp<any>>();
+  const { navigate } = useNavigation<StackNavigationProp<any>>();
   const { params } = useRoute<RouteProp<ParamList, 'Menu'>>();
   const translationY = useSharedValue(0);
   const [dark, setDark] = useState(false);
@@ -188,20 +229,10 @@ export default () => {
     translationY.value = event.contentOffset.y;
   });
 
-  const preventDuplicateNavigationRef = useRef<number>(0);
+  const openProducts = ({ items, title }: Item) => {
+    const [{ type }] = items || [{}];
 
-  const openProducts = ({ items, title }: CategoryType) => {
-    const fiveSeconds = 600 * 2;
-    if (
-      new Date().getTime() - preventDuplicateNavigationRef.current <=
-      fiveSeconds
-    ) {
-      return;
-    }
-
-    preventDuplicateNavigationRef.current = new Date().getTime();
-
-    push('Products', { items, title });
+    navigate('Products', { items, title, type });
   };
 
   const searchStyles = useAnimatedStyle(() => {

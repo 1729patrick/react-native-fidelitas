@@ -10,13 +10,13 @@ export default StyleSheet.create({
   },
   image: {
     backgroundColor: StyleGuide.palette.background,
-    borderRadius: StyleGuide.borderRadius * 3,
+    borderRadius: StyleGuide.borderRadius * 1.5,
     width: (width - StyleGuide.spacing * 6) / 2,
     height: (width - StyleGuide.spacing * 6) / 2,
   },
   title: {
     ...StyleGuide.typography.headline,
-    fontSize: 13.5,
+    fontSize: 13,
     marginTop: StyleGuide.spacing,
   },
 });

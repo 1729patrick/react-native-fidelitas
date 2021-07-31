@@ -1,22 +1,13 @@
 import React from 'react';
 import { Text, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Item } from '~/screens/menu/Products';
 
 import styles from './styles';
 
-export type CategoryType = {
-  id: string;
-  title: string;
-  type: 'category' | 'product';
-  description?: string;
-  image: any;
-  price?: number;
-  items?: CategoryType[];
-};
-
 type CategoryProps = {
-  onPress: (args: CategoryType) => void;
-} & CategoryType;
+  onPress: (args: Item) => void;
+} & Item;
 
 const CategoryItem: React.FC<CategoryProps> = ({
   id,

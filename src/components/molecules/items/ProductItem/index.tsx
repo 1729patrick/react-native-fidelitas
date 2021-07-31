@@ -2,21 +2,13 @@ import React from 'react';
 import { Image } from 'react-native';
 import { Text, View } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
+import { Item } from '~/screens/menu/Products';
 import StyleGuide from '~/util/StyleGuide';
 import styles from './styles';
 
-export type ProductType = {
-  id: string;
-  title: string;
-  type: 'category' | 'product';
-  description?: string;
-  image: any;
-  price?: number;
-};
-
 type ProductProps = {
-  onPress: (args: Partial<ProductType>) => void;
-} & ProductType;
+  onPress: (args: Partial<Item>) => void;
+} & Item;
 
 const ProductItem: React.FC<ProductProps> = ({
   title,
