@@ -1,10 +1,4 @@
-// @flow
-
-import React, {
-  useCallback,
-  useState,
-  useMemo,
-} from 'react';
+import React, { useCallback, useState, useMemo } from 'react';
 import {
   StyleSheet,
   TouchableWithoutFeedback,
@@ -12,7 +6,7 @@ import {
   View,
 } from 'react-native';
 
-import FoldingEffect from './FoldingEffect';
+import FoldingCard from '~/lib/FoldingCard';
 import TicketDetail from './TicketDetail';
 import TicketTime from './TicketTime';
 import TicketSummary from './TicketSummary';
@@ -23,24 +17,23 @@ import TicketBack from './TicketBack';
 import {
   TIKCET_ID,
   TICKET_HEIGHT,
-  type TicketIdType,
-  type TicketDataType,
+  TicketIdType,
+  TicketDataType,
 } from './types';
 
-type Props = {|
-  data: TicketDataType,
-|};
+type Props = {
+  data: TicketDataType;
+};
 
 type FoldedState = {
-  [TicketIdType]: boolean,
+  [TicketIdType]: boolean;
 };
 
 function Ticket({ data }: Props) {
-  const {
-    containerStyle,
-    containerSizeAnimationValue,
-  } = useMemo(() => {
-    const containerSizeAnimationValue = new Animated.Value(TICKET_HEIGHT.DETAIL);
+  const { containerStyle, containerSizeAnimationValue } = useMemo(() => {
+    const containerSizeAnimationValue = new Animated.Value(
+      TICKET_HEIGHT.DETAIL,
+    );
     const containerStyle = {
       ...styles.container,
       height: containerSizeAnimationValue,
@@ -60,15 +53,21 @@ function Ticket({ data }: Props) {
     [TIKCET_ID.PAY]: true,
   });
 
-  const changeContainerSize = useCallback((...args: TicketIdType[]) => {
-    const containerSize = args.reduce((acc, id) => acc + TICKET_HEIGHT[id], 0);
+  const changeContainerSize = useCallback(
+    (...args: TicketIdType[]) => {
+      const containerSize = args.reduce(
+        (acc, id) => acc + TICKET_HEIGHT[id],
+        0,
+      );
 
-    Animated.timing(containerSizeAnimationValue, {
-      toValue: containerSize,
-      duration: 5000,
-      useNativeDriver: false,
-    }).start();
-  }, [containerSizeAnimationValue]);
+      Animated.timing(containerSizeAnimationValue, {
+        toValue: containerSize,
+        duration: 200,
+        useNativeDriver: false,
+      }).start();
+    },
+    [containerSizeAnimationValue],
+  );
 
   const onPress = useCallback(() => {
     if (isProcessing) {
@@ -100,74 +99,84 @@ function Ticket({ data }: Props) {
     });
   }, [isProcessing, changeContainerSize]);
 
-  const onChange = useCallback((id: TicketIdType, isFolded: boolean) => {
-    if (isFolded) {
-      if (id === TIKCET_ID.PAY) {
-        setFoldedState(prevState => ({
-          ...prevState,
-          [TIKCET_ID.PRICE]: true,
-        }));
+  const onChange = useCallback(
+    (id: TicketIdType, isFolded: boolean) => {
+      if (isFolded) {
+        if (id === TIKCET_ID.PAY) {
+          setFoldedState(prevState => ({
+            ...prevState,
+            [TIKCET_ID.PRICE]: true,
+          }));
 
-        changeContainerSize(TIKCET_ID.DETAIL, TIKCET_ID.TIME);
-      } else if (id === TIKCET_ID.PRICE) {
-        setFoldedState(prevState => ({
-          ...prevState,
-          [TIKCET_ID.TIME]: true,
-        }));
+          changeContainerSize(TIKCET_ID.DETAIL, TIKCET_ID.TIME);
+        } else if (id === TIKCET_ID.PRICE) {
+          setFoldedState(prevState => ({
+            ...prevState,
+            [TIKCET_ID.TIME]: true,
+          }));
 
-        changeContainerSize(TIKCET_ID.DETAIL);
+          changeContainerSize(TIKCET_ID.DETAIL);
+        } else {
+          setProcessing(false);
+        }
       } else {
-        setProcessing(false);
-      }
-    } else {
-      if (id === TIKCET_ID.TIME) {
-        setFoldedState(prevState => ({
-          ...prevState,
-          [TIKCET_ID.PRICE]: false,
-        }));
+        if (id === TIKCET_ID.TIME) {
+          setFoldedState(prevState => ({
+            ...prevState,
+            [TIKCET_ID.PRICE]: false,
+          }));
 
-        changeContainerSize(TIKCET_ID.DETAIL, TIKCET_ID.TIME, TIKCET_ID.PRICE);
-      } else if (id === TIKCET_ID.PRICE) {
-        setFoldedState(prevState => ({
-          ...prevState,
-          [TIKCET_ID.PAY]: false,
-        }));
+          changeContainerSize(
+            TIKCET_ID.DETAIL,
+            TIKCET_ID.TIME,
+            TIKCET_ID.PRICE,
+          );
+        } else if (id === TIKCET_ID.PRICE) {
+          setFoldedState(prevState => ({
+            ...prevState,
+            [TIKCET_ID.PAY]: false,
+          }));
 
-        changeContainerSize(TIKCET_ID.DETAIL, TIKCET_ID.TIME, TIKCET_ID.PRICE, TIKCET_ID.PAY);
-      } else if (id === TIKCET_ID.PAY) {
-        setProcessing(false);
+          changeContainerSize(
+            TIKCET_ID.DETAIL,
+            TIKCET_ID.TIME,
+            TIKCET_ID.PRICE,
+            TIKCET_ID.PAY,
+          );
+        } else if (id === TIKCET_ID.PAY) {
+          setProcessing(false);
+        }
       }
-    }
-  }, [changeContainerSize]);
+    },
+    [changeContainerSize],
+  );
 
   return (
     <Animated.View style={containerStyle}>
       <TouchableWithoutFeedback onPress={onPress}>
         <View style={styles.inner}>
           <TicketDetail isVisible={!foldedState.TIME} data={data} />
-          <FoldingEffect
+          <FoldingCard
             id={TIKCET_ID.TIME}
             isFolded={foldedState.TIME}
             onChange={onChange}
             front={<TicketTime data={data} />}
-            back={<TicketSummary data={data} />}
-          >
-            <FoldingEffect
+            back={<TicketSummary data={data} />}>
+            <FoldingCard
               id={TIKCET_ID.PRICE}
               isFolded={foldedState.PRICE}
               onChange={onChange}
               front={<TicketPrice data={data} />}
-              back={<TicketBack />}
-            >
-              <FoldingEffect
+              back={<TicketBack />}>
+              <FoldingCard
                 id={TIKCET_ID.PAY}
                 isFolded={foldedState.PAY}
                 onChange={onChange}
                 front={<TicketPay />}
                 back={<TicketBack />}
               />
-            </FoldingEffect>
-          </FoldingEffect>
+            </FoldingCard>
+          </FoldingCard>
         </View>
       </TouchableWithoutFeedback>
     </Animated.View>

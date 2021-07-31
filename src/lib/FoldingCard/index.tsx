@@ -5,40 +5,34 @@ import React, {
   useMemo,
   useCallback,
   useState,
+  ReactNode,
 } from 'react';
-import {
-  Animated,
-  View,
-  StyleSheet,
-} from 'react-native';
+import { Animated, View, StyleSheet } from 'react-native';
 
 import TransformUtil from './TransformUtil';
 
-import {
-  TIKCET_ID,
-  type TicketIdType,
-} from './types';
+import { TIKCET_ID, TicketIdType } from './types';
 
 const PERSPECTIVE = 1500;
 
 const TRANSFORM_POSITION: {
-  [TicketIdType]: number,
+  [TicketIdType]: number;
 } = {
   [TIKCET_ID.TIME]: -100,
   [TIKCET_ID.PRICE]: -50,
   [TIKCET_ID.PAY]: -25,
 };
 
-type Props = {|
-  id: TicketIdType,
-  isFolded: boolean,
-  onChange: (id: TicketIdType, isFolded: boolean) => mixed,
-  front: React$Node,
-  back: React$Node,
-  children?: React$Node,
-|};
+type Props = {
+  id: TicketIdType;
+  isFolded: boolean;
+  onChange: (id: TicketIdType, isFolded: boolean) => any;
+  front: ReactNode;
+  back: ReactNode;
+  children?: ReactNode;
+};
 
-function FoldingEffect({
+function FoldingCard({
   id,
   isFolded = false,
   onChange,
@@ -50,21 +44,28 @@ function FoldingEffect({
   const [isFoldedInHalf, setFoldedInHalf] = useState(true);
   const viewRef = useRef();
 
-  const transform = useCallback((deg: number) => {
-    const matrix = TransformUtil.rotateX(deg, TRANSFORM_POSITION[id], PERSPECTIVE);
+  const transform = useCallback(
+    (deg: number) => {
+      const matrix = TransformUtil.rotateX(
+        deg,
+        TRANSFORM_POSITION[id],
+        PERSPECTIVE,
+      );
 
-    const transformStyleProp = {
-      style: {
-        transform: [
-          {
-            matrix,
-          },
-        ],
-      },
-    };
+      const transformStyleProp = {
+        style: {
+          transform: [
+            {
+              matrix,
+            },
+          ],
+        },
+      };
 
-    viewRef.current?.setNativeProps(transformStyleProp);
-  }, [id]);
+      viewRef.current?.setNativeProps(transformStyleProp);
+    },
+    [id],
+  );
 
   const fold = useMemo(() => {
     const animationValue = new Animated.Value(-180);
@@ -94,7 +95,7 @@ function FoldingEffect({
 
       Animated.timing(animationValue, {
         toValue: isFolding ? -180 : 0,
-        duration: 5000,
+        duration: 200,
         useNativeDriver: true,
         overshootClamping: true,
       }).start();
@@ -121,11 +122,7 @@ function FoldingEffect({
         {front}
         {children}
       </View>
-      {isFoldedInHalf && (
-        <View style={styles.back}>
-          {back}
-        </View>
-      )}
+      {isFoldedInHalf && <View style={styles.back}>{back}</View>}
     </Animated.View>
   );
 }
@@ -139,4 +136,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default React.memo<Props>(FoldingEffect);
+export default React.memo<Props>(FoldingCard);

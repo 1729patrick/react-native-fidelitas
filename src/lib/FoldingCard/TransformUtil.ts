@@ -3,25 +3,18 @@
 
 import MatrixMath from 'react-native/Libraries/Utilities/MatrixMath';
 
-const {
-  createIdentityMatrix,
-  reusePerspectiveCommand,
-  multiplyInto,
-} = MatrixMath;
+const { createIdentityMatrix, reusePerspectiveCommand, multiplyInto } =
+  MatrixMath;
 
 function applyTranslate(matrix: any, origin: any) {
-  const {
-    x, y, z,
-  } = origin;
+  const { x, y, z } = origin;
   const translate = createIdentityMatrix();
   MatrixMath.reuseTranslate3dCommand(translate, x, y, z);
   multiplyInto(matrix, translate, matrix);
 }
 
 function applyUntranslate(matrix: any, origin: any) {
-  const {
-    x, y, z,
-  } = origin;
+  const { x, y, z } = origin;
   const unTranslate = createIdentityMatrix();
   MatrixMath.reuseTranslate3dCommand(unTranslate, -x, -y, -z);
   multiplyInto(matrix, matrix, unTranslate);
@@ -31,12 +24,7 @@ function applyRotateX(matrix: any, deg: number) {
   const rad = (Math.PI / 180) * deg;
   const cos = Math.cos(rad);
   const sin = Math.sin(rad);
-  const rotate = [
-    1, 0, 0, 0,
-    0, cos, -sin, 0,
-    0, sin, cos, 0,
-    0, 0, 0, 1,
-  ];
+  const rotate = [1, 0, 0, 0, 0, cos, -sin, 0, 0, sin, cos, 0, 0, 0, 0, 1];
 
   multiplyInto(matrix, matrix, rotate);
 }
@@ -45,12 +33,7 @@ function applyRotateY(matrix: any, deg: number) {
   const rad = (Math.PI / 180) * deg;
   const cos = Math.cos(rad);
   const sin = Math.sin(rad);
-  const rotate = [
-    cos, 0, sin, 0,
-    0, 1, 0, 0,
-    -1 * sin, 0, cos, 0,
-    0, 0, 0, 1,
-  ];
+  const rotate = [cos, 0, sin, 0, 0, 1, 0, 0, -1 * sin, 0, cos, 0, 0, 0, 0, 1];
 
   multiplyInto(matrix, matrix, rotate);
 }

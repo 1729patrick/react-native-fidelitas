@@ -1,25 +1,19 @@
-// @flow
-
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  StatusBar,
-} from 'react-native';
+import { StyleSheet, View, StatusBar } from 'react-native';
 
 import Ticket from '~/Ticket';
 
 import TicketData from './DummyData';
 
 const App = () => {
-  const ticketComponents = TicketData.map((data, index) => <Ticket key={index} data={data} />);
+  const ticketComponents = TicketData.map((data, index) => (
+    <Ticket key={index} data={data} />
+  ));
 
   return (
     <>
       <StatusBar hidden />
-      <View style={styles.container}>
-        {ticketComponents}
-      </View>
+      <View style={styles.container}>{ticketComponents}</View>
     </>
   );
 };
