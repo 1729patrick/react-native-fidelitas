@@ -24,8 +24,8 @@ const achievements = [
     completed: 17,
   },
   {
-    id: 'Influenciador digital',
-    title: 'Influenciador digital',
+    id: 'Influenciador Digital',
+    title: 'Influenciador Digital',
     description:
       'Indique a aplicação para 10 amigos que não possuem a aplicação instalada.',
     promotion: 'Ganhe um Café do Mês',
@@ -65,7 +65,7 @@ export default () => {
       }
       list={
         <AchievementList
-          data={[...achievements, ...achievements, ...achievements]}
+          data={achievements}
           style={styles.contentContainer}
           onPress={e => console.log(e)}
           onScrollUp={() => floatingButtonRef.current?.show()}

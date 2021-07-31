@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text } from 'react-native';
-import { RectButton } from 'react-native-gesture-handler';
+import { RectButton as RNRectButton } from 'react-native-gesture-handler';
+import Animated, {
+  interpolate,
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from 'react-native-reanimated';
+import RectButton from '~/components/atoms/buttons/RectButton';
 import CircularProgress from '~/components/atoms/CircularProgress';
 import StyleGuide from '~/util/StyleGuide';
 import styles from './styles';
@@ -25,12 +32,28 @@ const AchievementItem: React.FC<AchievementProps> = ({
   completed,
   onPress,
 }) => {
-  return (
-    <View style={styles.border}>
-      <RectButton
-        style={styles.item}
-        rippleColor={StyleGuide.palette.secondary}
-        onPress={() => onPress?.({ title })}>
+  const [footerHeight, setFooterHeight] = useState(0);
+  const animation = useSharedValue(0);
+
+  const containerStyle = useAnimatedStyle(() => {
+    const height = interpolate(
+      animation.value,
+      [0, 1],
+      [143, 143 + footerHeight],
+    );
+
+    return {
+      height,
+    };
+  }, [animation, footerHeight]);
+
+  const onCollapse = () => {
+    animation.value = withSpring(+!animation.value);
+  };
+
+  const renderHeader = () => {
+    return (
+      <View style={styles.header}>
         <View style={styles.progress}>
           <CircularProgress progress={(completed / total) * 100} />
           <Text style={styles.needMore}>
@@ -43,8 +66,42 @@ const AchievementItem: React.FC<AchievementProps> = ({
           <Text style={styles.description}>{description}</Text>
           <Text style={styles.promotion}>{promotion}</Text>
         </View>
-      </RectButton>
-    </View>
+      </View>
+    );
+  };
+
+  const renderFooter = () => {
+    return (
+      <>
+        <View
+          style={styles.footer}
+          onLayout={({ nativeEvent }) =>
+            setFooterHeight(nativeEvent.layout.height)
+          }>
+          <RectButton
+            title="Pegar o prêmio"
+            onPress={() => {}}
+            borderRadius={8}
+            containerStyle={styles.getAchievement}
+            titleStyle={{ color: StyleGuide.palette.green }}
+            backgroundColor={StyleGuide.palette.green}
+            outline
+          />
+        </View>
+      </>
+    );
+  };
+
+  return (
+    <Animated.View style={[styles.border, containerStyle]}>
+      <RNRectButton
+        style={styles.item}
+        rippleColor={StyleGuide.palette.secondary}
+        onPress={onCollapse}>
+        {renderHeader()}
+        {renderFooter()}
+      </RNRectButton>
+    </Animated.View>
   );
 };
 

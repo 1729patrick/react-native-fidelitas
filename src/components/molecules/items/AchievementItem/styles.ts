@@ -7,13 +7,19 @@ export default StyleSheet.create({
     borderColor: StyleGuide.palette.border,
     marginBottom: StyleGuide.spacing * 1.5,
     borderRadius: StyleGuide.borderRadius * 2,
+    overflow: 'hidden',
   },
   item: {
-    flexDirection: 'row',
-    paddingHorizontal: StyleGuide.spacing,
-    paddingVertical: StyleGuide.spacing * 2,
+    height: '100%',
     backgroundColor: StyleGuide.palette.background,
     borderRadius: StyleGuide.borderRadius * 2,
+  },
+  header: {
+    flexDirection: 'row',
+    paddingHorizontal: StyleGuide.spacing * 2,
+    paddingVertical: StyleGuide.spacing * 2,
+    borderBottomWidth: 1,
+    borderBottomColor: StyleGuide.palette.border,
   },
   progress: {
     paddingLeft: StyleGuide.spacing,
@@ -44,5 +50,13 @@ export default StyleSheet.create({
     fontSize: 12,
     color: StyleGuide.palette.secondary,
     textAlign: 'center',
+  },
+  footer: {
+    paddingHorizontal: StyleGuide.spacing * 2,
+    paddingVertical: StyleGuide.spacing,
+  },
+  getAchievement: {
+    marginTop: StyleGuide.spacing,
+    marginBottom: StyleGuide.spacing,
   },
 });
