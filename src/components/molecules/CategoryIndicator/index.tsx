@@ -1,57 +1,77 @@
-import React, { useRef, useState } from 'react';
-import { Dimensions, Text, View } from 'react-native';
-import { PanGestureHandler } from 'react-native-gesture-handler';
+import React, { useCallback, useImperativeHandle, useState } from 'react';
+import { forwardRef } from 'react';
+import { Dimensions, LayoutChangeEvent, View, ViewStyle } from 'react-native';
+import { PanGestureHandler, RectButton } from 'react-native-gesture-handler';
 import Animated, {
   Extrapolate,
   interpolate,
+  interpolateColor,
   useAnimatedGestureHandler,
   useAnimatedStyle,
   withDecay,
 } from 'react-native-reanimated';
+import { Item } from '~/screens/menu/Products';
 import StyleGuide from '~/util/StyleGuide';
+import { PAN_PADDING_LEFT } from './constants';
 
 const { width } = Dimensions.get('window');
 
 import styles from './styles';
 
-const CategoryIndicator = ({
-  data,
-  translationX,
-  x,
-  categoryIndicatorStyles,
-  indicatorsWidthsRef,
-}) => {
+export type CategoryIndicatorHandler = {
+  updateIndicatorTranslationX: () => void;
+};
+
+type CategoryIndicatorProps = {
+  data: Item[];
+  cardTranslationX: Animated.SharedValue<number>;
+  indicatorTranslationX: Animated.SharedValue<number>;
+  categoryIndicatorStyle: Animated.AnimatedStyleProp<ViewStyle>;
+  indicatorsWidthsRef: React.MutableRefObject<number[]>;
+};
+
+const CategoryIndicator: React.ForwardRefRenderFunction<
+  CategoryIndicatorHandler,
+  CategoryIndicatorProps
+> = (
+  {
+    data,
+    cardTranslationX,
+    indicatorTranslationX,
+    categoryIndicatorStyle,
+    indicatorsWidthsRef,
+  },
+  ref,
+) => {
   const [indicatorWidths, setIndicatorWidths] = useState<number[]>([]);
+  const [contentWidth, setContentWidth] = useState<number>(0);
 
   const gestureHandler = useAnimatedGestureHandler(
     {
-      onStart: (_, ctx) => {
-        ctx.startX = x.value;
+      onStart: (_, ctx: { startX: number }) => {
+        ctx.startX = indicatorTranslationX.value;
       },
       onActive: (event, ctx) => {
-        x.value = interpolate(
+        indicatorTranslationX.value = interpolate(
           ctx.startX + event.translationX,
-          [0, width - 763],
-          [0, width - 763],
+          [0, width - contentWidth],
+          [0, width - contentWidth],
           Extrapolate.CLAMP,
         );
       },
-      onEnd: ({ translationX, velocityX, state }, ctx) => {
-        x.value = withDecay({
-          value: translationX,
+      onEnd: ({ velocityX }) => {
+        indicatorTranslationX.value = withDecay({
           velocity: velocityX,
-          state: state,
-          offset: ctx.startX,
-          clamp: [width - 763, 0],
+          clamp: [width - contentWidth, 0],
         });
       },
     },
-    [x.value],
+    [indicatorTranslationX.value, contentWidth],
   );
 
   const activeCategoryStyle = useAnimatedStyle(() => {
     const widths = indicatorWidths.map((_, index) => index * width);
-    const widthsAcc = indicatorWidths.map((width, index) =>
+    const widthsAcc = indicatorWidths.map((_, index) =>
       indicatorWidths.slice(0, index).reduce((a, b) => a + b, 0),
     );
 
@@ -59,22 +79,22 @@ const CategoryIndicator = ({
       return {};
     }
 
-    const width_ = interpolate(translationX.value, widths, indicatorWidths);
-    const left = interpolate(translationX.value, widths, widthsAcc);
+    const width_ = interpolate(cardTranslationX.value, widths, indicatorWidths);
+    const left = interpolate(cardTranslationX.value, widths, widthsAcc);
 
     return { left: left + 8, width: width_ };
-  }, [translationX.value, indicatorWidths, width]);
+  }, [cardTranslationX.value, indicatorWidths, width]);
 
   const setIndicatorWidth = (index: number, value: number) => {
-    indicatorsWidthsRef.current[index] = value + StyleGuide.spacing * 2;
+    indicatorsWidthsRef.current[index] = value;
 
     if (indicatorsWidthsRef.current.length === data.length) {
       setIndicatorWidths(indicatorsWidthsRef.current);
     }
   };
 
-  const animatedStyle1 = useAnimatedStyle(() => {
-    const translateX = x.value;
+  const panContentIndicatorTranslationStyle = useAnimatedStyle(() => {
+    const translateX = indicatorTranslationX.value;
 
     return {
       transform: [
@@ -83,17 +103,17 @@ const CategoryIndicator = ({
         },
       ],
     };
-  }, [x.value]);
+  }, [indicatorTranslationX.value]);
 
-  const animatedStyle2 = useAnimatedStyle(() => {
+  const panContentCardTranslationStyle = useAnimatedStyle(() => {
     const widthsAcc = indicatorWidths.map((_, index) =>
       indicatorWidths.slice(0, index).reduce((a, b) => a + b, 8),
     );
 
     const widths = indicatorWidths.map((_, index) => index * width);
 
-    const left = interpolate(translationX.value, widths, widthsAcc);
-    const width_ = interpolate(translationX.value, widths, indicatorWidths);
+    const left = interpolate(cardTranslationX.value, widths, widthsAcc);
+    const width_ = interpolate(cardTranslationX.value, widths, indicatorWidths);
 
     const center = (width - width_) / 2;
 
@@ -103,8 +123,8 @@ const CategoryIndicator = ({
 
     const translateX = interpolate(
       -(left - center),
-      [width - 763, 0],
-      [width - 763, 0],
+      [width - contentWidth, 0],
+      [width - contentWidth, 0],
       Extrapolate.CLAMP,
     );
 
@@ -115,30 +135,116 @@ const CategoryIndicator = ({
         },
       ],
     };
-  }, [translationX.value, indicatorWidths]);
+  }, [cardTranslationX.value, indicatorWidths, contentWidth]);
+
+  const setContentLayout = ({ nativeEvent }: LayoutChangeEvent) => {
+    setContentWidth(nativeEvent.layout.width + PAN_PADDING_LEFT * 2);
+  };
+
+  const updateIndicatorTranslationX = useCallback(() => {
+    const indicatorWidths = indicatorsWidthsRef.current;
+
+    const widthsAcc = indicatorWidths.map((_, index) =>
+      indicatorWidths.slice(0, index).reduce((a, b) => a + b, 8),
+    );
+    const widths = indicatorWidths.map((_, index) => index * width);
+    const left = interpolate(cardTranslationX.value, widths, widthsAcc);
+    const width_ = interpolate(cardTranslationX.value, widths, indicatorWidths);
+    const center = (width - width_) / 2;
+
+    if (!indicatorWidths.length) {
+      return {};
+    }
+    const translateX = interpolate(
+      -(left - center),
+      [width - contentWidth, PAN_PADDING_LEFT],
+      [width - contentWidth, PAN_PADDING_LEFT],
+      Extrapolate.CLAMP,
+    );
+
+    indicatorTranslationX.value = translateX;
+  }, [
+    cardTranslationX.value,
+    contentWidth,
+    indicatorTranslationX,
+    indicatorsWidthsRef,
+  ]);
+
+  useImperativeHandle(ref, () => ({ updateIndicatorTranslationX }), [
+    updateIndicatorTranslationX,
+  ]);
 
   return (
-    <Animated.View style={[styles.categoryIndicator, categoryIndicatorStyles]}>
+    <Animated.View style={[styles.categoryIndicator, categoryIndicatorStyle]}>
       <PanGestureHandler
         onGestureEvent={gestureHandler}
         activeOffsetX={[-10, 10]}>
         <Animated.View
-          style={[styles.panContent, animatedStyle1, animatedStyle2]}>
-          {data.map((category, index) => (
-            <View
-              key={category.id}
-              style={styles.indicator}
-              onLayout={({ nativeEvent }) => {
-                setIndicatorWidth(index, nativeEvent.layout.width);
-              }}>
-              <Text>{category.title}</Text>
-            </View>
-          ))}
+          style={[
+            styles.panContent,
+            panContentIndicatorTranslationStyle,
+            panContentCardTranslationStyle,
+          ]}
+          onLayout={setContentLayout}>
           <Animated.View style={[styles.categoryActive, activeCategoryStyle]} />
+
+          {data.map((category, index) => (
+            <Indicator
+              category={category}
+              index={index}
+              setIndicatorWidth={setIndicatorWidth}
+              cardTranslationX={cardTranslationX}
+            />
+          ))}
         </Animated.View>
       </PanGestureHandler>
     </Animated.View>
   );
 };
 
-export default CategoryIndicator;
+type IndicatorProps = {
+  category: Item;
+  index: number;
+  setIndicatorWidth: (index: number, value: number) => void;
+  cardTranslationX: Animated.SharedValue<number>;
+};
+
+const Indicator: React.FC<IndicatorProps> = ({
+  category,
+  index,
+  setIndicatorWidth,
+  cardTranslationX,
+}) => {
+  const titleStyle = useAnimatedStyle(() => {
+    const color = interpolateColor(
+      cardTranslationX.value,
+      [(index - 1) * width, index * width, (index + 1) * width],
+      [
+        StyleGuide.palette.primary,
+        StyleGuide.palette.background,
+        StyleGuide.palette.primary,
+      ],
+    );
+
+    return { color };
+  }, [cardTranslationX.value]);
+
+  return (
+    <View
+      key={category.id}
+      style={styles.indicator}
+      onLayout={({ nativeEvent }) => {
+        setIndicatorWidth(index, nativeEvent.layout.width);
+      }}>
+      <RectButton
+        style={styles.indicatorButton}
+        rippleColor={StyleGuide.palette.secondary}>
+        <Animated.Text style={[styles.indicatorTitle, titleStyle]}>
+          {category.title}
+        </Animated.Text>
+      </RectButton>
+    </View>
+  );
+};
+
+export default forwardRef(CategoryIndicator);

@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import StyleGuide from '~/util/StyleGuide';
+import { INDICATOR_HEIGHT, PAN_PADDING_LEFT } from './constants';
 
 export default StyleSheet.create({
   categoryIndicator: {
@@ -7,30 +8,35 @@ export default StyleSheet.create({
     left: 0,
     right: 0,
     alignItems: 'center',
-    paddingVertical: StyleGuide.spacing * 1.5,
     borderBottomWidth: 1,
-    height: 35 + StyleGuide.spacing * 2,
+    height: INDICATOR_HEIGHT + StyleGuide.spacing * 2,
   },
   indicator: {
-    height: 35,
-    paddingHorizontal: StyleGuide.spacing,
-    marginHorizontal: StyleGuide.spacing,
+    height: INDICATOR_HEIGHT,
+    marginHorizontal: 0,
+  },
+  indicatorButton: {
+    height: INDICATOR_HEIGHT,
+    paddingHorizontal: StyleGuide.spacing * 2,
+    borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',
   },
   categoryActive: {
     position: 'absolute',
-    top: 8,
-    borderWidth: 1,
-    borderColor: StyleGuide.palette.primary,
+    top: StyleGuide.spacing,
+    backgroundColor: StyleGuide.palette.app,
     borderRadius: 50,
-    height: 35,
+    height: INDICATOR_HEIGHT,
   },
   panContent: {
-    paddingHorizontal: 8,
-    paddingVertical: 8,
+    paddingHorizontal: StyleGuide.spacing,
+    paddingVertical: StyleGuide.spacing,
     flexDirection: 'row',
     position: 'absolute',
-    left: 0,
+    left: PAN_PADDING_LEFT,
+  },
+  indicatorTitle: {
+    ...StyleGuide.typography.callout,
   },
 });

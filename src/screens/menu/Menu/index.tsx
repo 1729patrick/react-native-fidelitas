@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Dimensions, StatusBar, Text, View } from 'react-native';
+import { StatusBar, Text, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { TextInput } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -23,13 +23,13 @@ import useStatusBar from '~/hooks/useStatusBar';
 import StyleGuide from '~/util/StyleGuide';
 import GroupedProductsList from '~/components/organisms/lists/GroupedProducts';
 import { IMAGE_HEIGHT } from './constants';
-import CategoryIndicator from '~/components/molecules/CategoryIndicator';
+import CategoryIndicator, {
+  CategoryIndicatorHandler,
+} from '~/components/molecules/CategoryIndicator';
 
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
 
 const image = require('../../../assets/background_home.jpg');
-
-const { width } = Dimensions.get('window');
 
 const generic = {
   id: 'Produtos Naturais',
@@ -64,6 +64,22 @@ const generic = {
     {
       id: 'Batata Quente',
       title: 'Batata Quente',
+      description: 'Chocolate Quente meio amargo - 230ml',
+      type: MenuType.Product,
+      image,
+      price: 16,
+    },
+    {
+      id: 'Batata Fria',
+      title: 'Batata Fria',
+      description: 'Chocolate Quente meio amargo - 230ml',
+      type: MenuType.Product,
+      image,
+      price: 16,
+    },
+    {
+      id: 'Água',
+      title: 'Água',
       description: 'Chocolate Quente meio amargo - 230ml',
       type: MenuType.Product,
       image,
@@ -244,8 +260,12 @@ const items: Item[] = [
 
 export default () => {
   const indicatorsWidthsRef = useRef<number[]>([]);
-  const translationX = useSharedValue(0);
+  const categoryIndicatorRef = useRef<CategoryIndicatorHandler>(null);
   const translationY = useSharedValue(0);
+
+  const cardTranslationX = useSharedValue(0);
+  const indicatorTranslationX = useSharedValue(0);
+
   const [dark, setDark] = useState(false);
   useStatusBar(dark);
 
@@ -253,7 +273,7 @@ export default () => {
     translationY.value = event.contentOffset.y;
   });
 
-  const searchStyles = useAnimatedStyle(() => {
+  const searchStyle = useAnimatedStyle(() => {
     const top = interpolate(
       translationY.value,
       [0, 40],
@@ -275,7 +295,7 @@ export default () => {
     };
   }, [translationY]);
 
-  const categoryIndicatorStyles = useAnimatedStyle(() => {
+  const categoryIndicatorStyle = useAnimatedStyle(() => {
     const top = interpolate(
       translationY.value,
       [0, IMAGE_HEIGHT - 93],
@@ -297,28 +317,8 @@ export default () => {
     return { top, borderColor, backgroundColor };
   }, []);
 
-  const x = useSharedValue(0);
-
   const onEndDrag = () => {
-    const indicatorWidths = indicatorsWidthsRef.current;
-
-    const widthsAcc = indicatorWidths.map((_, index) =>
-      indicatorWidths.slice(0, index).reduce((a, b) => a + b, 8),
-    );
-    const widths = indicatorWidths.map((_, index) => index * width);
-    const left = interpolate(translationX.value, widths, widthsAcc);
-    const width_ = interpolate(translationX.value, widths, indicatorWidths);
-    const center = (width - width_) / 2;
-    if (!indicatorWidths.length) {
-      return {};
-    }
-    const translateX = interpolate(
-      -(left - center),
-      [width - 763, 0],
-      [width - 763, 0],
-      Extrapolate.CLAMP,
-    );
-    x.value = translateX - 8;
+    categoryIndicatorRef.current?.updateIndicatorTranslationX();
   };
 
   return (
@@ -331,7 +331,7 @@ export default () => {
         />
       }
       search={
-        <Animated.View style={[styles.searchContainer, searchStyles]}>
+        <Animated.View style={[styles.searchContainer, searchStyle]}>
           <View style={[styles.search]}>
             <Icon name="search1" size={23} color={StyleGuide.palette.app} />
             <TextInput
@@ -345,10 +345,11 @@ export default () => {
       categoryIndicator={
         <CategoryIndicator
           data={items}
-          translationX={translationX}
-          x={x}
-          categoryIndicatorStyles={categoryIndicatorStyles}
+          cardTranslationX={cardTranslationX}
+          indicatorTranslationX={indicatorTranslationX}
+          categoryIndicatorStyle={categoryIndicatorStyle}
           indicatorsWidthsRef={indicatorsWidthsRef}
+          ref={categoryIndicatorRef}
         />
       }
       content={
@@ -371,8 +372,8 @@ export default () => {
             style={styles.contentContainer}
             onPress={x => console.log(x)}
             onEndDrag={() => onEndDrag()}
-            translationX={translationX}
-            x={x}
+            cardTranslationX={cardTranslationX}
+            indicatorTranslationX={indicatorTranslationX}
           />
         </AnimatedScrollView>
       }

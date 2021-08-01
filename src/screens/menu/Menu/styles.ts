@@ -44,7 +44,7 @@ export default StyleSheet.create({
     marginTop: 80 + 48,
   },
   contentContainer: {
-    paddingTop: 35 + StyleGuide.spacing * 3 + StyleGuide.spacing * 4,
+    paddingTop: 35 + StyleGuide.spacing * 4,
     paddingBottom: StyleGuide.spacing * 4,
   },
 });

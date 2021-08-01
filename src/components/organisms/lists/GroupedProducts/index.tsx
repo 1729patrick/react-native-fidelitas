@@ -1,7 +1,6 @@
 import React from 'react';
 import { Dimensions, View } from 'react-native';
 import { StyleProp, Text, ViewStyle } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
 import Animated, {
   runOnJS,
   useAnimatedScrollHandler,
@@ -12,8 +11,8 @@ import { Item } from '~/screens/menu/Products';
 import styles from './styles';
 
 type GroupedProductsListProps = {
-  translationX: Animated.SharedValue<number>;
-  x: Animated.SharedValue<number>;
+  cardTranslationX: Animated.SharedValue<number>;
+  indicatorTranslationX: Animated.SharedValue<number>;
   style?: StyleProp<ViewStyle>;
   onPress?: (args: Item) => void;
   data: Item[];
@@ -23,23 +22,23 @@ type GroupedProductsListProps = {
 const { width } = Dimensions.get('window');
 
 const GroupedProductsList: React.FC<GroupedProductsListProps> = ({
-  translationX,
+  cardTranslationX,
   style,
   onPress,
   data,
   onEndDrag,
-  x,
+  indicatorTranslationX,
 }) => {
   const scrollHandler = useAnimatedScrollHandler(
     {
       onScroll: event => {
-        translationX.value = event.contentOffset.x;
+        cardTranslationX.value = event.contentOffset.x;
       },
       onMomentumEnd: () => {
         runOnJS(onEndDrag)();
       },
     },
-    [x.value],
+    [indicatorTranslationX.value],
   );
 
   return (
