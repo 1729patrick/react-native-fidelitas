@@ -21,7 +21,9 @@ import Menu from '~/components/templates/Menu';
 import { Item, MenuType } from '../Products';
 import useStatusBar from '~/hooks/useStatusBar';
 import StyleGuide from '~/util/StyleGuide';
-import GroupedProductsList from '~/components/organisms/lists/GroupedProducts';
+import GroupedProductsList, {
+  GroupedProductListHandler,
+} from '~/components/organisms/lists/GroupedProducts';
 import { IMAGE_HEIGHT } from './constants';
 import CategoryIndicator, {
   CategoryIndicatorHandler,
@@ -261,6 +263,7 @@ const items: Item[] = [
 export default () => {
   const indicatorsWidthsRef = useRef<number[]>([]);
   const categoryIndicatorRef = useRef<CategoryIndicatorHandler>(null);
+  const groupedProductsListRef = useRef<GroupedProductListHandler>(null);
   const translationY = useSharedValue(0);
 
   const cardTranslationX = useSharedValue(0);
@@ -321,6 +324,10 @@ export default () => {
     categoryIndicatorRef.current?.updateIndicatorTranslationX();
   };
 
+  const scrollTo = (index: number) => {
+    groupedProductsListRef.current?.scrollTo(index);
+  };
+
   return (
     <Menu
       statusBar={
@@ -350,6 +357,7 @@ export default () => {
           categoryIndicatorStyle={categoryIndicatorStyle}
           indicatorsWidthsRef={indicatorsWidthsRef}
           ref={categoryIndicatorRef}
+          scrollTo={scrollTo}
         />
       }
       content={
@@ -374,6 +382,7 @@ export default () => {
             onEndDrag={() => onEndDrag()}
             cardTranslationX={cardTranslationX}
             indicatorTranslationX={indicatorTranslationX}
+            ref={groupedProductsListRef}
           />
         </AnimatedScrollView>
       }

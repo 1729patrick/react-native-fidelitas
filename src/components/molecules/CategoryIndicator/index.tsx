@@ -1,7 +1,8 @@
 import React, { useCallback, useImperativeHandle, useState } from 'react';
 import { forwardRef } from 'react';
+import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import { Dimensions, LayoutChangeEvent, View, ViewStyle } from 'react-native';
-import { PanGestureHandler, RectButton } from 'react-native-gesture-handler';
+import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, {
   Extrapolate,
   interpolate,
@@ -28,6 +29,7 @@ type CategoryIndicatorProps = {
   indicatorTranslationX: Animated.SharedValue<number>;
   categoryIndicatorStyle: Animated.AnimatedStyleProp<ViewStyle>;
   indicatorsWidthsRef: React.MutableRefObject<number[]>;
+  scrollTo: (index: number) => void;
 };
 
 const CategoryIndicator: React.ForwardRefRenderFunction<
@@ -40,6 +42,7 @@ const CategoryIndicator: React.ForwardRefRenderFunction<
     indicatorTranslationX,
     categoryIndicatorStyle,
     indicatorsWidthsRef,
+    scrollTo,
   },
   ref,
 ) => {
@@ -194,6 +197,7 @@ const CategoryIndicator: React.ForwardRefRenderFunction<
               index={index}
               setIndicatorWidth={setIndicatorWidth}
               cardTranslationX={cardTranslationX}
+              scrollTo={scrollTo}
             />
           ))}
         </Animated.View>
@@ -207,6 +211,7 @@ type IndicatorProps = {
   index: number;
   setIndicatorWidth: (index: number, value: number) => void;
   cardTranslationX: Animated.SharedValue<number>;
+  scrollTo: (index: number) => void;
 };
 
 const Indicator: React.FC<IndicatorProps> = ({
@@ -214,6 +219,7 @@ const Indicator: React.FC<IndicatorProps> = ({
   index,
   setIndicatorWidth,
   cardTranslationX,
+  scrollTo,
 }) => {
   const titleStyle = useAnimatedStyle(() => {
     const color = interpolateColor(
@@ -236,13 +242,14 @@ const Indicator: React.FC<IndicatorProps> = ({
       onLayout={({ nativeEvent }) => {
         setIndicatorWidth(index, nativeEvent.layout.width);
       }}>
-      <RectButton
+      <TouchableOpacity
         style={styles.indicatorButton}
-        rippleColor={StyleGuide.palette.secondary}>
+        activeOpacity={1}
+        onPress={() => scrollTo(index)}>
         <Animated.Text style={[styles.indicatorTitle, titleStyle]}>
           {category.title}
         </Animated.Text>
-      </RectButton>
+      </TouchableOpacity>
     </View>
   );
 };
