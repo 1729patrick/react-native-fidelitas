@@ -1,13 +1,13 @@
 import React from 'react';
 import { Text, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Item } from '~/screens/menu/Products';
+import { MenuItemType } from '~/screens/menu/Menu';
 
 import styles from './styles';
 
 type CategoryProps = {
-  onPress: (args: Item) => void;
-} & Item;
+  onPress: (args: MenuItemType) => void;
+} & MenuItemType;
 
 const CategoryItem: React.FC<CategoryProps> = ({
   id,

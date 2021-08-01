@@ -2,13 +2,14 @@ import React from 'react';
 import { Image } from 'react-native';
 import { Text, View } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
-import { Item } from '~/screens/menu/Products';
+import { MenuItemType } from '~/screens/menu/Menu';
+
 import StyleGuide from '~/util/StyleGuide';
 import styles from './styles';
 
 type ProductProps = {
-  onPress: (args: Partial<Item>) => void;
-} & Item;
+  onPress: (args: Partial<MenuItemType>) => void;
+} & MenuItemType;
 
 const ProductItem: React.FC<ProductProps> = ({
   title,

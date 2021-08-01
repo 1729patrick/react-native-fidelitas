@@ -11,7 +11,7 @@ import Animated, {
   useAnimatedStyle,
   withDecay,
 } from 'react-native-reanimated';
-import { Item } from '~/screens/menu/Products';
+import { MenuItemType } from '~/screens/menu/Menu';
 import StyleGuide from '~/util/StyleGuide';
 import { PAN_PADDING_LEFT } from './constants';
 
@@ -24,7 +24,7 @@ export type CategoryIndicatorHandler = {
 };
 
 type CategoryIndicatorProps = {
-  data: Item[];
+  data: MenuItemType[];
   cardTranslationX: Animated.SharedValue<number>;
   indicatorTranslationX: Animated.SharedValue<number>;
   categoryIndicatorStyle: Animated.AnimatedStyleProp<ViewStyle>;

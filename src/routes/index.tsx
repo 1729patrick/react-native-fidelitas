@@ -12,7 +12,6 @@ import Facilities from '~/screens/home/Facilities';
 import Map from '~/screens/home/Map';
 import Home from '~/screens/home/Home';
 import Menu from '~/screens/menu/Menu';
-import Products from '~/screens/menu/Products';
 import Profile from '~/screens/profile/Profile';
 import Notifications from '~/screens/profile/Notifications';
 import TermsAndPrivacy from '~/screens/profile/TermsAndPrivacy';
@@ -76,11 +75,6 @@ const MenuNavigator = () => {
       <MenuStack.Screen
         name="Main"
         component={Menu}
-        options={optionsVertical}
-      />
-      <MenuStack.Screen
-        name="Products"
-        component={Products}
         options={optionsVertical}
       />
     </MenuStack.Navigator>

@@ -7,11 +7,11 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import List from '../../../atoms/List';
 import StyleGuide from '~/util/StyleGuide';
 import RoundButton from '~/components/atoms/buttons/RoundButton';
-import { Item } from '~/screens/menu/Products';
+import { MenuItemType } from '~/screens/menu/Menu';
 
 type MenuListProps = {
-  onPress: (args: Item) => void;
-  data: Item[];
+  onPress: (args: MenuItemType) => void;
+  data: MenuItemType[];
 };
 
 const Categories: React.FC<MenuListProps> = ({ onPress, data }) => {

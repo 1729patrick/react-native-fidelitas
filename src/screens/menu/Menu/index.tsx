@@ -18,20 +18,35 @@ import Animated, {
 import { ScrollView } from 'react-native-gesture-handler';
 
 import Menu from '~/components/templates/Menu';
-import { Item, MenuType } from '../Products';
 import useStatusBar from '~/hooks/useStatusBar';
 import StyleGuide from '~/util/StyleGuide';
 import GroupedProductsList, {
   GroupedProductListHandler,
 } from '~/components/organisms/lists/GroupedProducts';
-import { IMAGE_HEIGHT } from './constants';
+import { IMAGE_HEIGHT, TOTAL_HEADER_HEIGHT } from './constants';
 import CategoryIndicator, {
   CategoryIndicatorHandler,
 } from '~/components/molecules/CategoryIndicator';
+import { DEFAULT_CARD_HEIGHT } from '~/components/organisms/lists/GroupedProducts/constants';
 
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
 
 const image = require('../../../assets/background_home.jpg');
+
+export enum MenuType {
+  Category,
+  Product,
+}
+
+export type MenuItemType = {
+  id: string;
+  title: string;
+  type: MenuType;
+  description?: string;
+  image: any;
+  price?: number;
+  items?: MenuItemType[];
+};
 
 const generic = {
   id: 'Produtos Naturais',
@@ -90,7 +105,7 @@ const generic = {
   ],
 };
 
-const items_: Item[] = [
+const items_: MenuItemType[] = [
   {
     id: 'Produtos Naturais',
     title: 'Entrada',
@@ -253,7 +268,7 @@ const items_: Item[] = [
   },
 ];
 
-const items: Item[] = [
+const items: MenuItemType[] = [
   ...items_,
   { ...generic, id: '111', title: 'Promoções' },
   { ...generic, id: '222', title: 'Especialidades da casa' },
@@ -264,6 +279,7 @@ export default () => {
   const indicatorsWidthsRef = useRef<number[]>([]);
   const categoryIndicatorRef = useRef<CategoryIndicatorHandler>(null);
   const groupedProductsListRef = useRef<GroupedProductListHandler>(null);
+  const verticalScrollViewRef = useRef<ScrollView>(null);
   const translationY = useSharedValue(0);
 
   const cardTranslationX = useSharedValue(0);
@@ -322,10 +338,19 @@ export default () => {
 
   const onEndDrag = () => {
     categoryIndicatorRef.current?.updateIndicatorTranslationX();
+
+    verticalScrollViewRef.current?.scrollTo({
+      y: TOTAL_HEADER_HEIGHT,
+      animated: false,
+    });
   };
 
   const scrollTo = (index: number) => {
     groupedProductsListRef.current?.scrollTo(index);
+    verticalScrollViewRef.current?.scrollTo({
+      y: TOTAL_HEADER_HEIGHT,
+      animated: false,
+    });
   };
 
   return (
@@ -338,9 +363,7 @@ export default () => {
         />
       }
       search={
-        <Animated.View
-          style={[styles.searchContainer, searchStyle]}
-          onLayout={e => console.log(e.nativeEvent.layout.height)}>
+        <Animated.View style={[styles.searchContainer, searchStyle]}>
           <View style={[styles.search]}>
             <Icon name="search1" size={23} color={StyleGuide.palette.app} />
             <TextInput
@@ -364,6 +387,7 @@ export default () => {
       }
       content={
         <AnimatedScrollView
+          ref={verticalScrollViewRef}
           overScrollMode="never"
           onScroll={scrollHandler}
           scrollEventThrottle={16}

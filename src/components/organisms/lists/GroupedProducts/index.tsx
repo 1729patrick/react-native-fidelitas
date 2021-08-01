@@ -14,8 +14,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import Loader from '~/components/atoms/Loader';
 import ProductItem from '~/components/molecules/items/ProductItem';
-
-import { Item } from '~/screens/menu/Products';
+import { MenuItemType } from '~/screens/menu/Menu';
 
 import { DEFAULT_CARD_HEIGHT } from './constants';
 
@@ -29,8 +28,8 @@ type GroupedProductsListProps = {
   cardTranslationX: Animated.SharedValue<number>;
   indicatorTranslationX: Animated.SharedValue<number>;
   style?: StyleProp<ViewStyle>;
-  onPress?: (args: Item) => void;
-  data: Item[];
+  onPress?: (args: MenuItemType) => void;
+  data: MenuItemType[];
   onEndDrag: () => void;
 };
 
@@ -83,9 +82,11 @@ const GroupedProductsList: React.ForwardRefRenderFunction<
       contentContainerStyle={[styles.contentContainer, style]}
       overScrollMode="never">
       {data.map((category, index) => (
-        <View style={[{ width, minHeight: DEFAULT_CARD_HEIGHT }]}>
+        <View
+          style={[{ width, minHeight: DEFAULT_CARD_HEIGHT }]}
+          key={category.id}>
           {activePage === index ? (
-            <View style={[styles.group]} key={category.id}>
+            <View style={[styles.group]}>
               <Text style={styles.title}>{category.title}</Text>
               {(category.items || []).map(product => (
                 <ProductItem
