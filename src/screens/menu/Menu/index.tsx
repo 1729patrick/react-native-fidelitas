@@ -338,7 +338,9 @@ export default () => {
         />
       }
       search={
-        <Animated.View style={[styles.searchContainer, searchStyle]}>
+        <Animated.View
+          style={[styles.searchContainer, searchStyle]}
+          onLayout={e => console.log(e.nativeEvent.layout.height)}>
           <View style={[styles.search]}>
             <Icon name="search1" size={23} color={StyleGuide.palette.app} />
             <TextInput

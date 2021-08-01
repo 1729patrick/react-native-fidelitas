@@ -193,6 +193,7 @@ const CategoryIndicator: React.ForwardRefRenderFunction<
 
           {data.map((category, index) => (
             <Indicator
+              key={category.id}
               category={category}
               index={index}
               setIndicatorWidth={setIndicatorWidth}
@@ -237,7 +238,6 @@ const Indicator: React.FC<IndicatorProps> = ({
 
   return (
     <View
-      key={category.id}
       style={styles.indicator}
       onLayout={({ nativeEvent }) => {
         setIndicatorWidth(index, nativeEvent.layout.width);

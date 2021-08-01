@@ -5,15 +5,19 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Dimensions, View } from 'react-native';
-import { StyleProp, Text, ViewStyle } from 'react-native';
+import { Dimensions, Text, View } from 'react-native';
+import { StyleProp, ViewStyle } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Animated, {
   runOnJS,
   useAnimatedScrollHandler,
 } from 'react-native-reanimated';
+import Loader from '~/components/atoms/Loader';
 import ProductItem from '~/components/molecules/items/ProductItem';
+
 import { Item } from '~/screens/menu/Products';
+
+import { DEFAULT_CARD_HEIGHT } from './constants';
 
 import styles from './styles';
 
@@ -79,7 +83,7 @@ const GroupedProductsList: React.ForwardRefRenderFunction<
       contentContainerStyle={[styles.contentContainer, style]}
       overScrollMode="never">
       {data.map((category, index) => (
-        <View style={[{ width }]}>
+        <View style={[{ width, minHeight: DEFAULT_CARD_HEIGHT }]}>
           {activePage === index ? (
             <View style={[styles.group]} key={category.id}>
               <Text style={styles.title}>{category.title}</Text>
@@ -92,9 +96,7 @@ const GroupedProductsList: React.ForwardRefRenderFunction<
               ))}
             </View>
           ) : (
-            <View>
-              <Text>Carregando</Text>
-            </View>
+            <Loader />
           )}
         </View>
       ))}
