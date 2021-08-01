@@ -1,8 +1,6 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import StyleGuide from '~/util/StyleGuide';
 import { IMAGE_HEIGHT } from './constants';
-
-const { height } = Dimensions.get('window');
 
 export default StyleSheet.create({
   searchContainer: {
@@ -14,6 +12,7 @@ export default StyleSheet.create({
     paddingTop: 25,
     zIndex: 2,
     backgroundColor: StyleGuide.palette.background,
+    borderBottomWidth: 1,
   },
   search: {
     flexDirection: 'row',
@@ -46,5 +45,18 @@ export default StyleSheet.create({
   contentContainer: {
     paddingTop: 35 + StyleGuide.spacing * 4,
     paddingBottom: StyleGuide.spacing * 4,
+  },
+  searchContent: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: StyleGuide.palette.background,
+  },
+  iconContainer: {
+    width: 25,
+    height: 25,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  icon: {
+    position: 'absolute',
   },
 });

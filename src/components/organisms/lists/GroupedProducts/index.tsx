@@ -16,8 +16,6 @@ import Loader from '~/components/atoms/Loader';
 import ProductItem from '~/components/molecules/items/ProductItem';
 import { MenuItemType } from '~/screens/menu/Menu';
 
-import { DEFAULT_CARD_HEIGHT } from './constants';
-
 import styles from './styles';
 
 export type GroupedProductListHandler = {
@@ -95,7 +93,7 @@ const GroupedProductsList: React.ForwardRefRenderFunction<
               ))}
             </View>
           ) : (
-            <View style={{ height: DEFAULT_CARD_HEIGHT }}>
+            <View style={styles.loader}>
               <Loader />
             </View>
           )}

@@ -13,6 +13,7 @@ type RoundButtonProp = {
   style?: StyleProp<ViewStyle>;
   color?: string;
   disabled?: boolean;
+  rippleColor?: string;
 };
 
 const RoundButton: React.FC<RoundButtonProp> = ({
@@ -23,6 +24,7 @@ const RoundButton: React.FC<RoundButtonProp> = ({
   style,
   color,
   disabled,
+  rippleColor,
 }) => {
   const opacity = useMemo(() => {
     return disabled ? 0.4 : 1;
@@ -30,7 +32,7 @@ const RoundButton: React.FC<RoundButtonProp> = ({
 
   return (
     <BorderlessButton
-      rippleColor={StyleGuide.palette.secondary}
+      rippleColor={rippleColor || StyleGuide.palette.secondary}
       hitSlop={{ top: 58, bottom: 58, left: 58, right: 58 }}
       enabled={!disabled}
       onPress={onPress}

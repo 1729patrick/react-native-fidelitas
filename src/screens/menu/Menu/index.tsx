@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { StatusBar, Text, View } from 'react-native';
+import { Dimensions, StatusBar, Text, View, TextInput } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { TextInput } from 'react-native-gesture-handler';
+
 import Icon from 'react-native-vector-icons/AntDesign';
 
 import styles from './styles';
@@ -13,6 +13,7 @@ import Animated, {
   useSharedValue,
   interpolateColor,
   runOnJS,
+  withTiming,
 } from 'react-native-reanimated';
 
 import { ScrollView } from 'react-native-gesture-handler';
@@ -23,14 +24,18 @@ import StyleGuide from '~/util/StyleGuide';
 import GroupedProductsList, {
   GroupedProductListHandler,
 } from '~/components/organisms/lists/GroupedProducts';
-import { IMAGE_HEIGHT, TOTAL_HEADER_HEIGHT } from './constants';
+import { IMAGE_HEIGHT, SEARCH_WIDTH, TOTAL_HEADER_HEIGHT } from './constants';
 import CategoryIndicator, {
   CategoryIndicatorHandler,
 } from '~/components/molecules/CategoryIndicator';
+import RoundButton from '~/components/atoms/buttons/RoundButton';
+import useHideTabBar from '~/hooks/useHideTabBar';
 
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
 
 const image = require('../../../assets/background_home.jpg');
+
+const { height } = Dimensions.get('window');
 
 export enum MenuType {
   Category,
@@ -274,11 +279,18 @@ const items: MenuItemType[] = [
   { ...generic, id: '333', title: 'Molhos' },
 ];
 
+const AnimatedIcon = Animated.createAnimatedComponent(Icon);
+
 export default () => {
   const indicatorsWidthsRef = useRef<number[]>([]);
+  const translationYWhenSearchOpenRef = useRef<number>(0);
+  const searchRef = useRef<TextInput>(null);
   const categoryIndicatorRef = useRef<CategoryIndicatorHandler>(null);
   const groupedProductsListRef = useRef<GroupedProductListHandler>(null);
   const verticalScrollViewRef = useRef<ScrollView>(null);
+  const { hideTabBar, showTabBar } = useHideTabBar(false);
+
+  const searchContentAnimation = useSharedValue(0);
   const translationY = useSharedValue(0);
 
   const cardTranslationX = useSharedValue(0);
@@ -305,13 +317,32 @@ export default () => {
       ['transparent', 'white'],
     );
 
+    const borderColor = interpolateColor(
+      searchContentAnimation.value,
+      [0.99, 1],
+      ['transparent', StyleGuide.palette.border],
+    );
+
     runOnJS(setDark)(translationY.value >= 34.99);
 
     return {
       top,
       backgroundColor,
+      borderColor,
     };
-  }, [translationY]);
+  }, [translationY.value, searchContentAnimation.value]);
+
+  const searchIconStyle = useAnimatedStyle(() => {
+    return {
+      opacity: 1 - searchContentAnimation.value,
+    };
+  }, [translationY.value, searchContentAnimation.value]);
+
+  const searchBackStyle = useAnimatedStyle(() => {
+    return {
+      opacity: searchContentAnimation.value,
+    };
+  }, [translationY.value, searchContentAnimation.value]);
 
   const categoryIndicatorStyle = useAnimatedStyle(() => {
     const top = interpolate(
@@ -326,6 +357,7 @@ export default () => {
       [IMAGE_HEIGHT - 93.1, IMAGE_HEIGHT - 93],
       ['transparent', StyleGuide.palette.border],
     );
+
     const backgroundColor = interpolateColor(
       translationY.value,
       [IMAGE_HEIGHT - 93.1, IMAGE_HEIGHT - 93],
@@ -333,7 +365,17 @@ export default () => {
     );
 
     return { top, borderColor, backgroundColor };
-  }, []);
+  }, [translationY.value]);
+
+  const searchContentStyle = useAnimatedStyle(() => {
+    const height_ = interpolate(
+      searchContentAnimation.value,
+      [0, 1],
+      [0, height],
+    );
+
+    return { height: height_ };
+  }, [searchContentAnimation.value]);
 
   const onEndDrag = () => {
     categoryIndicatorRef.current?.updateIndicatorTranslationX();
@@ -352,6 +394,37 @@ export default () => {
     });
   };
 
+  const onSearchFocus = () => {
+    if (translationY.value < 40) {
+      verticalScrollViewRef.current?.scrollTo({
+        y: 40,
+      });
+    }
+
+    translationYWhenSearchOpenRef.current = translationY.value;
+    searchContentAnimation.value = withTiming(1);
+
+    StatusBar.setBarStyle('dark-content');
+
+    hideTabBar();
+  };
+
+  const onSearchBlur = () => {
+    searchContentAnimation.value = withTiming(0);
+
+    verticalScrollViewRef.current?.scrollTo({
+      y: translationYWhenSearchOpenRef.current,
+    });
+
+    searchRef.current?.blur();
+
+    if (translationYWhenSearchOpenRef.current <= 34.99) {
+      StatusBar.setBarStyle('light-content');
+    }
+
+    showTabBar();
+  };
+
   return (
     <Menu
       statusBar={
@@ -364,13 +437,38 @@ export default () => {
       search={
         <Animated.View style={[styles.searchContainer, searchStyle]}>
           <View style={[styles.search]}>
-            <Icon name="search1" size={23} color={StyleGuide.palette.app} />
+            <View style={styles.iconContainer}>
+              <AnimatedIcon
+                name="search1"
+                size={23}
+                color={StyleGuide.palette.app}
+                style={[styles.icon, searchIconStyle]}
+              />
+
+              <Animated.View style={[styles.icon, searchBackStyle]}>
+                <RoundButton
+                  onPress={onSearchBlur}
+                  name={'arrowleft'}
+                  size={23}
+                  Icon={AnimatedIcon}
+                  color={StyleGuide.palette.primary}
+                  rippleColor={'transparent'}
+                />
+              </Animated.View>
+            </View>
             <TextInput
               placeholder={'O que você quer comer?'}
               placeholderTextColor={StyleGuide.palette.secondary}
               style={styles.input}
+              onFocus={onSearchFocus}
+              ref={searchRef}
             />
           </View>
+        </Animated.View>
+      }
+      searchContent={
+        <Animated.View style={[styles.searchContent, searchContentStyle]}>
+          <Text style={{ marginTop: 200 }}>carr</Text>
         </Animated.View>
       }
       categoryIndicator={

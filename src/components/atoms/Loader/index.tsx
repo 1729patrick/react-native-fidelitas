@@ -1,8 +1,10 @@
 import React from 'react';
 import LottieView from 'lottie-react-native';
 import StyleGuide from '~/util/StyleGuide';
+import { ActivityIndicator } from 'react-native';
 
 const Loader = () => {
+  return <ActivityIndicator color={StyleGuide.palette.app} size="large" />;
   return (
     <LottieView
       source={require('~/assets/loading.json')}

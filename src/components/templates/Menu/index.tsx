@@ -5,6 +5,7 @@ type MenuProps = {
   content: ReactNode;
   search: ReactNode;
   categoryIndicator: ReactNode;
+  searchContent: ReactNode;
 };
 
 const Menu: React.FC<MenuProps> = ({
@@ -12,6 +13,7 @@ const Menu: React.FC<MenuProps> = ({
   search,
   content,
   categoryIndicator,
+  searchContent,
 }) => {
   return (
     <>
@@ -19,6 +21,7 @@ const Menu: React.FC<MenuProps> = ({
       {content}
       {search}
       {categoryIndicator}
+      {searchContent}
     </>
   );
 };
