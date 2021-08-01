@@ -88,7 +88,7 @@ const ProductItem: React.FC<ProductProps> = ({
             Total: <Text style={styles.totalValue}>€ 32</Text>
           </Text>
 
-          <IncrementDecrement style={styles.incrementDecrement} />
+          <IncrementDecrement />
         </View>
       </View>
     );

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Text, View, ViewStyle } from 'react-native';
-import { RectButton } from 'react-native-gesture-handler';
+import { BorderlessButton, RectButton } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
 import StyleGuide from '~/util/StyleGuide';
 import styles from './styles';
@@ -35,24 +35,26 @@ const IncrementDecrement: React.FC<IncrementDecrementProps> = ({
       )}
 
       <View style={styles.buttons}>
-        <RectButton
+        <BorderlessButton
+          hitSlop={{ top: 58, bottom: 58, left: 58, right: 58 }}
           style={styles.button}
           rippleColor={StyleGuide.palette.secondary}
           onPress={onDecrement}>
           <View style={[styles.round]}>
             <Icon name="minus" color={StyleGuide.palette.primary} size={20} />
           </View>
-        </RectButton>
+        </BorderlessButton>
 
         <Text style={styles.value}>{value}</Text>
-        <RectButton
+        <BorderlessButton
+          hitSlop={{ top: 58, bottom: 58, left: 58, right: 58 }}
           style={styles.button}
           rippleColor={StyleGuide.palette.secondary}
           onPress={onIncrement}>
           <View style={[styles.round]}>
             <Icon name="plus" color={StyleGuide.palette.primary} size={20} />
           </View>
-        </RectButton>
+        </BorderlessButton>
       </View>
     </View>
   );

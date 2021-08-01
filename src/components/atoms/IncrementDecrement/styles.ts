@@ -27,5 +27,10 @@ export default StyleSheet.create({
     width: StyleGuide.spacing * 5,
     textAlign: 'center',
   },
-  button: { borderRadius: 18, height: 36, width: 36 },
+  button: {
+    height: 46,
+    width: 46,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });

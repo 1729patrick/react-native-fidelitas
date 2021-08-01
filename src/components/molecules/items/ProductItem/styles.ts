@@ -45,16 +45,14 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: StyleGuide.palette.border,
   },
-  footer: {
-    paddingVertical: StyleGuide.spacing,
-  },
+  footer: {},
   fieldInformation: {
     marginHorizontal: StyleGuide.spacing * 2,
-    marginVertical: StyleGuide.spacing,
+    marginTop: StyleGuide.spacing * 2,
   },
   basket: {
-    paddingTop: StyleGuide.spacing * 2,
-    paddingBottom: StyleGuide.spacing,
+    marginTop: StyleGuide.spacing * 2,
+    paddingVertical: StyleGuide.spacing * 1.5,
     borderTopWidth: 1,
     paddingHorizontal: StyleGuide.spacing * 2,
     borderColor: StyleGuide.palette.border,
