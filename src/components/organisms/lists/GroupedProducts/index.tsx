@@ -82,9 +82,7 @@ const GroupedProductsList: React.ForwardRefRenderFunction<
       contentContainerStyle={[styles.contentContainer, style]}
       overScrollMode="never">
       {data.map((category, index) => (
-        <View
-          style={[{ width, minHeight: DEFAULT_CARD_HEIGHT }]}
-          key={category.id}>
+        <View style={[{ width }]} key={category.id}>
           {activePage === index ? (
             <View style={[styles.group]}>
               <Text style={styles.title}>{category.title}</Text>
@@ -97,7 +95,9 @@ const GroupedProductsList: React.ForwardRefRenderFunction<
               ))}
             </View>
           ) : (
-            <Loader />
+            <View style={{ height: DEFAULT_CARD_HEIGHT }}>
+              <Loader />
+            </View>
           )}
         </View>
       ))}

@@ -13,6 +13,7 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 import RectButton from '~/components/atoms/buttons/RectButton';
+import FieldInformation from '~/components/atoms/FieldInformation';
 
 export type ReservationType = {
   type: string;
@@ -98,12 +99,13 @@ const ReservationItem: React.FC<ReservationProps> = ({
         onLayout={({ nativeEvent }) =>
           setFooterHeight(nativeEvent.layout.height)
         }>
-        {message && (
-          <>
-            <Text style={[styles.messageTitle]}>Sua mensagem</Text>
-            <Text style={styles.messageDescription}>{message}</Text>
-          </>
-        )}
+        <FieldInformation
+          title={'Sua mensagem'}
+          description={message}
+          titleStyle={styles.messageTitle}
+          descriptionStyle={styles.messageDescription}
+        />
+
         {status !== Status.Canceled && (
           <RectButton
             title="Cancelar"

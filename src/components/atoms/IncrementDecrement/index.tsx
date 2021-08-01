@@ -6,8 +6,8 @@ import StyleGuide from '~/util/StyleGuide';
 import styles from './styles';
 
 type IncrementDecrementProps = {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   style?: ViewStyle;
 };
 const IncrementDecrement: React.FC<IncrementDecrementProps> = ({
@@ -27,10 +27,12 @@ const IncrementDecrement: React.FC<IncrementDecrementProps> = ({
 
   return (
     <View style={[styles.container, style]}>
-      <View style={styles.info}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.description}>{description}</Text>
-      </View>
+      {title && description && (
+        <View style={styles.info}>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.description}>{description}</Text>
+        </View>
+      )}
 
       <View style={styles.buttons}>
         <RectButton

@@ -8,13 +8,12 @@ export default StyleSheet.create({
     marginBottom: StyleGuide.spacing * 1.5,
     marginHorizontal: StyleGuide.spacing * 2,
     borderRadius: StyleGuide.borderRadius * 2,
+    overflow: 'hidden',
   },
-  content: {
-    flexDirection: 'row',
-    backgroundColor: '#fff',
+  item: {
+    // height: '100%',
+    backgroundColor: StyleGuide.palette.background,
     borderRadius: StyleGuide.borderRadius * 2,
-    padding: StyleGuide.spacing * 1.5,
-    alignItems: 'center',
   },
   image: {
     width: 75,
@@ -39,5 +38,37 @@ export default StyleSheet.create({
     ...StyleGuide.typography.callout,
     color: StyleGuide.palette.green,
     marginTop: StyleGuide.spacing,
+  },
+  header: {
+    flexDirection: 'row',
+    padding: StyleGuide.spacing * 2,
+    borderBottomWidth: 1,
+    borderBottomColor: StyleGuide.palette.border,
+  },
+  footer: {
+    paddingVertical: StyleGuide.spacing,
+  },
+  fieldInformation: {
+    marginHorizontal: StyleGuide.spacing * 2,
+    marginVertical: StyleGuide.spacing,
+  },
+  basket: {
+    paddingTop: StyleGuide.spacing * 2,
+    paddingBottom: StyleGuide.spacing,
+    borderTopWidth: 1,
+    paddingHorizontal: StyleGuide.spacing * 2,
+    borderColor: StyleGuide.palette.border,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  total: {
+    ...StyleGuide.typography.subhead,
+    color: StyleGuide.palette.primary,
+  },
+  totalValue: {
+    ...StyleGuide.typography.headline,
+    fontSize: 14,
+    color: StyleGuide.palette.primary,
   },
 });

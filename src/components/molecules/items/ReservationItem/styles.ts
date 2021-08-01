@@ -65,13 +65,9 @@ export default StyleSheet.create({
     paddingVertical: StyleGuide.spacing,
   },
   messageTitle: {
-    ...StyleGuide.typography.caption,
-    color: StyleGuide.palette.secondary,
     marginTop: StyleGuide.spacing,
   },
   messageDescription: {
-    ...StyleGuide.typography.caption,
-    color: StyleGuide.palette.primary,
     marginBottom: StyleGuide.spacing,
   },
   cancel: {

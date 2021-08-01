@@ -27,7 +27,6 @@ import { IMAGE_HEIGHT, TOTAL_HEADER_HEIGHT } from './constants';
 import CategoryIndicator, {
   CategoryIndicatorHandler,
 } from '~/components/molecules/CategoryIndicator';
-import { DEFAULT_CARD_HEIGHT } from '~/components/organisms/lists/GroupedProducts/constants';
 
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
 
@@ -44,7 +43,7 @@ export type MenuItemType = {
   type: MenuType;
   description?: string;
   image: any;
-  price?: number;
+  price?: string;
   items?: MenuItemType[];
 };
 
@@ -60,7 +59,7 @@ const generic = {
       description: 'Camomila, Capim Limão, Hortelã',
       type: MenuType.Product,
       image,
-      price: 2,
+      price: '2,00',
     },
     {
       id: 'Chocolate Quente',
@@ -68,7 +67,7 @@ const generic = {
       description: 'Chocolate Quente meio amargo - 230ml',
       type: MenuType.Product,
       image,
-      price: 4,
+      price: '4,00',
     },
     {
       id: 'Pão Clássico',
@@ -76,7 +75,7 @@ const generic = {
       description: 'Camomila, Capim Limão, Hortelã',
       type: MenuType.Product,
       image,
-      price: 8,
+      price: '8,50',
     },
     {
       id: 'Batata Quente',
@@ -118,7 +117,7 @@ const items_: MenuItemType[] = [
         description: 'Camomila, Capim Limão, Hortelã',
         type: MenuType.Product,
         image,
-        price: 2,
+        price: '2,00',
       },
       {
         id: 'Chocolate Quente',
@@ -126,7 +125,7 @@ const items_: MenuItemType[] = [
         description: 'Chocolate Quente meio amargo - 230ml',
         type: MenuType.Product,
         image,
-        price: 4,
+        price: '4,00',
       },
       {
         id: 'Pão Clássico',
@@ -134,7 +133,7 @@ const items_: MenuItemType[] = [
         description: 'Camomila, Capim Limão, Hortelã',
         type: MenuType.Product,
         image,
-        price: 8,
+        price: '8,50',
       },
       {
         id: 'Batata Quente',
@@ -158,7 +157,7 @@ const items_: MenuItemType[] = [
         description: 'Camomila, Capim Limão, Hortelã',
         type: MenuType.Product,
         image,
-        price: 2,
+        price: '2,00',
       },
       {
         id: 'Chocolate Quente',
@@ -166,7 +165,7 @@ const items_: MenuItemType[] = [
         description: 'Chocolate Quente meio amargo - 230ml',
         type: MenuType.Product,
         image,
-        price: 4,
+        price: '4,00',
       },
       {
         id: 'Pão Clássico',
@@ -174,7 +173,7 @@ const items_: MenuItemType[] = [
         description: 'Camomila, Capim Limão, Hortelã',
         type: MenuType.Product,
         image,
-        price: 8,
+        price: '8,50',
       },
       {
         id: 'Batata Quente',
@@ -198,7 +197,7 @@ const items_: MenuItemType[] = [
         description: 'Camomila, Capim Limão, Hortelã',
         type: MenuType.Product,
         image,
-        price: 2,
+        price: '2,00',
       },
       {
         id: 'Chocolate Quente',
@@ -206,7 +205,7 @@ const items_: MenuItemType[] = [
         description: 'Chocolate Quente meio amargo - 230ml',
         type: MenuType.Product,
         image,
-        price: 4,
+        price: '4,00',
       },
       {
         id: 'Pão Clássico',
@@ -214,7 +213,7 @@ const items_: MenuItemType[] = [
         description: 'Camomila, Capim Limão, Hortelã',
         type: MenuType.Product,
         image,
-        price: 8,
+        price: '8,50',
       },
       {
         id: 'Batata Quente',
@@ -238,7 +237,7 @@ const items_: MenuItemType[] = [
         description: 'Camomila, Capim Limão, Hortelã',
         type: MenuType.Product,
         image,
-        price: 2,
+        price: '2,00',
       },
       {
         id: 'Chocolate Quente',
@@ -246,7 +245,7 @@ const items_: MenuItemType[] = [
         description: 'Chocolate Quente meio amargo - 230ml',
         type: MenuType.Product,
         image,
-        price: 4,
+        price: '4,00',
       },
       {
         id: 'Pão Clássico',
@@ -254,7 +253,7 @@ const items_: MenuItemType[] = [
         description: 'Camomila, Capim Limão, Hortelã',
         type: MenuType.Product,
         image,
-        price: 8,
+        price: '8,50',
       },
       {
         id: 'Batata Quente',

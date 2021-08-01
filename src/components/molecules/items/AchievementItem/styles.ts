@@ -22,7 +22,6 @@ export default StyleSheet.create({
     borderBottomColor: StyleGuide.palette.border,
   },
   progress: {
-    paddingLeft: StyleGuide.spacing,
     alignItems: 'center',
     justifyContent: 'center',
   },
