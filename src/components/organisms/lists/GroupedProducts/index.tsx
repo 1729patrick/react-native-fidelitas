@@ -69,6 +69,30 @@ const GroupedProductsList: React.ForwardRefRenderFunction<
     [scrollTo],
   );
 
+  const renderItem = useCallback(
+    (category: MenuItemType, index: number) => (
+      <View style={[{ width }]} key={category.id}>
+        {activePage === index ? (
+          <View style={[styles.group]}>
+            <Text style={styles.title}>{category.title}</Text>
+            {(category.items || []).map(product => (
+              <ProductItem
+                {...product}
+                key={product.id}
+                onPress={() => onPress?.(product)}
+              />
+            ))}
+          </View>
+        ) : (
+          <View style={styles.loader}>
+            <Loader />
+          </View>
+        )}
+      </View>
+    ),
+    [activePage, onPress],
+  );
+
   return (
     <Animated.ScrollView
       ref={scrollViewRef}
@@ -79,26 +103,7 @@ const GroupedProductsList: React.ForwardRefRenderFunction<
       scrollEventThrottle={16}
       contentContainerStyle={[styles.contentContainer, style]}
       overScrollMode="never">
-      {data.map((category, index) => (
-        <View style={[{ width }]} key={category.id}>
-          {activePage === index ? (
-            <View style={[styles.group]}>
-              <Text style={styles.title}>{category.title}</Text>
-              {(category.items || []).map(product => (
-                <ProductItem
-                  {...product}
-                  key={product.id}
-                  onPress={() => onPress?.(product)}
-                />
-              ))}
-            </View>
-          ) : (
-            <View style={styles.loader}>
-              <Loader />
-            </View>
-          )}
-        </View>
-      ))}
+      {data.map(renderItem)}
     </Animated.ScrollView>
   );
 };

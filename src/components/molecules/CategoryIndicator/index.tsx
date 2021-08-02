@@ -12,6 +12,7 @@ import Animated, {
   withDecay,
 } from 'react-native-reanimated';
 import { MenuItemType } from '~/screens/menu/Menu';
+import { IMAGE_HEIGHT } from '~/screens/menu/Menu/constants';
 import StyleGuide from '~/util/StyleGuide';
 import { PAN_PADDING_LEFT } from './constants';
 
@@ -27,7 +28,7 @@ type CategoryIndicatorProps = {
   data: MenuItemType[];
   cardTranslationX: Animated.SharedValue<number>;
   indicatorTranslationX: Animated.SharedValue<number>;
-  categoryIndicatorStyle: Animated.AnimatedStyleProp<ViewStyle>;
+  translationY: Animated.SharedValue<number>;
   indicatorsWidthsRef: React.MutableRefObject<number[]>;
   scrollTo: (index: number) => void;
 };
@@ -40,9 +41,9 @@ const CategoryIndicator: React.ForwardRefRenderFunction<
     data,
     cardTranslationX,
     indicatorTranslationX,
-    categoryIndicatorStyle,
     indicatorsWidthsRef,
     scrollTo,
+    translationY,
   },
   ref,
 ) => {
@@ -87,6 +88,29 @@ const CategoryIndicator: React.ForwardRefRenderFunction<
 
     return { left: left + 8, width: width_ };
   }, [cardTranslationX.value, indicatorWidths, width]);
+
+  const categoryIndicatorStyle = useAnimatedStyle(() => {
+    const top = interpolate(
+      translationY.value,
+      [0, IMAGE_HEIGHT - 93],
+      [IMAGE_HEIGHT, 93],
+      Extrapolate.CLAMP,
+    );
+
+    const borderColor = interpolateColor(
+      translationY.value,
+      [IMAGE_HEIGHT - 93.1, IMAGE_HEIGHT - 93],
+      ['transparent', StyleGuide.palette.border],
+    );
+
+    const backgroundColor = interpolateColor(
+      translationY.value,
+      [IMAGE_HEIGHT - 93.1, IMAGE_HEIGHT - 93],
+      ['transparent', 'white'],
+    );
+
+    return { top, borderColor, backgroundColor };
+  }, [translationY.value]);
 
   const setIndicatorWidth = (index: number, value: number) => {
     indicatorsWidthsRef.current[index] = value;

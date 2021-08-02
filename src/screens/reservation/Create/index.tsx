@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useRef } from 'react';
-import { BackHandler, StatusBar, View } from 'react-native';
+import React, { useRef } from 'react';
+import { StatusBar, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { StackNavigationProp } from '@react-navigation/stack';
 import useStatusBar from '~/hooks/useStatusBar';
@@ -11,6 +11,7 @@ import RegisterStep from '~/components/organisms/RegisterStep';
 import useHideTabBar from '~/hooks/useHideTabBar';
 import Calendar from '~/components/atoms/Calendar';
 import styles from './styles';
+import { useBackHandler } from '~/hooks/useBackHandler';
 
 export default () => {
   useStatusBar(true);
@@ -38,16 +39,14 @@ export default () => {
     onScrollTo(currentIndexRef.current - 1);
   };
 
-  useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', function () {
-      if (currentIndexRef.current - 1 >= 0) {
-        onScrollTo(currentIndexRef.current - 1);
-        return true;
-      }
+  useBackHandler(() => {
+    if (currentIndexRef.current - 1 >= 0) {
+      onScrollTo(currentIndexRef.current - 1);
+      return true;
+    }
 
-      return false;
-    });
-  }, []);
+    return false;
+  });
 
   return (
     <View style={{ backgroundColor: '#fff', flex: 1 }}>
