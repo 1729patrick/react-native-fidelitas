@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { Dimensions, StatusBar, Text } from 'react-native';
+import React, { useMemo, useRef, useState } from 'react';
+import { Dimensions, StatusBar, Text, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 
 import styles from './styles';
@@ -8,25 +8,25 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 
-import { ScrollView } from 'react-native-gesture-handler';
+import { RectButton, ScrollView } from 'react-native-gesture-handler';
 
 import Menu from '~/components/templates/Menu';
 import useStatusBar from '~/hooks/useStatusBar';
 import GroupedProductsList, {
   GroupedProductListHandler,
 } from '~/components/organisms/lists/GroupedProducts';
-import { TOTAL_HEADER_HEIGHT } from './constants';
+import { BASKET_HEIGHT, TOTAL_HEADER_HEIGHT } from './constants';
 import CategoryIndicator, {
   CategoryIndicatorHandler,
 } from '~/components/molecules/CategoryIndicator';
 import MenuSearch from '~/components/organisms/MenuSearch';
 import SearchContent from '~/components/organisms/SearchContent';
+import Icon from 'react-native-vector-icons/Ionicons';
+import StyleGuide from '~/util/StyleGuide';
 
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
 
 const image = require('../../../assets/background_home.jpg');
-
-const { height } = Dimensions.get('window');
 
 export enum MenuType {
   Category,
@@ -311,6 +311,16 @@ export default () => {
     setSearchTerm(searchTerm);
   };
 
+  const paddingBottom = useMemo(() => {
+    const basketLength = 1;
+
+    if (basketLength) {
+      return StyleGuide.spacing + BASKET_HEIGHT + StyleGuide.spacing * 4;
+    }
+
+    return StyleGuide.spacing * 4;
+  }, []);
+
   return (
     <Menu
       statusBar={
@@ -365,7 +375,7 @@ export default () => {
 
           <GroupedProductsList
             data={items}
-            style={styles.contentContainer}
+            style={{ ...styles.contentContainer, paddingBottom }}
             onPress={x => console.log(x)}
             onEndDrag={() => onEndDrag()}
             cardTranslationX={cardTranslationX}
@@ -373,6 +383,24 @@ export default () => {
             ref={groupedProductsListRef}
           />
         </AnimatedScrollView>
+      }
+      basket={
+        <View style={styles.basket}>
+          <RectButton style={styles.basketButton}>
+            <Icon
+              style={styles.basketIcon}
+              name="ios-basket"
+              size={28}
+              color="#fff"
+            />
+            <View style={styles.basketBadge}>
+              <Text style={styles.basketBadgeTitle}>1</Text>
+            </View>
+            <View style={styles.basketTitleContainer}>
+              <Text style={styles.basketTitle}>Basket (€ 55,00)</Text>
+            </View>
+          </RectButton>
+        </View>
       }
     />
   );

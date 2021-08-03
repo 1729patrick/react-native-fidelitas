@@ -1,7 +1,7 @@
 import React, { useCallback, useImperativeHandle, useState } from 'react';
 import { forwardRef } from 'react';
-import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
-import { Dimensions, LayoutChangeEvent, View, ViewStyle } from 'react-native';
+import { TouchableOpacity } from 'react-native';
+import { Dimensions, LayoutChangeEvent, View } from 'react-native';
 import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, {
   Extrapolate,

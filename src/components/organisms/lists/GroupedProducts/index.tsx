@@ -77,7 +77,9 @@ const GroupedProductsList: React.ForwardRefRenderFunction<
         <View style={[{ width }]} key={category.id}>
           {activePage === index ? (
             <View style={[styles.group]}>
-              <Text style={styles.title}>{category.title}</Text>
+              <Text style={styles.title} numberOfLines={1}>
+                {category.title}
+              </Text>
               {(category.items || []).map(product => (
                 <ProductItem
                   {...product}
