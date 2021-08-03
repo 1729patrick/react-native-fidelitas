@@ -2,7 +2,7 @@ import React from 'react';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-const useHideTabBar = (autoHide?: boolean) => {
+const useHideTabBar = (autoHide?: boolean = true) => {
   const { getParent } = useNavigation<StackNavigationProp<any>>();
 
   const hideTabBar = () => {
@@ -26,7 +26,7 @@ const useHideTabBar = (autoHide?: boolean) => {
       }
 
       // hide
-      hide();
+      hideTabBar();
 
       // reveal after changing screen
       return showTabBar;

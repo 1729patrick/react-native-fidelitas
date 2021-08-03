@@ -4,9 +4,7 @@ import FastImage from 'react-native-fast-image';
 
 import styles from './styles';
 import Animated, {
-  interpolate,
   useAnimatedScrollHandler,
-  useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
 
@@ -295,6 +293,10 @@ export default () => {
   const onEndDrag = () => {
     categoryIndicatorRef.current?.updateIndicatorTranslationX();
 
+    if (translationY.value < TOTAL_HEADER_HEIGHT) {
+      return;
+    }
+
     verticalScrollViewRef.current?.scrollTo({
       y: TOTAL_HEADER_HEIGHT,
       animated: false,
@@ -303,10 +305,6 @@ export default () => {
 
   const scrollTo = (index: number) => {
     groupedProductsListRef.current?.scrollTo(index);
-    verticalScrollViewRef.current?.scrollTo({
-      y: TOTAL_HEADER_HEIGHT,
-      animated: false,
-    });
   };
 
   const onSearch = (searchTerm: string) => {
