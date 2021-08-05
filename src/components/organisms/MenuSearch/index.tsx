@@ -61,18 +61,12 @@ const MenuSearch: React.FC<MenuSearchProps> = ({
       ['transparent', 'white'],
     );
 
-    const borderColor = interpolateColor(
-      searchContentAnimation.value,
-      [0, 1],
-      ['transparent', StyleGuide.palette.border],
-    );
-
     runOnJS(setDark)(translationY.value >= 34.99);
 
     return {
       top,
       backgroundColor,
-      borderColor,
+      borderBottomWidth: searchContentAnimation.value,
     };
   }, [translationY.value, searchContentAnimation.value]);
 

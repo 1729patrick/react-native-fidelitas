@@ -26,7 +26,7 @@ type GroupedProductsListProps = {
   cardTranslationX: Animated.SharedValue<number>;
   indicatorTranslationX: Animated.SharedValue<number>;
   style?: StyleProp<ViewStyle>;
-  onPress?: (args: MenuItemType) => void;
+  addToBasket: (quantity: number, product: MenuItemType) => void;
   data: MenuItemType[];
   onEndDrag: () => void;
 };
@@ -39,7 +39,14 @@ const GroupedProductsList: React.ForwardRefRenderFunction<
   GroupedProductListHandler,
   GroupedProductsListProps
 > = (
-  { cardTranslationX, style, onPress, data, onEndDrag, indicatorTranslationX },
+  {
+    cardTranslationX,
+    style,
+    addToBasket,
+    data,
+    onEndDrag,
+    indicatorTranslationX,
+  },
   ref,
 ) => {
   const [activePage, setActivePage] = useState(0);
@@ -84,7 +91,7 @@ const GroupedProductsList: React.ForwardRefRenderFunction<
                 <ProductItem
                   {...product}
                   key={product.id}
-                  onPress={() => onPress?.(product)}
+                  addToBasket={quantity => addToBasket(quantity, product)}
                 />
               ))}
             </View>
@@ -96,7 +103,7 @@ const GroupedProductsList: React.ForwardRefRenderFunction<
         </View>
       );
     },
-    [activePage, onPress],
+    [activePage],
   );
 
   return (

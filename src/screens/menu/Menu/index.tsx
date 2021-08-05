@@ -1,5 +1,5 @@
 import React, { useMemo, useRef, useState } from 'react';
-import { Dimensions, StatusBar, Text, View } from 'react-native';
+import { StatusBar, Text } from 'react-native';
 import FastImage from 'react-native-fast-image';
 
 import styles from './styles';
@@ -8,7 +8,7 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 
-import { RectButton, ScrollView } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 
 import Menu from '~/components/templates/Menu';
 import useStatusBar from '~/hooks/useStatusBar';
@@ -21,8 +21,9 @@ import CategoryIndicator, {
 } from '~/components/molecules/CategoryIndicator';
 import MenuSearch from '~/components/organisms/MenuSearch';
 import SearchContent from '~/components/organisms/SearchContent';
-import Icon from 'react-native-vector-icons/Ionicons';
+
 import StyleGuide from '~/util/StyleGuide';
+import BasketButton from '~/components/molecules/actions/BasketButton';
 
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
 
@@ -39,7 +40,7 @@ export type MenuItemType = {
   type: MenuType;
   description?: string;
   image: any;
-  price?: string;
+  price?: number;
   items?: MenuItemType[];
 };
 
@@ -55,7 +56,7 @@ const generic = {
       description: 'Camomila, Capim Limão, Hortelã',
       type: MenuType.Product,
       image,
-      price: '2,00',
+      price: 2,
     },
     {
       id: 'Chocolate Quente',
@@ -63,7 +64,7 @@ const generic = {
       description: 'Chocolate Quente meio amargo - 230ml',
       type: MenuType.Product,
       image,
-      price: '4,00',
+      price: 4,
     },
     {
       id: 'Pão Clássico',
@@ -71,7 +72,7 @@ const generic = {
       description: 'Camomila, Capim Limão, Hortelã',
       type: MenuType.Product,
       image,
-      price: '8,50',
+      price: 8.5,
     },
     {
       id: 'Batata Quente',
@@ -113,7 +114,7 @@ const items_: MenuItemType[] = [
         description: 'Camomila, Capim Limão, Hortelã',
         type: MenuType.Product,
         image,
-        price: '2,00',
+        price: 2,
       },
       {
         id: 'Chocolate Quente',
@@ -121,7 +122,7 @@ const items_: MenuItemType[] = [
         description: 'Chocolate Quente meio amargo - 230ml',
         type: MenuType.Product,
         image,
-        price: '4,00',
+        price: 4,
       },
       {
         id: 'Pão Clássico',
@@ -129,7 +130,7 @@ const items_: MenuItemType[] = [
         description: 'Camomila, Capim Limão, Hortelã',
         type: MenuType.Product,
         image,
-        price: '8,50',
+        price: 8.5,
       },
       {
         id: 'Batata Quente',
@@ -153,7 +154,7 @@ const items_: MenuItemType[] = [
         description: 'Camomila, Capim Limão, Hortelã',
         type: MenuType.Product,
         image,
-        price: '2,00',
+        price: 2,
       },
       {
         id: 'Chocolate Quente',
@@ -161,7 +162,7 @@ const items_: MenuItemType[] = [
         description: 'Chocolate Quente meio amargo - 230ml',
         type: MenuType.Product,
         image,
-        price: '4,00',
+        price: 4,
       },
       {
         id: 'Pão Clássico',
@@ -169,7 +170,7 @@ const items_: MenuItemType[] = [
         description: 'Camomila, Capim Limão, Hortelã',
         type: MenuType.Product,
         image,
-        price: '8,50',
+        price: 8.5,
       },
       {
         id: 'Batata Quente',
@@ -193,7 +194,7 @@ const items_: MenuItemType[] = [
         description: 'Camomila, Capim Limão, Hortelã',
         type: MenuType.Product,
         image,
-        price: '2,00',
+        price: 2,
       },
       {
         id: 'Chocolate Quente',
@@ -201,7 +202,7 @@ const items_: MenuItemType[] = [
         description: 'Chocolate Quente meio amargo - 230ml',
         type: MenuType.Product,
         image,
-        price: '4,00',
+        price: 4,
       },
       {
         id: 'Pão Clássico',
@@ -209,7 +210,7 @@ const items_: MenuItemType[] = [
         description: 'Camomila, Capim Limão, Hortelã',
         type: MenuType.Product,
         image,
-        price: '8,50',
+        price: 8.5,
       },
       {
         id: 'Batata Quente',
@@ -217,7 +218,7 @@ const items_: MenuItemType[] = [
         description: 'Chocolate Quente meio amargo - 230ml',
         type: MenuType.Product,
         image,
-        price: 16,
+        price: '16,00',
       },
     ],
   },
@@ -233,7 +234,7 @@ const items_: MenuItemType[] = [
         description: 'Camomila, Capim Limão, Hortelã',
         type: MenuType.Product,
         image,
-        price: '2,00',
+        price: 2,
       },
       {
         id: 'Chocolate Quente',
@@ -241,7 +242,7 @@ const items_: MenuItemType[] = [
         description: 'Chocolate Quente meio amargo - 230ml',
         type: MenuType.Product,
         image,
-        price: '4,00',
+        price: 4,
       },
       {
         id: 'Pão Clássico',
@@ -249,7 +250,7 @@ const items_: MenuItemType[] = [
         description: 'Camomila, Capim Limão, Hortelã',
         type: MenuType.Product,
         image,
-        price: '8,50',
+        price: 8.5,
       },
       {
         id: 'Batata Quente',
@@ -270,7 +271,14 @@ const items: MenuItemType[] = [
   { ...generic, id: '333', title: 'Molhos' },
 ];
 
+export type BasketType = {
+  product: MenuItemType;
+  quantity: number;
+}[];
+
 export default () => {
+  const [basket, setBasket] = useState<BasketType>([]);
+
   const indicatorsWidthsRef = useRef<number[]>([]);
   const categoryIndicatorRef = useRef<CategoryIndicatorHandler>(null);
   const groupedProductsListRef = useRef<GroupedProductListHandler>(null);
@@ -320,6 +328,21 @@ export default () => {
 
     return StyleGuide.spacing * 4;
   }, []);
+
+  const addToBasket = (quantity: number, product: MenuItemType) => {
+    setBasket(basket => {
+      const index = basket.findIndex(({ product: p }) => p.id === product.id);
+
+      if (index === -1) {
+        return [...basket, { quantity, product }];
+      }
+
+      const newBasket = [...basket];
+      newBasket.splice(index, 1, { product, quantity });
+
+      return newBasket;
+    });
+  };
 
   return (
     <Menu
@@ -376,7 +399,7 @@ export default () => {
           <GroupedProductsList
             data={items}
             style={{ ...styles.contentContainer, paddingBottom }}
-            onPress={x => console.log(x)}
+            addToBasket={addToBasket}
             onEndDrag={() => onEndDrag()}
             cardTranslationX={cardTranslationX}
             indicatorTranslationX={indicatorTranslationX}
@@ -384,23 +407,11 @@ export default () => {
           />
         </AnimatedScrollView>
       }
-      basket={
-        <View style={styles.basket}>
-          <RectButton style={styles.basketButton}>
-            <Icon
-              style={styles.basketIcon}
-              name="ios-basket"
-              size={28}
-              color="#fff"
-            />
-            <View style={styles.basketBadge}>
-              <Text style={styles.basketBadgeTitle}>1</Text>
-            </View>
-            <View style={styles.basketTitleContainer}>
-              <Text style={styles.basketTitle}>Basket (€ 55,00)</Text>
-            </View>
-          </RectButton>
-        </View>
+      basketButton={
+        <BasketButton
+          searchContentAnimation={searchContentAnimation}
+          basket={basket}
+        />
       }
     />
   );

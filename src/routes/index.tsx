@@ -5,9 +5,11 @@ import {
   StackNavigationOptions,
 } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { TransitionSpec } from '@react-navigation/stack/lib/typescript/src/types';
+
 import vertical from './animations/vertical';
 import horizontal from './animations/horizontal';
-import { TransitionSpec } from '@react-navigation/stack/lib/typescript/src/types';
+
 import Facilities from '~/screens/home/Facilities';
 import Map from '~/screens/home/Map';
 import Home from '~/screens/home/Home';
@@ -25,7 +27,8 @@ import Login from '~/screens/public/Login';
 import Register from '~/screens/public/Register';
 import Achievements from '~/screens/achievements/Achievements';
 import TabBar from '~/components/organisms/TabBar/Bottom';
-import Create from '~/screens/reservation/Create';
+import CreateReservation from '~/screens/reservation/Create';
+import Basket from '~/screens/menu/Basket';
 
 type TransitionSpecType = {
   open: TransitionSpec;
@@ -75,6 +78,11 @@ const MenuNavigator = () => {
       <MenuStack.Screen
         name="Main"
         component={Menu}
+        options={optionsVertical}
+      />
+      <MenuStack.Screen
+        name="Basket"
+        component={Basket}
         options={optionsVertical}
       />
     </MenuStack.Navigator>
@@ -146,7 +154,7 @@ const ReservationNavigator = () => {
       />
       <ReservationStack.Screen
         name="Create"
-        component={Create}
+        component={CreateReservation}
         options={optionsVertical}
       />
     </ReservationStack.Navigator>
@@ -191,7 +199,6 @@ export default () => {
           component={Register}
           options={optionsVertical}
         />
-
         <PublicStack.Screen
           name="Login"
           component={Login}

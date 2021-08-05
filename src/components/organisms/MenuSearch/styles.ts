@@ -9,9 +9,10 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 25,
-    zIndex: 2,
     backgroundColor: StyleGuide.palette.background,
+    borderColor: StyleGuide.palette.border,
     borderBottomWidth: 1,
+    zIndex: 3,
   },
   search: {
     flexDirection: 'row',

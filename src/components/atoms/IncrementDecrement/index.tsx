@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Text, View, ViewStyle } from 'react-native';
-import { BorderlessButton, RectButton } from 'react-native-gesture-handler';
+import { BorderlessButton } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
 import StyleGuide from '~/util/StyleGuide';
 import styles from './styles';
@@ -9,20 +9,32 @@ type IncrementDecrementProps = {
   title?: string;
   description?: string;
   style?: ViewStyle;
+  onChange: (value: number) => void;
 };
 const IncrementDecrement: React.FC<IncrementDecrementProps> = ({
   title,
   description,
   style,
+  onChange,
 }) => {
   const [value, setValue] = useState(0);
 
   const onIncrement = () => {
-    setValue(v => v + 1);
+    setValue(v => {
+      const newValue = v + 1;
+
+      onChange(newValue);
+      return newValue;
+    });
   };
 
   const onDecrement = () => {
-    setValue(v => Math.max(v - 1, 0));
+    setValue(v => {
+      const newValue = Math.max(v - 1, 0);
+
+      onChange(newValue);
+      return newValue;
+    });
   };
 
   return (

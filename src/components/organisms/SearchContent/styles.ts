@@ -8,6 +8,7 @@ export default StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     backgroundColor: StyleGuide.navigation.colors.background,
     overflow: 'hidden',
+    zIndex: 2,
   },
   contentContainer: {
     paddingTop: PADDING_TOP,

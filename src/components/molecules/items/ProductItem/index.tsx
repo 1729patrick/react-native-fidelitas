@@ -17,7 +17,7 @@ import { CARD_HEIGHT } from './constants';
 import styles from './styles';
 
 type ProductProps = {
-  onPress: (args: Partial<MenuItemType>) => void;
+  addToBasket: (quantity: number) => void;
 } & MenuItemType;
 
 const ProductItem: React.FC<ProductProps> = ({
@@ -25,7 +25,7 @@ const ProductItem: React.FC<ProductProps> = ({
   description,
   price,
   image,
-  onPress,
+  addToBasket,
 }) => {
   const [footerHeight, setFooterHeight] = useState(0);
 
@@ -88,7 +88,7 @@ const ProductItem: React.FC<ProductProps> = ({
             Total: <Text style={styles.totalValue}>€ 32</Text>
           </Text>
 
-          <IncrementDecrement />
+          <IncrementDecrement onChange={addToBasket} />
         </View>
       </View>
     );
