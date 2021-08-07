@@ -8,7 +8,7 @@ export default () => {
 
   return (
     <>
-      <Header title="Termos e Privacidade" />
+      <Header title="Termos e Privacidade" close />
       <TermsAndPrivacy />
     </>
   );

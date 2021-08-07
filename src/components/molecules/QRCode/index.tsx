@@ -62,7 +62,7 @@ const QRCode = () => {
 
   return (
     <View style={styles.container}>
-      <Header backgroundColor={'transparent'} color={'#fff'} />
+      <Header backgroundColor={'transparent'} color={'#fff'} close />
       {renderCamera()}
       <QRCodeMask />
     </View>

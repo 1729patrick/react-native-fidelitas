@@ -10,8 +10,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+
 import { Dimensions, Text, View } from 'react-native';
 import { BasketType } from '~/screens/menu/Menu';
 import StyleGuide from '~/util/StyleGuide';
@@ -22,6 +21,7 @@ import Badge from '~/components/atoms/Badge';
 type BasketButtonProps = {
   searchContentAnimation: Animated.SharedValue<number>;
   basket: BasketType;
+  openBasket: () => void;
 };
 
 const darkenAppColor = darken(0.2, StyleGuide.palette.app);
@@ -31,10 +31,10 @@ const { height } = Dimensions.get('window');
 const BasketButton: React.FC<BasketButtonProps> = ({
   searchContentAnimation,
   basket,
+  openBasket,
 }) => {
   const animation = useSharedValue(0);
   const animationY = useSharedValue(1);
-  const { navigate } = useNavigation<StackNavigationProp<any>>();
 
   const quantity = useMemo(() => {
     return basket.reduce((acc, { quantity }) => quantity + acc, 0);
@@ -46,10 +46,6 @@ const BasketButton: React.FC<BasketButtonProps> = ({
       0,
     );
   }, [basket]);
-
-  const openBasket = () => {
-    navigate('Basket');
-  };
 
   const basketStyle = useAnimatedStyle(() => {
     const elevation = interpolate(
@@ -88,7 +84,10 @@ const BasketButton: React.FC<BasketButtonProps> = ({
 
   return (
     <Animated.View style={[styles.basket, basketStyle, containerStyle]}>
-      <RectButton style={styles.basketButton} onPress={openBasket}>
+      <RectButton
+        style={styles.basketButton}
+        onPress={openBasket}
+        rippleColor={StyleGuide.palette.secondary}>
         <Icon
           style={styles.basketIcon}
           name="ios-basket"
@@ -100,7 +99,7 @@ const BasketButton: React.FC<BasketButtonProps> = ({
         </View>
 
         <View style={styles.basketTitleContainer}>
-          <Text style={styles.basketTitle}>Cesto (€ {price})</Text>
+          <Text style={styles.basketTitle}>Cesto ({price} €)</Text>
         </View>
       </RectButton>
     </Animated.View>

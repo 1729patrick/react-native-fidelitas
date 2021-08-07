@@ -24,6 +24,8 @@ import SearchContent from '~/components/organisms/SearchContent';
 
 import StyleGuide from '~/util/StyleGuide';
 import BasketButton from '~/components/molecules/actions/BasketButton';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
 
@@ -239,7 +241,7 @@ const items_: MenuItemType[] = [
       {
         id: 'Chocolate Quente',
         title: 'Chocolate Quente',
-        description: 'Chocolate Quente meio amargo - 230ml',
+        description: 'Chocolate',
         type: MenuType.Product,
         image,
         price: 4,
@@ -290,6 +292,8 @@ export default () => {
 
   const cardTranslationX = useSharedValue(0);
   const indicatorTranslationX = useSharedValue(0);
+
+  const { navigate } = useNavigation<StackNavigationProp<any>>();
 
   const [dark, setDark] = useState(false);
   useStatusBar(dark);
@@ -342,6 +346,10 @@ export default () => {
 
       return newBasket;
     });
+  };
+
+  const openBasket = () => {
+    navigate('Basket', { initialBasket: basket });
   };
 
   return (
@@ -414,6 +422,7 @@ export default () => {
         <BasketButton
           searchContentAnimation={searchContentAnimation}
           basket={basket}
+          openBasket={openBasket}
         />
       }
     />

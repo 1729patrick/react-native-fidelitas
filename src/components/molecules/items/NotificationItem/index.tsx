@@ -36,7 +36,7 @@ const NotificationItem: React.FC<NotificationProps> = ({
         style={styles.container}
         key={title}
         onPress={toggleSwitch}
-        rippleColor={StyleGuide.palette.primary}>
+        rippleColor={StyleGuide.palette.secondary}>
         {icon}
         <Text style={styles.title}>{title}</Text>
 

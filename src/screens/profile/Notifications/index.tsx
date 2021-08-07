@@ -52,7 +52,7 @@ export default () => {
 
   return (
     <Notifications
-      header={<Header title="Notificações" />}
+      header={<Header title="Notificações" close />}
       list={<NotificationsList data={items} style={styles.contentContainer} />}
     />
   );

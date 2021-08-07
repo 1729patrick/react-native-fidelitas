@@ -3,13 +3,11 @@ import { Image } from 'react-native';
 import { Text, View } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import Animated, {
-  Extrapolate,
   interpolate,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
-import Badge from '~/components/atoms/Badge';
 import FieldInformation from '~/components/atoms/FieldInformation';
 import IncrementDecrement from '~/components/atoms/IncrementDecrement';
 import { MenuItemType } from '~/screens/menu/Menu';
@@ -21,6 +19,7 @@ import styles from './styles';
 type ProductProps = {
   addToBasket: (quantity: number) => void;
   quantity?: number;
+  simpleContent?: boolean;
 } & MenuItemType;
 
 const ProductItem: React.FC<ProductProps> = ({
@@ -30,10 +29,11 @@ const ProductItem: React.FC<ProductProps> = ({
   image,
   addToBasket,
   quantity = 0,
+  simpleContent = false,
 }) => {
   const [footerHeight, setFooterHeight] = useState(0);
 
-  const animation = useSharedValue(0);
+  const animation = useSharedValue(+simpleContent);
 
   const containerStyle = useAnimatedStyle(() => {
     const height = interpolate(
@@ -46,17 +46,6 @@ const ProductItem: React.FC<ProductProps> = ({
       height,
     };
   }, [animation, footerHeight]);
-
-  const badgeStyle = useAnimatedStyle(() => {
-    const scale = interpolate(
-      animation.value,
-      [0, 0.5],
-      [1, 0],
-      Extrapolate.CLAMP,
-    );
-
-    return { transform: [{ scale }] };
-  }, [animation]);
 
   const onCollapse = () => {
     animation.value = withSpring(+!animation.value);
@@ -79,12 +68,8 @@ const ProductItem: React.FC<ProductProps> = ({
             {description}
           </Text>
 
-          <Text style={styles.price}>€ {price}</Text>
+          <Text style={styles.price}>{price} €</Text>
         </View>
-
-        <Animated.View style={[styles.badgeContainer, badgeStyle]}>
-          <Badge value={quantity} />
-        </Animated.View>
       </View>
     );
   };
@@ -96,21 +81,28 @@ const ProductItem: React.FC<ProductProps> = ({
         onLayout={({ nativeEvent }) =>
           setFooterHeight(nativeEvent.layout.height)
         }>
-        <FieldInformation
-          title={'Ingredientes'}
-          description="Arroz com vegetais"
-          containerStyle={styles.fieldInformation}
-        />
+        {!simpleContent && (
+          <>
+            <FieldInformation
+              title={'Ingredientes'}
+              description="Arroz com vegetais"
+              containerStyle={styles.fieldInformation}
+            />
+            <FieldInformation
+              title={'Alérgenos'}
+              description="Ovo e Lipídios"
+              containerStyle={styles.fieldInformation}
+            />
+          </>
+        )}
 
-        <FieldInformation
-          title={'Alérgenos'}
-          description="Ovo e Lipídios"
-          containerStyle={styles.fieldInformation}
-        />
-
-        <View style={styles.basket}>
+        <View
+          style={[
+            styles.basket,
+            simpleContent ? styles.basketWithoutSpacing : {},
+          ]}>
           <Text style={styles.total}>
-            Total: <Text style={styles.totalValue}>€ {total}</Text>
+            Total: <Text style={styles.totalValue}>{total} €</Text>
           </Text>
 
           <IncrementDecrement

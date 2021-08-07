@@ -24,6 +24,8 @@ export default StyleSheet.create({
   info: {
     paddingLeft: StyleGuide.spacing * 2,
     flex: 1,
+    minHeight: 67,
+    justifyContent: 'space-between',
   },
   title: {
     ...StyleGuide.typography.headline,
@@ -33,17 +35,18 @@ export default StyleSheet.create({
   description: {
     ...StyleGuide.typography.subhead,
     color: StyleGuide.palette.secondary,
+    fontSize: 12.5,
   },
   price: {
     ...StyleGuide.typography.callout,
     color: StyleGuide.palette.green,
-    marginTop: StyleGuide.spacing,
   },
   header: {
     flexDirection: 'row',
     padding: StyleGuide.spacing * 2,
     borderBottomWidth: 1,
     borderBottomColor: StyleGuide.palette.border,
+    alignItems: 'center',
   },
   footer: {},
   fieldInformation: {
@@ -73,5 +76,10 @@ export default StyleSheet.create({
     position: 'absolute',
     top: StyleGuide.spacing,
     right: StyleGuide.spacing,
+  },
+  basketWithoutSpacing: {
+    marginTop: 0,
+    borderTopWidth: 0,
+    paddingVertical: StyleGuide.spacing,
   },
 });

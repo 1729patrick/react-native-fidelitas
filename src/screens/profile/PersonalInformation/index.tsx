@@ -13,6 +13,7 @@ const PersonalInformation = () => {
     <View>
       <Header
         title="Informações Pessoais"
+        close
         RightContent={
           <TextButton title="Salvar" onPress={() => console.log('save')} />
         }

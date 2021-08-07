@@ -94,7 +94,7 @@ export default () => {
             barStyle="dark-content"
           />
         }
-        header={<Header title="Facilidades" />}
+        header={<Header title="Facilidades" close />}
         list={
           <FacilitiesList data={facilities} style={styles.contentContainer} />
         }

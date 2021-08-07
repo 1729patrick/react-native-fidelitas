@@ -30,7 +30,7 @@ const LanguageItem: React.FC<LanguageProps> = ({ title, onPress }) => {
       <RectButton
         style={styles.container}
         key={title}
-        rippleColor={StyleGuide.palette.primary}
+        rippleColor={StyleGuide.palette.secondary}
         onPress={toggleCheck}>
         <Text style={styles.title}>{title}</Text>
 

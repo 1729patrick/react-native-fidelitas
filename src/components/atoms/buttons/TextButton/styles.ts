@@ -6,5 +6,6 @@ export default StyleSheet.create({
   button: {
     ...StyleGuide.typography.headline,
     color: StyleGuide.palette.green,
+    fontSize: 15,
   },
 });

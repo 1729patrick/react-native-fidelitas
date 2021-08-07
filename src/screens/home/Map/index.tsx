@@ -13,7 +13,7 @@ export default () => {
 
   return (
     <View>
-      <Header title="Localização" elevation={2} />
+      <Header title="Localização" elevation={2} close />
       <Map width={width} height={height} userInteraction />
     </View>
   );

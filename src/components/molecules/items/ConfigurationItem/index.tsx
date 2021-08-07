@@ -23,7 +23,7 @@ const ConfigurationItem: React.FC<ConfigurationProps> = ({
       <RectButton
         key={title}
         style={styles.button}
-        rippleColor={StyleGuide.palette.primary}
+        rippleColor={StyleGuide.palette.secondary}
         onPress={onPress}>
         {icon}
         <Text style={styles.title}>{title}</Text>

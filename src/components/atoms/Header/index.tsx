@@ -28,6 +28,7 @@ type HeaderProps = {
   elevation?: number;
   onBack?: () => void;
   color?: string;
+  close?: boolean;
 };
 
 const Header: React.FC<HeaderProps> = ({
@@ -39,6 +40,7 @@ const Header: React.FC<HeaderProps> = ({
   onBack,
   RightContent,
   color,
+  close,
 }) => {
   const { pop } = useNavigation<StackNavigationProp<any>>();
 
@@ -92,8 +94,8 @@ const Header: React.FC<HeaderProps> = ({
           {showBack && (
             <RoundButton
               onPress={onBackPress}
-              name={'arrowleft'}
-              size={24}
+              name={close ? 'close' : 'arrowleft'}
+              size={20}
               Icon={Icon}
               style={styles.backButton}
               color={color}

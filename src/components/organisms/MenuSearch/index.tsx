@@ -94,7 +94,7 @@ const MenuSearch: React.FC<MenuSearchProps> = ({
     }
 
     translationYWhenSearchOpenRef.current = translationY.value;
-    searchContentAnimation.value = withTiming(1);
+    searchContentAnimation.value = withTiming(1, { duration: 400 });
 
     StatusBar.setBarStyle('dark-content');
 

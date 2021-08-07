@@ -17,7 +17,7 @@ const FacilityItem: React.FC<FacilityProps> = ({ title, icon, onPress }) => {
   return (
     <RectButton
       style={styles.container}
-      rippleColor={StyleGuide.palette.primary}
+      rippleColor={StyleGuide.palette.secondary}
       onPress={() => {
         onPress?.({ title, icon });
       }}>

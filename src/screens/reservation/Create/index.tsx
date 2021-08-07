@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { StatusBar, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -17,6 +17,8 @@ export default () => {
   useStatusBar(true);
   useHideTabBar();
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   const currentIndexRef = useRef(0);
   const registerRef = useRef<RegisterHandler>(null);
   const { pop } = useNavigation<StackNavigationProp<any>>();
@@ -26,22 +28,22 @@ export default () => {
   };
 
   const onScrollTo = (index: number) => {
-    currentIndexRef.current = index;
+    setCurrentIndex(index);
     registerRef.current?.scrollToIndex(index);
   };
 
   const onBack = () => {
-    if (currentIndexRef.current - 1 < 0) {
+    if (currentIndex - 1 < 0) {
       pop();
       return;
     }
 
-    onScrollTo(currentIndexRef.current - 1);
+    onScrollTo(currentIndex - 1);
   };
 
   useBackHandler(() => {
-    if (currentIndexRef.current - 1 >= 0) {
-      onScrollTo(currentIndexRef.current - 1);
+    if (currentIndex - 1 >= 0) {
+      onScrollTo(currentIndex - 1);
       return true;
     }
 
@@ -49,13 +51,17 @@ export default () => {
   });
 
   return (
-    <View style={{ backgroundColor: '#fff', flex: 1 }}>
+    <View style={styles.container}>
       <StatusBar
         translucent
         backgroundColor="rgba(0, 0, 0, 0)"
         barStyle="dark-content"
       />
-      <Header backgroundColor={'transparent'} onBack={onBack} />
+      <Header
+        backgroundColor={'transparent'}
+        onBack={onBack}
+        close={!currentIndex}
+      />
       <Register
         ref={registerRef}
         steps={[

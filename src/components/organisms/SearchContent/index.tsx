@@ -1,6 +1,6 @@
-import React, { memo, useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Dimensions, Text, View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { FlatList } from 'react-native-gesture-handler';
 import Animated, {
   interpolate,
   useAnimatedStyle,
@@ -8,6 +8,7 @@ import Animated, {
 import ProductItem from '~/components/molecules/items/ProductItem';
 import { useKeyboard } from '~/hooks/useKeyboard';
 import { BasketType, MenuItemType } from '~/screens/menu/Menu';
+import ProductsList from '../lists/Products';
 import { PADDING_TOP } from './constants';
 import styles from './styles';
 
@@ -44,32 +45,14 @@ const SearchContent: React.FC<SearchContentProps> = ({
     return keyboardShown ? keyboardHeight : 0;
   }, [keyboardHeight, keyboardShown]);
 
-  const getQuantity = useCallback(
-    (id: string) => {
-      const { quantity } = basket.find(({ product }) => product.id === id) || {
-        quantity: 0,
-      };
-
-      return quantity;
-    },
-    [basket],
-  );
-
   const renderResult = () => {
     return (
-      <ScrollView
-        contentContainerStyle={[styles.contentContainer, { paddingBottom }]}
-        overScrollMode="never"
-        showsVerticalScrollIndicator={false}>
-        {data.map(product => (
-          <ProductItem
-            {...product}
-            key={product.id}
-            addToBasket={quantity => addToBasket(quantity, product)}
-            quantity={getQuantity(product.id)}
-          />
-        ))}
-      </ScrollView>
+      <ProductsList
+        addToBasket={addToBasket}
+        data={data}
+        basket={basket}
+        style={{ ...styles.contentContainer, paddingBottom }}
+      />
     );
   };
 
