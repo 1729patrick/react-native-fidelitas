@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View, ViewStyle } from 'react-native';
 import { BorderlessButton } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -10,17 +10,25 @@ type IncrementDecrementProps = {
   description?: string;
   style?: ViewStyle;
   onChange: (value: number) => void;
+  initialValue?: number;
+  value?: number;
 };
 const IncrementDecrement: React.FC<IncrementDecrementProps> = ({
   title,
   description,
   style,
   onChange,
+  initialValue = 0,
+  value = 0,
 }) => {
-  const [value, setValue] = useState(0);
+  const [value_, setValue_] = useState(initialValue);
+
+  useEffect(() => {
+    setValue_(value);
+  }, [value]);
 
   const onIncrement = () => {
-    setValue(v => {
+    setValue_(v => {
       const newValue = v + 1;
 
       onChange(newValue);
@@ -29,7 +37,7 @@ const IncrementDecrement: React.FC<IncrementDecrementProps> = ({
   };
 
   const onDecrement = () => {
-    setValue(v => {
+    setValue_(v => {
       const newValue = Math.max(v - 1, 0);
 
       onChange(newValue);
@@ -57,7 +65,7 @@ const IncrementDecrement: React.FC<IncrementDecrementProps> = ({
           </View>
         </BorderlessButton>
 
-        <Text style={styles.value}>{value}</Text>
+        <Text style={styles.value}>{value_}</Text>
         <BorderlessButton
           hitSlop={{ top: 58, bottom: 58, left: 58, right: 58 }}
           style={styles.button}

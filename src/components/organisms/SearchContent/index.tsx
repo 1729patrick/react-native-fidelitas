@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import { Dimensions, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Animated, {
@@ -7,7 +7,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import ProductItem from '~/components/molecules/items/ProductItem';
 import { useKeyboard } from '~/hooks/useKeyboard';
-import { MenuItemType } from '~/screens/menu/Menu';
+import { BasketType, MenuItemType } from '~/screens/menu/Menu';
 import { PADDING_TOP } from './constants';
 import styles from './styles';
 
@@ -17,12 +17,16 @@ type SearchContentProps = {
   searchContentAnimation: Animated.SharedValue<number>;
   data?: MenuItemType[];
   searchTerm: string;
+  addToBasket: (quantity: number, product: MenuItemType) => void;
+  basket: BasketType;
 };
 
 const SearchContent: React.FC<SearchContentProps> = ({
   searchContentAnimation,
   data = [],
   searchTerm,
+  addToBasket,
+  basket,
 }) => {
   const { keyboardShown, keyboardHeight } = useKeyboard();
 
@@ -40,6 +44,17 @@ const SearchContent: React.FC<SearchContentProps> = ({
     return keyboardShown ? keyboardHeight : 0;
   }, [keyboardHeight, keyboardShown]);
 
+  const getQuantity = useCallback(
+    (id: string) => {
+      const { quantity } = basket.find(({ product }) => product.id === id) || {
+        quantity: 0,
+      };
+
+      return quantity;
+    },
+    [basket],
+  );
+
   const renderResult = () => {
     return (
       <ScrollView
@@ -50,7 +65,8 @@ const SearchContent: React.FC<SearchContentProps> = ({
           <ProductItem
             {...product}
             key={product.id}
-            onPress={() => console.log('product')}
+            addToBasket={quantity => addToBasket(quantity, product)}
+            quantity={getQuantity(product.id)}
           />
         ))}
       </ScrollView>
@@ -78,4 +94,4 @@ const SearchContent: React.FC<SearchContentProps> = ({
   );
 };
 
-export default memo(SearchContent);
+export default SearchContent;

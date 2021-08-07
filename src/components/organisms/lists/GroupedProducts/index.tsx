@@ -14,7 +14,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import Loader from '~/components/atoms/Loader';
 import ProductItem from '~/components/molecules/items/ProductItem';
-import { MenuItemType } from '~/screens/menu/Menu';
+import { BasketType, MenuItemType } from '~/screens/menu/Menu';
 
 import styles from './styles';
 
@@ -26,9 +26,10 @@ type GroupedProductsListProps = {
   cardTranslationX: Animated.SharedValue<number>;
   indicatorTranslationX: Animated.SharedValue<number>;
   style?: StyleProp<ViewStyle>;
-  addToBasket: (quantity: number, product: MenuItemType) => void;
   data: MenuItemType[];
   onEndDrag: () => void;
+  addToBasket: (quantity: number, product: MenuItemType) => void;
+  basket: BasketType;
 };
 
 const { width } = Dimensions.get('window');
@@ -46,6 +47,7 @@ const GroupedProductsList: React.ForwardRefRenderFunction<
     data,
     onEndDrag,
     indicatorTranslationX,
+    basket,
   },
   ref,
 ) => {
@@ -78,6 +80,17 @@ const GroupedProductsList: React.ForwardRefRenderFunction<
     [scrollTo],
   );
 
+  const getQuantity = useCallback(
+    (id: string) => {
+      const { quantity } = basket.find(({ product }) => product.id === id) || {
+        quantity: 0,
+      };
+
+      return quantity;
+    },
+    [basket],
+  );
+
   const renderItem = useCallback(
     (category: MenuItemType, index: number) => {
       return (
@@ -92,6 +105,7 @@ const GroupedProductsList: React.ForwardRefRenderFunction<
                   {...product}
                   key={product.id}
                   addToBasket={quantity => addToBasket(quantity, product)}
+                  quantity={getQuantity(product.id)}
                 />
               ))}
             </View>
@@ -103,7 +117,7 @@ const GroupedProductsList: React.ForwardRefRenderFunction<
         </View>
       );
     },
-    [activePage],
+    [activePage, addToBasket, getQuantity],
   );
 
   return (

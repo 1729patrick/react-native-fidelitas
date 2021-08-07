@@ -17,6 +17,7 @@ import { BasketType } from '~/screens/menu/Menu';
 import StyleGuide from '~/util/StyleGuide';
 import { darken } from 'polished';
 import { MARGIN_TOP } from './constants';
+import Badge from '~/components/atoms/Badge';
 
 type BasketButtonProps = {
   searchContentAnimation: Animated.SharedValue<number>;
@@ -32,7 +33,7 @@ const BasketButton: React.FC<BasketButtonProps> = ({
   basket,
 }) => {
   const animation = useSharedValue(0);
-  const animationY = useSharedValue(0);
+  const animationY = useSharedValue(1);
   const { navigate } = useNavigation<StackNavigationProp<any>>();
 
   const quantity = useMemo(() => {
@@ -60,17 +61,6 @@ const BasketButton: React.FC<BasketButtonProps> = ({
 
     return { elevation };
   }, [searchContentAnimation.value]);
-
-  const badgeStyle = useAnimatedStyle(() => {
-    const scale = interpolate(
-      animation.value,
-      [0, 0.5, 1],
-      [1, 1.5, 1],
-      Extrapolate.CLAMP,
-    );
-
-    return { transform: [{ scale }] };
-  }, [animation.value]);
 
   const containerStyle = useAnimatedStyle(() => {
     const backgroundColor = interpolateColor(
@@ -105,9 +95,10 @@ const BasketButton: React.FC<BasketButtonProps> = ({
           size={28}
           color="#fff"
         />
-        <Animated.View style={[styles.basketBadge, badgeStyle]}>
-          <Text style={styles.basketBadgeTitle}>{quantity}</Text>
-        </Animated.View>
+        <View style={styles.badgeContainer}>
+          <Badge value={quantity} />
+        </View>
+
         <View style={styles.basketTitleContainer}>
           <Text style={styles.basketTitle}>Cesto (€ {price})</Text>
         </View>

@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Image } from 'react-native';
 import { Text, View } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import Animated, {
+  Extrapolate,
   interpolate,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
+import Badge from '~/components/atoms/Badge';
 import FieldInformation from '~/components/atoms/FieldInformation';
 import IncrementDecrement from '~/components/atoms/IncrementDecrement';
 import { MenuItemType } from '~/screens/menu/Menu';
@@ -18,6 +20,7 @@ import styles from './styles';
 
 type ProductProps = {
   addToBasket: (quantity: number) => void;
+  quantity?: number;
 } & MenuItemType;
 
 const ProductItem: React.FC<ProductProps> = ({
@@ -26,6 +29,7 @@ const ProductItem: React.FC<ProductProps> = ({
   price,
   image,
   addToBasket,
+  quantity = 0,
 }) => {
   const [footerHeight, setFooterHeight] = useState(0);
 
@@ -37,14 +41,30 @@ const ProductItem: React.FC<ProductProps> = ({
       [0, 1],
       [CARD_HEIGHT, CARD_HEIGHT + footerHeight],
     );
+
     return {
       height,
     };
   }, [animation, footerHeight]);
 
+  const badgeStyle = useAnimatedStyle(() => {
+    const scale = interpolate(
+      animation.value,
+      [0, 0.5],
+      [1, 0],
+      Extrapolate.CLAMP,
+    );
+
+    return { transform: [{ scale }] };
+  }, [animation]);
+
   const onCollapse = () => {
     animation.value = withSpring(+!animation.value);
   };
+
+  const total = useMemo(() => {
+    return (price || 0) * quantity;
+  }, [price, quantity]);
 
   const renderHeader = () => {
     return (
@@ -58,8 +78,13 @@ const ProductItem: React.FC<ProductProps> = ({
           <Text style={styles.description} numberOfLines={2}>
             {description}
           </Text>
+
           <Text style={styles.price}>€ {price}</Text>
         </View>
+
+        <Animated.View style={[styles.badgeContainer, badgeStyle]}>
+          <Badge value={quantity} />
+        </Animated.View>
       </View>
     );
   };
@@ -85,10 +110,14 @@ const ProductItem: React.FC<ProductProps> = ({
 
         <View style={styles.basket}>
           <Text style={styles.total}>
-            Total: <Text style={styles.totalValue}>€ 32</Text>
+            Total: <Text style={styles.totalValue}>€ {total}</Text>
           </Text>
 
-          <IncrementDecrement onChange={addToBasket} />
+          <IncrementDecrement
+            onChange={addToBasket}
+            initialValue={quantity}
+            value={quantity}
+          />
         </View>
       </View>
     );

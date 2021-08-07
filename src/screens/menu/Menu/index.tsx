@@ -218,7 +218,7 @@ const items_: MenuItemType[] = [
         description: 'Chocolate Quente meio amargo - 230ml',
         type: MenuType.Product,
         image,
-        price: '16,00',
+        price: 16,
       },
     ],
   },
@@ -367,6 +367,8 @@ export default () => {
           searchContentAnimation={searchContentAnimation}
           data={items[0].items}
           searchTerm={searchTerm}
+          basket={basket}
+          addToBasket={addToBasket}
         />
       }
       categoryIndicator={
@@ -404,6 +406,7 @@ export default () => {
             cardTranslationX={cardTranslationX}
             indicatorTranslationX={indicatorTranslationX}
             ref={groupedProductsListRef}
+            basket={basket}
           />
         </AnimatedScrollView>
       }

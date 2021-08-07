@@ -31,19 +31,5 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  basketBadge: {
-    backgroundColor: StyleGuide.palette.primary,
-    minWidth: 18,
-    minHeight: 18,
-    borderRadius: 9,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: -12,
-    marginBottom: -20,
-  },
-  basketBadgeTitle: {
-    ...StyleGuide.typography.headline,
-    fontSize: 9,
-    color: StyleGuide.palette.background,
-  },
+  badgeContainer: { marginLeft: -12, marginBottom: -20 },
 });

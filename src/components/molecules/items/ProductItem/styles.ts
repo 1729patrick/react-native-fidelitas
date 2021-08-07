@@ -69,4 +69,9 @@ export default StyleSheet.create({
     fontSize: 14,
     color: StyleGuide.palette.primary,
   },
+  badgeContainer: {
+    position: 'absolute',
+    top: StyleGuide.spacing,
+    right: StyleGuide.spacing,
+  },
 });
