@@ -31,7 +31,7 @@ const IncrementDecrement: React.FC<IncrementDecrementProps> = ({
     setValue_(v => {
       const newValue = v + 1;
 
-      onChange(newValue);
+      onChange?.(newValue);
       return newValue;
     });
   };
@@ -40,7 +40,7 @@ const IncrementDecrement: React.FC<IncrementDecrementProps> = ({
     setValue_(v => {
       const newValue = Math.max(v - 1, 0);
 
-      onChange(newValue);
+      onChange?.(newValue);
       return newValue;
     });
   };

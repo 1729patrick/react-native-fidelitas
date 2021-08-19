@@ -102,7 +102,7 @@ const MenuSearch: React.FC<MenuSearchProps> = ({
   };
 
   const onSearchBlur = () => {
-    searchContentAnimation.value = withTiming(0);
+    searchContentAnimation.value = withTiming(0, { duration: 400 });
 
     verticalScrollViewRef.current?.scrollTo({
       y: translationYWhenSearchOpenRef.current,

@@ -10,8 +10,6 @@ export default StyleSheet.create({
     paddingBottom: StyleGuide.spacing * 2,
   },
   totalContainer: {
-    borderTopWidth: 1,
-    borderColor: StyleGuide.palette.border,
     paddingTop: StyleGuide.spacing * 1.5,
     marginTop: StyleGuide.spacing,
     marginHorizontal: StyleGuide.spacing * 2,
