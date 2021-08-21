@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback } from 'react';
+import React, { ReactElement, useCallback } from 'react';
 import { AlertType, StyleProp, ViewStyle } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import ProductItem from '~/components/molecules/items/ProductItem';
@@ -13,7 +13,7 @@ type ProductsListProps = {
   addToBasket: (quantity: number, product: MenuItemType) => void;
   basket: BasketType;
   simpleContent?: boolean;
-  footer: ReactNode;
+  footer: ReactElement;
 };
 
 const ProductsList: React.FC<ProductsListProps> = ({

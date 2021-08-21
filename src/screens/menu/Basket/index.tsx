@@ -1,50 +1,23 @@
-import { RouteProp, useRoute } from '@react-navigation/native';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import Header from '~/components/atoms/Header';
 import styles from './styles';
 import ProductsList from '~/components/organisms/lists/Products';
 import useHideTabBar from '~/hooks/useHideTabBar';
 import useStatusBar from '~/hooks/useStatusBar';
-import { BasketType, MenuItemType } from '../Menu';
 import { Text, View } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import StyleGuide from '~/util/StyleGuide';
-
-type RouteProps = RouteProp<
-  {
-    Basket: {
-      initialBasket: BasketType;
-      data: MenuItemType[];
-    };
-  },
-  'Basket'
->;
+import { useBasket } from '~/contexts/Basket';
 
 const Basket = () => {
-  const { params } = useRoute<RouteProps>();
-  const [basket, setBasket] = useState<BasketType>(params.initialBasket);
+  const { basket, addToBasket } = useBasket();
 
   useStatusBar(true);
   useHideTabBar();
 
-  const addToBasket = (quantity: number, product: MenuItemType) => {
-    setBasket(basket => {
-      const index = basket.findIndex(({ product: p }) => p.id === product.id);
-
-      if (index === -1) {
-        return [...basket, { quantity, product }];
-      }
-
-      const newBasket = [...basket];
-      newBasket.splice(index, 1, { product, quantity });
-
-      return newBasket;
-    });
-  };
-
   const data = useMemo(() => {
-    return params.initialBasket.map(({ product }) => product);
-  }, [params.initialBasket]);
+    return basket.map(({ product }) => product);
+  }, [basket]);
 
   const price = useMemo(() => {
     return basket.reduce(

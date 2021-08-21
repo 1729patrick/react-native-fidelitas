@@ -80,6 +80,5 @@ export default StyleSheet.create({
   basketWithoutSpacing: {
     marginTop: 0,
     borderTopWidth: 0,
-    paddingVertical: StyleGuide.spacing,
   },
 });

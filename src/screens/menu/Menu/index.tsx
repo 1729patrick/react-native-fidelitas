@@ -26,6 +26,7 @@ import StyleGuide from '~/util/StyleGuide';
 import BasketButton from '~/components/molecules/actions/BasketButton';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { useBasket } from '~/contexts/Basket';
 
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
 
@@ -279,7 +280,7 @@ export type BasketType = {
 }[];
 
 export default () => {
-  const [basket, setBasket] = useState<BasketType>([]);
+  const { basket, addToBasket } = useBasket();
 
   const indicatorsWidthsRef = useRef<number[]>([]);
   const categoryIndicatorRef = useRef<CategoryIndicatorHandler>(null);
@@ -333,23 +334,8 @@ export default () => {
     return StyleGuide.spacing * 4;
   }, []);
 
-  const addToBasket = (quantity: number, product: MenuItemType) => {
-    setBasket(basket => {
-      const index = basket.findIndex(({ product: p }) => p.id === product.id);
-
-      if (index === -1) {
-        return [...basket, { quantity, product }];
-      }
-
-      const newBasket = [...basket];
-      newBasket.splice(index, 1, { product, quantity });
-
-      return newBasket;
-    });
-  };
-
   const openBasket = () => {
-    navigate('Basket', { initialBasket: basket });
+    navigate('Basket');
   };
 
   return (
