@@ -109,6 +109,7 @@ const ProductItem: React.FC<ProductProps> = ({
             onChange={addToBasket}
             initialValue={quantity}
             value={quantity}
+            size={28}
           />
         </View>
       </View>

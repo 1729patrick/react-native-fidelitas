@@ -15,7 +15,7 @@ const Checkbox = ({ style, toggleCheck, checked }: CheckboxProps) => {
     <RoundButton
       Icon={MaterialIcons}
       name={checked ? 'radio-button-checked' : 'radio-button-unchecked'}
-      size={27}
+      size={25}
       style={style}
       color={StyleGuide.palette.primary}
       onPress={toggleCheck}

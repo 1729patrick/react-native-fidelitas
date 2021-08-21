@@ -12,6 +12,7 @@ type IncrementDecrementProps = {
   onChange: (value: number) => void;
   initialValue?: number;
   value?: number;
+  size?: number;
 };
 const IncrementDecrement: React.FC<IncrementDecrementProps> = ({
   title,
@@ -20,6 +21,7 @@ const IncrementDecrement: React.FC<IncrementDecrementProps> = ({
   onChange,
   initialValue = 0,
   value = 0,
+  size = 36,
 }) => {
   const [value_, setValue_] = useState(initialValue);
 
@@ -57,10 +59,10 @@ const IncrementDecrement: React.FC<IncrementDecrementProps> = ({
       <View style={styles.buttons}>
         <BorderlessButton
           hitSlop={{ top: 58, bottom: 58, left: 58, right: 58 }}
-          style={styles.button}
+          style={[styles.button, { width: size + 5, height: size + 5 }]}
           rippleColor={StyleGuide.palette.secondary}
           onPress={onDecrement}>
-          <View style={[styles.round]}>
+          <View style={[styles.round, { width: size, height: size }]}>
             <Icon name="minus" color={StyleGuide.palette.primary} size={20} />
           </View>
         </BorderlessButton>
@@ -68,10 +70,10 @@ const IncrementDecrement: React.FC<IncrementDecrementProps> = ({
         <Text style={styles.value}>{value_}</Text>
         <BorderlessButton
           hitSlop={{ top: 58, bottom: 58, left: 58, right: 58 }}
-          style={styles.button}
+          style={[styles.button, { width: size + 5, height: size + 5 }]}
           rippleColor={StyleGuide.palette.secondary}
           onPress={onIncrement}>
-          <View style={[styles.round]}>
+          <View style={[styles.round, { width: size, height: size }]}>
             <Icon name="plus" color={StyleGuide.palette.primary} size={20} />
           </View>
         </BorderlessButton>

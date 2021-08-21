@@ -95,7 +95,7 @@ const Header: React.FC<HeaderProps> = ({
             <RoundButton
               onPress={onBackPress}
               name={close ? 'close' : 'arrowleft'}
-              size={20}
+              size={23}
               Icon={Icon}
               style={styles.backButton}
               color={color}

@@ -8,9 +8,12 @@ import { Text, View } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import StyleGuide from '~/util/StyleGuide';
 import { useBasket } from '~/contexts/Basket';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const Basket = () => {
-  const { basket, addToBasket } = useBasket();
+  const { basket, addToBasket, price } = useBasket();
+  const { navigate } = useNavigation<StackNavigationProp<any>>();
 
   useStatusBar(true);
   useHideTabBar();
@@ -19,12 +22,9 @@ const Basket = () => {
     return basket.map(({ product }) => product);
   }, [basket]);
 
-  const price = useMemo(() => {
-    return basket.reduce(
-      (acc, { quantity, product }) => (product.price || 0) * quantity + acc,
-      0,
-    );
-  }, [basket]);
+  const onConfirm = () => {
+    navigate('Checkout');
+  };
 
   return (
     <View>
@@ -59,7 +59,8 @@ const Basket = () => {
       <View style={styles.checkout}>
         <RectButton
           style={styles.checkoutButton}
-          rippleColor={StyleGuide.palette.secondary}>
+          rippleColor={StyleGuide.palette.secondary}
+          onPress={onConfirm}>
           <Text style={styles.checkoutTitle}>
             Confirmar ({(price * 0.9).toFixed(2)} €)
           </Text>

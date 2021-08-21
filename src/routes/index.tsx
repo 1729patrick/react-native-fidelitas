@@ -29,6 +29,7 @@ import Achievements from '~/screens/achievements/Achievements';
 import TabBar from '~/components/organisms/TabBar/Bottom';
 import CreateReservation from '~/screens/reservation/Create';
 import Basket from '~/screens/menu/Basket';
+import Checkout from '~/screens/menu/Checkout';
 
 type TransitionSpecType = {
   open: TransitionSpec;
@@ -83,6 +84,11 @@ const MenuNavigator = () => {
       <MenuStack.Screen
         name="Basket"
         component={Basket}
+        options={optionsVertical}
+      />
+      <MenuStack.Screen
+        name="Checkout"
+        component={Checkout}
         options={optionsVertical}
       />
     </MenuStack.Navigator>

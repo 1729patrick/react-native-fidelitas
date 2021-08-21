@@ -1,38 +1,45 @@
-import React from 'react';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import React, { useEffect, useCallback } from 'react';
+import {
+  useFocusEffect,
+  useNavigation,
+  useNavigationState,
+} from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-const useHideTabBar = (autoHide?: boolean = true) => {
+const useHideTabBar = (autoHide: boolean = true) => {
+  const index = useNavigationState(state => state.index);
   const { getParent } = useNavigation<StackNavigationProp<any>>();
 
-  const hideTabBar = () => {
+  const hideTabBar = useCallback(() => {
     const parent = getParent();
     parent.setOptions({
       tabBarVisible: false,
     });
-  };
+  }, [getParent]);
 
-  const showTabBar = () => {
+  const showTabBar = useCallback(() => {
+    if (index) {
+      return;
+    }
+
     const parent = getParent();
     parent.setOptions({
       tabBarVisible: true,
     });
-  };
+  }, [getParent, index]);
 
-  useFocusEffect(
-    React.useCallback(() => {
-      if (!autoHide) {
-        return;
-      }
+  useEffect(() => {
+    if (!autoHide) {
+      return;
+    }
 
-      // hide
+    if (index) {
       hideTabBar();
+      return;
+    }
 
-      // reveal after changing screen
-      return showTabBar;
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []),
-  );
+    showTabBar();
+  }, [autoHide, hideTabBar, index, showTabBar]);
 
   return { showTabBar, hideTabBar };
 };

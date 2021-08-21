@@ -4,7 +4,7 @@ import StyleGuide from '~/util/StyleGuide';
 import RoundButton from '~/components/atoms/buttons/RoundButton';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import useStatusBar from '~/hooks/useStatusBar';
-import { add, format } from 'date-fns';
+import { format } from 'date-fns';
 import { DATE_FORMAT, MONTH_FORMAT } from '~/util/Constants';
 
 const today = new Date();
@@ -70,12 +70,6 @@ export default () => {
       }}
       markedDates={{
         [format(date, DATE_FORMAT)]: { selected: true, disabled: true },
-        [format(add(date, { days: -1 }), DATE_FORMAT)]: {
-          disabled: true,
-        },
-        [format(add(date, { days: 1 }), DATE_FORMAT)]: {
-          disabled: true,
-        },
       }}
       hideExtraDays={true}
       enableSwipeMonths={true}
