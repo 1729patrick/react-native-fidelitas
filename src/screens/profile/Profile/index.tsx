@@ -69,7 +69,7 @@ export default () => {
           size={25}
         />
       ),
-      onPress: () => console.log('history'),
+      onPress: () => navigate('Address'),
     },
     {
       title: 'Histórico de Pedidos',

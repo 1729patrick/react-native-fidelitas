@@ -31,6 +31,7 @@ import Basket from '~/screens/menu/Basket';
 import Checkout from '~/screens/menu/Checkout';
 import PurchaseHistory from '~/screens/profile/PurchaseHistory';
 import NotificationsConfig from '~/screens/profile/NotificationsConfig';
+import Address from '~/screens/profile/Address';
 
 type TransitionSpecType = {
   open: TransitionSpec;
@@ -134,6 +135,11 @@ const ProfileNavigator = () => {
       <ProfileStack.Screen
         name="PurchaseDetails"
         component={Checkout}
+        options={optionsVertical}
+      />
+      <ProfileStack.Screen
+        name="Address"
+        component={Address}
         options={optionsVertical}
       />
     </ProfileStack.Navigator>

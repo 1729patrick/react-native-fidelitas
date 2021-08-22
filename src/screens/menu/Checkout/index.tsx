@@ -72,7 +72,7 @@ const Checkout = () => {
             <IonIcon
               name="ios-location-sharp"
               size={18}
-              color={StyleGuide.palette.app}
+              color={StyleGuide.palette.secondary}
               style={styles.icon}
             />
             <Text style={styles.description}>
@@ -84,7 +84,7 @@ const Checkout = () => {
             <IonIcon
               name="ios-person-sharp"
               size={18}
-              color={StyleGuide.palette.app}
+              color={StyleGuide.palette.secondary}
               style={styles.icon}
             />
             <Text style={styles.description}>Cristiano Rolando</Text>
@@ -94,7 +94,7 @@ const Checkout = () => {
             <IonIcon
               name="call"
               size={18}
-              color={StyleGuide.palette.app}
+              color={StyleGuide.palette.secondary}
               style={styles.icon}
             />
             <Text style={styles.description}>+351 92140176243</Text>
