@@ -15,16 +15,10 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: StyleGuide.palette.background,
   },
-  info: { paddingLeft: StyleGuide.spacing * 1.75, flex: 1 },
   title: {
-    ...StyleGuide.typography.headline,
-    fontSize: 13.5,
-    color: StyleGuide.palette.primary,
-  },
-  description: {
     ...StyleGuide.typography.subhead,
-    fontSize: 13.5,
-    color: StyleGuide.palette.secondary,
+    color: StyleGuide.palette.primary,
+    paddingLeft: StyleGuide.spacing * 1.75,
   },
-  date: { fontSize: 12, marginTop: StyleGuide.spacing },
+  toggle: { marginLeft: 'auto' },
 });

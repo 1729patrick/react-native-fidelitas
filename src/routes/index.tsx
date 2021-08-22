@@ -30,6 +30,7 @@ import CreateReservation from '~/screens/reservation/Create';
 import Basket from '~/screens/menu/Basket';
 import Checkout from '~/screens/menu/Checkout';
 import PurchaseHistory from '~/screens/profile/PurchaseHistory';
+import NotificationsConfig from '~/screens/profile/NotificationsConfig';
 
 type TransitionSpecType = {
   open: TransitionSpec;
@@ -103,6 +104,11 @@ const ProfileNavigator = () => {
       <ProfileStack.Screen
         name="Notifications"
         component={Notifications}
+        options={optionsVertical}
+      />
+      <ProfileStack.Screen
+        name="NotificationsConfig"
+        component={NotificationsConfig}
         options={optionsVertical}
       />
       <ProfileStack.Screen

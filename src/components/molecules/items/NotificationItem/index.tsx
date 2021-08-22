@@ -1,14 +1,17 @@
 import React, { ReactElement, useState } from 'react';
 import { View, Text } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
-import Switch from '~/components/atoms/Switch';
 import StyleGuide from '~/util/StyleGuide';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import styles from './styles';
 
 export type NotificationType = {
-  icon: ReactElement;
+  icon: string;
   title: string;
+  description: string;
+  date: string;
+  read: boolean;
   onPress: (args: boolean) => void;
 };
 
@@ -16,35 +19,31 @@ type NotificationProps = {} & NotificationType;
 
 const NotificationItem: React.FC<NotificationProps> = ({
   title,
+  description,
   icon,
+  date,
+  read: initialRead,
   onPress,
 }) => {
-  const [isEnabled, setIsEnabled] = useState(false);
+  const [read, setRead] = useState(initialRead);
+  const color = read ? StyleGuide.palette.primary : StyleGuide.palette.app;
 
-  const toggleSwitch = () => {
-    setIsEnabled(previousState => {
-      const newState = !previousState;
-
-      onPress(newState);
-      return newState;
-    });
-  };
+  const opacity = read ? 0.6 : 1;
 
   return (
-    <View style={styles.border}>
+    <View style={[styles.border, { opacity }]}>
       <RectButton
         style={styles.container}
         key={title}
-        onPress={toggleSwitch}
+        onPress={() => setRead(true)}
         rippleColor={StyleGuide.palette.secondary}>
-        {icon}
-        <Text style={styles.title}>{title}</Text>
+        <Icon name={icon} color={color} size={23} />
+        <View style={styles.info}>
+          <Text style={[styles.title]}>{title}</Text>
+          <Text style={styles.description}>{description}</Text>
 
-        <Switch
-          toggleSwitch={toggleSwitch}
-          isEnabled={isEnabled}
-          style={styles.toggle}
-        />
+          <Text style={[styles.description, styles.date]}>{date}</Text>
+        </View>
       </RectButton>
     </View>
   );
