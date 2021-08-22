@@ -110,4 +110,9 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  deliveryType: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: StyleGuide.spacing * 2,
+  },
 });

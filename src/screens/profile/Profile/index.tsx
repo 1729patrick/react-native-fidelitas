@@ -76,7 +76,7 @@ export default () => {
       icon: (
         <MdIcon name="history" color={StyleGuide.palette.primary} size={25} />
       ),
-      onPress: () => console.log('history'),
+      onPress: () => navigate('PurchaseHistory'),
     },
     {
       title: 'Termos de Privacidade',

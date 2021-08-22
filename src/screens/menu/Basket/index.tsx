@@ -23,7 +23,7 @@ const Basket = () => {
   }, [basket]);
 
   const onConfirm = () => {
-    navigate('Checkout');
+    navigate('Checkout', { editable: true });
   };
 
   return (

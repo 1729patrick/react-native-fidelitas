@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { ScrollView, Text, View, Image } from 'react-native';
 import Header from '~/components/atoms/Header';
 import useHideTabBar from '~/hooks/useHideTabBar';
@@ -9,11 +9,21 @@ import IonIcon from 'react-native-vector-icons/Ionicons';
 import StyleGuide from '~/util/StyleGuide';
 import Checkbox from '~/components/atoms/Checkbox';
 import { RectButton } from 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useBasket } from '~/contexts/Basket';
 
+type RootStackParamList = {
+  Checkout: {
+    editable?: boolean;
+  };
+};
+
+type RouteProps = RouteProp<RootStackParamList, 'Checkout'>;
+
 const Checkout = () => {
+  const { params } = useRoute<RouteProps>();
+
   const { clearBasket, basket, price } = useBasket();
   const { popToTop } = useNavigation<StackNavigationProp<any>>();
   useStatusBar(true);
@@ -24,14 +34,39 @@ const Checkout = () => {
     popToTop();
   };
 
+  const paddingBottom = useMemo(
+    () => (params.editable ? 55 : 0),
+    [params.editable],
+  );
+
   return (
     <>
       <Header title="Confirmar" close />
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView contentContainerStyle={[styles.container, { paddingBottom }]}>
+        <View style={styles.card}>
+          <Text style={styles.title}>Forma de entrega</Text>
+          <View style={styles.deliveryType}>
+            <Text style={styles.description}>Delivery</Text>
+            <Checkbox toggleCheck={() => {}} checked={true} />
+          </View>
+          {params.editable && (
+            <>
+              <View style={styles.deliveryType}>
+                <Text style={styles.description}>Take Away</Text>
+                <Checkbox toggleCheck={() => {}} checked={false} />
+              </View>
+              <View style={styles.deliveryType}>
+                <Text style={styles.description}>Na Mesa</Text>
+                <Checkbox toggleCheck={() => {}} checked={false} />
+              </View>
+            </>
+          )}
+        </View>
+
         <View style={styles.card}>
           <View style={styles.line}>
             <Text style={styles.title}>Morada de entrega</Text>
-            <Text style={styles.action}>Alterar</Text>
+            {params.editable && <Text style={styles.action}>Alterar</Text>}
           </View>
           <View style={styles.addressLine}>
             <IonIcon
@@ -107,7 +142,7 @@ const Checkout = () => {
         <View style={styles.card}>
           <View style={styles.line}>
             <Text style={styles.title}>Método de pagamento</Text>
-            <Text style={styles.action}>Adicionar</Text>
+            {params.editable && <Text style={styles.action}>Adicionar</Text>}
           </View>
 
           <View style={styles.cc}>
@@ -131,37 +166,41 @@ const Checkout = () => {
             <Checkbox toggleCheck={() => {}} checked={true} />
           </View>
 
-          <View style={styles.cc}>
-            <View style={styles.cardInfo}>
-              <Image
-                style={styles.cardIcon}
-                source={require('~/assets/cc/mastercard.png')}
-              />
-              <View style={styles.cardNumber}>
-                {[1, 2, 3].map(x => (
-                  <View key={x} style={styles.dots}>
-                    <View style={styles.dot} />
-                    <View style={styles.dot} />
-                    <View style={styles.dot} />
-                    <View style={styles.dot} />
-                  </View>
-                ))}
-                <Text style={styles.number}>3242</Text>
+          {params.editable && (
+            <View style={styles.cc}>
+              <View style={styles.cardInfo}>
+                <Image
+                  style={styles.cardIcon}
+                  source={require('~/assets/cc/mastercard.png')}
+                />
+                <View style={styles.cardNumber}>
+                  {[1, 2, 3].map(x => (
+                    <View key={x} style={styles.dots}>
+                      <View style={styles.dot} />
+                      <View style={styles.dot} />
+                      <View style={styles.dot} />
+                      <View style={styles.dot} />
+                    </View>
+                  ))}
+                  <Text style={styles.number}>3242</Text>
+                </View>
               </View>
+              <Checkbox toggleCheck={() => {}} checked={false} />
             </View>
-            <Checkbox toggleCheck={() => {}} checked={false} />
-          </View>
+          )}
         </View>
       </ScrollView>
 
-      <View style={styles.complete}>
-        <RectButton
-          style={styles.completeButton}
-          rippleColor={StyleGuide.palette.secondary}
-          onPress={onComplete}>
-          <Text style={styles.completeTitle}>Finalizar</Text>
-        </RectButton>
-      </View>
+      {params.editable && (
+        <View style={styles.complete}>
+          <RectButton
+            style={styles.completeButton}
+            rippleColor={StyleGuide.palette.secondary}
+            onPress={onComplete}>
+            <Text style={styles.completeTitle}>Finalizar</Text>
+          </RectButton>
+        </View>
+      )}
     </>
   );
 };

@@ -8,7 +8,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TransitionSpec } from '@react-navigation/stack/lib/typescript/src/types';
 
 import vertical from './animations/vertical';
-import horizontal from './animations/horizontal';
 
 import Facilities from '~/screens/home/Facilities';
 import Map from '~/screens/home/Map';
@@ -30,6 +29,7 @@ import TabBar from '~/components/organisms/TabBar/Bottom';
 import CreateReservation from '~/screens/reservation/Create';
 import Basket from '~/screens/menu/Basket';
 import Checkout from '~/screens/menu/Checkout';
+import PurchaseHistory from '~/screens/profile/PurchaseHistory';
 
 type TransitionSpecType = {
   open: TransitionSpec;
@@ -43,11 +43,6 @@ const transitionSpec: TransitionSpecType = {
 
 const optionsVertical: StackNavigationOptions = {
   cardStyleInterpolator: vertical,
-  transitionSpec,
-};
-
-const optionsHorizontal: StackNavigationOptions = {
-  cardStyleInterpolator: horizontal,
   transitionSpec,
 };
 
@@ -123,6 +118,16 @@ const ProfileNavigator = () => {
       <ProfileStack.Screen
         name="PersonalInformation"
         component={PersonalInformation}
+        options={optionsVertical}
+      />
+      <ProfileStack.Screen
+        name="PurchaseHistory"
+        component={PurchaseHistory}
+        options={optionsVertical}
+      />
+      <ProfileStack.Screen
+        name="PurchaseDetails"
+        component={Checkout}
         options={optionsVertical}
       />
     </ProfileStack.Navigator>
