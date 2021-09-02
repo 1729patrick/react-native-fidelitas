@@ -29,8 +29,10 @@ function useStorage<T>(key: string, restore?: (value: T) => void) {
     restore(value);
   }, [getValue, restore]);
 
-  const _setItem = (value: T) => {
-    setItem(JSON.stringify(value));
+  const _setItem = (value?: T) => {
+    if (value) {
+      setItem(JSON.stringify(value));
+    }
   };
 
   const _getItem = async () => {

@@ -32,6 +32,7 @@ import Checkout from '~/screens/menu/Checkout';
 import PurchaseHistory from '~/screens/profile/PurchaseHistory';
 import NotificationsConfig from '~/screens/profile/NotificationsConfig';
 import Address from '~/screens/profile/Address';
+import { useAuth } from '~/contexts/Auth';
 
 type TransitionSpecType = {
   open: TransitionSpec;
@@ -209,29 +210,40 @@ const Auth = () => {
 const PublicStack = createStackNavigator();
 
 export default () => {
+  let { userLoaded, token } = useAuth();
+
+  if (!userLoaded) {
+    return null;
+  }
+
   return (
     <NavigationContainer theme={StyleGuide.navigation}>
       <PublicStack.Navigator screenOptions={{ headerShown: false }}>
-        <PublicStack.Screen
-          name="Welcome"
-          component={Welcome}
-          options={optionsVertical}
-        />
-        <PublicStack.Screen
-          name="Register"
-          component={Register}
-          options={optionsVertical}
-        />
-        <PublicStack.Screen
-          name="Login"
-          component={Login}
-          options={optionsVertical}
-        />
-        <PublicStack.Screen
-          name="Auth"
-          component={Auth}
-          options={optionsVertical}
-        />
+        {!token ? (
+          <>
+            <PublicStack.Screen
+              name="Welcome"
+              component={Welcome}
+              options={optionsVertical}
+            />
+            <PublicStack.Screen
+              name="Register"
+              component={Register}
+              options={optionsVertical}
+            />
+            <PublicStack.Screen
+              name="Login"
+              component={Login}
+              options={optionsVertical}
+            />
+          </>
+        ) : (
+          <PublicStack.Screen
+            name="Auth"
+            component={Auth}
+            options={optionsVertical}
+          />
+        )}
       </PublicStack.Navigator>
     </NavigationContainer>
   );
