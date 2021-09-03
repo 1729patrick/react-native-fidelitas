@@ -4,6 +4,7 @@ import React, { ReactNode } from 'react';
 import { StyleProp, Text, TextStyle, View, ViewStyle } from 'react-native';
 import { RectButton as RNRectButton } from 'react-native-gesture-handler';
 import StyleGuide from '../../../../util/StyleGuide';
+import Loader from '../../Loader';
 import styles from './styles';
 
 type ButtonProps = {
@@ -15,6 +16,8 @@ type ButtonProps = {
   backgroundColor?: string;
   icon?: ReactNode;
   outline?: boolean;
+  loading?: boolean;
+  enabled?: boolean;
 };
 
 const RectButton: React.FC<ButtonProps> = ({
@@ -26,6 +29,8 @@ const RectButton: React.FC<ButtonProps> = ({
   backgroundColor = StyleGuide.palette.app,
   icon,
   outline = false,
+  loading = false,
+  enabled = true,
 }) => {
   return (
     <View
@@ -34,8 +39,10 @@ const RectButton: React.FC<ButtonProps> = ({
         containerStyle,
         { borderRadius },
         outline ? { borderColor: backgroundColor, borderWidth: 1.5 } : {},
+        enabled ? {} : { opacity: 0.6 },
       ]}>
       <RNRectButton
+        enabled={enabled && !loading}
         rippleColor={outline ? backgroundColor : undefined}
         style={[
           styles.button,
@@ -45,11 +52,25 @@ const RectButton: React.FC<ButtonProps> = ({
           icon ? { justifyContent: 'space-between' } : {},
         ]}
         onPress={onPress}>
-        <Text
-          style={[styles.title, titleStyle, icon ? { paddingRight: 12 } : {}]}>
-          {title}
-        </Text>
-        {icon}
+        {loading ? (
+          <Loader
+            color={StyleGuide.palette.background}
+            size={'large'}
+            style={styles.loader}
+          />
+        ) : (
+          <>
+            <Text
+              style={[
+                styles.title,
+                titleStyle,
+                icon ? { paddingRight: 12 } : {},
+              ]}>
+              {title}
+            </Text>
+            {icon}
+          </>
+        )}
       </RNRectButton>
     </View>
   );

@@ -1,5 +1,9 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import Snackbar from 'react-native-snackbar';
 import useStorage from '~/hooks/useStorage';
+import { translate } from '~/i18n';
+import { ResponseError } from '~/types/Api';
+import { Alert } from '~/util/Alert';
 import api from '~/util/api';
 
 type LoginArgs = {
@@ -13,14 +17,16 @@ type ContextProps = {
   user?: any;
   token?: string;
   userLoaded: boolean;
-  login: (args: LoginArgs) => void;
+  login: (args: LoginArgs) => Promise<boolean>;
+  logout: () => void;
 };
 
 const AuthContext = createContext<ContextProps>({
   user: undefined,
   token: undefined,
   userLoaded: false,
-  login: () => undefined,
+  login: async () => false,
+  logout: () => undefined,
 });
 
 export const AuthProvider: React.FC = ({ children }) => {
@@ -43,13 +49,12 @@ export const AuthProvider: React.FC = ({ children }) => {
   }, [setStorageToken, token]);
 
   const setAuthorization = (token: string) => {
-    api.defaults.headers.Authorization = `Bearer ${token}`;
-
-    console.log(`Bearer ${token}`);
+    if (token) {
+      api.defaults.headers.Authorization = `Bearer ${token}`;
+    }
   };
 
   function restoreToken(token: string = '') {
-    console.log('aaa');
     setAuthorization(token);
     setToken(token);
     setUserLoaded(true);
@@ -68,15 +73,10 @@ export const AuthProvider: React.FC = ({ children }) => {
 
       return true;
     } catch ({ response }) {
-      const { data } = response as {
-        data: {
-          error: string;
-          message: string;
-          statusCode: number;
-        };
-      };
+      const { data } = response as ResponseError;
 
-      console.log(data);
+      Alert.error(translate(data.message));
+
       return false;
     }
   };
@@ -88,14 +88,8 @@ export const AuthProvider: React.FC = ({ children }) => {
     removeStorageToken();
   };
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     logout();
-  //   }, 1000);
-  // }, []);
-
   return (
-    <AuthContext.Provider value={{ user, token, userLoaded, login }}>
+    <AuthContext.Provider value={{ user, token, userLoaded, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

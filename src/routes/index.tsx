@@ -33,6 +33,8 @@ import PurchaseHistory from '~/screens/profile/PurchaseHistory';
 import NotificationsConfig from '~/screens/profile/NotificationsConfig';
 import Address from '~/screens/profile/Address';
 import { useAuth } from '~/contexts/Auth';
+import Loader from '~/components/atoms/Loader';
+import SplashScreen from '~/components/atoms/SplashScreen';
 
 type TransitionSpecType = {
   open: TransitionSpec;
@@ -213,7 +215,7 @@ export default () => {
   let { userLoaded, token } = useAuth();
 
   if (!userLoaded) {
-    return null;
+    return <SplashScreen />;
   }
 
   return (

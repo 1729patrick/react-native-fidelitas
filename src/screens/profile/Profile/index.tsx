@@ -13,10 +13,12 @@ import User from '~/components/molecules/User';
 import StyleGuide from '~/util/StyleGuide';
 import useStatusBar from '~/hooks/useStatusBar';
 import Line from '~/components/atoms/Line';
+import { useAuth } from '~/contexts/Auth';
 
 export default () => {
   useStatusBar(true);
   const { navigate } = useNavigation<StackNavigationProp<any>>();
+  const { logout } = useAuth();
 
   const items = [
     {
@@ -88,7 +90,7 @@ export default () => {
       icon: (
         <MdIcon name="logout" color={StyleGuide.palette.primary} size={25} />
       ),
-      onPress: () => navigate('Welcome'),
+      onPress: logout,
     },
   ];
 

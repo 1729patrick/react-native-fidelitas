@@ -18,4 +18,8 @@ export default StyleSheet.create({
     ...StyleGuide.typography.callout,
     color: StyleGuide.palette.background,
   },
+  loader: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
 });

@@ -1,7 +1,12 @@
-import React, { useRef } from 'react';
-import { View, TextInput, ViewStyle, StyleProp } from 'react-native';
+import React, { forwardRef, useRef } from 'react';
+import {
+  View,
+  TextInput,
+  ViewStyle,
+  StyleProp,
+  TextInputProps,
+} from 'react-native';
 import Animated, {
-  Easing,
   Extrapolate,
   interpolate,
   interpolateColor,
@@ -14,12 +19,15 @@ import styles from './styles';
 
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 
-type InputProps = {
+type InputProps = TextInputProps & {
   placeholder: string;
   style?: StyleProp<ViewStyle>;
 };
 
-const Input: React.FC<InputProps> = ({ placeholder, style }) => {
+const Input: React.ForwardRefRenderFunction<TextInput, InputProps> = (
+  { placeholder, style, ...props },
+  ref,
+) => {
   const valueRef = useRef<string>('');
   const focusAnimation = useSharedValue(0);
   const valueAnimation = useSharedValue(0);
@@ -74,15 +82,18 @@ const Input: React.FC<InputProps> = ({ placeholder, style }) => {
 
   const onChangeText = (value: string) => {
     valueRef.current = value;
+    props.onChangeText?.(value);
   };
 
   return (
     <View style={[styles.container, style]}>
       <AnimatedTextInput
+        {...props}
         style={[styles.input, animatedInput]}
         onFocus={onFocus}
         onEndEditing={onBlur}
         onChangeText={onChangeText}
+        ref={ref}
       />
 
       <Animated.View
@@ -96,4 +107,4 @@ const Input: React.FC<InputProps> = ({ placeholder, style }) => {
   );
 };
 
-export default Input;
+export default forwardRef(Input);
