@@ -1,4 +1,4 @@
-import React, { forwardRef, ReactNode, useRef } from 'react';
+import React, { forwardRef, ReactNode, useMemo, useRef } from 'react';
 import {
   View,
   TextInput,
@@ -6,6 +6,7 @@ import {
   StyleProp,
   TextInputProps,
 } from 'react-native';
+import { MaskedTextInput } from 'react-native-mask-text';
 import Animated, {
   Extrapolate,
   interpolate,
@@ -17,16 +18,19 @@ import Animated, {
 import StyleGuide from '../../../util/StyleGuide';
 import styles from './styles';
 
+const AnimatedMaskedTextInput =
+  Animated.createAnimatedComponent(MaskedTextInput);
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 
 type InputProps = TextInputProps & {
   placeholder: string;
   style?: StyleProp<ViewStyle>;
   rightContent?: ReactNode;
+  mask?: string;
 };
 
 const Input: React.ForwardRefRenderFunction<TextInput, InputProps> = (
-  { placeholder, style, rightContent, ...props },
+  { placeholder, style, rightContent, mask, ...props },
   ref,
 ) => {
   const valueRef = useRef<string>('');
@@ -66,6 +70,10 @@ const Input: React.ForwardRefRenderFunction<TextInput, InputProps> = (
     };
   }, [valueAnimation, focusAnimation]);
 
+  const Component = useMemo(() => {
+    return mask ? AnimatedMaskedTextInput : AnimatedTextInput;
+  }, [mask]);
+
   const onFocus = () => {
     valueAnimation.value = withTiming(1, { duration: 100 });
     focusAnimation.value = withTiming(1, { duration: 100 });
@@ -88,8 +96,9 @@ const Input: React.ForwardRefRenderFunction<TextInput, InputProps> = (
 
   return (
     <View style={[styles.container, style]}>
-      <AnimatedTextInput
+      <Component
         {...props}
+        mask={mask}
         style={[styles.input, animatedInput]}
         onFocus={onFocus}
         onEndEditing={onBlur}

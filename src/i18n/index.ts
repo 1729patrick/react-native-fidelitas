@@ -30,9 +30,8 @@ I18n.translations = {
 const setLanguageToI18n = () => {
   const language = getLanguageByDevice();
   const translateNormalize = normalizeTranslate[language];
-  const iHaveThisLanguage = I18n.translations.hasOwnProperty(
-    translateNormalize,
-  );
+  const iHaveThisLanguage =
+    I18n.translations.hasOwnProperty(translateNormalize);
 
   iHaveThisLanguage
     ? (I18n.locale = translateNormalize)
@@ -44,4 +43,10 @@ setLanguageToI18n();
 const allKeys = { ...en, ...pt, ...es };
 
 export type TranslationKeyType = keyof typeof allKeys;
-export const translate = (key: TranslationKeyType): string => I18n.t(key);
+export const translate = (key: TranslationKeyType): string => {
+  if (!allKeys[key]) {
+    return I18n.t('UNHANDLED_ERROR');
+  }
+
+  return I18n.t(key);
+};

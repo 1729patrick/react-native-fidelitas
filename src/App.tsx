@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar } from 'react-native';
+import { StatusBar, StyleSheet } from 'react-native';
 import DropdownAlert from 'react-native-dropdownalert';
 import { AuthProvider } from './contexts/Auth';
 import { BasketProvider } from './contexts/Basket';
@@ -15,27 +15,32 @@ const App = () => {
           ref={ref => Alert.setRef(ref as AlertType)}
           defaultContainer={{ padding: 8, paddingTop: StatusBar.currentHeight }}
           updateStatusBar={false}
-          onClose={Alert.onClose}
+          onClose={() => Alert.onClose(Alert.barStyle)}
           successColor={StyleGuide.palette.green}
           infoColor={StyleGuide.palette.blue}
           errorColor={StyleGuide.palette.red}
           renderImage={() => null}
-          titleStyle={{
-            ...StyleGuide.typography.headline,
-            textAlign: 'left',
-            color: 'white',
-            backgroundColor: 'transparent',
-          }}
+          titleStyle={styles.alertTitle}
         />
         <StatusBar
           translucent
           backgroundColor="rgba(0, 0, 0, 0)"
           barStyle="dark-content"
         />
+
         <Routes />
       </BasketProvider>
     </AuthProvider>
   );
 };
+
+const styles = StyleSheet.create({
+  alertTitle: {
+    ...StyleGuide.typography.headline,
+    textAlign: 'left',
+    color: 'white',
+    backgroundColor: 'transparent',
+  },
+});
 
 export default App;

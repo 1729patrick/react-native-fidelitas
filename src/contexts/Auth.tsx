@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import Snackbar from 'react-native-snackbar';
 import useStorage from '~/hooks/useStorage';
 import { translate } from '~/i18n';
+import { RegisterFormType } from '~/screens/public/Register';
 import { ResponseError } from '~/types/Api';
 import { Alert } from '~/util/Alert';
 import api from '~/util/api';
@@ -18,6 +18,7 @@ type ContextProps = {
   token?: string;
   userLoaded: boolean;
   login: (args: LoginArgs) => Promise<boolean>;
+  register: (args: RegisterFormType) => Promise<boolean>;
   logout: () => void;
 };
 
@@ -26,6 +27,7 @@ const AuthContext = createContext<ContextProps>({
   token: undefined,
   userLoaded: false,
   login: async () => false,
+  register: async () => false,
   logout: () => undefined,
 });
 
@@ -81,6 +83,29 @@ export const AuthProvider: React.FC = ({ children }) => {
     }
   };
 
+  const register = async (user: RegisterFormType) => {
+    try {
+      const { data } = await api.post<{ user: any; token: string }>(
+        'auth/register',
+        user,
+      );
+
+      setUser(data.user);
+      setToken(data.token);
+      setAuthorization(data.token);
+
+      Alert.success(translate('userCreated'), undefined, 'light');
+
+      return true;
+    } catch ({ response }) {
+      const { data } = response as ResponseError;
+
+      Alert.error(translate(data.message));
+
+      return false;
+    }
+  };
+
   const logout = () => {
     setUser(undefined);
     setToken(undefined);
@@ -89,7 +114,8 @@ export const AuthProvider: React.FC = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, userLoaded, login, logout }}>
+    <AuthContext.Provider
+      value={{ user, token, userLoaded, login, logout, register }}>
       {children}
     </AuthContext.Provider>
   );

@@ -23,6 +23,7 @@ export const Step1: React.FC<RegisterProps> = ({ onNext, onChange }) => {
         onChangeText={value => onChange('firstName', value)}
         returnKeyType="next"
         onSubmitEditing={() => surnameRef.current?.focus()}
+        autoCompleteType="name"
       />
       <Input
         placeholder="Apelido"
@@ -30,6 +31,7 @@ export const Step1: React.FC<RegisterProps> = ({ onNext, onChange }) => {
         ref={surnameRef}
         returnKeyType="next"
         onSubmitEditing={onNext}
+        autoCompleteType="name"
       />
     </View>
   );
@@ -45,6 +47,9 @@ export const Step2: React.FC<RegisterProps> = ({ onNext, onChange }) => {
         returnKeyType="next"
         onSubmitEditing={() => emailRef.current?.focus()}
         onChangeText={value => onChange('phone', value)}
+        autoCompleteType="tel"
+        keyboardType="phone-pad"
+        mask="+999 99999999999"
       />
       <Input
         placeholder="E-mail"
@@ -52,6 +57,9 @@ export const Step2: React.FC<RegisterProps> = ({ onNext, onChange }) => {
         returnKeyType="next"
         onSubmitEditing={onNext}
         onChangeText={value => onChange('email', value)}
+        autoCompleteType="email"
+        keyboardType="email-address"
+        autoCapitalize={'none'}
       />
     </View>
   );
@@ -63,6 +71,8 @@ export const Step3: React.FC<RegisterProps> = ({ onNext, onChange }) => {
       <Password
         onChangeText={value => onChange('password', value)}
         onSubmitEditing={onNext}
+        autoCompleteType="password"
+        autoCorrect={false}
       />
     </View>
   );

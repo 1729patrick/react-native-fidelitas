@@ -11,24 +11,42 @@ import Logo from '~/components/atoms/Logo';
 import { Step1, Step2, Step3 } from '~/components/organisms/forms/Register';
 import RegisterStep from '~/components/organisms/RegisterStep';
 import { useBackHandler } from '~/hooks/useBackHandler';
+import { useAuth } from '~/contexts/Auth';
+import { validateEmail } from '~/util/validations';
 
-type FormType = {
+export type RegisterFormType = {
   firstName: string;
   lastName: string;
   phone: string;
   email: string;
   password: string;
+  restaurantId: number;
 };
 
 export default () => {
   useStatusBar(true);
 
+  const [loading, setLoading] = useState(false);
   const currentIndexRef = useRef(0);
   const registerRef = useRef<RegisterHandler>(null);
-  const { replace, pop } = useNavigation<StackNavigationProp<any>>();
+  const { pop } = useNavigation<StackNavigationProp<any>>();
+  const { register } = useAuth();
 
-  const onComplete = () => {
-    replace('Auth');
+  const [values, setValues] = useState<RegisterFormType>({
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+    password: '',
+    restaurantId: 1,
+  });
+
+  const onComplete = async () => {
+    setLoading(true);
+
+    const success = await register(values);
+
+    setLoading(success);
   };
 
   const onScrollTo = (index: number) => {
@@ -54,26 +72,18 @@ export default () => {
     return false;
   });
 
-  const [values, setValues] = useState<FormType>({
-    firstName: '',
-    lastName: '',
-    phone: '',
-    email: '',
-    password: '',
-  });
-
   const onChange = (key: string, value: string) => {
     setValues(values => ({ ...values, [key]: value }));
   };
 
   const getNextStepEnabled = (step: 1 | 2 | 3) => {
     const validations = {
-      1: !!values.firstName && !!values.lastName,
-      2: !!values.phone && !!values.email,
-      3: !!values.password,
+      1: () => !!values.firstName && !!values.lastName,
+      2: () => !!values.phone && validateEmail(values.email),
+      3: () => !!values.password,
     };
 
-    return validations[step];
+    return validations[step]();
   };
 
   return (
@@ -126,12 +136,13 @@ export default () => {
             form={
               <Step3
                 onChange={onChange}
-                onNext={() => getNextStepEnabled(3) && onComplete}
+                onNext={() => getNextStepEnabled(3) && onComplete()}
               />
             }
             onNext={onComplete}
             contentStyle={styles.stepContainer}
             nextEnabled={getNextStepEnabled(3)}
+            loading={loading}
           />,
         ]}
       />

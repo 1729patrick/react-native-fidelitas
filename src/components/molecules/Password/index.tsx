@@ -23,6 +23,8 @@ const Password: React.ForwardRefRenderFunction<TextInput, PasswordProps> = (
       text: valueRef.current,
       style: { fontFamily: 'Montserrat-Medium' },
     });
+
+    setTimeout(() => passwordRef.current?.focus(), 1);
   };
 
   const onChange = (value: string) => {

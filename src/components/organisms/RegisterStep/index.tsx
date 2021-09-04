@@ -14,6 +14,7 @@ type RegisterProps = {
   buttonStyle?: ViewStyle;
   titleStyle?: TextStyle;
   nextEnabled: boolean;
+  loading?: boolean;
 };
 
 const RegisterStep: React.FC<RegisterProps> = ({
@@ -27,6 +28,7 @@ const RegisterStep: React.FC<RegisterProps> = ({
   buttonStyle,
   titleStyle,
   nextEnabled,
+  loading = false,
 }) => {
   return (
     <View style={styles.container}>
@@ -37,6 +39,7 @@ const RegisterStep: React.FC<RegisterProps> = ({
         {form}
 
         <RectButton
+          loading={loading}
           enabled={nextEnabled}
           onPress={onNext}
           title={confirmTitle}

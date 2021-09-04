@@ -3,7 +3,7 @@ import { Dimensions } from 'react-native';
 import useStatusBar from '~/hooks/useStatusBar';
 import Logo from '~/components/atoms/Logo';
 import Login from '~/components/templates/Login';
-import LoginForm, { FormType } from '~/components/organisms/forms/Login';
+import LoginForm, { LoginFormType } from '~/components/organisms/forms/Login';
 import { useAuth } from '~/contexts/Auth';
 import Header from '~/components/atoms/Header';
 
@@ -14,7 +14,7 @@ export default () => {
   useStatusBar(true);
   const { login } = useAuth();
 
-  const onLogin = async (credentials: FormType) => {
+  const onLogin = async (credentials: LoginFormType) => {
     setLoading(true);
 
     const success = await login({
