@@ -13,6 +13,7 @@ type RegisterProps = {
   contentStyle?: StyleProp<ViewStyle>;
   buttonStyle?: ViewStyle;
   titleStyle?: TextStyle;
+  nextEnabled: boolean;
 };
 
 const RegisterStep: React.FC<RegisterProps> = ({
@@ -25,6 +26,7 @@ const RegisterStep: React.FC<RegisterProps> = ({
   contentStyle,
   buttonStyle,
   titleStyle,
+  nextEnabled,
 }) => {
   return (
     <View style={styles.container}>
@@ -35,6 +37,7 @@ const RegisterStep: React.FC<RegisterProps> = ({
         {form}
 
         <RectButton
+          enabled={nextEnabled}
           onPress={onNext}
           title={confirmTitle}
           containerStyle={{ ...styles.button, ...buttonStyle }}

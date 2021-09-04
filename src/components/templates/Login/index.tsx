@@ -5,17 +5,21 @@ import styles from './styles';
 type LoginProps = {
   logo: ReactNode;
   form: ReactNode;
+  header: ReactNode;
 };
 
-const Login: React.FC<LoginProps> = ({ logo, form }) => {
+const Login: React.FC<LoginProps> = ({ logo, form, header }) => {
   return (
-    <ScrollView
-      keyboardShouldPersistTaps={'handled'}
-      overScrollMode="never"
-      contentContainerStyle={styles.contentContainer}>
-      <View style={styles.logo}>{logo}</View>
-      {form}
-    </ScrollView>
+    <>
+      {header}
+      <ScrollView
+        keyboardShouldPersistTaps={'handled'}
+        overScrollMode="never"
+        contentContainerStyle={styles.contentContainer}>
+        <View style={styles.logo}>{logo}</View>
+        {form}
+      </ScrollView>
+    </>
   );
 };
 

@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import { HEADER_HEIGHT } from './constants';
 
 import styles from './styles';
-import { Text, View } from 'react-native';
+import { Keyboard, Text, View } from 'react-native';
 import RoundButton from '../buttons/RoundButton';
 import { useNavigation } from '@react-navigation/native';
 
@@ -70,6 +70,8 @@ const Header: React.FC<HeaderProps> = ({
   });
 
   const onBackPress = useCallback(() => {
+    Keyboard.dismiss();
+
     if (onBack) {
       onBack();
       return;

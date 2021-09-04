@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef } from 'react';
+import React, { forwardRef, ReactNode, useRef } from 'react';
 import {
   View,
   TextInput,
@@ -22,10 +22,11 @@ const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 type InputProps = TextInputProps & {
   placeholder: string;
   style?: StyleProp<ViewStyle>;
+  rightContent?: ReactNode;
 };
 
 const Input: React.ForwardRefRenderFunction<TextInput, InputProps> = (
-  { placeholder, style, ...props },
+  { placeholder, style, rightContent, ...props },
   ref,
 ) => {
   const valueRef = useRef<string>('');
@@ -95,6 +96,7 @@ const Input: React.ForwardRefRenderFunction<TextInput, InputProps> = (
         onChangeText={onChangeText}
         ref={ref}
       />
+      <View style={styles.rightContent}>{rightContent}</View>
 
       <Animated.View
         style={[styles.placeholderContainer, animatedPlaceholderContainer]}

@@ -4,6 +4,7 @@ import RectButton from '../../../atoms/buttons/RectButton';
 import Input from '../../../atoms/Input';
 import Icon from 'react-native-vector-icons/AntDesign';
 import styles from './styles';
+import Password from '~/components/molecules/Password';
 
 export type FormType = {
   email: string;
@@ -27,6 +28,8 @@ const LoginForm: React.FC<LoginProps> = ({ onLogin, loading }) => {
     setValues(values => ({ ...values, [key]: value }));
   };
 
+  const enabled = !!values.password && !!values.email;
+
   return (
     <View style={styles.container}>
       <Input
@@ -36,17 +39,14 @@ const LoginForm: React.FC<LoginProps> = ({ onLogin, loading }) => {
         returnKeyType="next"
         onSubmitEditing={() => passwordRef.current?.focus()}
       />
-      <Input
-        placeholder="Palava-passe"
+      <Password
         onChangeText={value => onChange('password', value)}
-        autoCapitalize={'none'}
-        secureTextEntry
         returnKeyType="send"
-        onSubmitEditing={() => onLogin(values)}
+        onSubmitEditing={() => enabled && onLogin(values)}
         ref={passwordRef}
       />
       <RectButton
-        enabled={!!values.password && !!values.email}
+        enabled={enabled}
         loading={loading}
         onPress={() => onLogin(values)}
         title="Acessar"

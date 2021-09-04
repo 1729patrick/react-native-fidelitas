@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { StatusBar } from 'react-native';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -11,6 +11,14 @@ import Logo from '~/components/atoms/Logo';
 import { Step1, Step2, Step3 } from '~/components/organisms/forms/Register';
 import RegisterStep from '~/components/organisms/RegisterStep';
 import { useBackHandler } from '~/hooks/useBackHandler';
+
+type FormType = {
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+  password: string;
+};
 
 export default () => {
   useStatusBar(true);
@@ -46,6 +54,28 @@ export default () => {
     return false;
   });
 
+  const [values, setValues] = useState<FormType>({
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+    password: '',
+  });
+
+  const onChange = (key: string, value: string) => {
+    setValues(values => ({ ...values, [key]: value }));
+  };
+
+  const getNextStepEnabled = (step: 1 | 2 | 3) => {
+    const validations = {
+      1: !!values.firstName && !!values.lastName,
+      2: !!values.phone && !!values.email,
+      3: !!values.password,
+    };
+
+    return validations[step];
+  };
+
   return (
     <>
       <StatusBar
@@ -63,27 +93,45 @@ export default () => {
             description="Introduza o seu nome"
             confirmTitle={'Prosseguir'}
             confirmIcon={<Icon name="arrowright" size={23} color="#fff" />}
-            form={<Step1 />}
+            form={
+              <Step1
+                onChange={onChange}
+                onNext={() => getNextStepEnabled(1) && onScrollTo(1)}
+              />
+            }
             onNext={() => onScrollTo(1)}
             contentStyle={styles.stepContainer}
+            nextEnabled={getNextStepEnabled(1)}
           />,
           <RegisterStep
             title="Seus contatos"
             description="Introduza o seu número de telemóvel e e-mail"
             confirmTitle={'Prosseguir'}
             confirmIcon={<Icon name="arrowright" size={23} color="#fff" />}
-            form={<Step2 />}
+            form={
+              <Step2
+                onChange={onChange}
+                onNext={() => getNextStepEnabled(2) && onScrollTo(2)}
+              />
+            }
             onNext={() => onScrollTo(2)}
             contentStyle={styles.stepContainer}
+            nextEnabled={getNextStepEnabled(2)}
           />,
           <RegisterStep
             title="Crie a palavra-passe"
             description="Crie uma palavra-passe forte com mistura de letras e números"
             confirmTitle={'Finalizar'}
             confirmIcon={<Icon name="check" size={23} color="#fff" />}
-            form={<Step3 />}
+            form={
+              <Step3
+                onChange={onChange}
+                onNext={() => getNextStepEnabled(3) && onComplete}
+              />
+            }
             onNext={onComplete}
             contentStyle={styles.stepContainer}
+            nextEnabled={getNextStepEnabled(3)}
           />,
         ]}
       />

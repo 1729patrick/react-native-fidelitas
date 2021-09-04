@@ -24,4 +24,13 @@ export default StyleSheet.create({
     color: StyleGuide.palette.primary,
     paddingHorizontal: 8,
   },
+  rightContent: {
+    position: 'absolute',
+    right: 0,
+    height: 50,
+    paddingHorizontal: StyleGuide.spacing * 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 2,
+  },
 });
