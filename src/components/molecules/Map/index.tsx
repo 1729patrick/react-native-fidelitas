@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Dimensions } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 
 import MapView, { Marker } from 'react-native-maps';
+import { useRestaurant } from '~/contexts/Restaurant';
 import StyleGuide from '../../../util/StyleGuide';
 import customMapStyle from './customMapStyle';
 import styles from './styles';
@@ -10,9 +11,6 @@ import styles from './styles';
 const { width, height } = Dimensions.get('window');
 
 const ASPECT_RATIO = width / height;
-
-const LATITUDE = 38.6898261;
-const LONGITUDE = -9.1733457;
 
 const LATITUDE_DELTA = 0.15;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
@@ -30,23 +28,24 @@ const Map: React.FC<MapProps> = ({
   openMap,
   userInteraction = false,
 }) => {
-  const [state, setState] = useState({
-    region: {
-      latitude: LATITUDE,
-      longitude: LONGITUDE,
-      latitudeDelta: LATITUDE_DELTA,
-      longitudeDelta: LONGITUDE_DELTA,
-    },
-    markers: [
-      {
-        image: require('../../../assets/map_pin.png'),
-        coordinate: {
-          latitude: 38.6898261,
-          longitude: -9.1733457,
-        },
+  const { restaurant } = useRestaurant();
+
+  const initialRegion = {
+    latitude: restaurant?.address.lat || 0,
+    longitude: restaurant?.address.long || 0,
+    latitudeDelta: LATITUDE_DELTA,
+    longitudeDelta: LONGITUDE_DELTA,
+  };
+
+  const markers = [
+    {
+      image: require('../../../assets/map_pin.png'),
+      coordinate: {
+        latitude: restaurant?.address.lat || 0,
+        longitude: restaurant?.address.long || 0,
       },
-    ],
-  });
+    },
+  ];
 
   return (
     <>
@@ -59,9 +58,9 @@ const Map: React.FC<MapProps> = ({
         pointerEvents={userInteraction ? 'auto' : 'none'}>
         <MapView
           style={styles.map}
-          initialRegion={state.region}
+          initialRegion={initialRegion}
           customMapStyle={customMapStyle}>
-          {state.markers.map((marker, index) => (
+          {markers.map((marker, index) => (
             <Marker
               image={marker.image}
               key={index}

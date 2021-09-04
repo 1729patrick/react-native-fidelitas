@@ -22,18 +22,16 @@ import Facilities from '~/components/organisms/cards/Facilities';
 import useStatusBar from '~/hooks/useStatusBar';
 import Home from '~/components/templates/Home';
 import Line from '~/components/atoms/Line';
+import { useRestaurant } from '~/contexts/Restaurant';
 
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
-
-const company = {
-  name: 'Restaurante do Pastel de bacalhau',
-};
 
 export default () => {
   const [dark, setDark] = useState(false);
   useStatusBar(dark);
   const translationY = useSharedValue(0);
   const { navigate } = useNavigation<StackNavigationProp<any>>();
+  const { restaurant } = useRestaurant();
 
   const scrollHandler = useAnimatedScrollHandler(event => {
     translationY.value = event.contentOffset.y;
@@ -104,7 +102,9 @@ export default () => {
           onScroll={scrollHandler}
           scrollEventThrottle={16}>
           <View style={styles.container}>
-            <Animated.Text style={[styles.title]}>{company.name}</Animated.Text>
+            <Animated.Text style={[styles.title]}>
+              {restaurant?.name}
+            </Animated.Text>
             <CompanyStatus />
             <Line />
             <Facilities openAll={openFacilities} />

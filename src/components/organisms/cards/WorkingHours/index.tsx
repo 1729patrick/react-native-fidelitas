@@ -1,28 +1,47 @@
 import React from 'react';
 import { Text, View } from 'react-native';
+import { useRestaurant, WorkHours } from '~/contexts/Restaurant';
+import { translate, TranslationKeyType } from '~/i18n';
 import styles from './styles';
 
-const hours = [
-  { day: 'Domingo', start: '11:20', end: '23:30' },
-  { day: 'Segunda-Feira', start: '11:20', end: '23:30' },
-  { day: 'Terça-Feira', start: '11:20', end: '23:30' },
-  { day: 'Quarta-Feira', start: '11:20', end: '23:30' },
-  { day: 'Quinda-Feira', start: '11:20', end: '23:30' },
-  { day: 'Sexta-Feira', start: '11:20', end: '23:30' },
-  { day: 'Sábado', start: '11:20', end: '23:30' },
+const days: (keyof WorkHours)[] = [
+  'sunday',
+  'monday',
+  'tuesday',
+  'wednesday',
+  'thursday',
+  'friday',
+  'saturday',
 ];
 
 const WorkingHours = () => {
+  const { restaurant } = useRestaurant();
+
+  const workHours = days.map(day => ({
+    day,
+    ...restaurant?.workHours[day],
+  }));
+
   return (
     <View>
       <Text style={styles.subtitle}>Horário de Trabalho</Text>
 
-      {hours.map(({ day, start, end }) => (
+      {workHours.map(({ breakfast, lunch, dinner, day }) => (
         <View style={styles.item} key={day}>
-          <Text style={styles.itemTitle}>{day}</Text>
-          <Text style={styles.itemTitle}>
-            {start} às {end}
+          <Text style={styles.title}>
+            {translate(day as TranslationKeyType)}
           </Text>
+          <View style={styles.hours}>
+            {breakfast?.length && (
+              <Text style={styles.description}>{breakfast.join(' às ')}</Text>
+            )}
+            {lunch?.length && (
+              <Text style={styles.description}>{lunch.join(' às ')}</Text>
+            )}
+            {dinner?.length && (
+              <Text style={styles.description}>{dinner.join(' às ')}</Text>
+            )}
+          </View>
         </View>
       ))}
     </View>

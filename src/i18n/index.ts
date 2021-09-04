@@ -43,9 +43,12 @@ setLanguageToI18n();
 const allKeys = { ...en, ...pt, ...es };
 
 export type TranslationKeyType = keyof typeof allKeys;
-export const translate = (key: TranslationKeyType): string => {
-  if (!allKeys[key]) {
-    return I18n.t('UNHANDLED_ERROR');
+export const translate = (
+  key: TranslationKeyType,
+  defaultKey?: TranslationKeyType,
+): string => {
+  if (!allKeys[key] && defaultKey) {
+    return I18n.t(defaultKey);
   }
 
   return I18n.t(key);

@@ -7,7 +7,10 @@ export default StyleSheet.create({
     ...StyleGuide.typography.caption,
     marginRight: StyleGuide.spacing / 2,
   },
-  status: {
+  opened: {
     color: StyleGuide.palette.green,
+  },
+  closed: {
+    color: StyleGuide.palette.red,
   },
 });

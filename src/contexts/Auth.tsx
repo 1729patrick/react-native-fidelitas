@@ -13,8 +13,20 @@ type LoginArgs = {
   restaurantId: number;
 };
 
+type UserType = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  type: 'client' | 'admin';
+  phone: string;
+  email: string;
+  restaurantId: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
 type ContextProps = {
-  user?: any;
+  user?: UserType;
   token?: string;
   userLoaded: boolean;
   login: (args: LoginArgs) => Promise<boolean>;
@@ -32,7 +44,7 @@ const AuthContext = createContext<ContextProps>({
 });
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const [user, setUser] = useState<any>();
+  const [user, setUser] = useState<UserType>();
   const [token, setToken] = useState<string>();
   const [userLoaded, setUserLoaded] = useState<boolean>(false);
 
@@ -77,7 +89,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     } catch ({ response }) {
       const { data } = response as ResponseError;
 
-      Alert.error(translate(data.message));
+      Alert.error(translate(data.message), 'UNHANDLED_ERROR');
 
       return false;
     }
@@ -100,7 +112,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     } catch ({ response }) {
       const { data } = response as ResponseError;
 
-      Alert.error(translate(data.message));
+      Alert.error(translate(data.message), 'UNHANDLED_ERROR');
 
       return false;
     }

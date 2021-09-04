@@ -89,7 +89,7 @@ const Input: React.ForwardRefRenderFunction<TextInput, InputProps> = (
     focusAnimation.value = withTiming(0, { duration: 100 });
   };
 
-  const onChangeText = (value: string) => {
+  const onChangeText = (_: string, value: string) => {
     valueRef.current = value;
     props.onChangeText?.(value);
   };

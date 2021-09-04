@@ -8,12 +8,18 @@ export default StyleSheet.create({
   },
   item: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: StyleGuide.spacing * 2.5,
   },
-  itemTitle: {
+  title: {
     ...StyleGuide.typography.caption,
     color: StyleGuide.palette.primary,
+  },
+  description: {
+    ...StyleGuide.typography.caption,
+    color: StyleGuide.palette.secondary,
+  },
+  hours: {
+    alignItems: 'flex-end',
   },
 });
