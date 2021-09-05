@@ -8,9 +8,10 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
+import Currency from '~/components/atoms/Currency';
 import FieldInformation from '~/components/atoms/FieldInformation';
 import IncrementDecrement from '~/components/atoms/IncrementDecrement';
-import { MenuItemType } from '~/screens/menu/Menu';
+import { ProductType } from '~/screens/menu/Menu';
 
 import StyleGuide from '~/util/StyleGuide';
 import { CARD_HEIGHT } from './constants';
@@ -20,7 +21,7 @@ type ProductProps = {
   addToBasket: (quantity: number) => void;
   quantity?: number;
   simpleContent?: boolean;
-} & MenuItemType;
+} & ProductType;
 
 const ProductItem: React.FC<ProductProps> = ({
   title,
@@ -28,6 +29,8 @@ const ProductItem: React.FC<ProductProps> = ({
   price,
   image,
   addToBasket,
+  ingredients,
+  allergens,
   quantity = 0,
   simpleContent = false,
 }) => {
@@ -58,7 +61,7 @@ const ProductItem: React.FC<ProductProps> = ({
   const renderHeader = () => {
     return (
       <View style={styles.header}>
-        <Image source={image} style={styles.image} />
+        <Image source={{ uri: image.url }} style={styles.image} />
 
         <View style={styles.info}>
           <Text style={styles.title} numberOfLines={1}>
@@ -68,7 +71,7 @@ const ProductItem: React.FC<ProductProps> = ({
             {description}
           </Text>
 
-          <Text style={styles.price}>{price} €</Text>
+          <Currency price={price} color={StyleGuide.palette.green} />
         </View>
       </View>
     );
@@ -85,12 +88,12 @@ const ProductItem: React.FC<ProductProps> = ({
           <>
             <FieldInformation
               title={'Ingredientes'}
-              description="Arroz com vegetais"
+              description={ingredients}
               containerStyle={styles.fieldInformation}
             />
             <FieldInformation
               title={'Alérgenos'}
-              description="Ovo e Lipídios"
+              description={allergens}
               containerStyle={styles.fieldInformation}
             />
           </>
@@ -102,7 +105,7 @@ const ProductItem: React.FC<ProductProps> = ({
             simpleContent ? styles.basketWithoutSpacing : {},
           ]}>
           <Text style={styles.total}>
-            Total: <Text style={styles.totalValue}>{total} €</Text>
+            Total: <Currency price={total} style={styles.totalValue} />
           </Text>
 
           <IncrementDecrement
@@ -117,10 +120,7 @@ const ProductItem: React.FC<ProductProps> = ({
   };
 
   return (
-    <Animated.View
-      style={[styles.container, containerStyle]}
-      // onLayout={e => console.log(e.nativeEvent.layout.height)}
-    >
+    <Animated.View style={[styles.container, containerStyle]}>
       <RectButton
         style={styles.item}
         onPress={onCollapse}

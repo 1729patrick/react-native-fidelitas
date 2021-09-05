@@ -1,4 +1,8 @@
-import useSWRNative from '@nandorojo/swr-react-native';
+import useSWRNative, {
+  useSWRNativeRevalidate,
+} from '@nandorojo/swr-react-native';
+
+import useSWR from 'swr';
 import api from '~/util/api';
 
 const fetcher = (url: string) => {
@@ -7,10 +11,10 @@ const fetcher = (url: string) => {
 };
 
 export function useFetch<Data = any, Error = any>(url: string | null) {
-  const { data, error } = useSWRNative<Data, Error>(url, fetcher, {
-    revalidateOnMount: true,
-    revalidateOnReconnect: true,
+  const { data, error } = useSWR<Data, Error>(url, fetcher, {
     revalidateOnFocus: true,
+    revalidateOnReconnect: true,
+    focusThrottleInterval: 5000,
   });
 
   return { data, error, isLoading: !error && !data };

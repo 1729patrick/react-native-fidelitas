@@ -13,4 +13,12 @@ export default {
   thursday: 'Thursday',
   friday: 'Friday',
   saturday: 'Saturday',
+
+  starter: 'Starter',
+  main: 'Main',
+  dessert: 'Dessert',
+  salad: 'Salad',
+  side: 'Side',
+  drink: 'Drink',
+  special: 'Special',
 };

@@ -1,13 +1,12 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { Dimensions, Text, View } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
 import Animated, {
   interpolate,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import ProductItem from '~/components/molecules/items/ProductItem';
+import { BasketType } from '~/contexts/Basket';
 import { useKeyboard } from '~/hooks/useKeyboard';
-import { BasketType, MenuItemType } from '~/screens/menu/Menu';
+import { ProductType } from '~/screens/menu/Menu';
 import ProductsList from '../lists/Products';
 import { PADDING_TOP } from './constants';
 import styles from './styles';
@@ -16,9 +15,9 @@ const { height } = Dimensions.get('window');
 
 type SearchContentProps = {
   searchContentAnimation: Animated.SharedValue<number>;
-  data?: MenuItemType[];
+  data?: ProductType[];
   searchTerm: string;
-  addToBasket: (quantity: number, product: MenuItemType) => void;
+  addToBasket: (quantity: number, product: ProductType) => void;
   basket: BasketType;
 };
 
@@ -77,4 +76,4 @@ const SearchContent: React.FC<SearchContentProps> = ({
   );
 };
 
-export default SearchContent;
+export default memo(SearchContent);

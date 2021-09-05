@@ -1,9 +1,14 @@
 import React, { createContext, useContext, useMemo, useState } from 'react';
-import { BasketType, MenuItemType } from '~/screens/menu/Menu';
+import { ProductType } from '~/screens/menu/Menu';
+
+export type BasketType = {
+  product: ProductType;
+  quantity: number;
+}[];
 
 type ContextProps = {
   basket: BasketType;
-  addToBasket: (quantity: number, product: MenuItemType) => void;
+  addToBasket: (quantity: number, product: ProductType) => void;
   clearBasket: () => void;
   price: number;
 };
@@ -18,7 +23,7 @@ const BasketContext = createContext<ContextProps>({
 export const BasketProvider: React.FC = ({ children }) => {
   const [basket, setBasket] = useState<BasketType>([]);
 
-  const addToBasket = (quantity: number, product: MenuItemType) => {
+  const addToBasket = (quantity: number, product: ProductType) => {
     setBasket(basket => {
       const index = basket.findIndex(({ product: p }) => p.id === product.id);
 

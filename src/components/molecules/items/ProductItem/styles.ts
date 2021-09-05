@@ -37,10 +37,6 @@ export default StyleSheet.create({
     color: StyleGuide.palette.secondary,
     fontSize: 12.5,
   },
-  price: {
-    ...StyleGuide.typography.callout,
-    color: StyleGuide.palette.green,
-  },
   header: {
     flexDirection: 'row',
     padding: StyleGuide.spacing * 2,

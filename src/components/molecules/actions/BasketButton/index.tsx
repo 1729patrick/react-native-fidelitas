@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { memo, useEffect, useMemo } from 'react';
 import { RectButton } from 'react-native-gesture-handler';
 import Animated, {
   Extrapolate,
@@ -17,6 +17,7 @@ import StyleGuide from '~/util/StyleGuide';
 import { darken } from 'polished';
 import { MARGIN_TOP } from './constants';
 import Badge from '~/components/atoms/Badge';
+import Currency from '~/components/atoms/Currency';
 
 type BasketButtonProps = {
   searchContentAnimation: Animated.SharedValue<number>;
@@ -99,11 +100,14 @@ const BasketButton: React.FC<BasketButtonProps> = ({
         </View>
 
         <View style={styles.basketTitleContainer}>
-          <Text style={styles.basketTitle}>Cesto ({price} €)</Text>
+          <Text style={styles.basketTitle}>
+            Cesto (
+            <Currency price={price} style={styles.basketTitle} />)
+          </Text>
         </View>
       </RectButton>
     </Animated.View>
   );
 };
 
-export default BasketButton;
+export default memo(BasketButton);

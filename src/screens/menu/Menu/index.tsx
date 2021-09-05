@@ -27,259 +27,31 @@ import BasketButton from '~/components/molecules/actions/BasketButton';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useBasket } from '~/contexts/Basket';
+import useProducts from '~/api/useProducts';
+import SplashScreen from '~/components/atoms/SplashScreen';
 
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
 
-const image = require('../../../assets/background_home.jpg');
-
-export enum MenuType {
-  Category,
-  Product,
-}
-
-export type MenuItemType = {
-  id: string;
+export type ProductType = {
+  id: number;
   title: string;
-  type: MenuType;
-  description?: string;
-  image: any;
-  price?: number;
-  items?: MenuItemType[];
+  description: string;
+  ingredients: string;
+  allergens: string;
+  price: number;
+  type: 'starter' | 'main' | 'dessert' | 'salad' | 'side' | 'drink' | 'special';
+  image: {
+    url: string;
+  };
 };
 
-const generic = {
-  id: 'Produtos Naturais',
-  title: 'Entrada',
-  type: MenuType.Category,
-  image,
-  items: [
-    {
-      id: 'Chá Clássico',
-      title: 'Chá Clássico',
-      description: 'Camomila, Capim Limão, Hortelã',
-      type: MenuType.Product,
-      image,
-      price: 2,
-    },
-    {
-      id: 'Chocolate Quente',
-      title: 'Chocolate Quente',
-      description: 'Chocolate Quente meio amargo - 230ml',
-      type: MenuType.Product,
-      image,
-      price: 4,
-    },
-    {
-      id: 'Pão Clássico',
-      title: 'Pão Clássico',
-      description: 'Camomila, Capim Limão, Hortelã',
-      type: MenuType.Product,
-      image,
-      price: 8.5,
-    },
-    {
-      id: 'Batata Quente',
-      title: 'Batata Quente',
-      description: 'Chocolate Quente meio amargo - 230ml',
-      type: MenuType.Product,
-      image,
-      price: 16,
-    },
-    {
-      id: 'Batata Fria',
-      title: 'Batata Fria',
-      description: 'Chocolate Quente meio amargo - 230ml',
-      type: MenuType.Product,
-      image,
-      price: 16,
-    },
-    {
-      id: 'Água',
-      title: 'Água',
-      description: 'Chocolate Quente meio amargo - 230ml',
-      type: MenuType.Product,
-      image,
-      price: 16,
-    },
-  ],
+export type CategoryType = {
+  type: string;
+  products: ProductType[];
 };
-
-const items_: MenuItemType[] = [
-  {
-    id: 'Produtos Naturais',
-    title: 'Entrada',
-    type: MenuType.Category,
-    image,
-    items: [
-      {
-        id: 'Chá Clássico',
-        title: 'Chá Clássico',
-        description: 'Camomila, Capim Limão, Hortelã',
-        type: MenuType.Product,
-        image,
-        price: 2,
-      },
-      {
-        id: 'Chocolate Quente',
-        title: 'Chocolate Quente',
-        description: 'Chocolate Quente meio amargo - 230ml',
-        type: MenuType.Product,
-        image,
-        price: 4,
-      },
-      {
-        id: 'Pão Clássico',
-        title: 'Pão Clássico',
-        description: 'Camomila, Capim Limão, Hortelã',
-        type: MenuType.Product,
-        image,
-        price: 8.5,
-      },
-      {
-        id: 'Batata Quente',
-        title: 'Batata Quente',
-        description: 'Chocolate Quente meio amargo - 230ml',
-        type: MenuType.Product,
-        image,
-        price: 16,
-      },
-    ],
-  },
-  {
-    id: 'Produtos Muito Naturais',
-    title: 'Prato Principal',
-    type: MenuType.Category,
-    image,
-    items: [
-      {
-        id: 'Chá Clássico',
-        title: 'Chá Clássico',
-        description: 'Camomila, Capim Limão, Hortelã',
-        type: MenuType.Product,
-        image,
-        price: 2,
-      },
-      {
-        id: 'Chocolate Quente',
-        title: 'Chocolate Quente',
-        description: 'Chocolate Quente meio amargo - 230ml',
-        type: MenuType.Product,
-        image,
-        price: 4,
-      },
-      {
-        id: 'Pão Clássico',
-        title: 'Pão Clássico',
-        description: 'Camomila, Capim Limão, Hortelã',
-        type: MenuType.Product,
-        image,
-        price: 8.5,
-      },
-      {
-        id: 'Batata Quente',
-        title: 'Batata Quente',
-        description: 'Chocolate Quente meio amargo - 230ml',
-        type: MenuType.Product,
-        image,
-        price: 16,
-      },
-    ],
-  },
-  {
-    id: 'Produtos Muito Mais Naturais',
-    title: 'Sobremesa',
-    type: MenuType.Category,
-    image,
-    items: [
-      {
-        id: 'Chá Clássico',
-        title: 'Chá Clássico',
-        description: 'Camomila, Capim Limão, Hortelã',
-        type: MenuType.Product,
-        image,
-        price: 2,
-      },
-      {
-        id: 'Chocolate Quente',
-        title: 'Chocolate Quente',
-        description: 'Chocolate Quente meio amargo - 230ml',
-        type: MenuType.Product,
-        image,
-        price: 4,
-      },
-      {
-        id: 'Pão Clássico',
-        title: 'Pão Clássico',
-        description: 'Camomila, Capim Limão, Hortelã',
-        type: MenuType.Product,
-        image,
-        price: 8.5,
-      },
-      {
-        id: 'Batata Quente',
-        title: 'Batata Quente',
-        description: 'Chocolate Quente meio amargo - 230ml',
-        type: MenuType.Product,
-        image,
-        price: 16,
-      },
-    ],
-  },
-  {
-    id: 'Bebidas',
-    title: 'Bebidas',
-    type: MenuType.Category,
-    image,
-    items: [
-      {
-        id: 'Chá Clássico',
-        title: 'Chá Clássico',
-        description: 'Camomila, Capim Limão, Hortelã',
-        type: MenuType.Product,
-        image,
-        price: 2,
-      },
-      {
-        id: 'Chocolate Quente',
-        title: 'Chocolate Quente',
-        description: 'Chocolate',
-        type: MenuType.Product,
-        image,
-        price: 4,
-      },
-      {
-        id: 'Pão Clássico',
-        title: 'Pão Clássico',
-        description: 'Camomila, Capim Limão, Hortelã',
-        type: MenuType.Product,
-        image,
-        price: 8.5,
-      },
-      {
-        id: 'Batata Quente',
-        title: 'Batata Quente',
-        description: 'Chocolate Quente meio amargo - 230ml',
-        type: MenuType.Product,
-        image,
-        price: 16,
-      },
-    ],
-  },
-];
-
-const items: MenuItemType[] = [
-  ...items_,
-  { ...generic, id: '111', title: 'Promoções' },
-  { ...generic, id: '222', title: 'Especialidades da casa' },
-  { ...generic, id: '333', title: 'Molhos' },
-];
-
-export type BasketType = {
-  product: MenuItemType;
-  quantity: number;
-}[];
 
 export default () => {
+  const { products, isLoading } = useProducts();
   const { basket, addToBasket } = useBasket();
 
   const indicatorsWidthsRef = useRef<number[]>([]);
@@ -338,6 +110,30 @@ export default () => {
     navigate('Basket');
   };
 
+  const categories = useMemo(() => {
+    const types = [
+      'starter',
+      'main',
+      'dessert',
+      'salad',
+      'side',
+      'drink',
+      'special',
+    ];
+
+    return types
+      .map(type => {
+        return {
+          type,
+          products: products?.filter(product => product.type === type),
+        };
+      })
+      .filter(item => item.products?.length) as CategoryType[];
+  }, [products]);
+
+  if (isLoading) {
+    return <SplashScreen />;
+  }
   return (
     <Menu
       statusBar={
@@ -359,7 +155,7 @@ export default () => {
       searchContent={
         <SearchContent
           searchContentAnimation={searchContentAnimation}
-          data={items[0].items}
+          data={[]}
           searchTerm={searchTerm}
           basket={basket}
           addToBasket={addToBasket}
@@ -367,7 +163,7 @@ export default () => {
       }
       categoryIndicator={
         <CategoryIndicator
-          data={items}
+          categories={categories}
           cardTranslationX={cardTranslationX}
           indicatorTranslationX={indicatorTranslationX}
           translationY={translationY}
@@ -393,7 +189,7 @@ export default () => {
           </FastImage>
 
           <GroupedProductsList
-            data={items}
+            categories={categories}
             style={{ ...styles.contentContainer, paddingBottom }}
             addToBasket={addToBasket}
             onEndDrag={() => onEndDrag()}

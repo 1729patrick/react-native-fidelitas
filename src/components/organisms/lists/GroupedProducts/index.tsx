@@ -1,5 +1,6 @@
 import React, {
   forwardRef,
+  memo,
   useCallback,
   useImperativeHandle,
   useRef,
@@ -14,7 +15,9 @@ import Animated, {
 } from 'react-native-reanimated';
 import Loader from '~/components/atoms/Loader';
 import ProductItem from '~/components/molecules/items/ProductItem';
-import { BasketType, MenuItemType } from '~/screens/menu/Menu';
+import { BasketType } from '~/contexts/Basket';
+import { translate, TranslationKeyType } from '~/i18n';
+import { CategoryType, ProductType } from '~/screens/menu/Menu';
 
 import styles from './styles';
 
@@ -26,9 +29,9 @@ type GroupedProductsListProps = {
   cardTranslationX: Animated.SharedValue<number>;
   indicatorTranslationX: Animated.SharedValue<number>;
   style?: StyleProp<ViewStyle>;
-  data: MenuItemType[];
+  categories: CategoryType[];
   onEndDrag: () => void;
-  addToBasket: (quantity: number, product: MenuItemType) => void;
+  addToBasket: (quantity: number, product: ProductType) => void;
   basket: BasketType;
 };
 
@@ -44,7 +47,7 @@ const GroupedProductsList: React.ForwardRefRenderFunction<
     cardTranslationX,
     style,
     addToBasket,
-    data,
+    categories,
     onEndDrag,
     indicatorTranslationX,
     basket,
@@ -52,7 +55,7 @@ const GroupedProductsList: React.ForwardRefRenderFunction<
   ref,
 ) => {
   const [activePage, setActivePage] = useState(0);
-  const scrollViewRef = useRef<FlatList<MenuItemType>>(null);
+  const scrollViewRef = useRef<FlatList<CategoryType>>(null);
 
   const scrollHandler = useAnimatedScrollHandler(
     {
@@ -81,7 +84,7 @@ const GroupedProductsList: React.ForwardRefRenderFunction<
   );
 
   const getQuantity = useCallback(
-    (id: string) => {
+    (id: number) => {
       const { quantity } = basket.find(({ product }) => product.id === id) || {
         quantity: 0,
       };
@@ -92,19 +95,21 @@ const GroupedProductsList: React.ForwardRefRenderFunction<
   );
 
   const renderItem = useCallback(
-    (category: MenuItemType, index: number) => {
+    (category: CategoryType, index: number) => {
       return (
-        <View style={[{ width }]} key={category.id}>
+        <View style={[{ width }]}>
           {activePage === index ? (
             <View style={[styles.group]}>
               <Text style={styles.title} numberOfLines={1}>
-                {category.title}
+                {translate(category.type as TranslationKeyType)}
               </Text>
-              {(category.items || []).map(product => (
+              {(category.products || []).map(product => (
                 <ProductItem
                   {...product}
                   key={product.id}
-                  addToBasket={quantity => addToBasket(quantity, product)}
+                  addToBasket={(quantity: number) =>
+                    addToBasket(quantity, product)
+                  }
                   quantity={getQuantity(product.id)}
                 />
               ))}
@@ -122,6 +127,7 @@ const GroupedProductsList: React.ForwardRefRenderFunction<
 
   return (
     <AnimatedFlatList
+      //@ts-ignore
       ref={scrollViewRef}
       onScroll={scrollHandler}
       horizontal
@@ -130,11 +136,12 @@ const GroupedProductsList: React.ForwardRefRenderFunction<
       scrollEventThrottle={16}
       contentContainerStyle={[styles.contentContainer, style]}
       overScrollMode="never"
-      data={data}
+      data={categories}
       initialNumToRender={1}
+      keyExtractor={item => item.type}
       renderItem={({ item, index }) => renderItem(item, index)}
     />
   );
 };
 
-export default forwardRef(GroupedProductsList);
+export default memo(forwardRef(GroupedProductsList));

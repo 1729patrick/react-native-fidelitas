@@ -32,7 +32,6 @@ export default StyleSheet.create({
   },
   description: {
     ...StyleGuide.typography.subhead,
-    fontSize: 13,
     color: StyleGuide.palette.primary,
   },
   addressLine: {

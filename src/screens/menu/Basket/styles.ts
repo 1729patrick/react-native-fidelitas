@@ -25,6 +25,7 @@ export default StyleSheet.create({
   },
   total: {
     ...StyleGuide.typography.callout,
+    color: StyleGuide.palette.primary,
   },
   checkout: {
     position: 'absolute',

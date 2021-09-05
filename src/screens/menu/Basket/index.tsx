@@ -10,6 +10,7 @@ import StyleGuide from '~/util/StyleGuide';
 import { useBasket } from '~/contexts/Basket';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import Currency from '~/components/atoms/Currency';
 
 const Basket = () => {
   const { basket, addToBasket, price } = useBasket();
@@ -40,17 +41,17 @@ const Basket = () => {
           <View style={styles.totalContainer}>
             <View style={styles.line}>
               <Text style={styles.subtotal}>Subtotal</Text>
-              <Text style={styles.subtotal}>{price} €</Text>
+              <Currency price={price} style={styles.subtotal} />
             </View>
 
             <View style={styles.line}>
               <Text style={styles.subtotal}>Desconto de 10%</Text>
-              <Text style={styles.subtotal}>{(price * 0.1).toFixed(2)} €</Text>
+              <Currency price={price * 0.1} style={styles.subtotal} />
             </View>
 
             <View style={styles.line}>
               <Text style={styles.total}>Total</Text>
-              <Text style={styles.total}>{(price * 0.9).toFixed(2)} €</Text>
+              <Currency price={price * 0.9} style={styles.total} />
             </View>
           </View>
         }
@@ -62,7 +63,8 @@ const Basket = () => {
           rippleColor={StyleGuide.palette.secondary}
           onPress={onConfirm}>
           <Text style={styles.checkoutTitle}>
-            Confirmar ({(price * 0.9).toFixed(2)} €)
+            Confirmar (
+            <Currency price={price * 0.9} style={styles.checkoutTitle} />)
           </Text>
         </RectButton>
       </View>

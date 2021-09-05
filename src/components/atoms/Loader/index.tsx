@@ -6,7 +6,7 @@ import { ActivityIndicator, StyleProp, ViewStyle } from 'react-native';
 type LoaderProps = {
   size?: 'large' | 'small';
   color?: string;
-  style: StyleProp<ViewStyle>;
+  style?: StyleProp<ViewStyle>;
 };
 
 const Loader = ({

@@ -2,7 +2,8 @@ import React, { ReactElement, useCallback } from 'react';
 import { AlertType, StyleProp, ViewStyle } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import ProductItem from '~/components/molecules/items/ProductItem';
-import { BasketType, MenuItemType } from '~/screens/menu/Menu';
+import { BasketType } from '~/contexts/Basket';
+import { MenuItemType } from '~/screens/menu/Menu';
 
 import styles from './styles';
 

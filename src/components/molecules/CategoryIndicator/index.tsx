@@ -1,4 +1,10 @@
-import React, { useCallback, useImperativeHandle, useState } from 'react';
+import React, {
+  memo,
+  useCallback,
+  useImperativeHandle,
+  useMemo,
+  useState,
+} from 'react';
 import { forwardRef } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Dimensions, LayoutChangeEvent, View } from 'react-native';
@@ -11,7 +17,8 @@ import Animated, {
   useAnimatedStyle,
   withDecay,
 } from 'react-native-reanimated';
-import { MenuItemType } from '~/screens/menu/Menu';
+import { translate, TranslationKeyType } from '~/i18n';
+import { CategoryType } from '~/screens/menu/Menu';
 import { IMAGE_HEIGHT } from '~/screens/menu/Menu/constants';
 import StyleGuide from '~/util/StyleGuide';
 import { PAN_PADDING_LEFT } from './constants';
@@ -25,7 +32,7 @@ export type CategoryIndicatorHandler = {
 };
 
 type CategoryIndicatorProps = {
-  data: MenuItemType[];
+  categories: CategoryType[];
   cardTranslationX: Animated.SharedValue<number>;
   indicatorTranslationX: Animated.SharedValue<number>;
   translationY: Animated.SharedValue<number>;
@@ -38,7 +45,7 @@ const CategoryIndicator: React.ForwardRefRenderFunction<
   CategoryIndicatorProps
 > = (
   {
-    data,
+    categories,
     cardTranslationX,
     indicatorTranslationX,
     indicatorsWidthsRef,
@@ -72,6 +79,11 @@ const CategoryIndicator: React.ForwardRefRenderFunction<
     },
     [indicatorTranslationX.value, contentWidth],
   );
+  const widthsAcc = useMemo(() => {
+    return indicatorWidths.map((_, index) =>
+      indicatorWidths.slice(0, index).reduce((a, b) => a + b, 8),
+    );
+  }, [indicatorWidths]);
 
   const activeCategoryStyle = useAnimatedStyle(() => {
     const widths = indicatorWidths.map((_, index) => index * width);
@@ -87,7 +99,7 @@ const CategoryIndicator: React.ForwardRefRenderFunction<
     const left = interpolate(cardTranslationX.value, widths, widthsAcc);
 
     return { left: left + 8, width: width_ };
-  }, [cardTranslationX.value, indicatorWidths, width]);
+  }, [cardTranslationX.value, indicatorWidths, width, widthsAcc]);
 
   const categoryIndicatorStyle = useAnimatedStyle(() => {
     const top = interpolate(
@@ -115,7 +127,7 @@ const CategoryIndicator: React.ForwardRefRenderFunction<
   const setIndicatorWidth = (index: number, value: number) => {
     indicatorsWidthsRef.current[index] = value;
 
-    if (indicatorsWidthsRef.current.length === data.length) {
+    if (indicatorsWidthsRef.current.length === categories.length) {
       setIndicatorWidths(indicatorsWidthsRef.current);
     }
   };
@@ -133,10 +145,6 @@ const CategoryIndicator: React.ForwardRefRenderFunction<
   }, [indicatorTranslationX.value]);
 
   const panContentCardTranslationStyle = useAnimatedStyle(() => {
-    const widthsAcc = indicatorWidths.map((_, index) =>
-      indicatorWidths.slice(0, index).reduce((a, b) => a + b, 8),
-    );
-
     const widths = indicatorWidths.map((_, index) => index * width);
 
     const left = interpolate(cardTranslationX.value, widths, widthsAcc);
@@ -162,7 +170,7 @@ const CategoryIndicator: React.ForwardRefRenderFunction<
         },
       ],
     };
-  }, [cardTranslationX.value, indicatorWidths, contentWidth]);
+  }, [cardTranslationX.value, indicatorWidths, contentWidth, widthsAcc]);
 
   const setContentLayout = ({ nativeEvent }: LayoutChangeEvent) => {
     setContentWidth(nativeEvent.layout.width + PAN_PADDING_LEFT * 2);
@@ -170,10 +178,6 @@ const CategoryIndicator: React.ForwardRefRenderFunction<
 
   const updateIndicatorTranslationX = useCallback(() => {
     const indicatorWidths = indicatorsWidthsRef.current;
-
-    const widthsAcc = indicatorWidths.map((_, index) =>
-      indicatorWidths.slice(0, index).reduce((a, b) => a + b, 8),
-    );
     const widths = indicatorWidths.map((_, index) => index * width);
     const left = interpolate(cardTranslationX.value, widths, widthsAcc);
     const width_ = interpolate(cardTranslationX.value, widths, indicatorWidths);
@@ -195,17 +199,26 @@ const CategoryIndicator: React.ForwardRefRenderFunction<
     contentWidth,
     indicatorTranslationX,
     indicatorsWidthsRef,
+    widthsAcc,
   ]);
 
   useImperativeHandle(ref, () => ({ updateIndicatorTranslationX }), [
     updateIndicatorTranslationX,
   ]);
 
+  const extrapolateScreen = useMemo(() => {
+    const lastWidth = indicatorWidths[indicatorWidths.length - 1];
+    const lastX = widthsAcc[widthsAcc.length - 1];
+
+    return lastX + lastWidth + 8 > width;
+  }, [indicatorWidths, widthsAcc]);
+
   return (
     <Animated.View style={[styles.categoryIndicator, categoryIndicatorStyle]}>
       <PanGestureHandler
         onGestureEvent={gestureHandler}
-        activeOffsetX={[-10, 10]}>
+        activeOffsetX={[-20, 20]}
+        enabled={extrapolateScreen}>
         <Animated.View
           style={[
             styles.panContent,
@@ -215,10 +228,10 @@ const CategoryIndicator: React.ForwardRefRenderFunction<
           onLayout={setContentLayout}>
           <Animated.View style={[styles.categoryActive, activeCategoryStyle]} />
 
-          {data.map((category, index) => (
+          {categories.map((category, index) => (
             <Indicator
-              key={category.id}
-              category={category}
+              key={category.type}
+              name={category.type}
               index={index}
               setIndicatorWidth={setIndicatorWidth}
               cardTranslationX={cardTranslationX}
@@ -232,7 +245,7 @@ const CategoryIndicator: React.ForwardRefRenderFunction<
 };
 
 type IndicatorProps = {
-  category: Item;
+  name: string;
   index: number;
   setIndicatorWidth: (index: number, value: number) => void;
   cardTranslationX: Animated.SharedValue<number>;
@@ -240,7 +253,7 @@ type IndicatorProps = {
 };
 
 const Indicator: React.FC<IndicatorProps> = ({
-  category,
+  name,
   index,
   setIndicatorWidth,
   cardTranslationX,
@@ -271,11 +284,11 @@ const Indicator: React.FC<IndicatorProps> = ({
         activeOpacity={1}
         onPress={() => scrollTo(index)}>
         <Animated.Text style={[styles.indicatorTitle, titleStyle]}>
-          {category.title}
+          {translate(name as TranslationKeyType)}
         </Animated.Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-export default forwardRef(CategoryIndicator);
+export default memo(forwardRef(CategoryIndicator));

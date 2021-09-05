@@ -12,6 +12,7 @@ import { RectButton } from 'react-native-gesture-handler';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useBasket } from '~/contexts/Basket';
+import Currency from '~/components/atoms/Currency';
 
 type RootStackParamList = {
   Checkout: {
@@ -38,6 +39,10 @@ const Checkout = () => {
     () => (params.editable ? 55 : 0),
     [params.editable],
   );
+
+  const quantity = useMemo(() => {
+    return basket.reduce((acc, { quantity }) => quantity + acc, 0);
+  }, [basket]);
 
   return (
     <>
@@ -108,8 +113,8 @@ const Checkout = () => {
             <Text style={styles.basketTitle}>Produtos</Text>
             <View style={styles.items}>
               <Text style={styles.basketDescription}>
-                {basket.length}
-                {basket.length > 1 ? ' itens' : ' item'}
+                {quantity}
+                {quantity > 1 ? ' itens' : ' item'}
               </Text>
               <IonIcon
                 name="ios-chevron-down-outline"
@@ -121,7 +126,7 @@ const Checkout = () => {
           </View>
           <View style={[styles.basketLine]}>
             <Text style={styles.basketTitle}>Preço</Text>
-            <Text style={styles.basketDescription}>{price} €</Text>
+            <Currency price={price} style={styles.basketDescription} />
           </View>
 
           <View style={[styles.basketLine]}>
@@ -135,7 +140,7 @@ const Checkout = () => {
 
           <View style={[styles.basketLine]}>
             <Text style={styles.basketTotal}>Total</Text>
-            <Text style={styles.basketTotal}>{price} €</Text>
+            <Currency price={price} style={styles.basketTotal} />
           </View>
         </View>
 

@@ -10,6 +10,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,
     height: INDICATOR_HEIGHT + StyleGuide.spacing * 2,
+    backgroundColor: 'blue',
   },
   indicator: {
     height: INDICATOR_HEIGHT,
@@ -18,7 +19,7 @@ export default StyleSheet.create({
   indicatorButton: {
     height: INDICATOR_HEIGHT,
     paddingHorizontal: StyleGuide.spacing * 2,
-    borderRadius: 50,
+    borderRadius: 100,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -26,7 +27,7 @@ export default StyleSheet.create({
     position: 'absolute',
     top: StyleGuide.spacing,
     backgroundColor: StyleGuide.palette.app,
-    borderRadius: 50,
+    borderRadius: 100,
     height: INDICATOR_HEIGHT,
   },
   panContent: {
