@@ -4,6 +4,7 @@ import Animated, {
   interpolate,
   useAnimatedStyle,
 } from 'react-native-reanimated';
+import useSearchProducts from '~/api/useSearchProducts';
 import { BasketType } from '~/contexts/Basket';
 import { useKeyboard } from '~/hooks/useKeyboard';
 import { ProductType } from '~/screens/menu/Menu';
@@ -15,7 +16,6 @@ const { height } = Dimensions.get('window');
 
 type SearchContentProps = {
   searchContentAnimation: Animated.SharedValue<number>;
-  data?: ProductType[];
   searchTerm: string;
   addToBasket: (quantity: number, product: ProductType) => void;
   basket: BasketType;
@@ -23,11 +23,13 @@ type SearchContentProps = {
 
 const SearchContent: React.FC<SearchContentProps> = ({
   searchContentAnimation,
-  data = [],
   searchTerm,
   addToBasket,
   basket,
 }) => {
+  const { products, isLoading } = useSearchProducts(searchTerm);
+
+  console.log(products);
   const { keyboardShown, keyboardHeight } = useKeyboard();
 
   const containerStyle = useAnimatedStyle(() => {
@@ -48,7 +50,7 @@ const SearchContent: React.FC<SearchContentProps> = ({
     return (
       <ProductsList
         addToBasket={addToBasket}
-        data={data}
+        data={products}
         basket={basket}
         style={{ ...styles.contentContainer, paddingBottom }}
       />
@@ -63,15 +65,29 @@ const SearchContent: React.FC<SearchContentProps> = ({
           { paddingBottom: paddingBottom - PADDING_TOP },
         ]}>
         <Text style={styles.notFoundTitle}>
-          Nenhuma comida encontrada para "{searchTerm}"
+          Comida "{searchTerm}" não encontrada
+        </Text>
+        <Text style={styles.notFoundDescription}>
+          Tente de novo com um novo termo de busca
         </Text>
       </View>
     );
   };
 
+  const renderContent = () => {
+    if (products?.length) {
+      return renderResult();
+    }
+
+    if (searchTerm && !isLoading) {
+      return renderNotFound();
+    }
+
+    return null;
+  };
   return (
     <Animated.View style={[styles.container, containerStyle]}>
-      {searchTerm ? renderNotFound() : renderResult()}
+      {renderContent()}
     </Animated.View>
   );
 };

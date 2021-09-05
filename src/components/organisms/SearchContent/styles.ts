@@ -23,5 +23,11 @@ export default StyleSheet.create({
   notFoundTitle: {
     ...StyleGuide.typography.callout,
     textAlign: 'center',
+    color: StyleGuide.palette.primary,
+  },
+  notFoundDescription: {
+    ...StyleGuide.typography.caption,
+    textAlign: 'center',
+    color: StyleGuide.palette.secondary,
   },
 });

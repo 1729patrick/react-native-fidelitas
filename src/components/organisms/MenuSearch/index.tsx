@@ -4,6 +4,7 @@ import Animated, {
   Extrapolate,
   interpolate,
   interpolateColor,
+  onChange,
   runOnJS,
   useAnimatedStyle,
   withTiming,
@@ -103,22 +104,28 @@ const MenuSearch: React.FC<MenuSearchProps> = ({
   };
 
   const onSearchBlur = () => {
-    searchContentAnimation.value = withTiming(0, { duration: 200 });
+    searchRef.current?.blur();
+    searchRef.current?.clear();
+
+    searchContentAnimation.value = withTiming(
+      0,
+      { duration: 200 },
+      isFinished => {
+        if (isFinished) {
+          runOnJS(onSearch)('');
+        }
+      },
+    );
 
     verticalScrollViewRef.current?.scrollTo({
       y: translationYWhenSearchOpenRef.current,
     });
 
-    searchRef.current?.blur();
-
     if (translationYWhenSearchOpenRef.current <= 34.99) {
       StatusBar.setBarStyle('light-content');
     }
 
-    searchRef.current?.clear();
-
     showTabBar();
-    onSearch('');
   };
 
   return (

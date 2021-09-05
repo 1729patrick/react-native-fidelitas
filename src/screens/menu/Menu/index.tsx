@@ -39,7 +39,7 @@ export type ProductType = {
   ingredients: string;
   allergens: string;
   price: number;
-  type: 'starter' | 'main' | 'dessert' | 'salad' | 'side' | 'drink' | 'special';
+  type: 'starter' | 'main' | 'salad' | 'side' | 'drink' | 'dessert' | 'special';
   image: {
     url: string;
   };

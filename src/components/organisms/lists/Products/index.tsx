@@ -3,18 +3,18 @@ import { AlertType, StyleProp, ViewStyle } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import ProductItem from '~/components/molecules/items/ProductItem';
 import { BasketType } from '~/contexts/Basket';
-import { MenuItemType } from '~/screens/menu/Menu';
+import { ProductType } from '~/screens/menu/Menu';
 
 import styles from './styles';
 
 type ProductsListProps = {
   style?: StyleProp<ViewStyle>;
   onPress?: (args: AlertType) => void;
-  data: MenuItemType[];
-  addToBasket: (quantity: number, product: MenuItemType) => void;
+  data?: ProductType[];
+  addToBasket: (quantity: number, product: ProductType) => void;
   basket: BasketType;
   simpleContent?: boolean;
-  footer: ReactElement;
+  footer?: ReactElement;
 };
 
 const ProductsList: React.FC<ProductsListProps> = ({
@@ -42,6 +42,7 @@ const ProductsList: React.FC<ProductsListProps> = ({
       overScrollMode="never"
       showsVerticalScrollIndicator={false}
       data={data}
+      initialNumToRender={10}
       ListFooterComponent={footer}
       renderItem={({ item }) => (
         <ProductItem
