@@ -1,8 +1,7 @@
 import React from 'react';
 import { AlertType, StyleProp, ViewStyle } from 'react-native';
-import FacilityItem, {
-  FacilityType,
-} from '~/components/molecules/items/FacilityItem';
+import FacilityItem from '~/components/molecules/items/FacilityItem';
+import { FacilityType } from '~/contexts/Restaurant';
 import List from '../../../atoms/List';
 
 type FacilitiesListProps = {

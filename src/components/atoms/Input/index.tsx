@@ -61,7 +61,7 @@ const Input: React.ForwardRefRenderFunction<TextInput, InputProps> = (
 
   const animatedPlaceholder = useAnimatedStyle(() => {
     return {
-      fontSize: interpolate(valueAnimation.value, [0, 0.8], [16, 13]),
+      fontSize: interpolate(valueAnimation.value, [0, 0.8], [15, 13]),
       color: interpolateColor(
         focusAnimation.value,
         [0, 1],

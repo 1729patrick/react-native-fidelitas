@@ -62,9 +62,10 @@ const Basket = () => {
           style={styles.checkoutButton}
           rippleColor={StyleGuide.palette.secondary}
           onPress={onConfirm}>
-          <Text style={styles.checkoutTitle}>
-            Confirmar (
-            <Currency price={price * 0.9} style={styles.checkoutTitle} />)
+          <Text>
+            <Text style={styles.checkoutTitle}>Confirmar (</Text>
+            <Currency price={price} style={styles.checkoutTitle} />
+            <Text style={styles.checkoutTitle}>)</Text>
           </Text>
         </RectButton>
       </View>

@@ -100,9 +100,10 @@ const BasketButton: React.FC<BasketButtonProps> = ({
         </View>
 
         <View style={styles.basketTitleContainer}>
-          <Text style={styles.basketTitle}>
-            Cesto (
-            <Currency price={price} style={styles.basketTitle} />)
+          <Text>
+            <Text style={styles.basketTitle}>Cesto (</Text>
+            <Currency price={price} style={styles.basketTitle} />
+            <Text style={styles.basketTitle}>)</Text>
           </Text>
         </View>
       </RectButton>

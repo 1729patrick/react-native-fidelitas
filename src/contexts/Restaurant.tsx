@@ -26,9 +26,9 @@ type Contact = {
   contact: string;
 };
 
-type Facility = { title: string };
+export type FacilityType = { title: string };
 
-type Restaurant = {
+type RestaurantType = {
   id: number;
   name: string;
   description: string;
@@ -47,11 +47,11 @@ type Restaurant = {
   };
   workHours: WorkHours;
   contacts: Contact[];
-  facilities: Facility[];
+  facilities: FacilityType[];
 };
 
 type ContextProps = {
-  restaurant?: Restaurant;
+  restaurant?: RestaurantType;
   restaurantId: number;
 };
 
@@ -61,17 +61,19 @@ const RestaurantContext = createContext<ContextProps>({
 });
 
 export const RestaurantProvider: React.FC = ({ children }) => {
-  const [restaurant, setRestaurant] = useState<Restaurant>();
+  const [restaurant, setRestaurant] = useState<RestaurantType>();
 
   const getRestaurant = async () => {
     try {
-      const { data } = await api.get<Restaurant>(`restaurants/${restaurantId}`);
+      const { data } = await api.get<RestaurantType>(
+        `restaurants/${restaurantId}`,
+      );
 
       setRestaurant(data);
     } catch (err) {}
   };
 
-  const { setStorage } = useStorage<Restaurant>(
+  const { setStorage } = useStorage<RestaurantType>(
     '@fidelitas:restaurant',
     setRestaurant,
   );

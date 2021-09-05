@@ -29,7 +29,6 @@ const SearchContent: React.FC<SearchContentProps> = ({
 }) => {
   const { products, isLoading } = useSearchProducts(searchTerm);
 
-  console.log(products);
   const { keyboardShown, keyboardHeight } = useKeyboard();
 
   const containerStyle = useAnimatedStyle(() => {

@@ -1,29 +1,22 @@
-import React, { ReactElement } from 'react';
-import { Text } from 'react-native';
-import { RectButton } from 'react-native-gesture-handler';
-import StyleGuide from '~/util/StyleGuide';
+import React from 'react';
+import { StyleProp, Text, View, ViewStyle } from 'react-native';
+
 import styles from './styles';
 
-export type FacilityType = {
-  title: string;
-  icon: ReactElement;
-};
+import { FacilityType } from '~/contexts/Restaurant';
+import { icons } from './constants';
+import { translate, TranslationKeyType } from '~/i18n';
 
 type FacilityProps = {
-  onPress?: (args: Partial<FacilityType>) => void;
+  style?: StyleProp<ViewStyle>;
 } & FacilityType;
 
-const FacilityItem: React.FC<FacilityProps> = ({ title, icon, onPress }) => {
+const FacilityItem: React.FC<FacilityProps> = ({ title, style }) => {
   return (
-    <RectButton
-      style={styles.container}
-      rippleColor={StyleGuide.palette.secondary}
-      onPress={() => {
-        onPress?.({ title, icon });
-      }}>
-      <Text style={styles.title}>{title}</Text>
-      {icon}
-    </RectButton>
+    <View style={[styles.container, style]}>
+      <Text style={styles.title}>{translate(title as TranslationKeyType)}</Text>
+      {icons[title as keyof typeof icons]}
+    </View>
   );
 };
 
