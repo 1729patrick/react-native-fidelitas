@@ -15,8 +15,14 @@ export default StyleSheet.create({
     ...StyleGuide.typography.caption,
     color: StyleGuide.palette.primary,
   },
-  description: {
+  today: {
     ...StyleGuide.typography.caption,
+    fontSize: 14,
+    color: StyleGuide.palette.app,
+  },
+  description: {
+    ...StyleGuide.typography.subhead,
+    fontSize: 13.5,
     color: StyleGuide.palette.secondary,
   },
   hours: {

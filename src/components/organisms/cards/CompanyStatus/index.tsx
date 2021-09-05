@@ -6,15 +6,18 @@ import styles from './styles';
 
 import { format } from 'date-fns';
 
-const day = format(new Date(), 'EEEE').toLocaleLowerCase();
-
 const CompanyStatus = () => {
   const { restaurant } = useRestaurant();
   const [now, setNow] = useState(new Date());
+  const [day, setDay] = useState(getDay());
+
+  function getDay() {
+    return format(new Date(), 'EEEE').toLocaleLowerCase();
+  }
 
   const hours = useMemo(() => {
     return (restaurant?.workHours[day as keyof WorkHours] as WorkHour) || {};
-  }, [restaurant?.workHours]);
+  }, [day, restaurant?.workHours]);
 
   const timeWindow = useMemo(() => {
     const startDate = new Date();
@@ -100,6 +103,7 @@ const CompanyStatus = () => {
   useEffect(() => {
     const timeout = setInterval(() => {
       setNow(new Date());
+      setDay(getDay());
     }, 60000);
 
     return () => clearInterval(timeout);
