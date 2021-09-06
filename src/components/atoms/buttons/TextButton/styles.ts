@@ -8,4 +8,5 @@ export default StyleSheet.create({
     color: StyleGuide.palette.green,
     fontSize: 15,
   },
+  disabled: { opacity: 0.4 },
 });

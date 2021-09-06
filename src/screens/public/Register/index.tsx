@@ -19,6 +19,7 @@ export type RegisterFormType = {
   lastName: string;
   phone: string;
   email: string;
+  currentPassword?: string;
   password: string;
   restaurantId: number;
 };

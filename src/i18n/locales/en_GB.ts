@@ -29,4 +29,8 @@ export default {
   goodForLunch: 'Good for Lunch',
   paymentWithCard: 'Payment with Card',
   paymentWithMoney: 'Payment with Money',
+
+  password: 'Password',
+  currentPassword: 'Current Password',
+  newPassword: 'New Password',
 };

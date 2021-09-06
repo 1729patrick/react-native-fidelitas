@@ -14,7 +14,7 @@ type RegisterProps = {
 };
 
 export const Step1: React.FC<RegisterProps> = ({ onNext, onChange }) => {
-  const surnameRef = useRef<TextInput>(null);
+  const lastNameRef = useRef<TextInput>(null);
 
   return (
     <View style={styles.container}>
@@ -22,13 +22,13 @@ export const Step1: React.FC<RegisterProps> = ({ onNext, onChange }) => {
         placeholder="Nome"
         onChangeText={value => onChange('firstName', value)}
         returnKeyType="next"
-        onSubmitEditing={() => surnameRef.current?.focus()}
+        onSubmitEditing={() => lastNameRef.current?.focus()}
         autoCompleteType="name"
       />
       <Input
         placeholder="Apelido"
         onChangeText={value => onChange('lastName', value)}
-        ref={surnameRef}
+        ref={lastNameRef}
         returnKeyType="next"
         onSubmitEditing={onNext}
         autoCompleteType="name"

@@ -29,7 +29,7 @@ const LoginForm: React.FC<LoginProps> = ({ onLogin, loading }) => {
     setValues(values => ({ ...values, [key]: value }));
   };
 
-  const enabled = !!values.password && validateEmail(values.email);
+  const isValid = !!values.password && validateEmail(values.email);
 
   return (
     <View style={styles.container}>
@@ -45,11 +45,11 @@ const LoginForm: React.FC<LoginProps> = ({ onLogin, loading }) => {
       <Password
         onChangeText={value => onChange('password', value)}
         returnKeyType="send"
-        onSubmitEditing={() => enabled && onLogin(values)}
+        onSubmitEditing={() => isValid && onLogin(values)}
         ref={passwordRef}
       />
       <RectButton
-        enabled={enabled}
+        enabled={isValid}
         loading={loading}
         onPress={() => onLogin(values)}
         title="Acessar"

@@ -3,17 +3,22 @@ import { TextInput, TextInputProps } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import RoundButton from '~/components/atoms/buttons/RoundButton';
 import Input from '~/components/atoms/Input';
+import { translate } from '~/i18n';
 import StyleGuide from '~/util/StyleGuide';
 
 type PasswordProps = TextInputProps & {
   onChangeText: (value: string) => void;
+  label?: 'newPassword' | 'currentPassword' | 'password';
+  required?: boolean;
 };
 
 const Password: React.ForwardRefRenderFunction<TextInput, PasswordProps> = (
-  { onChangeText, ...props },
+  { onChangeText, label = 'password', required = true, ...props },
   ref,
 ) => {
   const valueRef = useRef('');
+  const focusedRef = useRef(false);
+
   const passwordRef = useRef<TextInput>(null);
   const [secureTextEntry, setSecureTextEntry] = useState(true);
 
@@ -24,7 +29,10 @@ const Password: React.ForwardRefRenderFunction<TextInput, PasswordProps> = (
       style: { fontFamily: 'Montserrat-Medium' },
     });
 
-    setTimeout(() => passwordRef.current?.focus(), 1);
+    console.log(focusedRef.current);
+    if (focusedRef.current) {
+      setTimeout(() => passwordRef.current?.focus(), 1);
+    }
   };
 
   const onChange = (value: string) => {
@@ -42,14 +50,22 @@ const Password: React.ForwardRefRenderFunction<TextInput, PasswordProps> = (
     }
   };
 
+  const setFocused = (value: boolean) => {
+    console.log('aaa');
+    focusedRef.current = value;
+  };
+
   return (
     <Input
-      placeholder="Palavra-passe"
+      placeholder={translate(label)}
       onChangeText={onChange}
       autoCapitalize={'none'}
       returnKeyType="send"
       secureTextEntry={secureTextEntry}
+      onFocus={() => setFocused(true)}
+      onBlur={() => setFocused(false)}
       ref={setRefs}
+      required={required}
       {...props}
       rightContent={
         <RoundButton

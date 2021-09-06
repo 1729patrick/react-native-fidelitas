@@ -5,6 +5,8 @@ import {
   ViewStyle,
   StyleProp,
   TextInputProps,
+  TextInputFocusEventData,
+  NativeSyntheticEvent,
 } from 'react-native';
 import { MaskedTextInput } from 'react-native-mask-text';
 import Animated, {
@@ -27,15 +29,16 @@ type InputProps = TextInputProps & {
   style?: StyleProp<ViewStyle>;
   rightContent?: ReactNode;
   mask?: string;
+  required?: boolean;
 };
 
 const Input: React.ForwardRefRenderFunction<TextInput, InputProps> = (
-  { placeholder, style, rightContent, mask, ...props },
+  { placeholder, style, rightContent, mask, required = true, ...props },
   ref,
 ) => {
-  const valueRef = useRef<string>('');
+  const valueRef = useRef<string>(props.value || '');
   const focusAnimation = useSharedValue(0);
-  const valueAnimation = useSharedValue(0);
+  const valueAnimation = useSharedValue(+!!props.value);
 
   const animatedInput = useAnimatedStyle(() => {
     return {
@@ -61,7 +64,7 @@ const Input: React.ForwardRefRenderFunction<TextInput, InputProps> = (
 
   const animatedPlaceholder = useAnimatedStyle(() => {
     return {
-      fontSize: interpolate(valueAnimation.value, [0, 0.8], [15, 13]),
+      fontSize: interpolate(valueAnimation.value, [0, 0.8], [14, 13]),
       color: interpolateColor(
         focusAnimation.value,
         [0, 1],
@@ -74,9 +77,11 @@ const Input: React.ForwardRefRenderFunction<TextInput, InputProps> = (
     return mask ? AnimatedMaskedTextInput : AnimatedTextInput;
   }, [mask]);
 
-  const onFocus = () => {
+  const onFocus = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
     valueAnimation.value = withTiming(1, { duration: 100 });
     focusAnimation.value = withTiming(1, { duration: 100 });
+
+    props.onFocus?.(event);
   };
 
   const onBlur = () => {
@@ -89,7 +94,15 @@ const Input: React.ForwardRefRenderFunction<TextInput, InputProps> = (
     focusAnimation.value = withTiming(0, { duration: 100 });
   };
 
-  const onChangeText = (_: string, value: string) => {
+  const onChangeTextMask = (_: string, value: string) => {
+    valueRef.current = value;
+
+    if (focusAnimation.value) {
+      props.onChangeText?.(value);
+    }
+  };
+
+  const onChangeText = (value: string) => {
     valueRef.current = value;
     props.onChangeText?.(value);
   };
@@ -102,7 +115,7 @@ const Input: React.ForwardRefRenderFunction<TextInput, InputProps> = (
         style={[styles.input, animatedInput]}
         onFocus={onFocus}
         onEndEditing={onBlur}
-        onChangeText={onChangeText}
+        onChangeText={mask ? onChangeTextMask : onChangeText}
         ref={ref}
       />
       <View style={styles.rightContent}>{rightContent}</View>
@@ -111,7 +124,7 @@ const Input: React.ForwardRefRenderFunction<TextInput, InputProps> = (
         style={[styles.placeholderContainer, animatedPlaceholderContainer]}
         pointerEvents={'none'}>
         <Animated.Text style={[styles.placeholder, animatedPlaceholder]}>
-          {placeholder}
+          {placeholder} {required ? '' : '(Optional)'}
         </Animated.Text>
       </Animated.View>
     </View>

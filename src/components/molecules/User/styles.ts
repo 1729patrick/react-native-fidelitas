@@ -14,6 +14,7 @@ export default StyleSheet.create({
   info: {
     paddingLeft: StyleGuide.spacing * 2,
     flexDirection: 'column',
+    flex: 1,
   },
   userName: {
     ...StyleGuide.typography.title3,
