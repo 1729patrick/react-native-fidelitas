@@ -4,11 +4,14 @@ import DropdownAlert from 'react-native-dropdownalert';
 import { AuthProvider } from './contexts/Auth';
 import { BasketProvider } from './contexts/Basket';
 import { RestaurantProvider } from './contexts/Restaurant';
+import { useLanguage } from './hooks/useLanguage';
 import Routes from './routes';
 import { Alert, AlertType } from './util/Alert';
 import StyleGuide from './util/StyleGuide';
 
 const App = () => {
+  useLanguage();
+
   return (
     <RestaurantProvider>
       <AuthProvider>

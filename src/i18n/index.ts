@@ -10,11 +10,12 @@ const normalizeTranslate = {
   pt_PT: 'pt_PT',
   es_ES: 'es_ES',
   en: 'en_GB',
+  en_US: 'en_GB',
 };
 
-type NormalizeTranslate = keyof typeof normalizeTranslate;
+export type NormalizeTranslate = keyof typeof normalizeTranslate;
 
-const getLanguageByDevice = (): NormalizeTranslate =>
+export const getLanguageByDevice = (): NormalizeTranslate =>
   Platform.OS === 'ios'
     ? NativeModules.SettingsManager.settings.AppleLocale
     : NativeModules.I18nManager.localeIdentifier;
@@ -23,12 +24,12 @@ I18n.fallbacks = true;
 
 I18n.translations = {
   en_GB: en,
+  en_US: en,
   pt_PT: pt,
   es_ES: es,
 };
 
-const setLanguageToI18n = () => {
-  const language = getLanguageByDevice();
+export const setLanguageToI18n = (language: NormalizeTranslate) => {
   const translateNormalize = normalizeTranslate[language];
   const iHaveThisLanguage =
     I18n.translations.hasOwnProperty(translateNormalize);
@@ -37,8 +38,6 @@ const setLanguageToI18n = () => {
     ? (I18n.locale = translateNormalize)
     : (I18n.defaultLocale = 'en_GB');
 };
-
-setLanguageToI18n();
 
 const allKeys = { ...en, ...pt, ...es };
 

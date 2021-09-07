@@ -17,6 +17,7 @@ type ListProps = {
   header?: ReactElement;
   onScrollUp?: () => void;
   onScrollDown?: () => void;
+  extraData?: any;
 };
 
 const List: React.FC<ListProps> = ({
@@ -29,6 +30,7 @@ const List: React.FC<ListProps> = ({
   header,
   onScrollUp,
   onScrollDown,
+  extraData,
 }) => {
   const lastOffsetRef = useRef(0);
   const maxOffsetRef = useRef(0);
@@ -55,7 +57,7 @@ const List: React.FC<ListProps> = ({
     <FlatList
       showsVerticalScrollIndicator={false}
       renderItem={({ item }) => (
-        <Item {...item} onPress={item.onPress || onPress} />
+        <Item {...item} {...extraData} onPress={item.onPress || onPress} />
       )}
       data={data}
       onScroll={onScrollUp && onScrollDown ? onScroll : undefined}

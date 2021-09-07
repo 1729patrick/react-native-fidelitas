@@ -33,4 +33,8 @@ export default {
   password: 'Password',
   currentPassword: 'Current Password',
   newPassword: 'New Password',
+
+  portuguese: 'Portuguese',
+  english: 'English',
+  spanish: 'Spanish',
 };

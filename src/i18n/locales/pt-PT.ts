@@ -21,4 +21,8 @@ export default {
   side: 'Side',
   drink: 'Drink',
   special: 'Special',
+
+  portuguese: 'Português',
+  english: 'Inglês',
+  spanish: 'Espanhol',
 };
