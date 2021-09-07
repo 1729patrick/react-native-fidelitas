@@ -1,3 +1,5 @@
+import { useNavigation } from '@react-navigation/core';
+import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import useAddresses from '~/api/useAddresses';
 import TextButton from '~/components/atoms/buttons/TextButton';
@@ -12,19 +14,24 @@ import styles from './styles';
 export default () => {
   useHideTabBar();
   const { addresses, isLoading } = useAddresses();
+  const { navigate } = useNavigation<StackNavigationProp<any>>();
 
   if (isLoading) {
     return <SplashScreen />;
   }
 
+  const openCreateAddress = () => {
+    navigate('CreateAddress');
+  };
+
   return (
     <Notifications
       header={
         <Header
-          title="Endereços"
+          title="Moradas"
           close
           RightContent={
-            <TextButton title="Adicionar" onPress={() => console.log('save')} />
+            <TextButton title="Adicionar" onPress={openCreateAddress} />
           }
         />
       }

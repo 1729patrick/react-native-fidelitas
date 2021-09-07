@@ -18,5 +18,17 @@ export const formatAddress = (address?: AddressType) => {
 };
 
 export const formatPhone = (phone: string | number) => {
+  if (!phone) {
+    return '';
+  }
+
   return mask(phone, '+999 99999999999');
+};
+
+export const formatPostalCode = (postalCode: string | number) => {
+  if (!postalCode) {
+    return '';
+  }
+
+  return mask(postalCode, '9999-999');
 };

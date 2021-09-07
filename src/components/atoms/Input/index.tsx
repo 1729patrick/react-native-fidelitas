@@ -94,7 +94,7 @@ const Input: React.ForwardRefRenderFunction<TextInput, InputProps> = (
     focusAnimation.value = withTiming(0, { duration: 100 });
   };
 
-  const onChangeTextMask = (_: string, value: string) => {
+  const onChangeTextMask = (maskedValue: string, value: string) => {
     valueRef.current = value;
 
     if (focusAnimation.value) {

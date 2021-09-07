@@ -63,7 +63,7 @@ export default () => {
     //   onPress: () => console.log('delete'),
     // },
     {
-      title: 'Endereços',
+      title: 'Moradas',
       icon: (
         <MdIcon
           name="location-pin"
