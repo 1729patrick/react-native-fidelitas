@@ -22,8 +22,9 @@ import Facilities from '~/components/organisms/cards/Facilities';
 import useStatusBar from '~/hooks/useStatusBar';
 import Home from '~/components/templates/Home';
 import Line from '~/components/atoms/Line';
-import { useRestaurant } from '~/contexts/Restaurant';
+
 import SplashScreen from '~/components/atoms/SplashScreen';
+import { useRestaurant } from '~/contexts/Restaurant';
 
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 

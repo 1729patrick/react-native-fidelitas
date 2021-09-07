@@ -6,13 +6,20 @@ import IonIcon from 'react-native-vector-icons/Ionicons';
 
 import styles from './styles';
 import Checkbox from '~/components/atoms/Checkbox';
+import { AddressType } from '~/api/useAddresses';
 
-export type LanguageProps = {
-  title: string;
-  onPress: (value: boolean) => void;
+import { mask } from 'react-native-mask-text';
+import { formatAddress, formatPhone } from '~/util/Formatters';
+
+export type LanguageProps = AddressType & {
+  onPress: (value: any) => void;
 };
 
-const AddressItem: React.FC<LanguageProps> = ({ title, onPress }) => {
+const AddressItem: React.FC<LanguageProps> = ({
+  onPress,
+
+  ...address
+}) => {
   const [checked, setChecked] = useState(false);
 
   const toggleCheck = () => {
@@ -28,10 +35,10 @@ const AddressItem: React.FC<LanguageProps> = ({ title, onPress }) => {
     <View style={styles.border}>
       <RectButton
         style={styles.container}
-        key={title}
+        key={address.id}
         rippleColor={StyleGuide.palette.secondary}
         onPress={toggleCheck}>
-        <View>
+        <View style={styles.content}>
           <View style={styles.line}>
             <IonIcon
               name="ios-location-sharp"
@@ -39,9 +46,7 @@ const AddressItem: React.FC<LanguageProps> = ({ title, onPress }) => {
               color={StyleGuide.palette.secondary}
               style={styles.icon}
             />
-            <Text style={styles.description}>
-              Avenida Roque Ribeiro, 2910-278
-            </Text>
+            <Text style={styles.description}>{formatAddress(address)}</Text>
           </View>
 
           <View style={[styles.line, styles.marginTop]}>
@@ -51,7 +56,7 @@ const AddressItem: React.FC<LanguageProps> = ({ title, onPress }) => {
               color={StyleGuide.palette.secondary}
               style={styles.icon}
             />
-            <Text style={styles.description}>Cristiano Rolando</Text>
+            <Text style={styles.description}>{address.responsible}</Text>
           </View>
 
           <View style={[styles.line, styles.marginTop]}>
@@ -61,13 +66,13 @@ const AddressItem: React.FC<LanguageProps> = ({ title, onPress }) => {
               color={StyleGuide.palette.secondary}
               style={styles.icon}
             />
-            <Text style={styles.description}>+351 92140176243</Text>
+            <Text style={styles.description}>{formatPhone(address.phone)}</Text>
           </View>
         </View>
 
         <Checkbox
           toggleCheck={toggleCheck}
-          checked={checked}
+          checked={address.primary}
           style={styles.checkbox}
         />
       </RectButton>

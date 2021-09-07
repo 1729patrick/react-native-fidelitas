@@ -15,6 +15,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  content: { flex: 1 },
   line: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -31,6 +32,7 @@ export default StyleSheet.create({
     ...StyleGuide.typography.subhead,
     fontSize: 13,
     color: StyleGuide.palette.primary,
+    flex: 1,
   },
   icon: { width: 30 },
   checkbox: { marginLeft: 'auto' },

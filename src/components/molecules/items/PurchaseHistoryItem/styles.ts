@@ -17,8 +17,9 @@ export default StyleSheet.create({
     ...StyleGuide.typography.subhead,
     color: StyleGuide.palette.primary,
   },
-  description: {
+  date: {
     ...StyleGuide.typography.subhead,
+    fontSize: 12,
     color: StyleGuide.palette.secondary,
   },
   line: {

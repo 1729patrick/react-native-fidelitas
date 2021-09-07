@@ -12,7 +12,7 @@ export const useLanguage = () => {
   );
   const { setStorage } = useStorage<NormalizeTranslate>(
     '@fidelitas:language',
-    setLanguage,
+    restore,
   );
 
   const setLanguage_ = (language: NormalizeTranslate) => {
@@ -21,6 +21,11 @@ export const useLanguage = () => {
 
     setLanguage(language);
   };
+
+  function restore(language: NormalizeTranslate) {
+    setLanguage(language);
+    setLanguageToI18n(language);
+  }
 
   return { setLanguage: setLanguage_, language };
 };

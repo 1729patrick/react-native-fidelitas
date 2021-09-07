@@ -1,6 +1,8 @@
 import React from 'react';
+import useAddresses from '~/api/useAddresses';
 import TextButton from '~/components/atoms/buttons/TextButton';
 import Header from '~/components/atoms/Header';
+import SplashScreen from '~/components/atoms/SplashScreen';
 import AddressesList from '~/components/organisms/lists/Addresses';
 import Notifications from '~/components/templates/Notifications';
 import useHideTabBar from '~/hooks/useHideTabBar';
@@ -9,18 +11,11 @@ import styles from './styles';
 
 export default () => {
   useHideTabBar();
+  const { addresses, isLoading } = useAddresses();
 
-  const items = [
-    {
-      id: 'pt',
-    },
-    {
-      id: 'en',
-    },
-    {
-      id: 'es',
-    },
-  ];
+  if (isLoading) {
+    return <SplashScreen />;
+  }
 
   return (
     <Notifications
@@ -33,7 +28,7 @@ export default () => {
           }
         />
       }
-      list={<AddressesList data={items} style={styles.contentContainer} />}
+      list={<AddressesList data={addresses} style={styles.contentContainer} />}
     />
   );
 };

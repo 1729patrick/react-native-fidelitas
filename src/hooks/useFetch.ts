@@ -12,9 +12,9 @@ const fetcher = (url: string) => {
 
 export function useFetch<Data = any, Error = any>(url: string | null) {
   const { data, error } = useSWR<Data, Error>(url, fetcher, {
-    revalidateOnFocus: true,
+    revalidateOnMount: true,
     revalidateOnReconnect: true,
-    focusThrottleInterval: 5000,
+    revalidateOnFocus: true,
   });
 
   return { data, error, isLoading: !error && !data };

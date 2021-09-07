@@ -2,6 +2,8 @@ import React from 'react';
 import { Dimensions, Text, View } from 'react-native';
 import Map from '~/components/molecules/Map';
 import { useRestaurant } from '~/contexts/Restaurant';
+import { formatAddress } from '~/util/Formatters';
+
 import StyleGuide from '~/util/StyleGuide';
 import styles from './styles';
 
@@ -14,15 +16,7 @@ type LocationProps = {
 const Location: React.FC<LocationProps> = ({ openMap }) => {
   const { restaurant } = useRestaurant();
 
-  const address = [
-    restaurant?.address.line1,
-    restaurant?.address.line2,
-    restaurant?.address.postalCode,
-    restaurant?.address.city,
-    restaurant?.address.country,
-  ]
-    .filter(v => v)
-    .join(', ');
+  const address = formatAddress(restaurant?.address);
 
   return (
     <View>

@@ -22,6 +22,18 @@ export default {
   drink: 'Drink',
   special: 'Special',
 
+  wifi: 'Wi-fi',
+  smokingFriendly: 'Smoking Friendly',
+  alcoholicBeverage: 'Alcoholic Beverage',
+  goodForDinner: 'Good for Dinner',
+  goodForLunch: 'Good for Lunch',
+  paymentWithCard: 'Payment with Card',
+  paymentWithMoney: 'Payment with Money',
+
+  password: 'Password',
+  currentPassword: 'Current Password',
+  newPassword: 'New Password',
+
   portuguese: 'Portugués',
   english: 'Inglés',
   spanish: 'Español',

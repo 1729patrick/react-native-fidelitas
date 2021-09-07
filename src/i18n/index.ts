@@ -23,6 +23,7 @@ export const getLanguageByDevice = (): NormalizeTranslate =>
 I18n.fallbacks = true;
 
 I18n.translations = {
+  en,
   en_GB: en,
   en_US: en,
   pt_PT: pt,
@@ -34,6 +35,7 @@ export const setLanguageToI18n = (language: NormalizeTranslate) => {
   const iHaveThisLanguage =
     I18n.translations.hasOwnProperty(translateNormalize);
 
+  console.log(language);
   iHaveThisLanguage
     ? (I18n.locale = translateNormalize)
     : (I18n.defaultLocale = 'en_GB');

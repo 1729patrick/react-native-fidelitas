@@ -17,7 +17,7 @@ const PurchaseHistoryItem: React.FC<PurchaseHistoryType> = ({ onPress }) => {
         onPress={onPress}>
         <View style={styles.line}>
           <Text style={styles.title}>Delivery</Text>
-          <Text style={styles.description}>12/02/2021</Text>
+          <Text style={styles.date}>12/02/2021</Text>
         </View>
         <View style={styles.line}>
           <Text style={styles.title}>Avenida Roque Ribeiro, 2910-278</Text>

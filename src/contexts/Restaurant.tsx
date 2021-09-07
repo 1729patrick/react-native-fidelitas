@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { AddressType } from '~/api/useAddresses';
 import useStorage from '~/hooks/useStorage';
 
 import api from '~/util/api';
@@ -32,19 +33,7 @@ type RestaurantType = {
   id: number;
   name: string;
   description: string;
-  address: {
-    lat: number;
-    long: number;
-    line1: string;
-    line2: string;
-    postalCode: string;
-    city: string;
-    country: string;
-    responsible: string;
-    phone: string;
-    notes: string;
-    primary: boolean;
-  };
+  address: AddressType;
   workHours: WorkHours;
   contacts: Contact[];
   facilities: FacilityType[];

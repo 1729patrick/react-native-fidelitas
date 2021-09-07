@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { ScrollView, Text, TextInput, View } from 'react-native';
-import { mask } from 'react-native-mask-text';
+
 import TextButton from '~/components/atoms/buttons/TextButton';
 import Header from '~/components/atoms/Header';
 import Input from '~/components/atoms/Input';
@@ -8,6 +8,7 @@ import Password from '~/components/molecules/Password';
 import { useAuth } from '~/contexts/Auth';
 import useHideTabBar from '~/hooks/useHideTabBar';
 import { RegisterFormType } from '~/screens/public/Register';
+import { formatPhone } from '~/util/Formatters';
 import { validateEmail } from '~/util/validations';
 import styles from './styles';
 
@@ -88,7 +89,7 @@ const PersonalInformation = () => {
           placeholder="Telemóvel"
           returnKeyType="next"
           onChangeText={value => onChange('phone', value)}
-          value={mask(values.phone, '+999 99999999999')}
+          value={formatPhone(values.phone)}
           ref={phoneRef}
           onSubmitEditing={() => emailRef.current?.focus()}
           autoCompleteType="tel"
