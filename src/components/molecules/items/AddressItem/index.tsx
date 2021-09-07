@@ -1,82 +1,138 @@
 import React, { useState } from 'react';
 import { View, Text } from 'react-native';
-import { RectButton } from 'react-native-gesture-handler';
+import { RectButton as RNRectButton } from 'react-native-gesture-handler';
 import StyleGuide from '~/util/StyleGuide';
-import IonIcon from 'react-native-vector-icons/Ionicons';
 
 import styles from './styles';
-import Checkbox from '~/components/atoms/Checkbox';
 import { AddressType } from '~/api/useAddresses';
 
-import { mask } from 'react-native-mask-text';
 import { formatAddress, formatPhone } from '~/util/Formatters';
+import Animated, {
+  interpolate,
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from 'react-native-reanimated';
+import RectButton from '~/components/atoms/buttons/RectButton';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/core';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 export type LanguageProps = AddressType & {
   onPress: (value: any) => void;
 };
 
-const AddressItem: React.FC<LanguageProps> = ({
-  onPress,
+export const CARD_HEIGHT = 87;
 
-  ...address
-}) => {
-  const [checked, setChecked] = useState(false);
+const AddressItem: React.FC<LanguageProps> = ({ onPress, ...address }) => {
+  const [footerHeight, setFooterHeight] = useState(0);
+  const { navigate } = useNavigation<StackNavigationProp<any>>();
 
-  const toggleCheck = () => {
-    setChecked(previousState => {
-      const newState = !previousState;
+  const animation = useSharedValue(0);
 
-      onPress?.(newState);
-      return newState;
-    });
+  const containerStyle = useAnimatedStyle(() => {
+    const height = interpolate(
+      animation.value,
+      [0, 1],
+      [CARD_HEIGHT, CARD_HEIGHT + footerHeight],
+    );
+    return {
+      height,
+    };
+  }, [animation, footerHeight]);
+
+  const onCollapse = () => {
+    animation.value = withSpring(+!animation.value);
+  };
+
+  const openEditAddress = () => {
+    navigate('CreateAddress');
+  };
+
+  const renderHeader = () => {
+    return (
+      <View style={styles.header}>
+        <Icon
+          name="ios-location-outline"
+          size={25}
+          color={
+            address.primary
+              ? StyleGuide.palette.app
+              : StyleGuide.palette.secondary
+          }
+          style={styles.icon}
+        />
+        <View style={styles.content}>
+          <View style={styles.line}>
+            <View style={styles.titleContainer}>
+              <Text style={styles.title} numberOfLines={1}>
+                {address.responsible}
+              </Text>
+            </View>
+            <Text style={[styles.description]} numberOfLines={1}>
+              {formatPhone(address.phone)}
+            </Text>
+          </View>
+          <Text style={styles.description} numberOfLines={2}>
+            {formatAddress(address)}
+            nwn1 nw 1n
+          </Text>
+        </View>
+      </View>
+    );
+  };
+
+  const renderFooter = () => {
+    return (
+      <View
+        style={styles.footer}
+        onLayout={({ nativeEvent }) =>
+          setFooterHeight(nativeEvent.layout.height)
+        }>
+        <RectButton
+          title="Editar"
+          onPress={openEditAddress}
+          borderRadius={8}
+          containerStyle={styles.button}
+          titleStyle={{ color: StyleGuide.palette.primary }}
+          backgroundColor={StyleGuide.palette.primary}
+          outline
+          icon={
+            <Icon name="pencil" color={StyleGuide.palette.primary} size={23} />
+          }
+        />
+        <RectButton
+          title="Excluir"
+          onPress={() => {}}
+          borderRadius={8}
+          containerStyle={styles.button}
+          titleStyle={{ color: StyleGuide.palette.red }}
+          backgroundColor={StyleGuide.palette.red}
+          outline
+          icon={
+            <Icon
+              name="ios-trash-outline"
+              color={StyleGuide.palette.red}
+              size={23}
+            />
+          }
+        />
+      </View>
+    );
   };
 
   return (
-    <View style={styles.border}>
-      <RectButton
-        style={styles.container}
-        key={address.id}
+    <Animated.View style={[styles.border, containerStyle]}>
+      <RNRectButton
+        style={styles.item}
         rippleColor={StyleGuide.palette.secondary}
-        onPress={toggleCheck}>
-        <View style={styles.content}>
-          <View style={styles.line}>
-            <IonIcon
-              name="ios-location-sharp"
-              size={18}
-              color={StyleGuide.palette.secondary}
-              style={styles.icon}
-            />
-            <Text style={styles.description}>{formatAddress(address)}</Text>
-          </View>
+        onPress={onCollapse}>
+        {/* <View style={[styles.statusBar, { backgroundColor: status_.color }]} /> */}
 
-          <View style={[styles.line, styles.marginTop]}>
-            <IonIcon
-              name="ios-person-sharp"
-              size={18}
-              color={StyleGuide.palette.secondary}
-              style={styles.icon}
-            />
-            <Text style={styles.description}>{address.responsible}</Text>
-          </View>
-
-          <View style={[styles.line, styles.marginTop]}>
-            <IonIcon
-              name="call"
-              size={18}
-              color={StyleGuide.palette.secondary}
-              style={styles.icon}
-            />
-            <Text style={styles.description}>{formatPhone(address.phone)}</Text>
-          </View>
-        </View>
-
-        <Checkbox
-          toggleCheck={toggleCheck}
-          checked={address.primary}
-          style={styles.checkbox}
-        />
-      </RectButton>
-    </View>
+        {renderHeader()}
+        {renderFooter()}
+      </RNRectButton>
+    </Animated.View>
   );
 };
 
