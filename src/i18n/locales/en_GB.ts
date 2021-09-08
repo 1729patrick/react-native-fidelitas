@@ -37,4 +37,7 @@ export default {
   portuguese: 'Portuguese',
   english: 'English',
   spanish: 'Spanish',
+
+  edit: 'Edit',
+  delete: 'Delete',
 };

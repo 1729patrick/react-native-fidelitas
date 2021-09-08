@@ -10,23 +10,18 @@ export default StyleSheet.create({
     overflow: 'hidden',
   },
   item: {
-    height: '100%',
     backgroundColor: StyleGuide.palette.background,
     borderRadius: StyleGuide.borderRadius * 2,
-  },
-  header: {
     flexDirection: 'row',
-    paddingVertical: StyleGuide.spacing * 2,
-    paddingRight: StyleGuide.spacing * 2,
+    padding: StyleGuide.spacing * 2,
     paddingLeft: StyleGuide.spacing * 1.5,
-    borderBottomWidth: 1,
-    borderBottomColor: StyleGuide.palette.border,
   },
   content: { flex: 1 },
   line: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginBottom: StyleGuide.spacing * 0.5,
   },
   titleContainer: { flex: 1 },
   title: {
