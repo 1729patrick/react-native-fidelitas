@@ -19,7 +19,6 @@ export default () => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const currentIndexRef = useRef(0);
   const registerRef = useRef<RegisterHandler>(null);
   const { pop } = useNavigation<StackNavigationProp<any>>();
 

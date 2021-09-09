@@ -39,6 +39,7 @@ type ModalProps = {
 
 export type ModalHandler = {
   show: (snapPoint?: number) => void;
+  hidden: () => void;
 };
 
 const Modal: React.ForwardRefRenderFunction<ModalHandler, ModalProps> = (
@@ -106,6 +107,7 @@ const Modal: React.ForwardRefRenderFunction<ModalHandler, ModalProps> = (
 
   useImperativeHandle(ref, () => ({
     show,
+    hidden,
   }));
 
   useEffect(() => {

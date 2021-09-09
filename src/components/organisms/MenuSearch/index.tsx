@@ -4,7 +4,6 @@ import Animated, {
   Extrapolate,
   interpolate,
   interpolateColor,
-  onChange,
   runOnJS,
   useAnimatedStyle,
   withTiming,

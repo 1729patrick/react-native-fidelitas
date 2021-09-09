@@ -7,18 +7,18 @@ import { translate } from '~/i18n';
 import { RectButton } from 'react-native-gesture-handler';
 import { icons } from './constants';
 
-type Type = 'edit' | 'delete';
+export type ModalTypes = 'edit' | 'delete';
 
 export type ModalType = {
-  type: Type;
+  type: ModalTypes;
 };
 
-type FacilityProps = ModalType & {
+type ModalProps = ModalType & {
   style?: StyleProp<ViewStyle>;
-  onPress: (type: Type) => void;
+  onPress: (type: ModalTypes) => void;
 };
 
-const ModalItem: React.FC<FacilityProps> = ({ onPress, type, style }) => {
+const ModalItem: React.FC<ModalProps> = ({ onPress, type, style }) => {
   return (
     <RectButton style={[styles.container, style]} onPress={() => onPress(type)}>
       {icons[type as keyof typeof icons]}

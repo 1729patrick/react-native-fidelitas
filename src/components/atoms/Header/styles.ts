@@ -8,7 +8,6 @@ export default StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: StyleGuide.spacing * 2,
     height: HEADER_HEIGHT + STATUS_BAR_HEIGHT,
-    zIndex: 2,
     paddingTop: STATUS_BAR_HEIGHT,
   },
   content: {

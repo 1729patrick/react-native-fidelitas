@@ -10,7 +10,15 @@ type ModalListProps = {
 };
 
 const ModalList: React.FC<ModalListProps> = ({ style, onPress, data }) => {
-  return <List item={ModalItem} data={data} style={style} onPress={onPress} />;
+  return (
+    <List
+      item={ModalItem}
+      data={data}
+      style={style}
+      onPress={onPress}
+      keyExtractor={({ type }: any) => type}
+    />
+  );
 };
 
 export default ModalList;
