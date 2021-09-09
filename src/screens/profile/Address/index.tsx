@@ -33,6 +33,8 @@ export default () => {
 
   const onDelete = () => {
     console.log('deleteeee');
+
+    dialogRef.current?.hidden();
   };
 
   const onModalPress = (type: ModalTypes) => {

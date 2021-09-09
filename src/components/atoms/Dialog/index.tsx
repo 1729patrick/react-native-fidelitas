@@ -1,4 +1,5 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react';
+import { View } from 'react-native';
 import RNDialog from 'react-native-dialog';
 import StyleGuide from '~/util/StyleGuide';
 
@@ -54,16 +55,22 @@ const Dialog: React.ForwardRefRenderFunction<DialogHandler, DialogProps> = (
       <RNDialog.Description style={{ color: StyleGuide.palette.secondary }}>
         {description}
       </RNDialog.Description>
-      <RNDialog.Button
-        label="Cancel"
-        color={StyleGuide.palette.primary}
-        onPress={hidden}
-      />
-      <RNDialog.Button
-        label={confirmTitle}
-        color={StyleGuide.palette.red}
-        onPress={onConfirm}
-      />
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'flex-end',
+        }}>
+        <RNDialog.Button
+          label="Cancel"
+          color={StyleGuide.palette.primary}
+          onPress={hidden}
+        />
+        <RNDialog.Button
+          label={confirmTitle}
+          color={StyleGuide.palette.red}
+          onPress={onConfirm}
+        />
+      </View>
     </RNDialog.Container>
   );
 };

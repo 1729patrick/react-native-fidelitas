@@ -35,6 +35,7 @@ type ModalProps = {
   confirm: string;
   itemHeight: number;
   itemsSize: number;
+  full?: boolean;
 };
 
 export type ModalHandler = {
@@ -43,7 +44,15 @@ export type ModalHandler = {
 };
 
 const Modal: React.ForwardRefRenderFunction<ModalHandler, ModalProps> = (
-  { onContinue, title, children, confirm, itemHeight = 0, itemsSize = 0 },
+  {
+    onContinue,
+    title,
+    children,
+    confirm,
+    itemHeight = 0,
+    itemsSize = 0,
+    full = false,
+  },
   ref,
 ) => {
   const snapPoints = useMemo(() => {
@@ -55,8 +64,12 @@ const Modal: React.ForwardRefRenderFunction<ModalHandler, ModalProps> = (
     //   return [first, contentHeight, third];
     // }
 
-    return [first, Math.max(contentHeight, second), third];
-  }, [itemHeight, itemsSize]);
+    if (full) {
+      return [first, Math.max(contentHeight, second), third];
+    }
+
+    return [Math.max(contentHeight, second), third];
+  }, [full, itemHeight, itemsSize]);
 
   const translateY = useSharedValue(snapPoints[MODAL_SNAP_POINTS.length - 1]);
 
