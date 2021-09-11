@@ -40,4 +40,8 @@ export default {
 
   edit: 'Editar',
   delete: 'Apagar',
+
+  delivery: 'Delivery',
+  takeAway: 'Takeaway',
+  local: 'Local',
 };

@@ -16,6 +16,8 @@ import Currency from '~/components/atoms/Currency';
 import { PurchaseType } from '~/api/usePurchases';
 import CC from '~/components/atoms/CC';
 import { formatAddress, formatPhone } from '~/util/Formatters';
+import TextButton from '~/components/atoms/buttons/TextButton';
+import { translate, TranslationKeyType } from '~/i18n';
 
 type RootStackParamList = {
   Checkout: {
@@ -45,12 +47,18 @@ const PurchaseDetails = () => {
 
   return (
     <>
-      <Header title={'Detalhes'} close />
+      <Header
+        title={'Detalhes'}
+        close
+        RightContent={<TextButton title="Ver fatura" onPress={() => {}} />}
+      />
       <ScrollView contentContainerStyle={[styles.container]}>
         <View style={styles.card}>
           <Text style={styles.title}>Forma de entrega</Text>
           <View style={styles.deliveryType}>
-            <Text style={styles.description}>{purchase.deliveryType}</Text>
+            <Text style={styles.description}>
+              {translate(purchase.deliveryType as TranslationKeyType)}
+            </Text>
           </View>
         </View>
 
@@ -58,47 +66,41 @@ const PurchaseDetails = () => {
           <View style={styles.line}>
             <Text style={styles.title}>Morada de entrega</Text>
           </View>
-          {purchase.address.responsible && (
-            <View style={styles.addressLine}>
-              <IonIcon
-                name="ios-person-sharp"
-                size={18}
-                color={StyleGuide.palette.secondary}
-                style={styles.icon}
-              />
-              <Text style={styles.description}>
-                {purchase.address.responsible}
-              </Text>
-            </View>
-          )}
+          <View style={styles.addressLine}>
+            <IonIcon
+              name="ios-person-sharp"
+              size={18}
+              color={StyleGuide.palette.secondary}
+              style={styles.icon}
+            />
+            <Text style={styles.description}>
+              {purchase.address.responsible}
+            </Text>
+          </View>
 
-          {purchase.address.phone && (
-            <View style={styles.addressLine}>
-              <IonIcon
-                name="call"
-                size={18}
-                color={StyleGuide.palette.secondary}
-                style={styles.icon}
-              />
-              <Text style={styles.description}>
-                {formatPhone(purchase.address.phone)}
-              </Text>
-            </View>
-          )}
+          <View style={styles.addressLine}>
+            <IonIcon
+              name="call"
+              size={18}
+              color={StyleGuide.palette.secondary}
+              style={styles.icon}
+            />
+            <Text style={styles.description}>
+              {formatPhone(purchase.address.phone)}
+            </Text>
+          </View>
 
-          {purchase.address && (
-            <View style={styles.addressLine}>
-              <IonIcon
-                name="ios-location-sharp"
-                size={18}
-                color={StyleGuide.palette.secondary}
-                style={styles.icon}
-              />
-              <Text style={styles.description}>
-                {formatAddress(purchase.address)}
-              </Text>
-            </View>
-          )}
+          <View style={styles.addressLine}>
+            <IonIcon
+              name="ios-location-sharp"
+              size={18}
+              color={StyleGuide.palette.secondary}
+              style={styles.icon}
+            />
+            <Text style={styles.description}>
+              {formatAddress(purchase.address)}
+            </Text>
+          </View>
         </View>
 
         <View style={styles.card}>

@@ -3,6 +3,7 @@ import { Text, View } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import { PurchaseType } from '~/api/usePurchases';
 import Currency from '~/components/atoms/Currency';
+import { translate, TranslationKeyType } from '~/i18n';
 import { formatDate } from '~/util/Formatters';
 import StyleGuide from '~/util/StyleGuide';
 import styles from './styles';
@@ -32,7 +33,7 @@ const PurchaseHistoryItem: React.FC<PurchaseHistoryType> = ({
         onPress={() => onPress(purchase)}>
         <View style={styles.line}>
           <Text style={[styles.title, styles.type]}>
-            {purchase.deliveryType}
+            {translate(purchase.deliveryType as TranslationKeyType)}
           </Text>
           <Text style={styles.date}>{formatDate(purchase.createdAt)}</Text>
         </View>
