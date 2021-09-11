@@ -5,44 +5,43 @@ import StyleGuide from '~/util/StyleGuide';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import styles from './styles';
+import { NotificationType } from '~/api/useNotifications';
+import { formatDate } from '~/util/Formatters';
 
-export type NotificationType = {
-  icon: string;
-  title: string;
-  description: string;
-  date: string;
-  read: boolean;
-  onPress: (args: boolean) => void;
+type NotificationProps = NotificationType & {
+  onPress: (args: NotificationType) => void;
 };
 
-type NotificationProps = {} & NotificationType;
+const icons = {
+  sms: 'ios-chatbox-outline',
+  pushNotification: 'ios-phone-portrait-outline',
+  email: 'ios-mail-outline',
+};
 
 const NotificationItem: React.FC<NotificationProps> = ({
-  title,
-  description,
-  icon,
-  date,
-  read: initialRead,
   onPress,
+  ...notification
 }) => {
-  const [read, setRead] = useState(initialRead);
-  const color = read ? StyleGuide.palette.primary : StyleGuide.palette.app;
+  const color = notification.read
+    ? StyleGuide.palette.primary
+    : StyleGuide.palette.app;
 
-  const opacity = read ? 0.6 : 1;
+  const opacity = notification.read ? 0.6 : 1;
 
   return (
     <View style={[styles.border, { opacity }]}>
       <RectButton
         style={styles.container}
-        key={title}
-        onPress={() => setRead(true)}
+        onPress={() => onPress(notification)}
         rippleColor={StyleGuide.palette.secondary}>
-        <Icon name={icon} color={color} size={23} />
+        <Icon name={icons[notification.type]} color={color} size={23} />
         <View style={styles.info}>
-          <Text style={[styles.title]}>{title}</Text>
-          <Text style={styles.description}>{description}</Text>
+          <Text style={[styles.title]}>{notification.title}</Text>
+          <Text style={styles.description}>{notification.description}</Text>
 
-          <Text style={[styles.description, styles.date]}>{date}</Text>
+          <Text style={[styles.description, styles.date]}>
+            {formatDate(notification.createdAt)}
+          </Text>
         </View>
       </RectButton>
     </View>

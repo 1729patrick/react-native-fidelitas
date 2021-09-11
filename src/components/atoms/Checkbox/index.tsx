@@ -30,19 +30,20 @@ const Checkbox = ({
   label,
 }: CheckboxProps) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <RoundButton
         Icon={MaterialIcons}
         name={checked ? icons[type].checked : icons[type].unchecked}
         size={25}
-        style={style}
         color={StyleGuide.palette.primary}
         onPress={() => onChange(!checked)}
       />
 
-      <TouchableWithoutFeedback onPress={() => onChange(!checked)}>
-        {label && <Text style={styles.label}>{label}</Text>}
-      </TouchableWithoutFeedback>
+      {label && (
+        <TouchableWithoutFeedback onPress={() => onChange(!checked)}>
+          <Text style={styles.label}>{label}</Text>
+        </TouchableWithoutFeedback>
+      )}
     </View>
   );
 };

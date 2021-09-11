@@ -9,7 +9,7 @@ export default StyleSheet.create({
     borderRadius: StyleGuide.borderRadius * 2,
   },
   button: {
-    padding: StyleGuide.spacing * 1.75,
+    padding: StyleGuide.spacing * 2,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#fff',
@@ -18,6 +18,6 @@ export default StyleSheet.create({
   title: {
     ...StyleGuide.typography.subhead,
     color: StyleGuide.palette.primary,
-    paddingLeft: StyleGuide.spacing * 2,
+    paddingLeft: StyleGuide.spacing * 1.5,
   },
 });

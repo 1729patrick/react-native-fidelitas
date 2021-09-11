@@ -14,4 +14,7 @@ export default StyleSheet.create({
     fontSize: 17,
   },
   firstInput: { marginTop: StyleGuide.spacing * 2 },
+  checkbox: {
+    marginTop: StyleGuide.spacing * 2,
+  },
 });

@@ -158,6 +158,7 @@ const AddressForm = () => {
           onChange={value => onChange('primary', value)}
           type={'square'}
           label={'Morada principal'}
+          style={styles.checkbox}
         />
       </ScrollView>
     </View>

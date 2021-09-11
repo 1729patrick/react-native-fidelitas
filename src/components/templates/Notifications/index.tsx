@@ -3,8 +3,8 @@ import React, { ReactNode } from 'react';
 type NotificationsProps = {
   header: ReactNode;
   list: ReactNode;
-  bottomSheet: ReactNode;
-  dialog: ReactNode;
+  bottomSheet?: ReactNode;
+  dialog?: ReactNode;
 };
 
 const Notifications: React.FC<NotificationsProps> = ({

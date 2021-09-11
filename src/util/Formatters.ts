@@ -1,5 +1,7 @@
+import { format } from 'date-fns/esm';
 import { mask } from 'react-native-mask-text';
 import { AddressType } from '~/api/useAddresses';
+import { DATE_FORMAT } from './Constants';
 import { PHONE_MASK, POSTAL_CODE_MASK } from './validations';
 
 export const formatAddress = (address?: AddressType) => {
@@ -33,4 +35,12 @@ export const formatPostalCode = (postalCode: string | number) => {
   }
 
   return mask(postalCode, POSTAL_CODE_MASK);
+};
+
+export const formatDate = (date?: string) => {
+  if (!date) {
+    return '';
+  }
+
+  return format(new Date(date), DATE_FORMAT);
 };

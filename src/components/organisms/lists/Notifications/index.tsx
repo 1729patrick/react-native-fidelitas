@@ -1,14 +1,13 @@
 import React, { ReactElement } from 'react';
-import { AlertType, StyleProp, ViewStyle } from 'react-native';
+import { StyleProp, ViewStyle } from 'react-native';
+import { NotificationType } from '~/api/useNotifications';
 
-import NotificationItem, {
-  NotificationType,
-} from '~/components/molecules/items/NotificationItem';
+import NotificationItem from '~/components/molecules/items/NotificationItem';
 import List from '../../../atoms/List';
 
 type NotificationsListProps = {
   style?: StyleProp<ViewStyle>;
-  onPress?: (args: AlertType) => void;
+  onPress: (args: NotificationType) => void;
   data: NotificationType[];
   header?: ReactElement;
 };
@@ -17,9 +16,16 @@ const NotificationsList: React.FC<NotificationsListProps> = ({
   style,
   data,
   header,
+  onPress,
 }) => {
   return (
-    <List item={NotificationItem} data={data} style={style} header={header} />
+    <List
+      item={NotificationItem}
+      data={data}
+      style={style}
+      header={header}
+      onPress={onPress}
+    />
   );
 };
 

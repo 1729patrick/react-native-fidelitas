@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import useNotifications, { NotificationType } from '~/api/useNotifications';
 import RoundButton from '~/components/atoms/buttons/RoundButton';
 import Header from '~/components/atoms/Header';
 import NotificationsList from '~/components/organisms/lists/Notifications';
@@ -12,33 +13,16 @@ import StyleGuide from '~/util/StyleGuide';
 import styles from './styles';
 
 export default () => {
+  const { notifications } = useNotifications();
   const { navigate } = useNavigation<StackNavigationProp<any>>();
   useHideTabBar();
 
-  const items = [
-    {
-      id: '11/08/2021',
-      title: 'Férias entre 12 e 18 de agosto',
-      description: 'Foco, força e férias!!',
-      date: '11/08/2021',
-      read: false,
-      icon: 'mail-outline',
-      onPress: () => console.log('push'),
-    },
-    {
-      id: '10/08/2021',
-      title: 'Compre um vinho e banhe um hambúrguer',
-      description:
-        'Promoção disponível para os clientes que comprem o vinho da casa.',
-      date: '10/08/2021',
-      read: true,
-      icon: 'gift-outline',
-      onPress: () => console.log('mail'),
-    },
-  ];
-
   const openSettings = () => {
     navigate('NotificationsConfig');
+  };
+
+  const onNotificationPress = (notification: NotificationType) => {
+    console.log(notification);
   };
 
   return (
@@ -58,7 +42,13 @@ export default () => {
           }
         />
       }
-      list={<NotificationsList data={items} style={styles.contentContainer} />}
+      list={
+        <NotificationsList
+          data={notifications || []}
+          style={styles.contentContainer}
+          onPress={onNotificationPress}
+        />
+      }
     />
   );
 };

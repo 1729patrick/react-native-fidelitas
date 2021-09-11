@@ -2,6 +2,7 @@ import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import { View } from 'react-native';
 import RNDialog from 'react-native-dialog';
 import StyleGuide from '~/util/StyleGuide';
+import styles from './styles';
 
 export type DialogHandler = {
   show: () => void;
@@ -49,10 +50,8 @@ const Dialog: React.ForwardRefRenderFunction<DialogHandler, DialogProps> = (
         borderRadius: StyleGuide.borderRadius * 2,
         elevation: 0,
       }}>
-      <RNDialog.Title style={{ color: StyleGuide.palette.primary }}>
-        {title}
-      </RNDialog.Title>
-      <RNDialog.Description style={{ color: StyleGuide.palette.secondary }}>
+      <RNDialog.Title style={styles.title}>{title}</RNDialog.Title>
+      <RNDialog.Description style={styles.description}>
         {description}
       </RNDialog.Description>
       <View
@@ -63,11 +62,13 @@ const Dialog: React.ForwardRefRenderFunction<DialogHandler, DialogProps> = (
         <RNDialog.Button
           label="Cancel"
           color={StyleGuide.palette.primary}
+          style={styles.button}
           onPress={hidden}
         />
         <RNDialog.Button
           label={confirmTitle}
           color={StyleGuide.palette.red}
+          style={styles.button}
           onPress={onConfirm}
         />
       </View>
