@@ -10,7 +10,7 @@ import { ModalTypes } from '~/components/molecules/items/ModalItem';
 import Modal, { ModalHandler } from '~/components/molecules/modals/FlatList';
 import AddressesList from '~/components/organisms/lists/Addresses';
 import ModalList from '~/components/organisms/lists/Modal';
-import Notifications from '~/components/templates/Notifications';
+import Addresses from '~/components/templates/Addresses';
 import useHideTabBar from '~/hooks/useHideTabBar';
 
 import styles from './styles';
@@ -59,7 +59,7 @@ export default () => {
   };
 
   return (
-    <Notifications
+    <Addresses
       header={
         <Header
           title="Moradas"

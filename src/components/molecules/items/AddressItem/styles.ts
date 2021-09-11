@@ -32,7 +32,7 @@ export default StyleSheet.create({
   description: {
     ...StyleGuide.typography.subhead,
     fontSize: 13.5,
-    color: StyleGuide.palette.primary,
+    color: StyleGuide.palette.secondary,
     lineHeight: 19,
   },
   icon: {

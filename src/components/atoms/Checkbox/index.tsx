@@ -10,7 +10,7 @@ type CheckboxProps = {
   style?: StyleProp<ViewStyle>;
   onChange: (value: boolean) => void;
   checked: boolean;
-  type: 'square' | 'radio';
+  type?: 'square' | 'radio';
   label?: string;
 };
 

@@ -35,7 +35,6 @@ const PersonalInformation = () => {
   const [values, setValues] = useState<RegisterFormType>(initialForm);
 
   const onChange = (key: string, value: string, valid: boolean = true) => {
-    console.log(valid, value);
     if (valid) {
       setValues(values => ({ ...values, [key]: value }));
     }

@@ -3,7 +3,6 @@ import { Linking, View } from 'react-native';
 import styles from './styles';
 
 import IonIcon from 'react-native-vector-icons/Ionicons';
-import MdIcon from 'react-native-vector-icons/MaterialIcons';
 
 import Profile from '~/components/templates/Profile';
 import ConfigurationList from '~/components/organisms/lists/Configuration';
@@ -25,7 +24,7 @@ export default () => {
       title: 'Idioma',
       icon: (
         <IonIcon
-          name="location-sharp"
+          name="ios-language-outline"
           color={StyleGuide.palette.primary}
           size={25}
         />
@@ -47,15 +46,59 @@ export default () => {
     {
       title: 'Notificações',
       icon: (
-        <MdIcon
-          name="notifications-active"
+        <IonIcon
+          name="ios-notifications-outline"
           color={StyleGuide.palette.primary}
           size={25}
         />
       ),
       onPress: () => navigate('Notifications'),
     },
-    // {
+    {
+      title: 'Moradas',
+      icon: (
+        <IonIcon
+          name="location-outline"
+          color={StyleGuide.palette.primary}
+          size={25}
+        />
+      ),
+      onPress: () => navigate('Addresses'),
+    },
+    {
+      title: 'Cartões',
+      icon: (
+        <IonIcon
+          name="card-outline"
+          color={StyleGuide.palette.primary}
+          size={25}
+        />
+      ),
+      onPress: () => navigate('Payments'),
+    },
+    {
+      title: 'Histórico de Pedidos',
+      icon: (
+        <IonIcon
+          name="time-outline"
+          color={StyleGuide.palette.primary}
+          size={25}
+        />
+      ),
+      onPress: () => navigate('PurchaseHistory'),
+    },
+    {
+      title: 'Termos de Privacidade',
+      icon: (
+        <IonIcon
+          name="ios-lock-closed-outline"
+          color={StyleGuide.palette.primary}
+          size={25}
+        />
+      ),
+      onPress: () => navigate('TermsAndPrivacy'),
+    },
+    //  {
     //   title: 'Apagar Conta',
     //   icon: (
     //     <MdIcon name="delete" color={StyleGuide.palette.primary} size={25} />
@@ -63,32 +106,13 @@ export default () => {
     //   onPress: () => console.log('delete'),
     // },
     {
-      title: 'Moradas',
+      title: 'Sair',
       icon: (
-        <MdIcon
-          name="location-pin"
+        <IonIcon
+          name="ios-exit-outline"
           color={StyleGuide.palette.primary}
           size={25}
         />
-      ),
-      onPress: () => navigate('Address'),
-    },
-    {
-      title: 'Histórico de Pedidos',
-      icon: (
-        <MdIcon name="history" color={StyleGuide.palette.primary} size={25} />
-      ),
-      onPress: () => navigate('PurchaseHistory'),
-    },
-    {
-      title: 'Termos de Privacidade',
-      icon: <MdIcon name="lock" color={StyleGuide.palette.primary} size={25} />,
-      onPress: () => navigate('TermsAndPrivacy'),
-    },
-    {
-      title: 'Sair',
-      icon: (
-        <MdIcon name="logout" color={StyleGuide.palette.primary} size={25} />
       ),
       onPress: logout,
     },

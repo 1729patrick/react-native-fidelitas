@@ -3,22 +3,13 @@ import React, { ReactNode } from 'react';
 type NotificationsProps = {
   header: ReactNode;
   list: ReactNode;
-  bottomSheet?: ReactNode;
-  dialog?: ReactNode;
 };
 
-const Notifications: React.FC<NotificationsProps> = ({
-  list,
-  header,
-  bottomSheet,
-  dialog,
-}) => {
+const Notifications: React.FC<NotificationsProps> = ({ list, header }) => {
   return (
     <>
       {header}
       {list}
-      {bottomSheet}
-      {dialog}
     </>
   );
 };

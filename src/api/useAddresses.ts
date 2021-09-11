@@ -16,7 +16,7 @@ export type AddressType = {
 };
 
 export default () => {
-  const { data, error, isLoading } = useFetch<AddressType[]>('addresses');
+  const { data, error, isLoading } = useFetch<AddressType[]>('user/addresses');
 
   return {
     addresses: data,

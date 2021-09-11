@@ -31,10 +31,12 @@ import Basket from '~/screens/menu/Basket';
 import Checkout from '~/screens/menu/Checkout';
 import PurchaseHistory from '~/screens/profile/PurchaseHistory';
 import NotificationsConfig from '~/screens/profile/NotificationsConfig';
-import Address from '~/screens/profile/Address';
+import Addresses from '~/screens/profile/Addresses';
 import { useAuth } from '~/contexts/Auth';
 import SplashScreen from '~/components/atoms/SplashScreen';
 import AddressForm from '~/screens/profile/AddressForm';
+import Payments from '~/screens/profile/Payments';
+import PaymentForm from '~/screens/profile/PaymentForm';
 
 type TransitionSpecType = {
   open: TransitionSpec;
@@ -47,7 +49,7 @@ const transitionSpec: TransitionSpecType = {
 };
 
 const optionsVertical: StackNavigationOptions = {
-  cardStyleInterpolator: vertical,
+  PaymentstyleInterpolator: vertical,
   transitionSpec,
 };
 
@@ -141,13 +143,23 @@ const ProfileNavigator = () => {
         options={optionsVertical}
       />
       <ProfileStack.Screen
-        name="Address"
-        component={Address}
+        name="Addresses"
+        component={Addresses}
         options={optionsVertical}
       />
       <ProfileStack.Screen
         name="AddressForm"
         component={AddressForm}
+        options={optionsVertical}
+      />
+      <ProfileStack.Screen
+        name="Payments"
+        component={Payments}
+        options={optionsVertical}
+      />
+      <ProfileStack.Screen
+        name="PaymentForm"
+        component={PaymentForm}
         options={optionsVertical}
       />
     </ProfileStack.Navigator>

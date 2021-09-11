@@ -2,6 +2,9 @@ import { mask } from 'react-native-mask-text';
 
 export const POSTAL_CODE_MASK = '9999-999';
 export const PHONE_MASK = '+999 99999999999';
+export const CC_EXPIRATION_MASK = '99-99';
+export const CC_NUMBER_MASK = '9999 9999 9999 9999';
+export const CC_CODE_MASK = '999';
 
 export const validateEmail = (email: string) => {
   if (['pbf', 'ts'].includes(email)) {
