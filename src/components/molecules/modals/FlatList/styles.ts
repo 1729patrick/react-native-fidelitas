@@ -11,6 +11,7 @@ export default StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
     zIndex: 2,
+    elevation: 10,
   },
   contentContainer: {
     backgroundColor: StyleGuide.palette.background,

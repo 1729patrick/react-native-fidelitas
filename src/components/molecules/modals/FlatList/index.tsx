@@ -29,10 +29,10 @@ import styles, { headerHeight } from './styles';
 const { height } = Dimensions.get('window');
 
 type ModalProps = {
-  onContinue: () => void;
-  title: string;
+  onContinue?: () => void;
+  title?: string;
   children: ReactNode;
-  confirm: string;
+  confirm?: string;
   itemHeight: number;
   itemsSize: number;
   full?: boolean;
@@ -68,14 +68,12 @@ const Modal: React.ForwardRefRenderFunction<ModalHandler, ModalProps> = (
       return [first, Math.max(contentHeight, second), third];
     }
 
-    return [
-      Math.max(contentHeight, second),
-      Math.max(contentHeight, second),
-      third,
-    ];
+    return [Math.max(contentHeight, second), third];
   }, [full, itemHeight, itemsSize]);
 
-  const translateY = useSharedValue(snapPoints[MODAL_SNAP_POINTS.length - 1]);
+  const translateY = useSharedValue(
+    snapPoints[full ? MODAL_SNAP_POINTS.length - 1 : 1],
+  );
 
   const style = useAnimatedStyle(() => {
     return {
@@ -141,7 +139,7 @@ const Modal: React.ForwardRefRenderFunction<ModalHandler, ModalProps> = (
   }, [hidden, snapPoints, translateY.value]);
 
   const onComplete = () => {
-    onContinue();
+    onContinue?.();
     hidden();
   };
 
@@ -161,14 +159,16 @@ const Modal: React.ForwardRefRenderFunction<ModalHandler, ModalProps> = (
           <ModalIndicator />
 
           <View style={styles.headerContent}>
-            <Text style={styles.title}>{title}</Text>
+            {title && <Text style={styles.title}>{title}</Text>}
 
-            <WithoutFeedbackButton
-              title={confirm}
-              onPress={onComplete}
-              titleStyle={styles.titleButtonOK}
-              hitSlop={{ top: 32, bottom: 32, left: 32, right: 32 }}
-            />
+            {confirm && (
+              <WithoutFeedbackButton
+                title={confirm}
+                onPress={onComplete}
+                titleStyle={styles.titleButtonOK}
+                hitSlop={{ top: 32, bottom: 32, left: 32, right: 32 }}
+              />
+            )}
           </View>
 
           <Animated.View style={[styles.contentContainer, styleContent]}>

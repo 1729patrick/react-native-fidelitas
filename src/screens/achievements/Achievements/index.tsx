@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useRef } from 'react';
 import { StatusBar, Text } from 'react-native';
+import useAchievements, { AchievementType } from '~/api/useAchievements';
 import FloatingButton, {
   FloatingButtonHandler,
 } from '~/components/atoms/buttons/FloatingButton';
@@ -10,31 +11,19 @@ import { ActiveQRCode } from '~/components/atoms/icons/QRCode';
 import AchievementList from '~/components/organisms/lists/Archievements';
 import Achievements from '~/components/templates/Achievements';
 import useStatusBar from '~/hooks/useStatusBar';
+import Modal, { ModalHandler } from '~/components/molecules/modals/FlatList';
 
 import styles from './styles';
-
-const achievements = [
-  {
-    id: 'Crítico de Bacalhau',
-    title: 'Crítico de Bacalhau',
-    description:
-      'Nos conte o que achou sobre o pedido feito através da aplicação.',
-    promotion: 'Ganhe um Pastel de Frago',
-    total: 20,
-    completed: 17,
-  },
-  {
-    id: 'Influenciador Digital',
-    title: 'Influenciador Digital',
-    description:
-      'Indique a aplicação para 10 amigos que não possuem a aplicação instalada.',
-    promotion: 'Ganhe um Café do Mês',
-    total: 10,
-    completed: 2,
-  },
-];
+import ModalList from '~/components/organisms/lists/Modal';
+import Dialog, { DialogHandler } from '~/components/atoms/Dialog';
+import useHideTabBar from '~/hooks/useHideTabBar';
 
 export default () => {
+  const modalRef = useRef<ModalHandler>(null);
+  const dialogRef = useRef<DialogHandler>(null);
+
+  const { hideTabBar, showTabBar } = useHideTabBar(false);
+  const { achievements } = useAchievements();
   const floatingButtonRef = useRef<FloatingButtonHandler>(null);
   const { navigate } = useNavigation<StackNavigationProp<any>>();
 
@@ -42,6 +31,13 @@ export default () => {
 
   const openQRCode = () => {
     navigate('QRCode');
+  };
+
+  const onModalPress = () => {};
+
+  const onAchievementPress = (achievement: AchievementType) => {
+    modalRef.current?.show();
+    showTabBar();
   };
 
   return (
@@ -66,7 +62,7 @@ export default () => {
         <AchievementList
           data={achievements}
           style={styles.contentContainer}
-          onPress={e => console.log(e)}
+          onPress={onAchievementPress}
           onScrollUp={() => floatingButtonRef.current?.show()}
           onScrollDown={() => floatingButtonRef.current?.hide()}
         />
@@ -76,6 +72,23 @@ export default () => {
           ref={floatingButtonRef}
           onPress={openQRCode}
           icon={<ActiveQRCode />}
+        />
+      }
+      bottomSheet={
+        <Modal ref={modalRef} itemHeight={64} itemsSize={2}>
+          <ModalList
+            data={[{ type: 'edit' }, { type: 'delete' }]}
+            onPress={onModalPress}
+          />
+        </Modal>
+      }
+      dialog={
+        <Dialog
+          ref={dialogRef}
+          title="Address delete"
+          description="Do you want to delete this address? You cannot undo this action."
+          confirmTitle="Delete"
+          onConfirm={() => {}}
         />
       }
     />

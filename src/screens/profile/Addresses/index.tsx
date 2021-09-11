@@ -75,13 +75,7 @@ export default () => {
         />
       }
       bottomSheet={
-        <Modal
-          ref={modalRef}
-          onContinue={() => {}}
-          title={'Selecione o Estado'}
-          confirm={'OK'}
-          itemHeight={64}
-          itemsSize={2}>
+        <Modal ref={modalRef} itemHeight={64} itemsSize={2}>
           <ModalList
             data={[{ type: 'edit' }, { type: 'delete' }]}
             onPress={onModalPress}

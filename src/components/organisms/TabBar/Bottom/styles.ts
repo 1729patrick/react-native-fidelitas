@@ -11,10 +11,10 @@ export default StyleSheet.create({
     right: 0,
     left: 0,
     top: height - BOTTOM_TAB_BAR_HEIGHT,
-    zIndex: 60,
+    zIndex: 1,
     position: 'absolute',
     flexDirection: 'row',
-    elevation: 5,
+    // elevation: -1,
   },
   borderContainer: {
     left: 0,

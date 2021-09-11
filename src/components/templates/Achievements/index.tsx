@@ -5,6 +5,8 @@ type AchievementsProps = {
   header: ReactNode;
   list: ReactNode;
   action: ReactNode;
+  bottomSheet: ReactNode;
+  dialog: ReactNode;
 };
 
 const Achievements: React.FC<AchievementsProps> = ({
@@ -12,6 +14,8 @@ const Achievements: React.FC<AchievementsProps> = ({
   header,
   list,
   action,
+  bottomSheet,
+  dialog,
 }) => {
   return (
     <>
@@ -19,6 +23,8 @@ const Achievements: React.FC<AchievementsProps> = ({
       {header}
       {list}
       {action}
+      {bottomSheet}
+      {dialog}
     </>
   );
 };

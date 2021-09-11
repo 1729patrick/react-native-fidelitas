@@ -10,11 +10,8 @@ export default StyleSheet.create({
     overflow: 'hidden',
   },
   item: {
-    height: '100%',
     backgroundColor: StyleGuide.palette.background,
     borderRadius: StyleGuide.borderRadius * 2,
-  },
-  header: {
     flexDirection: 'row',
     paddingHorizontal: StyleGuide.spacing * 2,
     paddingVertical: StyleGuide.spacing * 2,
@@ -49,13 +46,5 @@ export default StyleSheet.create({
     fontSize: 12,
     color: StyleGuide.palette.secondary,
     textAlign: 'center',
-  },
-  footer: {
-    paddingHorizontal: StyleGuide.spacing * 2,
-    paddingVertical: StyleGuide.spacing,
-  },
-  getAchievement: {
-    marginTop: StyleGuide.spacing,
-    marginBottom: StyleGuide.spacing,
   },
 });
