@@ -16,7 +16,4 @@ export default StyleSheet.create({
     padding: StyleGuide.spacing * 2,
     paddingLeft: StyleGuide.spacing * 1.5,
   },
-  icon: {
-    marginRight: StyleGuide.spacing * 1.5,
-  },
 });

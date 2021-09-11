@@ -5,7 +5,7 @@ import StyleGuide from '~/util/StyleGuide';
 export default StyleSheet.create({
   contentContainer: {
     paddingHorizontal: StyleGuide.spacing * 2,
-    paddingTop: TOTAL_HEADER_HEIGHT + StyleGuide.spacing * 2,
+    paddingTop: TOTAL_HEADER_HEIGHT,
   },
   title: {
     ...StyleGuide.typography.title2,

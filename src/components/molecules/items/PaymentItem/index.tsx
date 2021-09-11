@@ -1,12 +1,12 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+
 import { RectButton as RNRectButton } from 'react-native-gesture-handler';
 import StyleGuide from '~/util/StyleGuide';
 
 import styles from './styles';
 
 import Animated from 'react-native-reanimated';
-import Icon from 'react-native-vector-icons/Ionicons';
+
 import { PaymentType } from '~/api/usePayments';
 import CC from '~/components/atoms/CC';
 
@@ -21,12 +21,6 @@ const PaymentItem: React.FC<PaymentProps> = ({ onPress, ...payment }) => {
         style={styles.item}
         rippleColor={StyleGuide.palette.secondary}
         onPress={() => onPress(payment)}>
-        <Icon
-          name="card-outline"
-          size={25}
-          color={StyleGuide.palette.primary}
-          style={styles.icon}
-        />
         <CC number={payment.number} />
       </RNRectButton>
     </Animated.View>

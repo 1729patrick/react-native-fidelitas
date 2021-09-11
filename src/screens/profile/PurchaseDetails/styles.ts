@@ -1,6 +1,5 @@
 import { Dimensions, StyleSheet } from 'react-native';
 import { TOTAL_HEADER_HEIGHT } from '~/components/atoms/Header/constants';
-import { BOTTOM_TAB_BAR_HEIGHT } from '~/components/organisms/TabBar/Bottom/constants';
 import StyleGuide from '~/util/StyleGuide';
 
 const { height } = Dimensions.get('window');
@@ -9,7 +8,6 @@ export default StyleSheet.create({
   container: {
     paddingTop: TOTAL_HEADER_HEIGHT,
     paddingHorizontal: StyleGuide.spacing * 2,
-    paddingBottom: BOTTOM_TAB_BAR_HEIGHT,
   },
   card: {
     backgroundColor: '#fff',
@@ -35,6 +33,7 @@ export default StyleSheet.create({
   description: {
     ...StyleGuide.typography.subhead,
     color: StyleGuide.palette.primary,
+    flex: 1,
   },
   addressLine: {
     flexDirection: 'row',

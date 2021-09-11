@@ -37,6 +37,7 @@ import SplashScreen from '~/components/atoms/SplashScreen';
 import AddressForm from '~/screens/profile/AddressForm';
 import Payments from '~/screens/profile/Payments';
 import PaymentForm from '~/screens/profile/PaymentForm';
+import PurchaseDetails from '~/screens/profile/PurchaseDetails';
 
 type TransitionSpecType = {
   open: TransitionSpec;
@@ -139,7 +140,7 @@ const ProfileNavigator = () => {
       />
       <ProfileStack.Screen
         name="PurchaseDetails"
-        component={Checkout}
+        component={PurchaseDetails}
         options={optionsVertical}
       />
       <ProfileStack.Screen

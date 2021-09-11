@@ -17,6 +17,10 @@ export default StyleSheet.create({
     ...StyleGuide.typography.subhead,
     color: StyleGuide.palette.primary,
   },
+  type: {
+    ...StyleGuide.typography.headline,
+    fontSize: 14,
+  },
   date: {
     ...StyleGuide.typography.subhead,
     fontSize: 12,

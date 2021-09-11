@@ -1,13 +1,14 @@
 import React from 'react';
-import { AlertType, StyleProp, ViewStyle } from 'react-native';
+import { StyleProp, ViewStyle } from 'react-native';
+import { PurchaseType } from '~/api/usePurchases';
 import PurchaseHistoryItem from '~/components/molecules/items/PurchaseHistoryItem';
 
 import List from '../../../atoms/List';
 
 type PurchaseHistoriesListProps = {
   style?: StyleProp<ViewStyle>;
-  onPress?: (args: AlertType) => void;
-  data: any[];
+  onPress?: (args: PurchaseType) => void;
+  data: PurchaseType[];
 };
 
 const PurchaseHistoriesList: React.FC<PurchaseHistoriesListProps> = ({

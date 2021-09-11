@@ -9,6 +9,6 @@ export default StyleSheet.create({
   },
   contentContainer: {
     paddingTop: StyleGuide.spacing * 3,
-    paddingBottom: BOTTOM_TAB_BAR_HEIGHT,
+    paddingBottom: BOTTOM_TAB_BAR_HEIGHT + StyleGuide.spacing,
   },
 });

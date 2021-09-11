@@ -6,6 +6,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginRight: 'auto',
   },
   cardNumber: { alignItems: 'center', flexDirection: 'row' },
   cardIcon: {
@@ -26,4 +27,7 @@ export default StyleSheet.create({
     backgroundColor: StyleGuide.palette.primary,
   },
   number: { ...StyleGuide.typography.subhead },
+  icon: {
+    marginRight: StyleGuide.spacing * 1.5,
+  },
 });
