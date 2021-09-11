@@ -33,7 +33,7 @@ const LanguageItem: React.FC<LanguageProps> = ({
         <Text style={styles.title}>{title}</Text>
 
         <Checkbox
-          toggleCheck={() => onPress(id)}
+          onChange={() => onPress(id)}
           checked={language === id}
           style={styles.checkbox}
         />

@@ -9,7 +9,7 @@ import { useAuth } from '~/contexts/Auth';
 import useHideTabBar from '~/hooks/useHideTabBar';
 import { RegisterFormType } from '~/screens/public/Register';
 import { formatPhone } from '~/util/Formatters';
-import { validateEmail } from '~/util/validations';
+import { PHONE_MASK, validateEmail, validatePhone } from '~/util/validations';
 import styles from './styles';
 
 const PersonalInformation = () => {
@@ -34,17 +34,27 @@ const PersonalInformation = () => {
 
   const [values, setValues] = useState<RegisterFormType>(initialForm);
 
-  const onChange = (key: string, value: string) => {
-    setValues(values => ({ ...values, [key]: value }));
+  const onChange = (key: string, value: string, valid: boolean = true) => {
+    console.log(valid, value);
+    if (valid) {
+      setValues(values => ({ ...values, [key]: value }));
+    }
+  };
+
+  const formDirty = () => {
+    const { currentPassword: _, ...restValues } = values;
+    const { currentPassword: __, ...restInitialForm } = initialForm;
+
+    return JSON.stringify(restValues) !== JSON.stringify(restInitialForm);
   };
 
   const isValid =
     !!values.firstName &&
     !!values.lastName &&
-    !!values.phone &&
+    validatePhone(values.phone) &&
     validateEmail(values.email) &&
     !!values.currentPassword &&
-    JSON.stringify(values) !== JSON.stringify(initialForm);
+    formDirty();
 
   return (
     <View>
@@ -88,13 +98,15 @@ const PersonalInformation = () => {
         <Input
           placeholder="Telemóvel"
           returnKeyType="next"
-          onChangeText={value => onChange('phone', value)}
+          onChangeText={value =>
+            onChange('phone', value, validatePhone(value, 'change'))
+          }
           value={formatPhone(values.phone)}
           ref={phoneRef}
           onSubmitEditing={() => emailRef.current?.focus()}
           autoCompleteType="tel"
           keyboardType="phone-pad"
-          mask="+999 99999999999"
+          mask={PHONE_MASK}
           style={styles.firstInput}
         />
         <Input

@@ -1,12 +1,12 @@
 import React from 'react';
-import { AlertType, StyleProp, ViewStyle } from 'react-native';
+import { StyleProp, ViewStyle } from 'react-native';
 import { AddressType } from '~/api/useAddresses';
 import AddressItem from '~/components/molecules/items/AddressItem';
 import List from '../../../atoms/List';
 
 type AddressesListProps = {
   style?: StyleProp<ViewStyle>;
-  onPress?: (args: AlertType) => void;
+  onPress?: (args: AddressType) => void;
   data?: AddressType[];
 };
 

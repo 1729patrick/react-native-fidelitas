@@ -1,16 +1,15 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { TextInput, View } from 'react-native';
 import styles from './styles';
 import Input from '../../../atoms/Input';
-import RoundButton from '~/components/atoms/buttons/RoundButton';
-import Icon from 'react-native-vector-icons/Ionicons';
-import StyleGuide from '~/util/StyleGuide';
+
 import Password from '~/components/molecules/Password';
+import { PHONE_MASK, validatePhone } from '~/util/validations';
 
 type RegisterProps = {
   signIn?: (args: any) => void;
   onNext: () => void;
-  onChange: (key: string, value: any) => void;
+  onChange: (key: string, value: any, valid?: boolean) => void;
 };
 
 export const Step1: React.FC<RegisterProps> = ({ onNext, onChange }) => {
@@ -46,10 +45,12 @@ export const Step2: React.FC<RegisterProps> = ({ onNext, onChange }) => {
         placeholder="Telemóvel"
         returnKeyType="next"
         onSubmitEditing={() => emailRef.current?.focus()}
-        onChangeText={value => onChange('phone', value)}
+        onChangeText={value =>
+          onChange('phone', value, validatePhone(value, 'change'))
+        }
         autoCompleteType="tel"
         keyboardType="phone-pad"
-        mask="+999 99999999999"
+        mask={PHONE_MASK}
       />
       <Input
         placeholder="E-mail"

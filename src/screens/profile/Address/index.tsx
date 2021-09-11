@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useRef } from 'react';
-import useAddresses from '~/api/useAddresses';
+import useAddresses, { AddressType } from '~/api/useAddresses';
 import TextButton from '~/components/atoms/buttons/TextButton';
 import Dialog, { DialogHandler } from '~/components/atoms/Dialog';
 import Header from '~/components/atoms/Header';
@@ -19,6 +19,8 @@ export default () => {
   useHideTabBar();
   const modalRef = useRef<ModalHandler>(null);
   const dialogRef = useRef<DialogHandler>(null);
+  const addressSelectedRef = useRef<AddressType>();
+
   const { addresses, isLoading } = useAddresses();
   const { navigate } = useNavigation<StackNavigationProp<any>>();
 
@@ -27,13 +29,10 @@ export default () => {
   }
 
   const openAddressForm = () => {
-    console.log('aa');
-    navigate('CreateAddress');
+    navigate('AddressForm', { initialForm: addressSelectedRef.current });
   };
 
   const onDelete = () => {
-    console.log('deleteeee');
-
     dialogRef.current?.hidden();
   };
 
@@ -41,10 +40,22 @@ export default () => {
     modalRef.current?.hidden();
 
     if (type === 'edit') {
-      return openAddressForm();
+      openAddressForm();
+      return;
     } else if (type === 'delete') {
       dialogRef.current?.show();
+      return;
     }
+  };
+
+  const onAddressPress = (address: AddressType) => {
+    addressSelectedRef.current = address;
+    modalRef.current?.show();
+  };
+
+  const onAddPress = () => {
+    addressSelectedRef.current = undefined;
+    openAddressForm();
   };
 
   return (
@@ -53,18 +64,14 @@ export default () => {
         <Header
           title="Moradas"
           close
-          RightContent={
-            <TextButton title="Adicionar" onPress={openAddressForm} />
-          }
+          RightContent={<TextButton title="Adicionar" onPress={onAddPress} />}
         />
       }
       list={
         <AddressesList
           data={addresses}
           style={styles.contentContainer}
-          onPress={() => {
-            modalRef.current?.show();
-          }}
+          onPress={onAddressPress}
         />
       }
       bottomSheet={

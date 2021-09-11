@@ -9,6 +9,7 @@ export default StyleSheet.create({
     paddingHorizontal: StyleGuide.spacing * 2,
     height: HEADER_HEIGHT + STATUS_BAR_HEIGHT,
     paddingTop: STATUS_BAR_HEIGHT,
+    zIndex: 2,
   },
   content: {
     flexDirection: 'row',

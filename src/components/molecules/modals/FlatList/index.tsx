@@ -68,7 +68,11 @@ const Modal: React.ForwardRefRenderFunction<ModalHandler, ModalProps> = (
       return [first, Math.max(contentHeight, second), third];
     }
 
-    return [Math.max(contentHeight, second), third];
+    return [
+      Math.max(contentHeight, second),
+      Math.max(contentHeight, second),
+      third,
+    ];
   }, [full, itemHeight, itemsSize]);
 
   const translateY = useSharedValue(snapPoints[MODAL_SNAP_POINTS.length - 1]);

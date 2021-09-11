@@ -10,17 +10,17 @@ import { formatAddress, formatPhone } from '~/util/Formatters';
 import Animated from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-export type LanguageProps = AddressType & {
-  onPress: (value: any) => void;
+export type AddressProps = AddressType & {
+  onPress: (value: AddressType) => void;
 };
 
-const AddressItem: React.FC<LanguageProps> = ({ onPress, ...address }) => {
+const AddressItem: React.FC<AddressProps> = ({ onPress, ...address }) => {
   return (
     <Animated.View style={[styles.border]}>
       <RNRectButton
         style={styles.item}
         rippleColor={StyleGuide.palette.secondary}
-        onPress={onPress}>
+        onPress={() => onPress(address)}>
         <Icon
           name="ios-location-outline"
           size={25}

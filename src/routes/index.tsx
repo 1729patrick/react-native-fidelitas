@@ -33,9 +33,8 @@ import PurchaseHistory from '~/screens/profile/PurchaseHistory';
 import NotificationsConfig from '~/screens/profile/NotificationsConfig';
 import Address from '~/screens/profile/Address';
 import { useAuth } from '~/contexts/Auth';
-import Loader from '~/components/atoms/Loader';
 import SplashScreen from '~/components/atoms/SplashScreen';
-import CreateAddress from '~/screens/profile/CreateAddress';
+import AddressForm from '~/screens/profile/AddressForm';
 
 type TransitionSpecType = {
   open: TransitionSpec;
@@ -147,8 +146,8 @@ const ProfileNavigator = () => {
         options={optionsVertical}
       />
       <ProfileStack.Screen
-        name="CreateAddress"
-        component={CreateAddress}
+        name="AddressForm"
+        component={AddressForm}
         options={optionsVertical}
       />
     </ProfileStack.Navigator>

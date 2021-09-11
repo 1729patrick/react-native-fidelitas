@@ -29,7 +29,6 @@ const Password: React.ForwardRefRenderFunction<TextInput, PasswordProps> = (
       style: { fontFamily: 'Montserrat-Medium' },
     });
 
-    console.log(focusedRef.current);
     if (focusedRef.current) {
       setTimeout(() => passwordRef.current?.focus(), 1);
     }
@@ -51,7 +50,6 @@ const Password: React.ForwardRefRenderFunction<TextInput, PasswordProps> = (
   };
 
   const setFocused = (value: boolean) => {
-    console.log('aaa');
     focusedRef.current = value;
   };
 

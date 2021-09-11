@@ -1,5 +1,6 @@
 import { mask } from 'react-native-mask-text';
 import { AddressType } from '~/api/useAddresses';
+import { PHONE_MASK, POSTAL_CODE_MASK } from './validations';
 
 export const formatAddress = (address?: AddressType) => {
   if (!address) {
@@ -10,6 +11,7 @@ export const formatAddress = (address?: AddressType) => {
     address.line1,
     address.line2,
     address.postalCode,
+    formatPostalCode(address.postalCode),
     address.city,
     address.country,
   ]
@@ -22,7 +24,7 @@ export const formatPhone = (phone: string | number) => {
     return '';
   }
 
-  return mask(phone, '+999 99999999999');
+  return mask(phone, PHONE_MASK);
 };
 
 export const formatPostalCode = (postalCode: string | number) => {
@@ -30,5 +32,5 @@ export const formatPostalCode = (postalCode: string | number) => {
     return '';
   }
 
-  return mask(postalCode, '9999-999');
+  return mask(postalCode, POSTAL_CODE_MASK);
 };

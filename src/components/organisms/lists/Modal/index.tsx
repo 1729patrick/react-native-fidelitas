@@ -1,11 +1,14 @@
 import React from 'react';
-import { AlertType, StyleProp, ViewStyle } from 'react-native';
-import ModalItem, { ModalType } from '~/components/molecules/items/ModalItem';
+import { StyleProp, ViewStyle } from 'react-native';
+import ModalItem, {
+  ModalType,
+  ModalTypes,
+} from '~/components/molecules/items/ModalItem';
 import List from '../../../atoms/List';
 
 type ModalListProps = {
   style?: StyleProp<ViewStyle>;
-  onPress?: (args: AlertType) => void;
+  onPress?: (args: ModalTypes) => void;
   data: ModalType[];
 };
 

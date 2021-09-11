@@ -52,17 +52,17 @@ const Checkout = () => {
           <Text style={styles.title}>Forma de entrega</Text>
           <View style={styles.deliveryType}>
             <Text style={styles.description}>Delivery</Text>
-            <Checkbox toggleCheck={() => {}} checked={true} />
+            <Checkbox onChange={() => {}} checked={true} />
           </View>
           {params.editable && (
             <>
               <View style={styles.deliveryType}>
                 <Text style={styles.description}>Take Away</Text>
-                <Checkbox toggleCheck={() => {}} checked={false} />
+                <Checkbox onChange={() => {}} checked={false} />
               </View>
               <View style={styles.deliveryType}>
                 <Text style={styles.description}>Na Mesa</Text>
-                <Checkbox toggleCheck={() => {}} checked={false} />
+                <Checkbox onChange={() => {}} checked={false} />
               </View>
             </>
           )}
@@ -168,7 +168,7 @@ const Checkout = () => {
                 <Text style={styles.number}>1234</Text>
               </View>
             </View>
-            <Checkbox toggleCheck={() => {}} checked={true} />
+            <Checkbox onChange={() => {}} checked={true} />
           </View>
 
           {params.editable && (
@@ -190,7 +190,7 @@ const Checkout = () => {
                   <Text style={styles.number}>3242</Text>
                 </View>
               </View>
-              <Checkbox toggleCheck={() => {}} checked={false} />
+              <Checkbox onChange={() => {}} checked={false} />
             </View>
           )}
         </View>

@@ -27,6 +27,7 @@ const App = () => {
             successColor={StyleGuide.palette.green}
             infoColor={StyleGuide.palette.blue}
             errorColor={StyleGuide.palette.red}
+            closeInterval={2000}
             renderImage={() => null}
             titleStyle={styles.alertTitle}
           />

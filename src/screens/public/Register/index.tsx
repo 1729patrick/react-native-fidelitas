@@ -12,7 +12,7 @@ import { Step1, Step2, Step3 } from '~/components/organisms/forms/Register';
 import RegisterStep from '~/components/organisms/RegisterStep';
 import { useBackHandler } from '~/hooks/useBackHandler';
 import { useAuth } from '~/contexts/Auth';
-import { validateEmail } from '~/util/validations';
+import { validateEmail, validatePhone } from '~/util/validations';
 
 export type RegisterFormType = {
   firstName: string;
@@ -73,14 +73,16 @@ export default () => {
     return false;
   });
 
-  const onChange = (key: string, value: string) => {
-    setValues(values => ({ ...values, [key]: value }));
+  const onChange = (key: string, value: string, valid: boolean = true) => {
+    if (valid) {
+      setValues(values => ({ ...values, [key]: value }));
+    }
   };
 
   const getNextStepEnabled = (step: 1 | 2 | 3) => {
     const validations = {
       1: () => !!values.firstName && !!values.lastName,
-      2: () => !!values.phone && validateEmail(values.email),
+      2: () => validatePhone(values.phone) && validateEmail(values.email),
       3: () => !!values.password,
     };
 

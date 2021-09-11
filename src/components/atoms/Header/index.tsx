@@ -34,7 +34,7 @@ type HeaderProps = {
 const Header: React.FC<HeaderProps> = ({
   translateY,
   title,
-  backgroundColor,
+  backgroundColor = StyleGuide.navigation.colors.background,
   showBack = true,
   elevation = 0,
   onBack,
@@ -86,8 +86,7 @@ const Header: React.FC<HeaderProps> = ({
         styles.container,
         styleContainer,
         {
-          backgroundColor:
-            backgroundColor || StyleGuide.navigation.colors.background,
+          backgroundColor,
           elevation,
         },
       ]}>

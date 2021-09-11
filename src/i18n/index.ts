@@ -35,7 +35,6 @@ export const setLanguageToI18n = (language: NormalizeTranslate) => {
   const iHaveThisLanguage =
     I18n.translations.hasOwnProperty(translateNormalize);
 
-  console.log(language);
   iHaveThisLanguage
     ? (I18n.locale = translateNormalize)
     : (I18n.defaultLocale = 'en_GB');

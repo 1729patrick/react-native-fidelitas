@@ -18,10 +18,12 @@ const TextButton: React.FC<TextButtonProps> = ({
 }) => {
   return (
     <TouchableOpacity
-      style={[styles.container, style, disabled ? styles.disabled : {}]}
+      style={[styles.container, style]}
       onPress={onPress}
       disabled={disabled}>
-      <Text style={styles.button}>{title}</Text>
+      <Text style={[styles.button, disabled ? styles.disabled : {}]}>
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 };

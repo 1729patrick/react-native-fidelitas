@@ -33,6 +33,7 @@ export default StyleSheet.create({
     ...StyleGuide.typography.subhead,
     fontSize: 13.5,
     color: StyleGuide.palette.primary,
+    lineHeight: 19,
   },
   icon: {
     marginTop: 'auto',
