@@ -16,7 +16,6 @@ import Modal, { ModalHandler } from '~/components/molecules/modals/FlatList';
 import styles from './styles';
 import ModalList from '~/components/organisms/lists/Modal';
 import Dialog, { DialogHandler } from '~/components/atoms/Dialog';
-import useHideTabBar from '~/hooks/useHideTabBar';
 
 export default () => {
   const modalRef = useRef<ModalHandler>(null);

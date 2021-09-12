@@ -11,6 +11,10 @@ import Reservation from '~/components/templates/Reservation';
 import useStatusBar from '~/hooks/useStatusBar';
 import Icon from 'react-native-vector-icons/AntDesign';
 import styles from './styles';
+import useReservation, { ReservationType } from '~/api/useReservation';
+import ModalList from '~/components/organisms/lists/Modal';
+import Dialog, { DialogHandler } from '~/components/atoms/Dialog';
+import Modal, { ModalHandler } from '~/components/molecules/modals/FlatList';
 
 export enum Status {
   Canceled,
@@ -18,33 +22,11 @@ export enum Status {
   InReview,
 }
 
-const reservations = [
-  {
-    id: 'Almoço para 3 em 12 de Julho de 2021 às 12h:30m',
-    type: 'Almoço',
-    size: 3,
-    date: '12 de Jul de 2021 às 12h:30m',
-    status: Status.Confirmed,
-    message: 'Quero uma mesa perto da janela, por favor.',
-  },
-  {
-    id: 'Jantar para 3 em 15 de Julho de 2021 às 18h:00m',
-    type: 'Jantar',
-    size: 5,
-    date: '12 de Jul de 2021 às 12h:30m',
-    status: Status.Canceled,
-    message: 'Quero uma mesa perto da porta, por favor.',
-  },
-  {
-    id: 'Jantar para 1 em 15 de Julho de 2021 às 18h:00m',
-    type: 'Almoço',
-    size: 3,
-    date: '02 de Jul de 2021 às 13h:30m',
-    status: Status.InReview,
-  },
-];
-
 export default () => {
+  const { reservations } = useReservation();
+  const modalRef = useRef<ModalHandler>(null);
+  const dialogRef = useRef<DialogHandler>(null);
+
   const floatingButtonRef = useRef<FloatingButtonHandler>(null);
   const { navigate } = useNavigation<StackNavigationProp<any>>();
 
@@ -52,6 +34,12 @@ export default () => {
 
   const openCreate = () => {
     navigate('Create');
+  };
+
+  const onModalPress = () => {};
+
+  const onReservationPress = (reservation: ReservationType) => {
+    modalRef.current?.show();
   };
 
   return (
@@ -68,7 +56,7 @@ export default () => {
         <ReservationList
           data={reservations}
           style={styles.contentContainer}
-          onPress={e => console.log(e)}
+          onPress={onReservationPress}
           onScrollUp={() => floatingButtonRef.current?.show()}
           onScrollDown={() => floatingButtonRef.current?.hide()}
         />
@@ -78,6 +66,23 @@ export default () => {
           ref={floatingButtonRef}
           onPress={openCreate}
           icon={<Icon name="plus" color="#fff" size={30} />}
+        />
+      }
+      bottomSheet={
+        <Modal ref={modalRef} itemHeight={64} itemsSize={2}>
+          <ModalList
+            data={[{ type: 'edit' }, { type: 'cancel' }]}
+            onPress={onModalPress}
+          />
+        </Modal>
+      }
+      dialog={
+        <Dialog
+          ref={dialogRef}
+          title="Address delete"
+          description="Do you want to delete this address? You cannot undo this action."
+          confirmTitle="Delete"
+          onConfirm={() => {}}
         />
       }
     />

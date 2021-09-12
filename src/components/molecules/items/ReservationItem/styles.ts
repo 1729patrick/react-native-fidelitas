@@ -10,16 +10,9 @@ export default StyleSheet.create({
     overflow: 'hidden',
   },
   item: {
-    height: '100%',
     backgroundColor: StyleGuide.palette.background,
     borderRadius: StyleGuide.borderRadius * 2,
-  },
-  header: {
-    flexDirection: 'row',
-    paddingHorizontal: StyleGuide.spacing * 2,
-    paddingVertical: StyleGuide.spacing * 2,
-    borderBottomWidth: 1,
-    borderBottomColor: StyleGuide.palette.border,
+    padding: StyleGuide.spacing * 2,
   },
   progress: {
     paddingLeft: StyleGuide.spacing,
@@ -31,9 +24,6 @@ export default StyleSheet.create({
     width: 5,
     left: 0,
     elevation: 1,
-  },
-  info: {
-    flex: 1,
   },
   row: {
     flexDirection: 'row',
@@ -59,19 +49,5 @@ export default StyleSheet.create({
     paddingVertical: StyleGuide.spacing * 0.25,
     paddingHorizontal: StyleGuide.spacing,
     borderRadius: StyleGuide.borderRadius * 4,
-  },
-  footer: {
-    paddingHorizontal: StyleGuide.spacing * 2,
-    paddingVertical: StyleGuide.spacing,
-  },
-  messageTitle: {
-    marginTop: StyleGuide.spacing,
-  },
-  messageDescription: {
-    marginBottom: StyleGuide.spacing,
-  },
-  cancel: {
-    marginTop: StyleGuide.spacing,
-    marginBottom: StyleGuide.spacing,
   },
 });

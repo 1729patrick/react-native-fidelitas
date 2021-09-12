@@ -12,6 +12,13 @@ export const icons = {
       size={23}
     />
   ),
+  cancel: (
+    <IonIcon
+      name="ios-trash-outline"
+      color={StyleGuide.palette.primary}
+      size={23}
+    />
+  ),
   edit: <FeatIcon name="edit-2" color={StyleGuide.palette.primary} size={23} />,
   getReward: (
     <IonIcon name="gift-outline" color={StyleGuide.palette.primary} size={23} />

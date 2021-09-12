@@ -1,3 +1,4 @@
+import { parseISO } from 'date-fns';
 import { format } from 'date-fns/esm';
 import { mask } from 'react-native-mask-text';
 import { AddressType } from '~/api/useAddresses';
@@ -43,4 +44,16 @@ export const formatDate = (date?: string) => {
   }
 
   return format(new Date(date), DATE_FORMAT);
+};
+
+export const formatHumanDate = (date?: string, time?: string) => {
+  if (!date || !time) {
+    return '';
+  }
+  const dateFormatted = new Date(date);
+
+  const [hours, minutes, seconds] = time.split(':');
+  dateFormatted.setHours(+hours, +minutes, +seconds);
+
+  return format(dateFormatted, "dd 'de' LLL 'de' y 'às' HH'h':mm'm'");
 };

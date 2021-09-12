@@ -7,7 +7,7 @@ import { translate } from '~/i18n';
 import { icons } from './constants';
 import { RectButton } from 'react-native-gesture-handler';
 
-export type ModalTypes = 'edit' | 'delete' | 'getReward';
+export type ModalTypes = 'edit' | 'delete' | 'getReward' | 'cancel';
 
 export type ModalType = {
   type: ModalTypes;

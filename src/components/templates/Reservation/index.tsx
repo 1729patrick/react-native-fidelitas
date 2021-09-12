@@ -5,6 +5,8 @@ type ReservationProps = {
   header: ReactNode;
   list: ReactNode;
   action: ReactNode;
+  bottomSheet: ReactNode;
+  dialog: ReactNode;
 };
 
 const Reservation: React.FC<ReservationProps> = ({
@@ -12,6 +14,8 @@ const Reservation: React.FC<ReservationProps> = ({
   header,
   list,
   action,
+  bottomSheet,
+  dialog,
 }) => {
   return (
     <>
@@ -19,6 +23,8 @@ const Reservation: React.FC<ReservationProps> = ({
       {header}
       {list}
       {action}
+      {bottomSheet}
+      {dialog}
     </>
   );
 };

@@ -1,13 +1,12 @@
 import React from 'react';
-import { AlertType, StyleProp, ViewStyle } from 'react-native';
-import ReservationItem, {
-  ReservationType,
-} from '~/components/molecules/items/ReservationItem';
+import { StyleProp, ViewStyle } from 'react-native';
+import { ReservationType } from '~/api/useReservation';
+import ReservationItem from '~/components/molecules/items/ReservationItem';
 import List from '../../../atoms/List';
 
 type ReservationListProps = {
   style?: StyleProp<ViewStyle>;
-  onPress?: (args: AlertType) => void;
+  onPress: (args: ReservationType) => void;
   data: ReservationType[];
   onScrollUp: () => void;
   onScrollDown: () => void;
