@@ -15,6 +15,7 @@ import useReservation, { ReservationType } from '~/api/useReservation';
 import ModalList from '~/components/organisms/lists/Modal';
 import Dialog, { DialogHandler } from '~/components/atoms/Dialog';
 import Modal, { ModalHandler } from '~/components/molecules/modals/FlatList';
+import { ModalTypes } from '~/components/molecules/items/ModalItem';
 
 export enum Status {
   Canceled,
@@ -26,6 +27,7 @@ export default () => {
   const { reservations } = useReservation();
   const modalRef = useRef<ModalHandler>(null);
   const dialogRef = useRef<DialogHandler>(null);
+  const reservationRef = useRef<ReservationType>();
 
   const floatingButtonRef = useRef<FloatingButtonHandler>(null);
   const { navigate } = useNavigation<StackNavigationProp<any>>();
@@ -33,12 +35,25 @@ export default () => {
   useStatusBar(true);
 
   const openCreate = () => {
-    navigate('Create');
+    navigate('ReservationCreate');
   };
 
-  const onModalPress = () => {};
+  const openReservationForm = () => {
+    navigate('ReservationForm', { reservation: reservationRef.current });
+  };
+
+  const onModalPress = (type: ModalTypes) => {
+    modalRef.current?.hidden();
+
+    if (type === 'cancel') {
+      dialogRef.current?.show();
+    } else if (type === 'edit') {
+      openReservationForm();
+    }
+  };
 
   const onReservationPress = (reservation: ReservationType) => {
+    reservationRef.current = reservation;
     modalRef.current?.show();
   };
 
@@ -79,9 +94,9 @@ export default () => {
       dialog={
         <Dialog
           ref={dialogRef}
-          title="Address delete"
-          description="Do you want to delete this address? You cannot undo this action."
-          confirmTitle="Delete"
+          title="Book table cancel"
+          description="Do you want to cancel this book table? You cannot undo this action."
+          confirmTitle="Cancel"
           onConfirm={() => {}}
         />
       }

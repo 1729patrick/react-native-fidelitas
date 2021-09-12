@@ -5,7 +5,7 @@ export default StyleSheet.create({
   container: { height: 50, marginTop: StyleGuide.spacing * 3 },
   input: {
     ...StyleGuide.typography.caption,
-    height: 50,
+    height: '100%',
     borderRadius: 4,
     paddingLeft: 19,
     color: StyleGuide.palette.primary,

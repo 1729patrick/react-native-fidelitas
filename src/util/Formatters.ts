@@ -46,6 +46,16 @@ export const formatDate = (date?: string) => {
   return format(new Date(date), DATE_FORMAT);
 };
 
+export const formatTime = (time?: string) => {
+  if (!time) {
+    return '';
+  }
+
+  const [hours, minutes] = time.split(':');
+
+  return `${hours}h:${minutes}m`;
+};
+
 export const formatHumanDate = (date?: string, time?: string) => {
   if (!date || !time) {
     return '';

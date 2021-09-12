@@ -26,7 +26,6 @@ import Login from '~/screens/public/Login';
 import Register from '~/screens/public/Register';
 import Achievements from '~/screens/achievements/Achievements';
 import TabBar from '~/components/organisms/TabBar/Bottom';
-import CreateReservation from '~/screens/reservation/Create';
 import Basket from '~/screens/menu/Basket';
 import Checkout from '~/screens/menu/Checkout';
 import PurchaseHistory from '~/screens/profile/PurchaseHistory';
@@ -38,6 +37,8 @@ import AddressForm from '~/screens/profile/AddressForm';
 import Payments from '~/screens/profile/Payments';
 import PaymentForm from '~/screens/profile/PaymentForm';
 import PurchaseDetails from '~/screens/profile/PurchaseDetails';
+import ReservationCreate from '~/screens/reservation/ReservationCreate';
+import ReservationForm from '~/screens/reservation/ReservationForm';
 
 type TransitionSpecType = {
   open: TransitionSpec;
@@ -197,8 +198,13 @@ const ReservationNavigator = () => {
         options={optionsVertical}
       />
       <ReservationStack.Screen
-        name="Create"
-        component={CreateReservation}
+        name="ReservationCreate"
+        component={ReservationCreate}
+        options={optionsVertical}
+      />
+      <ReservationStack.Screen
+        name="ReservationForm"
+        component={ReservationForm}
         options={optionsVertical}
       />
     </ReservationStack.Navigator>
