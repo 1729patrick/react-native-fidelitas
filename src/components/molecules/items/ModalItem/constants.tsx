@@ -13,4 +13,7 @@ export const icons = {
     />
   ),
   edit: <FeatIcon name="edit-2" color={StyleGuide.palette.primary} size={23} />,
+  getReward: (
+    <IonIcon name="gift-outline" color={StyleGuide.palette.primary} size={23} />
+  ),
 };

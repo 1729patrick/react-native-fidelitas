@@ -22,7 +22,6 @@ export default () => {
   const modalRef = useRef<ModalHandler>(null);
   const dialogRef = useRef<DialogHandler>(null);
 
-  const { hideTabBar, showTabBar } = useHideTabBar(false);
   const { achievements } = useAchievements();
   const floatingButtonRef = useRef<FloatingButtonHandler>(null);
   const { navigate } = useNavigation<StackNavigationProp<any>>();
@@ -40,7 +39,6 @@ export default () => {
   const onAchievementPress = (achievement: AchievementType) => {
     modalRef.current?.show();
     // dialogRef.current?.show();
-    showTabBar();
   };
 
   return (
@@ -78,11 +76,8 @@ export default () => {
         />
       }
       bottomSheet={
-        <Modal ref={modalRef} itemHeight={64} itemsSize={2}>
-          <ModalList
-            data={[{ type: 'edit' }, { type: 'delete' }]}
-            onPress={onModalPress}
-          />
+        <Modal ref={modalRef} itemHeight={72} itemsSize={1}>
+          <ModalList data={[{ type: 'getReward' }]} onPress={onModalPress} />
         </Modal>
       }
       dialog={

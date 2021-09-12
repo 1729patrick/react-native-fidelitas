@@ -16,7 +16,10 @@ import {
   View,
   Modal as RNModal,
 } from 'react-native';
-import { PanGestureHandler } from 'react-native-gesture-handler';
+import {
+  GestureHandlerRootView,
+  PanGestureHandler,
+} from 'react-native-gesture-handler';
 import Animated, {
   runOnJS,
   useAnimatedStyle,
@@ -187,29 +190,30 @@ const Modal: React.ForwardRefRenderFunction<ModalHandler, ModalProps> = (
         ]}
         onPress={hidden}
       />
+      <GestureHandlerRootView>
+        <PanGestureHandler onGestureEvent={panHandler} activeOffsetY={[0, 0]}>
+          <Animated.View style={[styles.header, style]}>
+            <ModalIndicator />
 
-      <PanGestureHandler onGestureEvent={panHandler}>
-        <Animated.View style={[styles.header, style]}>
-          <ModalIndicator />
+            <View style={styles.headerContent}>
+              {title && <Text style={styles.title}>{title}</Text>}
 
-          <View style={styles.headerContent}>
-            {title && <Text style={styles.title}>{title}</Text>}
+              {confirm && (
+                <WithoutFeedbackButton
+                  title={confirm}
+                  onPress={onComplete}
+                  titleStyle={styles.titleButtonOK}
+                  hitSlop={{ top: 32, bottom: 32, left: 32, right: 32 }}
+                />
+              )}
+            </View>
 
-            {confirm && (
-              <WithoutFeedbackButton
-                title={confirm}
-                onPress={onComplete}
-                titleStyle={styles.titleButtonOK}
-                hitSlop={{ top: 32, bottom: 32, left: 32, right: 32 }}
-              />
-            )}
-          </View>
-
-          <Animated.View style={[styles.contentContainer, styleContent]}>
-            {children}
+            <Animated.View style={[styles.contentContainer, styleContent]}>
+              {children}
+            </Animated.View>
           </Animated.View>
-        </Animated.View>
-      </PanGestureHandler>
+        </PanGestureHandler>
+      </GestureHandlerRootView>
     </RNModal>
   );
 };

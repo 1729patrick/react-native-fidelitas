@@ -40,6 +40,7 @@ export default {
 
   edit: 'Editar',
   delete: 'Apagar',
+  getReward: 'Get Reward',
 
   delivery: 'Delivery',
   takeAway: 'Takeaway',
