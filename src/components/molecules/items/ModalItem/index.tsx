@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleProp, Text, View, ViewStyle } from 'react-native';
+import { StyleProp, Text, TouchableOpacity, ViewStyle } from 'react-native';
 
 import styles from './styles';
 
 import { translate } from '~/i18n';
-import { RectButton } from 'react-native-gesture-handler';
 import { icons } from './constants';
+import { RectButton } from 'react-native-gesture-handler';
 
 export type ModalTypes = 'edit' | 'delete';
 
@@ -20,9 +20,14 @@ type ModalProps = ModalType & {
 
 const ModalItem: React.FC<ModalProps> = ({ onPress, type, style }) => {
   return (
-    <RectButton style={[styles.container, style]} onPress={() => onPress(type)}>
-      {icons[type as keyof typeof icons]}
-      <Text style={styles.title}>{translate(type)}</Text>
+    <RectButton>
+      <TouchableOpacity
+        activeOpacity={1}
+        onPress={() => onPress(type)}
+        style={[styles.container, style]}>
+        {icons[type as keyof typeof icons]}
+        <Text style={styles.title}>{translate(type)}</Text>
+      </TouchableOpacity>
     </RectButton>
   );
 };

@@ -45,6 +45,8 @@ const Dialog: React.ForwardRefRenderFunction<DialogHandler, DialogProps> = (
       onRequestClose={hidden}
       onBackdropPress={hidden}
       verticalButtons
+      //@ts-ignore
+      statusBarTranslucent
       contentStyle={{
         backgroundColor: StyleGuide.palette.background,
         borderRadius: StyleGuide.borderRadius * 2,

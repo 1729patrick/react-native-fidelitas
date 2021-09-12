@@ -33,10 +33,13 @@ export default () => {
     navigate('QRCode');
   };
 
-  const onModalPress = () => {};
+  const onModalPress = () => {
+    console.log('modal poress');
+  };
 
   const onAchievementPress = (achievement: AchievementType) => {
     modalRef.current?.show();
+    // dialogRef.current?.show();
     showTabBar();
   };
 

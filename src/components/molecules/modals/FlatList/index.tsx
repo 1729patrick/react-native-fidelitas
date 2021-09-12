@@ -6,10 +6,19 @@ import React, {
   useEffect,
   useImperativeHandle,
   useMemo,
+  useRef,
+  useState,
 } from 'react';
-import { BackHandler, Dimensions, Text, View } from 'react-native';
+import {
+  BackHandler,
+  Dimensions,
+  Text,
+  View,
+  Modal as RNModal,
+} from 'react-native';
 import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, {
+  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
@@ -55,6 +64,8 @@ const Modal: React.ForwardRefRenderFunction<ModalHandler, ModalProps> = (
   },
   ref,
 ) => {
+  const [visible, setVisible] = useState(false);
+  const snapPointRef = useRef<number | undefined>();
   const snapPoints = useMemo(() => {
     const contentHeight = height - (itemHeight * itemsSize + headerHeight);
 
@@ -92,12 +103,20 @@ const Modal: React.ForwardRefRenderFunction<ModalHandler, ModalProps> = (
   }, [translateY.value]);
 
   const animateToPoint = useCallback(
-    (point: number) => {
+    (point: number, onFinish?: { fn: (args: any) => void; args: any }) => {
       'worklet';
 
-      translateY.value = withTiming(point, {
-        duration: 350,
-      });
+      translateY.value = withTiming(
+        point,
+        {
+          duration: 350,
+        },
+        isFinished => {
+          if (isFinished && onFinish) {
+            runOnJS(onFinish?.fn)(onFinish?.args);
+          }
+        },
+      );
     },
     [translateY],
   );
@@ -110,14 +129,17 @@ const Modal: React.ForwardRefRenderFunction<ModalHandler, ModalProps> = (
 
   const show = useCallback(
     (snapPoint?: number) => {
-      const initialSnapPoint = snapPoints.length - 2;
-      animateToPoint(snapPoints[snapPoint ?? initialSnapPoint]);
+      setVisible(true);
+      snapPointRef.current = snapPoint;
     },
     [animateToPoint, snapPoints],
   );
 
   const hidden = useCallback(() => {
-    animateToPoint(snapPoints[snapPoints.length - 1]);
+    animateToPoint(snapPoints[snapPoints.length - 1], {
+      fn: setVisible,
+      args: false,
+    });
   }, [animateToPoint, snapPoints]);
 
   useImperativeHandle(ref, () => ({
@@ -138,13 +160,25 @@ const Modal: React.ForwardRefRenderFunction<ModalHandler, ModalProps> = (
     });
   }, [hidden, snapPoints, translateY.value]);
 
+  useEffect(() => {
+    if (visible) {
+      const initialSnapPoint = snapPoints.length - 2;
+      animateToPoint(snapPoints[snapPointRef.current ?? initialSnapPoint]);
+    }
+  }, [visible]);
+
   const onComplete = () => {
     onContinue?.();
     hidden();
   };
 
   return (
-    <View style={styles.container}>
+    <RNModal
+      style={styles.container}
+      transparent={true}
+      visible={visible}
+      animationType="none"
+      statusBarTranslucent>
       <ModalBackground
         translateY={translateY}
         snapPoints={[
@@ -176,7 +210,7 @@ const Modal: React.ForwardRefRenderFunction<ModalHandler, ModalProps> = (
           </Animated.View>
         </Animated.View>
       </PanGestureHandler>
-    </View>
+    </RNModal>
   );
 };
 
