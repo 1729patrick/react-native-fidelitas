@@ -36,7 +36,6 @@ const App = () => {
             backgroundColor="rgba(0, 0, 0, 0)"
             barStyle="dark-content"
           />
-
           <Routes />
         </BasketProvider>
       </AuthProvider>

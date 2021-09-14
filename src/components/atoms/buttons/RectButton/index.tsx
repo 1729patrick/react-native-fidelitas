@@ -18,6 +18,7 @@ type ButtonProps = {
   outline?: boolean;
   loading?: boolean;
   enabled?: boolean;
+  iconStart?: boolean;
 };
 
 const RectButton: React.FC<ButtonProps> = ({
@@ -31,6 +32,7 @@ const RectButton: React.FC<ButtonProps> = ({
   outline = false,
   loading = false,
   enabled = true,
+  iconStart = false,
 }) => {
   return (
     <View
@@ -49,7 +51,7 @@ const RectButton: React.FC<ButtonProps> = ({
           {
             backgroundColor: outline ? 'transparent' : backgroundColor,
           },
-          icon ? { justifyContent: 'space-between' } : {},
+          icon && !iconStart ? { justifyContent: 'space-between' } : {},
         ]}
         onPress={onPress}>
         {loading ? (
@@ -60,6 +62,7 @@ const RectButton: React.FC<ButtonProps> = ({
           />
         ) : (
           <>
+            {iconStart && icon}
             <Text
               style={[
                 styles.title,
@@ -68,7 +71,7 @@ const RectButton: React.FC<ButtonProps> = ({
               ]}>
               {title}
             </Text>
-            {icon}
+            {!iconStart && icon}
           </>
         )}
       </RNRectButton>

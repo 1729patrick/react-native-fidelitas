@@ -42,6 +42,7 @@ import ReservationForm from '~/screens/reservation/ReservationForm';
 import ReservationDate from '~/screens/reservation/ReservationDate';
 import ReservationTime from '~/screens/reservation/ReservationTime';
 import ReservationMembers from '~/screens/reservation/ReservationMembers';
+import Reward from '~/screens/achievements/Reward';
 
 type TransitionSpecType = {
   open: TransitionSpec;
@@ -184,6 +185,11 @@ const AchievementsNavigator = () => {
       <AchievementsStack.Screen
         name="QRCode"
         component={QRCode}
+        options={optionsVertical}
+      />
+      <AchievementsStack.Screen
+        name="Reward"
+        component={Reward}
         options={optionsVertical}
       />
     </AchievementsStack.Navigator>

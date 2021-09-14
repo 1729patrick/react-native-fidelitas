@@ -32,7 +32,7 @@ export default () => {
   };
 
   const onModalPress = () => {
-    console.log('modal poress');
+    navigate('Reward');
   };
 
   const onAchievementPress = (achievement: AchievementType) => {
