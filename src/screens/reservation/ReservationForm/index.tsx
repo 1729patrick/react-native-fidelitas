@@ -1,6 +1,7 @@
-import { RouteProp, useRoute } from '@react-navigation/core';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/core';
+import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useMemo } from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, View, TouchableOpacity } from 'react-native';
 import { ReservationType } from '~/api/useReservation';
 import TextButton from '~/components/atoms/buttons/TextButton';
 import Header from '~/components/atoms/Header';
@@ -18,6 +19,7 @@ type RootStackParamList = {
 type RouteProps = RouteProp<RootStackParamList, 'ReservationForm'>;
 
 const ReservationForm = () => {
+  const { navigate } = useNavigation<StackNavigationProp<any>>();
   const { params } = useRoute<RouteProps>();
   const { reservation } = params;
   useHideTabBar();
@@ -43,6 +45,18 @@ const ReservationForm = () => {
     return numberOfPeople.join(', ');
   }, []);
 
+  const openReservationDate = () => {
+    navigate('ReservationDate');
+  };
+
+  const openReservationTime = () => {
+    navigate('ReservationTime');
+  };
+
+  const openReservationMembers = () => {
+    navigate('ReservationMembers');
+  };
+
   return (
     <>
       <Header
@@ -54,30 +68,47 @@ const ReservationForm = () => {
       />
       <ScrollView contentContainerStyle={styles.container}>
         <View style={{ flexDirection: 'row' }}>
-          <Input
-            placeholder="Data"
-            style={{ flex: 2, marginRight: 8 }}
-            value={formatDate(reservation.date)}
-            returnKeyType="next"
-            autoCompleteType="name"
-            editable={false}
-          />
-          <Input
-            placeholder="Horário"
+          <TouchableOpacity
+            style={{
+              flex: 2,
+              marginRight: 8,
+            }}
+            onPress={openReservationDate}>
+            <View pointerEvents="none">
+              <Input
+                placeholder="Data"
+                value={formatDate(reservation.date)}
+                returnKeyType="next"
+                autoCompleteType="name"
+                editable={false}
+              />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
             style={{ flex: 1, marginLeft: 8 }}
-            value={formatTime(reservation.time)}
-            returnKeyType="next"
-            autoCompleteType="name"
-            editable={false}
-          />
+            onPress={openReservationTime}>
+            <View pointerEvents="none">
+              <Input
+                placeholder="Horário"
+                value={formatTime(reservation.time)}
+                returnKeyType="next"
+                autoCompleteType="name"
+                editable={false}
+              />
+            </View>
+          </TouchableOpacity>
         </View>
-        <Input
-          placeholder="Número de pessoas"
-          value={size}
-          returnKeyType="next"
-          autoCompleteType="name"
-          editable={false}
-        />
+        <TouchableOpacity style={{ flex: 1 }} onPress={openReservationMembers}>
+          <View pointerEvents="none">
+            <Input
+              placeholder="Número de pessoas"
+              value={size}
+              returnKeyType="next"
+              autoCompleteType="name"
+              editable={false}
+            />
+          </View>
+        </TouchableOpacity>
         <Input
           placeholder="Notas"
           value={reservation.clientNotes}

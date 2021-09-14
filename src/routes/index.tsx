@@ -39,6 +39,9 @@ import PaymentForm from '~/screens/profile/PaymentForm';
 import PurchaseDetails from '~/screens/profile/PurchaseDetails';
 import ReservationCreate from '~/screens/reservation/ReservationCreate';
 import ReservationForm from '~/screens/reservation/ReservationForm';
+import ReservationDate from '~/screens/reservation/ReservationDate';
+import ReservationTime from '~/screens/reservation/ReservationTime';
+import ReservationMembers from '~/screens/reservation/ReservationMembers';
 
 type TransitionSpecType = {
   open: TransitionSpec;
@@ -205,6 +208,23 @@ const ReservationNavigator = () => {
       <ReservationStack.Screen
         name="ReservationForm"
         component={ReservationForm}
+        options={optionsVertical}
+      />
+      <ReservationStack.Screen
+        name="ReservationDate"
+        component={ReservationDate}
+        options={optionsVertical}
+      />
+
+      <ReservationStack.Screen
+        name="ReservationTime"
+        component={ReservationTime}
+        options={optionsVertical}
+      />
+
+      <ReservationStack.Screen
+        name="ReservationMembers"
+        component={ReservationMembers}
         options={optionsVertical}
       />
     </ReservationStack.Navigator>

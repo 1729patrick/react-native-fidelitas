@@ -72,6 +72,7 @@ export default () => {
             onNext={() => onScrollTo(1)}
             buttonStyle={styles.nextButton}
             titleStyle={styles.stepTitle}
+            nextEnabled={false}
           />,
           <RegisterStep
             title="Escolha o horário"
@@ -81,6 +82,7 @@ export default () => {
             onNext={() => onScrollTo(2)}
             contentStyle={styles.stepContainer}
             titleStyle={styles.stepTitle}
+            nextEnabled={false}
           />,
           <RegisterStep
             title="Número de pessoas"
@@ -90,6 +92,7 @@ export default () => {
             onNext={onComplete}
             contentStyle={styles.stepContainer}
             titleStyle={styles.stepTitle}
+            nextEnabled={false}
           />,
         ]}
       />
