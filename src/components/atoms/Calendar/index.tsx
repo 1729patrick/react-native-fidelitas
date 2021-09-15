@@ -1,78 +1,76 @@
-import React, { useState } from 'react';
-import { Calendar, DateObject } from 'react-native-calendars';
+import React, { useMemo, useState } from 'react';
+import { CalendarList, DateObject } from 'react-native-calendars';
 import StyleGuide from '~/util/StyleGuide';
-import RoundButton from '~/components/atoms/buttons/RoundButton';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import useStatusBar from '~/hooks/useStatusBar';
 import { format } from 'date-fns';
-import { DATE_FORMAT, MONTH_FORMAT } from '~/util/Constants';
+import { DATE_CALENDAR_FORMAT } from '~/util/Constants';
+import { Dimensions, View } from 'react-native';
 
-const today = new Date();
-export default () => {
-  const [date, setDate] = useState(today);
-  const [disableArrowLeft, setDisableArrowLeft] = useState(true);
+const { height } = Dimensions.get('window');
+
+export default ({
+  onChange,
+  value,
+}: {
+  value: string;
+  onChange: (value: string) => void;
+}) => {
   useStatusBar(true);
 
   const onDayPress = ({ timestamp }: DateObject) => {
-    setDate(new Date(timestamp));
+    const date = new Date(timestamp);
+    onChange(date.toISOString());
   };
 
-  const onMonthChange = ({ timestamp }: DateObject) => {
-    const date = format(new Date(timestamp), MONTH_FORMAT);
+  const current = useMemo(() => {
+    if (!value) {
+      return '';
+    }
 
-    setDisableArrowLeft(date === format(today, MONTH_FORMAT));
-  };
+    return format(new Date(value), DATE_CALENDAR_FORMAT);
+  }, [value]);
 
   return (
-    <Calendar
-      current={date}
-      minDate={today}
-      onDayPress={onDayPress}
-      onMonthChange={onMonthChange}
-      renderArrow={direction => {
-        return (
-          <RoundButton
-            onPress={() => {}}
-            name={direction === 'left' ? 'navigate-before' : 'navigate-next'}
-            disabled={disableArrowLeft && direction === 'left'}
-            size={24}
-            Icon={Icon}
-            color={StyleGuide.palette.primary}
-          />
-        );
-      }}
-      firstDay={0}
-      onPressArrowLeft={subtractMonth => subtractMonth()}
-      onPressArrowRight={addMonth => addMonth()}
-      disableArrowLeft={disableArrowLeft}
-      disableArrowRight={false}
-      markingType="simple"
-      disableAllTouchEventsForDisabledDays={true}
-      theme={{
-        backgroundColor: '#ffffff',
-        calendarBackground: '#ffffff',
-        textSectionTitleColor: StyleGuide.palette.secondary,
-        selectedDayBackgroundColor: StyleGuide.palette.app,
-        selectedDayTextColor: '#ffffff',
-        todayTextColor: StyleGuide.palette.app,
-        dayTextColor: StyleGuide.palette.primary,
-        textDisabledColor: '#d9e1e8',
-        dotColor: StyleGuide.palette.app,
-        selectedDotColor: '#ffffff',
-        arrowColor: 'orange',
-        monthTextColor: StyleGuide.palette.primary,
-        textDayFontFamily: 'Montserrat-Medium',
-        textMonthFontFamily: 'Montserrat-SemiBold',
-        textDayHeaderFontFamily: 'Montserrat-Medium',
-        textDayFontSize: 14,
-        textMonthFontSize: 14,
-        textDayHeaderFontSize: 13,
-      }}
-      markedDates={{
-        [format(date, DATE_FORMAT)]: { selected: true, disabled: true },
-      }}
-      hideExtraDays={true}
-      enableSwipeMonths={true}
-    />
+    <View
+      style={{ height: height - 250, width: '100%', backgroundColor: 'blue' }}>
+      <CalendarList
+        onVisibleMonthsChange={months => {
+          console.log('now these months are visible', months);
+        }}
+        pastScrollRange={0}
+        firstDay={0}
+        onDayPress={onDayPress}
+        minDate={new Date()}
+        futureScrollRange={2}
+        scrollEnabled={true}
+        current={value}
+        markedDates={{
+          [current]: {
+            selected: true,
+            disabled: true,
+          },
+        }}
+        theme={{
+          backgroundColor: '#ffffff',
+          calendarBackground: '#ffffff',
+          textSectionTitleColor: StyleGuide.palette.secondary,
+          selectedDayBackgroundColor: StyleGuide.palette.app,
+          selectedDayTextColor: '#ffffff',
+          todayTextColor: StyleGuide.palette.blue,
+          dayTextColor: StyleGuide.palette.primary,
+          textDisabledColor: '#d9e1e8',
+          dotColor: StyleGuide.palette.app,
+          selectedDotColor: '#ffffff',
+          arrowColor: 'orange',
+          monthTextColor: StyleGuide.palette.primary,
+          textDayFontFamily: 'Montserrat-Medium',
+          textMonthFontFamily: 'Montserrat-SemiBold',
+          textDayHeaderFontFamily: 'Montserrat-Medium',
+          textDayFontSize: 14,
+          textMonthFontSize: 14,
+          textDayHeaderFontSize: 13,
+        }}
+      />
+    </View>
   );
 };

@@ -9,9 +9,17 @@ type TimeSelectProps = {
   title: string;
   slots: string[];
   style?: StyleProp<TextStyle>;
+  value: string;
+  onChange: (value: string) => void;
 };
 
-const TimeSelect: React.FC<TimeSelectProps> = ({ title, slots, style }) => {
+const TimeSelect: React.FC<TimeSelectProps> = ({
+  title,
+  slots,
+  style,
+  value,
+  onChange,
+}) => {
   return (
     <View style={[styles.container, style]}>
       <Text style={styles.title}>{title}</Text>
@@ -19,10 +27,16 @@ const TimeSelect: React.FC<TimeSelectProps> = ({ title, slots, style }) => {
       <View style={styles.slots}>
         {slots.map(hour => (
           <RectButton
+            onPress={() => onChange(hour)}
+            key={hour}
             style={styles.button}
             rippleColor={StyleGuide.palette.secondary}>
-            <View style={styles.slot}>
-              <Text style={styles.hour}>{hour}</Text>
+            <View
+              style={[styles.slot, hour === value ? styles.checkedSlot : {}]}>
+              <Text
+                style={[styles.hour, hour === value ? styles.checkedHour : {}]}>
+                {hour}
+              </Text>
             </View>
           </RectButton>
         ))}

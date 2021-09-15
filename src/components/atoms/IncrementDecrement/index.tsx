@@ -19,32 +19,19 @@ const IncrementDecrement: React.FC<IncrementDecrementProps> = ({
   description,
   style,
   onChange,
-  initialValue = 0,
   value = 0,
   size = 36,
 }) => {
-  const [value_, setValue_] = useState(initialValue);
-
-  useEffect(() => {
-    setValue_(value);
-  }, [value]);
-
   const onIncrement = () => {
-    setValue_(v => {
-      const newValue = v + 1;
+    const newValue = value + 1;
 
-      onChange?.(newValue);
-      return newValue;
-    });
+    onChange?.(newValue);
   };
 
   const onDecrement = () => {
-    setValue_(v => {
-      const newValue = Math.max(v - 1, 0);
+    const newValue = Math.max(value - 1, 0);
 
-      onChange?.(newValue);
-      return newValue;
-    });
+    onChange?.(newValue);
   };
 
   return (
@@ -67,7 +54,7 @@ const IncrementDecrement: React.FC<IncrementDecrementProps> = ({
           </View>
         </BorderlessButton>
 
-        <Text style={styles.value}>{value_}</Text>
+        <Text style={styles.value}>{value}</Text>
         <BorderlessButton
           hitSlop={{ top: 58, bottom: 58, left: 58, right: 58 }}
           style={[styles.button, { width: size + 5, height: size + 5 }]}

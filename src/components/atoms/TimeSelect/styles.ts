@@ -24,8 +24,17 @@ export default StyleSheet.create({
     borderColor: StyleGuide.palette.border,
     borderRadius: StyleGuide.borderRadius * 5,
   },
+  checkedSlot: {
+    backgroundColor: StyleGuide.palette.app,
+    borderColor: StyleGuide.palette.app,
+  },
   hour: {
     ...StyleGuide.typography.caption,
     color: StyleGuide.palette.primary,
+  },
+  checkedHour: {
+    ...StyleGuide.typography.headline,
+    color: StyleGuide.palette.background,
+    fontSize: 14,
   },
 });

@@ -14,6 +14,14 @@ import styles from './styles';
 import { useBackHandler } from '~/hooks/useBackHandler';
 
 export default () => {
+  const [values, setValues] = useState({
+    date: '',
+    time: '',
+    adults: 0,
+    kids: 0,
+    babies: 0,
+  });
+
   useStatusBar(true);
   useHideTabBar();
 
@@ -49,6 +57,10 @@ export default () => {
     return false;
   });
 
+  const onChange = (key: string, value: string | number) => {
+    setValues(values => ({ ...values, [key]: value }));
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar
@@ -68,31 +80,50 @@ export default () => {
             title="Escolha a data"
             confirmTitle={'Prosseguir'}
             confirmIcon={<Icon name="arrowright" size={23} color="#fff" />}
-            form={<Calendar />}
+            form={
+              <Calendar
+                value={values.date}
+                onChange={value => onChange('date', value)}
+              />
+            }
             onNext={() => onScrollTo(1)}
             buttonStyle={styles.nextButton}
             titleStyle={styles.stepTitle}
-            nextEnabled={false}
+            nextEnabled={!!values.date}
           />,
           <RegisterStep
             title="Escolha o horário"
             confirmTitle={'Prosseguir'}
             confirmIcon={<Icon name="arrowright" size={23} color="#fff" />}
-            form={<Step2 />}
+            form={
+              <Step2
+                onChange={value => onChange('time', value)}
+                value={values.time}
+              />
+            }
             onNext={() => onScrollTo(2)}
             contentStyle={styles.stepContainer}
             titleStyle={styles.stepTitle}
-            nextEnabled={false}
+            nextEnabled={!!values.time}
           />,
           <RegisterStep
             title="Número de pessoas"
             confirmTitle={'Finalizar'}
             confirmIcon={<Icon name="check" size={23} color="#fff" />}
-            form={<Step3 />}
+            form={
+              <Step3
+                onChange={onChange}
+                value={{
+                  kids: values.kids,
+                  babies: values.babies,
+                  adults: values.adults,
+                }}
+              />
+            }
             onNext={onComplete}
             contentStyle={styles.stepContainer}
             titleStyle={styles.stepTitle}
-            nextEnabled={false}
+            nextEnabled={!!+values.kids || !!+values.adults}
           />,
         ]}
       />

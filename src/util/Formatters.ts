@@ -1,4 +1,3 @@
-import { parseISO } from 'date-fns';
 import { format } from 'date-fns/esm';
 import { mask } from 'react-native-mask-text';
 import { AddressType } from '~/api/useAddresses';
@@ -13,7 +12,6 @@ export const formatAddress = (address?: AddressType) => {
   return [
     address.line1,
     address.line2,
-    address.postalCode,
     formatPostalCode(address.postalCode),
     address.city,
     address.country,
