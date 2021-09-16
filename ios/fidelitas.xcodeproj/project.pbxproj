@@ -8,12 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* fidelitasTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* fidelitasTests.m */; };
-		04C8917CE1BD12AC07838207 /* libPods-fidelitas-fidelitasTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 668F188EDB10BE9B7BF5A1A1 /* libPods-fidelitas-fidelitasTests.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		160DAB8340B7C3A4FDC6295E /* libPods-fidelitas.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0070DA737C4F8F30D69899F6 /* libPods-fidelitas.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		D6FB694CA3E79DDCC4B4F3B1 /* libPods-fidelitas.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7132B101DBB81A1900F3948B /* libPods-fidelitas.a */; };
+		CDE91C6F26F3CBE8007654B4 /* Montserrat-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDE91C5D26F3CBE7007654B4 /* Montserrat-ExtraLight.ttf */; };
+		CDE91C7026F3CBE8007654B4 /* Montserrat-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDE91C5E26F3CBE7007654B4 /* Montserrat-ThinItalic.ttf */; };
+		CDE91C7126F3CBE8007654B4 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDE91C5F26F3CBE7007654B4 /* Montserrat-Bold.ttf */; };
+		CDE91C7226F3CBE8007654B4 /* Montserrat-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDE91C6026F3CBE7007654B4 /* Montserrat-BoldItalic.ttf */; };
+		CDE91C7326F3CBE8007654B4 /* Montserrat-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDE91C6126F3CBE7007654B4 /* Montserrat-BlackItalic.ttf */; };
+		CDE91C7426F3CBE8007654B4 /* Montserrat-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDE91C6226F3CBE7007654B4 /* Montserrat-Italic.ttf */; };
+		CDE91C7526F3CBE8007654B4 /* Montserrat-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDE91C6326F3CBE7007654B4 /* Montserrat-MediumItalic.ttf */; };
+		CDE91C7626F3CBE8007654B4 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDE91C6426F3CBE8007654B4 /* Montserrat-Regular.ttf */; };
+		CDE91C7726F3CBE8007654B4 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDE91C6526F3CBE8007654B4 /* Montserrat-SemiBold.ttf */; };
+		CDE91C7826F3CBE8007654B4 /* Montserrat-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDE91C6626F3CBE8007654B4 /* Montserrat-SemiBoldItalic.ttf */; };
+		CDE91C7926F3CBE8007654B4 /* Montserrat-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDE91C6726F3CBE8007654B4 /* Montserrat-Thin.ttf */; };
+		CDE91C7A26F3CBE8007654B4 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDE91C6826F3CBE8007654B4 /* Montserrat-Light.ttf */; };
+		CDE91C7B26F3CBE8007654B4 /* Montserrat-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDE91C6926F3CBE8007654B4 /* Montserrat-ExtraBold.ttf */; };
+		CDE91C7C26F3CBE8007654B4 /* Montserrat-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDE91C6A26F3CBE8007654B4 /* Montserrat-LightItalic.ttf */; };
+		CDE91C7D26F3CBE8007654B4 /* Montserrat-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDE91C6B26F3CBE8007654B4 /* Montserrat-ExtraLightItalic.ttf */; };
+		CDE91C7E26F3CBE8007654B4 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDE91C6C26F3CBE8007654B4 /* Montserrat-Medium.ttf */; };
+		CDE91C7F26F3CBE8007654B4 /* Montserrat-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDE91C6D26F3CBE8007654B4 /* Montserrat-Black.ttf */; };
+		CDE91C8026F3CBE8007654B4 /* Montserrat-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDE91C6E26F3CBE8007654B4 /* Montserrat-ExtraBoldItalic.ttf */; };
+		F816BE3025500EAD8A8CA1E0 /* libPods-fidelitas-fidelitasTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D094EE95B902DB425C80B24B /* libPods-fidelitas-fidelitasTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0070DA737C4F8F30D69899F6 /* libPods-fidelitas.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-fidelitas.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356EE1AD99517003FC87E /* fidelitasTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = fidelitasTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* fidelitasTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = fidelitasTests.m; sourceTree = "<group>"; };
@@ -36,13 +55,32 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = fidelitas/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = fidelitas/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = fidelitas/main.m; sourceTree = "<group>"; };
-		143D29C6F971FE10DC92A6B2 /* Pods-fidelitas.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fidelitas.debug.xcconfig"; path = "Target Support Files/Pods-fidelitas/Pods-fidelitas.debug.xcconfig"; sourceTree = "<group>"; };
-		41437B00AA152622AE179209 /* Pods-fidelitas-fidelitasTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fidelitas-fidelitasTests.release.xcconfig"; path = "Target Support Files/Pods-fidelitas-fidelitasTests/Pods-fidelitas-fidelitasTests.release.xcconfig"; sourceTree = "<group>"; };
-		668F188EDB10BE9B7BF5A1A1 /* libPods-fidelitas-fidelitasTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-fidelitas-fidelitasTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7132B101DBB81A1900F3948B /* libPods-fidelitas.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-fidelitas.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		208D7A5A2F045725CD36F7D9 /* Pods-fidelitas.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fidelitas.release.xcconfig"; path = "Target Support Files/Pods-fidelitas/Pods-fidelitas.release.xcconfig"; sourceTree = "<group>"; };
+		3AA07D00E3EEC61A5AC6AF88 /* Pods-fidelitas-fidelitasTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fidelitas-fidelitasTests.debug.xcconfig"; path = "Target Support Files/Pods-fidelitas-fidelitasTests/Pods-fidelitas-fidelitasTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = fidelitas/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		AAA1460E4ABCCC3CC5431410 /* Pods-fidelitas.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fidelitas.release.xcconfig"; path = "Target Support Files/Pods-fidelitas/Pods-fidelitas.release.xcconfig"; sourceTree = "<group>"; };
-		DE2F7B18D8F5D79EB56624E0 /* Pods-fidelitas-fidelitasTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fidelitas-fidelitasTests.debug.xcconfig"; path = "Target Support Files/Pods-fidelitas-fidelitasTests/Pods-fidelitas-fidelitasTests.debug.xcconfig"; sourceTree = "<group>"; };
+		BC7CB31BC0AC75508C66AE43 /* Pods-fidelitas-fidelitasTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fidelitas-fidelitasTests.release.xcconfig"; path = "Target Support Files/Pods-fidelitas-fidelitasTests/Pods-fidelitas-fidelitasTests.release.xcconfig"; sourceTree = "<group>"; };
+		CDE91C5926F3C662007654B4 /* fidelitas-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "fidelitas-Bridging-Header.h"; sourceTree = "<group>"; };
+		CDE91C5C26F3C8CF007654B4 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		CDE91C5D26F3CBE7007654B4 /* Montserrat-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-ExtraLight.ttf"; path = "fonts/Montserrat-ExtraLight.ttf"; sourceTree = "<group>"; };
+		CDE91C5E26F3CBE7007654B4 /* Montserrat-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-ThinItalic.ttf"; path = "fonts/Montserrat-ThinItalic.ttf"; sourceTree = "<group>"; };
+		CDE91C5F26F3CBE7007654B4 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.ttf"; path = "fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
+		CDE91C6026F3CBE7007654B4 /* Montserrat-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-BoldItalic.ttf"; path = "fonts/Montserrat-BoldItalic.ttf"; sourceTree = "<group>"; };
+		CDE91C6126F3CBE7007654B4 /* Montserrat-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-BlackItalic.ttf"; path = "fonts/Montserrat-BlackItalic.ttf"; sourceTree = "<group>"; };
+		CDE91C6226F3CBE7007654B4 /* Montserrat-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Italic.ttf"; path = "fonts/Montserrat-Italic.ttf"; sourceTree = "<group>"; };
+		CDE91C6326F3CBE7007654B4 /* Montserrat-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-MediumItalic.ttf"; path = "fonts/Montserrat-MediumItalic.ttf"; sourceTree = "<group>"; };
+		CDE91C6426F3CBE8007654B4 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Regular.ttf"; path = "fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		CDE91C6526F3CBE8007654B4 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-SemiBold.ttf"; path = "fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
+		CDE91C6626F3CBE8007654B4 /* Montserrat-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-SemiBoldItalic.ttf"; path = "fonts/Montserrat-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		CDE91C6726F3CBE8007654B4 /* Montserrat-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Thin.ttf"; path = "fonts/Montserrat-Thin.ttf"; sourceTree = "<group>"; };
+		CDE91C6826F3CBE8007654B4 /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Light.ttf"; path = "fonts/Montserrat-Light.ttf"; sourceTree = "<group>"; };
+		CDE91C6926F3CBE8007654B4 /* Montserrat-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-ExtraBold.ttf"; path = "fonts/Montserrat-ExtraBold.ttf"; sourceTree = "<group>"; };
+		CDE91C6A26F3CBE8007654B4 /* Montserrat-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-LightItalic.ttf"; path = "fonts/Montserrat-LightItalic.ttf"; sourceTree = "<group>"; };
+		CDE91C6B26F3CBE8007654B4 /* Montserrat-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-ExtraLightItalic.ttf"; path = "fonts/Montserrat-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		CDE91C6C26F3CBE8007654B4 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Medium.ttf"; path = "fonts/Montserrat-Medium.ttf"; sourceTree = "<group>"; };
+		CDE91C6D26F3CBE8007654B4 /* Montserrat-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Black.ttf"; path = "fonts/Montserrat-Black.ttf"; sourceTree = "<group>"; };
+		CDE91C6E26F3CBE8007654B4 /* Montserrat-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-ExtraBoldItalic.ttf"; path = "fonts/Montserrat-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		D094EE95B902DB425C80B24B /* libPods-fidelitas-fidelitasTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-fidelitas-fidelitasTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2ED75DE0AE44E08F5AE22C9 /* Pods-fidelitas.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fidelitas.debug.xcconfig"; path = "Target Support Files/Pods-fidelitas/Pods-fidelitas.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -51,7 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04C8917CE1BD12AC07838207 /* libPods-fidelitas-fidelitasTests.a in Frameworks */,
+				F816BE3025500EAD8A8CA1E0 /* libPods-fidelitas-fidelitasTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,7 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D6FB694CA3E79DDCC4B4F3B1 /* libPods-fidelitas.a in Frameworks */,
+				160DAB8340B7C3A4FDC6295E /* libPods-fidelitas.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +121,17 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		0B9496175A24F96CA3D37A58 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E2ED75DE0AE44E08F5AE22C9 /* Pods-fidelitas.debug.xcconfig */,
+				208D7A5A2F045725CD36F7D9 /* Pods-fidelitas.release.xcconfig */,
+				3AA07D00E3EEC61A5AC6AF88 /* Pods-fidelitas-fidelitasTests.debug.xcconfig */,
+				BC7CB31BC0AC75508C66AE43 /* Pods-fidelitas-fidelitasTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		13B07FAE1A68108700A75B9A /* fidelitas */ = {
 			isa = PBXGroup;
 			children = (
@@ -100,8 +149,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				7132B101DBB81A1900F3948B /* libPods-fidelitas.a */,
-				668F188EDB10BE9B7BF5A1A1 /* libPods-fidelitas-fidelitasTests.a */,
+				0070DA737C4F8F30D69899F6 /* libPods-fidelitas.a */,
+				D094EE95B902DB425C80B24B /* libPods-fidelitas-fidelitasTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -116,12 +165,32 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				CDE91C6D26F3CBE8007654B4 /* Montserrat-Black.ttf */,
+				CDE91C6126F3CBE7007654B4 /* Montserrat-BlackItalic.ttf */,
+				CDE91C5F26F3CBE7007654B4 /* Montserrat-Bold.ttf */,
+				CDE91C6026F3CBE7007654B4 /* Montserrat-BoldItalic.ttf */,
+				CDE91C6926F3CBE8007654B4 /* Montserrat-ExtraBold.ttf */,
+				CDE91C6E26F3CBE8007654B4 /* Montserrat-ExtraBoldItalic.ttf */,
+				CDE91C5D26F3CBE7007654B4 /* Montserrat-ExtraLight.ttf */,
+				CDE91C6B26F3CBE8007654B4 /* Montserrat-ExtraLightItalic.ttf */,
+				CDE91C6226F3CBE7007654B4 /* Montserrat-Italic.ttf */,
+				CDE91C6826F3CBE8007654B4 /* Montserrat-Light.ttf */,
+				CDE91C6A26F3CBE8007654B4 /* Montserrat-LightItalic.ttf */,
+				CDE91C6C26F3CBE8007654B4 /* Montserrat-Medium.ttf */,
+				CDE91C6326F3CBE7007654B4 /* Montserrat-MediumItalic.ttf */,
+				CDE91C6426F3CBE8007654B4 /* Montserrat-Regular.ttf */,
+				CDE91C6526F3CBE8007654B4 /* Montserrat-SemiBold.ttf */,
+				CDE91C6626F3CBE8007654B4 /* Montserrat-SemiBoldItalic.ttf */,
+				CDE91C6726F3CBE8007654B4 /* Montserrat-Thin.ttf */,
+				CDE91C5E26F3CBE7007654B4 /* Montserrat-ThinItalic.ttf */,
+				CDE91C5C26F3C8CF007654B4 /* File.swift */,
 				13B07FAE1A68108700A75B9A /* fidelitas */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* fidelitasTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				CC2989978090A8BFD6EA3062 /* Pods */,
+				0B9496175A24F96CA3D37A58 /* Pods */,
+				CDE91C5926F3C662007654B4 /* fidelitas-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -137,18 +206,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		CC2989978090A8BFD6EA3062 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				143D29C6F971FE10DC92A6B2 /* Pods-fidelitas.debug.xcconfig */,
-				AAA1460E4ABCCC3CC5431410 /* Pods-fidelitas.release.xcconfig */,
-				DE2F7B18D8F5D79EB56624E0 /* Pods-fidelitas-fidelitasTests.debug.xcconfig */,
-				41437B00AA152622AE179209 /* Pods-fidelitas-fidelitasTests.release.xcconfig */,
-			);
-			name = Pods;
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -156,12 +213,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "fidelitasTests" */;
 			buildPhases = (
-				6EAE867984DEF13325FC63BC /* [CP] Check Pods Manifest.lock */,
+				96B84CCC318D5B34C034B48D /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				4D2B8660824974E2F4CE3DAD /* [CP] Embed Pods Frameworks */,
-				C114E2306472A253B2F2F390 /* [CP] Copy Pods Resources */,
+				343745231E6B772E551508FC /* [CP] Embed Pods Frameworks */,
+				E339EF82BC62C78CFFE3FA8F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -177,14 +234,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "fidelitas" */;
 			buildPhases = (
-				AE23AE1EEB38356ACB7D5674 /* [CP] Check Pods Manifest.lock */,
+				A75B2A949FC218FDB408F808 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				678F3271742396BCAE342846 /* [CP] Embed Pods Frameworks */,
-				4BF324F67BEF0BEE1AA2FEBF /* [CP] Copy Pods Resources */,
+				50C7A638235B6A7702E059E5 /* [CP] Embed Pods Frameworks */,
+				F1F278C062E26BD7BA794BD4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -208,7 +265,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1250;
 					};
 				};
 			};
@@ -243,6 +300,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDE91C6F26F3CBE8007654B4 /* Montserrat-ExtraLight.ttf in Resources */,
+				CDE91C7026F3CBE8007654B4 /* Montserrat-ThinItalic.ttf in Resources */,
+				CDE91C7126F3CBE8007654B4 /* Montserrat-Bold.ttf in Resources */,
+				CDE91C7226F3CBE8007654B4 /* Montserrat-BoldItalic.ttf in Resources */,
+				CDE91C7326F3CBE8007654B4 /* Montserrat-BlackItalic.ttf in Resources */,
+				CDE91C7426F3CBE8007654B4 /* Montserrat-Italic.ttf in Resources */,
+				CDE91C7526F3CBE8007654B4 /* Montserrat-MediumItalic.ttf in Resources */,
+				CDE91C7626F3CBE8007654B4 /* Montserrat-Regular.ttf in Resources */,
+				CDE91C7726F3CBE8007654B4 /* Montserrat-SemiBold.ttf in Resources */,
+				CDE91C7826F3CBE8007654B4 /* Montserrat-SemiBoldItalic.ttf in Resources */,
+				CDE91C7926F3CBE8007654B4 /* Montserrat-Thin.ttf in Resources */,
+				CDE91C7A26F3CBE8007654B4 /* Montserrat-Light.ttf in Resources */,
+				CDE91C7B26F3CBE8007654B4 /* Montserrat-ExtraBold.ttf in Resources */,
+				CDE91C7C26F3CBE8007654B4 /* Montserrat-LightItalic.ttf in Resources */,
+				CDE91C7D26F3CBE8007654B4 /* Montserrat-ExtraLightItalic.ttf in Resources */,
+				CDE91C7E26F3CBE8007654B4 /* Montserrat-Medium.ttf in Resources */,
+				CDE91C7F26F3CBE8007654B4 /* Montserrat-Black.ttf in Resources */,
+				CDE91C8026F3CBE8007654B4 /* Montserrat-ExtraBoldItalic.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
@@ -265,24 +340,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		4BF324F67BEF0BEE1AA2FEBF /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-fidelitas/Pods-fidelitas-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-fidelitas/Pods-fidelitas-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-fidelitas/Pods-fidelitas-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4D2B8660824974E2F4CE3DAD /* [CP] Embed Pods Frameworks */ = {
+		343745231E6B772E551508FC /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -299,7 +357,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-fidelitas-fidelitasTests/Pods-fidelitas-fidelitasTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		678F3271742396BCAE342846 /* [CP] Embed Pods Frameworks */ = {
+		50C7A638235B6A7702E059E5 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -316,7 +374,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-fidelitas/Pods-fidelitas-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6EAE867984DEF13325FC63BC /* [CP] Check Pods Manifest.lock */ = {
+		96B84CCC318D5B34C034B48D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -338,7 +396,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AE23AE1EEB38356ACB7D5674 /* [CP] Check Pods Manifest.lock */ = {
+		A75B2A949FC218FDB408F808 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -360,7 +418,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C114E2306472A253B2F2F390 /* [CP] Copy Pods Resources */ = {
+		E339EF82BC62C78CFFE3FA8F /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -375,6 +433,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-fidelitas-fidelitasTests/Pods-fidelitas-fidelitasTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F1F278C062E26BD7BA794BD4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-fidelitas/Pods-fidelitas-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-fidelitas/Pods-fidelitas-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-fidelitas/Pods-fidelitas-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -429,7 +504,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DE2F7B18D8F5D79EB56624E0 /* Pods-fidelitas-fidelitasTests.debug.xcconfig */;
+			baseConfigurationReference = 3AA07D00E3EEC61A5AC6AF88 /* Pods-fidelitas-fidelitasTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -456,7 +531,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 41437B00AA152622AE179209 /* Pods-fidelitas-fidelitasTests.release.xcconfig */;
+			baseConfigurationReference = BC7CB31BC0AC75508C66AE43 /* Pods-fidelitas-fidelitasTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -480,11 +555,12 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 143D29C6F971FE10DC92A6B2 /* Pods-fidelitas.debug.xcconfig */;
+			baseConfigurationReference = E2ED75DE0AE44E08F5AE22C9 /* Pods-fidelitas.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q33BT8A6DL;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = fidelitas/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -498,6 +574,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = fidelitas;
+				SWIFT_OBJC_BRIDGING_HEADER = "fidelitas-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -506,11 +583,12 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AAA1460E4ABCCC3CC5431410 /* Pods-fidelitas.release.xcconfig */;
+			baseConfigurationReference = 208D7A5A2F045725CD36F7D9 /* Pods-fidelitas.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q33BT8A6DL;
 				INFOPLIST_FILE = fidelitas/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -523,6 +601,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = fidelitas;
+				SWIFT_OBJC_BRIDGING_HEADER = "fidelitas-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -586,6 +665,7 @@
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
 					"\"$(inherited)\"",
+					"\"$(SDKROOT)/usr/lib/swift\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
