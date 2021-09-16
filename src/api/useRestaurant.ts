@@ -5,8 +5,10 @@ const restaurantId = 1;
 
 export default () => {
   const { data, error, isLoading } = useFetch<ProductType[]>(
-    `restaurants/${restaurantId}`,
+    `restaurants/${restaurantId}/details`,
   );
+
+  console.log(data);
 
   return {
     restaurant: data,

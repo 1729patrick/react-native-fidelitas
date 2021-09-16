@@ -55,11 +55,13 @@ export const RestaurantProvider: React.FC = ({ children }) => {
   const getRestaurant = async () => {
     try {
       const { data } = await api.get<RestaurantType>(
-        `restaurants/${restaurantId}`,
+        `restaurants/${restaurantId}/details`,
       );
 
       setRestaurant(data);
-    } catch (err) {}
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const { setStorage } = useStorage<RestaurantType>(
