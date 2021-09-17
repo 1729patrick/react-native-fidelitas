@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View } from 'react-native';
 import styles from './styles';
 
 import TimeSelect from '~/components/atoms/TimeSelect';
 import IncrementDecrement from '~/components/atoms/IncrementDecrement';
+import { useRestaurant } from '~/contexts/Restaurant';
+import { getDay } from '~/util/Date';
+import { add } from 'date-fns';
+import { formatHumanTime } from '~/util/Formatters';
 
 type Step2Props = {
   value: string;
@@ -11,37 +15,73 @@ type Step2Props = {
 };
 
 export const Step2: React.FC<Step2Props> = ({ value, onChange }) => {
-  return (
-    <View>
-      <TimeSelect
-        title="Almoço"
-        value={value}
-        onChange={onChange}
-        slots={[
-          '12h:00m',
-          '12h:30m',
-          '13h:00m',
-          '13h:30m',
-          '14h:00m',
-          '14h:30m',
-        ]}
-      />
+  const { restaurant } = useRestaurant();
 
-      <TimeSelect
-        title="Jantar"
-        style={styles.dinner}
-        value={value}
-        onChange={onChange}
-        slots={[
-          '17h:00m',
-          '17h:30m',
-          '18h:00m',
-          '18h:30m',
-          '19h:00m',
-          '19h:30m',
-        ]}
-      />
-    </View>
+  const hours = useMemo(() => {
+    return restaurant?.workHours[getDay()] || {};
+  }, [restaurant?.workHours]);
+
+  const getSlots = ([start, end]: string[]) => {
+    if (!start || !end) {
+      return null;
+    }
+
+    const [startHours, startMinutes] = start.split(':');
+    const [endHours, endMinutes] = end.split(':');
+
+    const startDate = new Date();
+    startDate.setHours(+startHours, +startMinutes);
+
+    let endDate = new Date();
+    endDate.setHours(+endHours, +endMinutes);
+    endDate = add(endDate, { minutes: -30 });
+
+    let slots = [];
+
+    let date = startDate;
+
+    while (date <= endDate) {
+      slots.push(formatHumanTime(date));
+      date = add(date, { minutes: 30 });
+    }
+
+    return slots;
+  };
+
+  const times = [
+    {
+      title: 'Pequeno almoço',
+      style: {},
+      slots: getSlots(hours.breakfast || []),
+    },
+    {
+      title: 'Almoço',
+      style: styles.dinner,
+      slots: getSlots(hours.lunch || []),
+    },
+    {
+      title: 'Jantar',
+      style: styles.dinner,
+      slots: getSlots(hours.dinner || []),
+    },
+  ];
+
+  return (
+    <>
+      {times.map(time => (
+        <View>
+          {time.slots && (
+            <TimeSelect
+              title={time.title}
+              value={value}
+              onChange={onChange}
+              slots={time.slots}
+              style={time.style}
+            />
+          )}
+        </View>
+      ))}
+    </>
   );
 };
 

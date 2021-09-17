@@ -1,5 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import StyleGuide from '~/util/StyleGuide';
+
+const { width } = Dimensions.get('window');
 
 export default StyleSheet.create({
   container: {},
@@ -7,9 +9,8 @@ export default StyleSheet.create({
   slots: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    marginHorizontal: -StyleGuide.spacing * 0.5,
     marginTop: StyleGuide.spacing * 2,
+    marginHorizontal: -StyleGuide.spacing * 0.5,
   },
   button: {
     borderWidth: 2,
@@ -18,11 +19,13 @@ export default StyleSheet.create({
     margin: StyleGuide.spacing * 0.5,
   },
   slot: {
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingVertical: StyleGuide.spacing * 0.5,
-    paddingHorizontal: StyleGuide.spacing * 2,
     borderWidth: 2,
     borderColor: StyleGuide.palette.border,
     borderRadius: StyleGuide.borderRadius * 5,
+    width: (width - StyleGuide.spacing * 4.5 - StyleGuide.spacing * 4) / 3,
   },
   checkedSlot: {
     backgroundColor: StyleGuide.palette.app,

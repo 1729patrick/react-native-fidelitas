@@ -1,22 +1,17 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Text, View } from 'react-native';
 import { useRestaurant, WorkHour, WorkHours } from '~/contexts/Restaurant';
+import { getDay } from '~/util/Date';
 import StyleGuide from '~/util/StyleGuide';
 import styles from './styles';
-
-import { format } from 'date-fns';
 
 const CompanyStatus = () => {
   const { restaurant } = useRestaurant();
   const [now, setNow] = useState(new Date());
   const [day, setDay] = useState(getDay());
 
-  function getDay() {
-    return format(new Date(), 'EEEE').toLocaleLowerCase();
-  }
-
   const hours = useMemo(() => {
-    return (restaurant?.workHours[day as keyof WorkHours] as WorkHour) || {};
+    return (restaurant?.workHours[day] as WorkHour) || {};
   }, [day, restaurant?.workHours]);
 
   const timeWindow = useMemo(() => {
@@ -27,11 +22,8 @@ const CompanyStatus = () => {
       const [startHours, startMinutes] = start.split(':');
       const [endHours, endMinutes] = end.split(':');
 
-      startDate.setMinutes(+startMinutes);
-      startDate.setHours(+startHours);
-
-      endDate.setMinutes(+endMinutes);
-      endDate.setHours(+endHours);
+      startDate.setHours(+startHours, +startMinutes);
+      endDate.setHours(+endHours, +endMinutes);
 
       if (now >= startDate && now <= endDate) {
         return [start, end];
@@ -63,11 +55,8 @@ const CompanyStatus = () => {
 
       const [startHours, startMinutes] = nextStart?.split(':') || [];
 
-      startDate.setMinutes(+startMinutes);
-      startDate.setHours(+startHours);
-
-      endDate.setMinutes(+endMinutes);
-      endDate.setHours(+endHours);
+      startDate.setHours(+startHours, +startMinutes);
+      endDate.setHours(+endHours, +endMinutes);
 
       if (now >= endDate && now <= startDate) {
         return `Abre hoje às ${nextStart}`;
@@ -77,8 +66,7 @@ const CompanyStatus = () => {
     const startTimes = values.map(([start]) => {
       const [startHours, startMinutes] = start?.split(':');
 
-      startDate.setMinutes(+startMinutes);
-      startDate.setHours(+startHours);
+      startDate.setHours(+startHours, +startMinutes);
 
       return startDate.getTime();
     });
@@ -89,8 +77,7 @@ const CompanyStatus = () => {
       values.find(([start]) => {
         const [startHours, startMinutes] = start?.split(':');
 
-        startDate.setMinutes(+startMinutes);
-        startDate.setHours(+startHours);
+        startDate.setHours(+startHours, +startMinutes);
 
         return startDate.getTime() === nextStartTime;
       }) || [];

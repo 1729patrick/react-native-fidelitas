@@ -98,21 +98,27 @@ const GroupedProductsList: React.ForwardRefRenderFunction<
     (category: CategoryType, index: number) => {
       return (
         <View style={[{ width }]}>
-          <View style={[styles.group]}>
-            <Text style={styles.title} numberOfLines={1}>
-              {translate(category.type as TranslationKeyType)}
-            </Text>
-            {(category.products || []).map(product => (
-              <ProductItem
-                {...product}
-                key={product.id}
-                addToBasket={(quantity: number) =>
-                  addToBasket(quantity, product)
-                }
-                quantity={getQuantity(product.id)}
-              />
-            ))}
-          </View>
+          {activePage === index ? (
+            <View style={[styles.group]}>
+              <Text style={styles.title} numberOfLines={1}>
+                {translate(category.type as TranslationKeyType)}
+              </Text>
+              {(category.products || []).map(product => (
+                <ProductItem
+                  {...product}
+                  key={product.id}
+                  addToBasket={(quantity: number) =>
+                    addToBasket(quantity, product)
+                  }
+                  quantity={getQuantity(product.id)}
+                />
+              ))}
+            </View>
+          ) : (
+            <View style={styles.loader}>
+              <Loader />
+            </View>
+          )}
         </View>
       );
     },
@@ -124,7 +130,7 @@ const GroupedProductsList: React.ForwardRefRenderFunction<
       //@ts-ignore
       ref={scrollViewRef}
       onScroll={scrollHandler}
-      // horizontal
+      horizontal
       snapToInterval={width}
       disableIntervalMomentum
       scrollEventThrottle={16}

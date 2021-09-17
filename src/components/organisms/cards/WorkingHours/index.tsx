@@ -50,11 +50,8 @@ const WorkingHours = () => {
     const [startHours, startMinutes] = start.split(':');
     const [endHours, endMinutes] = end.split(':');
 
-    startDate.setMinutes(+startMinutes);
-    startDate.setHours(+startHours);
-
-    endDate.setMinutes(+endMinutes);
-    endDate.setHours(+endHours);
+    startDate.setHours(+startHours, +startMinutes);
+    endDate.setHours(+endHours, +endMinutes);
 
     if (now >= startDate && now <= endDate) {
       return styles.today;

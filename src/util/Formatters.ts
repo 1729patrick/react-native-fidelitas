@@ -65,3 +65,11 @@ export const formatHumanDate = (date?: string, time?: string) => {
 
   return format(dateFormatted, "dd 'de' LLL 'de' y 'às' HH'h':mm'm'");
 };
+
+export const formatHumanTime = (time?: Date) => {
+  if (!time) {
+    return '';
+  }
+
+  return format(time, "HH'h':mm'm'");
+};
