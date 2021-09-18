@@ -14,7 +14,11 @@ import {
 } from '~/util/Formatters';
 import Input from '~/components/atoms/Input';
 import { translate, TranslationKeyType } from '~/i18n';
-import { DISTANCE_BETWEEN_RESERVE_AND_NOW } from './constants';
+import {
+  DISTANCE_BETWEEN_RESERVE_AND_NOW,
+  DURATION_BETWEEN_RESERVE_AND_NOW,
+  DURATION_BETWEEN_RESERVE_AND_RESTAURANT_CLOSE,
+} from './constants';
 
 type Step2Props = {
   value: {
@@ -53,7 +57,9 @@ export const Step2: React.FC<Step2Props> = ({
 
     let endDate = new Date();
     endDate.setHours(+endHours, +endMinutes);
-    endDate = add(endDate, { minutes: -30 });
+    endDate = add(endDate, {
+      minutes: -DURATION_BETWEEN_RESERVE_AND_RESTAURANT_CLOSE,
+    });
 
     let slots = [];
 
@@ -63,7 +69,7 @@ export const Step2: React.FC<Step2Props> = ({
       if (
         !isToday ||
         (isToday &&
-          date >= add(now, { minutes: DISTANCE_BETWEEN_RESERVE_AND_NOW }))
+          date >= add(now, { minutes: DURATION_BETWEEN_RESERVE_AND_NOW }))
       ) {
         slots.push(formatHumanTime(date));
       }

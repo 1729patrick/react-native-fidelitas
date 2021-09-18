@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { StatusBar, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -21,6 +21,13 @@ import { ResponseError } from '~/types/Api';
 import { translate } from '~/i18n';
 import { Alert } from '~/util/Alert';
 import { GET_RESERVATION_URL } from '~/api/useReservation';
+import { useRestaurant } from '~/contexts/Restaurant';
+import { getDay } from '~/util/Date';
+import add from 'date-fns/add';
+import {
+  DURATION_BETWEEN_RESERVE_AND_NOW,
+  DURATION_BETWEEN_RESERVE_AND_RESTAURANT_CLOSE,
+} from '~/components/organisms/forms/Reservation/constants';
 
 export default () => {
   const [values, setValues] = useState({
@@ -40,6 +47,12 @@ export default () => {
 
   const registerRef = useRef<RegisterHandler>(null);
   const { pop } = useNavigation<StackNavigationProp<any>>();
+
+  const { restaurant } = useRestaurant();
+
+  const hours = useMemo(() => {
+    return restaurant?.workHours[getDay()] || {};
+  }, [restaurant?.workHours]);
 
   const onComplete = async () => {
     const valuesFormatted = {
@@ -87,6 +100,28 @@ export default () => {
     setValues(values => ({ ...values, [key]: value }));
   };
 
+  const minDate = useMemo(() => {
+    const now = new Date();
+    const endDate = new Date();
+    const [_, end] = hours.dinner || hours.lunch || hours.breakfast || [];
+
+    if (!end) {
+      return now;
+    }
+
+    const [hours_, minutes_] = end.split(':');
+    endDate.setHours(+hours_, +minutes_);
+
+    if (
+      add(now, { minutes: DURATION_BETWEEN_RESERVE_AND_NOW }) >=
+      add(endDate, { minutes: -DURATION_BETWEEN_RESERVE_AND_RESTAURANT_CLOSE })
+    ) {
+      return add(now, { days: 1 });
+    }
+
+    return now;
+  }, []);
+
   return (
     <View style={styles.container}>
       <StatusBar
@@ -113,6 +148,7 @@ export default () => {
                 height={CONTENT_HEIGHT}
                 value={values.date}
                 onChange={value => onChange('date', value)}
+                minDate={minDate}
               />
             }
             onNext={() => onScrollTo(1)}

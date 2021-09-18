@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { STATUS } from './constants';
 import { ReservationType } from '~/api/useReservation';
 import { formatHumanDate } from '~/util/Formatters';
+import { translate } from '~/i18n';
 
 type ReservationProps = ReservationType & {
   onPress: (args: ReservationType) => void;
@@ -28,7 +29,7 @@ const ReservationItem: React.FC<ReservationProps> = ({
         onPress={() => onPress(reservation)}>
         <View style={styles.row}>
           <Text style={styles.title} numberOfLines={1}>
-            {reservation.type}
+            {translate(reservation.type)}
           </Text>
           <Text
             style={[

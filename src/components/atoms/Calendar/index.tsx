@@ -1,20 +1,27 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { CalendarList, DateObject } from 'react-native-calendars';
 import StyleGuide from '~/util/StyleGuide';
 import useStatusBar from '~/hooks/useStatusBar';
 import { format } from 'date-fns';
 import { DATE_CALENDAR_FORMAT } from '~/util/Constants';
 import { View } from 'react-native';
+import { useNavigation } from '@react-navigation/core';
+import { StackNavigationProp } from '@react-navigation/stack';
+import Loader from '../Loader';
 
 export default ({
   onChange,
   value,
   height,
+  minDate,
 }: {
   value: string;
   onChange: (value: string) => void;
   height: number;
+  minDate: Date;
 }) => {
+  const [loaded, setLoaded] = useState(false);
+  const { addListener } = useNavigation<StackNavigationProp<any>>();
   useStatusBar(true);
 
   const onDayPress = ({ timestamp }: DateObject) => {
@@ -30,6 +37,24 @@ export default ({
     return format(new Date(value), DATE_CALENDAR_FORMAT);
   }, [value]);
 
+  useEffect(() => {
+    addListener('transitionEnd', () => setLoaded(true));
+    addListener('transitionStart', () => setLoaded(false));
+  }, [addListener]);
+
+  if (!loaded) {
+    return (
+      <View
+        style={{
+          height,
+          width: '100%',
+          justifyContent: 'center',
+        }}>
+        <Loader />
+      </View>
+    );
+  }
+
   return (
     <View
       style={{
@@ -40,7 +65,7 @@ export default ({
         pastScrollRange={0}
         firstDay={0}
         onDayPress={onDayPress}
-        minDate={new Date()}
+        minDate={minDate}
         futureScrollRange={2}
         scrollEnabled={true}
         current={value}

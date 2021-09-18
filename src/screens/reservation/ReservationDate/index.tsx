@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { StatusBar, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import useStatusBar from '~/hooks/useStatusBar';
@@ -12,6 +12,13 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/core';
 import { CALENDAR_HEIGHT } from './constants';
 import { ReservationType } from '~/api/useReservation';
 import { formatDate } from '~/util/Formatters';
+import {
+  DURATION_BETWEEN_RESERVE_AND_NOW,
+  DURATION_BETWEEN_RESERVE_AND_RESTAURANT_CLOSE,
+} from '~/components/organisms/forms/Reservation/constants';
+import add from 'date-fns/add';
+import { useRestaurant } from '~/contexts/Restaurant';
+import { getDay } from '~/util/Date';
 
 type RootStackParamList = {
   ReservationForm: {
@@ -29,6 +36,11 @@ export default () => {
   const { params } = useRoute<RouteProps>();
 
   const [values, setValues] = useState(params.reservation);
+  const { restaurant } = useRestaurant();
+
+  const hours = useMemo(() => {
+    return restaurant?.workHours[getDay()] || {};
+  }, [restaurant?.workHours]);
 
   const onChange = (date: string) => {
     setValues({ ...values, ['date']: date });
@@ -38,6 +50,28 @@ export default () => {
     params.onConfirm(values);
     pop();
   };
+
+  const minDate = useMemo(() => {
+    const now = new Date();
+    const endDate = new Date();
+    const [_, end] = hours.dinner || hours.lunch || hours.breakfast || [];
+
+    if (!end) {
+      return now;
+    }
+
+    const [hours_, minutes_] = end.split(':');
+    endDate.setHours(+hours_, +minutes_);
+
+    if (
+      add(now, { minutes: DURATION_BETWEEN_RESERVE_AND_NOW }) >=
+      add(endDate, { minutes: -DURATION_BETWEEN_RESERVE_AND_RESTAURANT_CLOSE })
+    ) {
+      return add(now, { days: 1 });
+    }
+
+    return now;
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -57,6 +91,7 @@ export default () => {
             height={CALENDAR_HEIGHT}
             value={values.date}
             onChange={onChange}
+            minDate={minDate}
           />
         }
         onNext={onConfirm}
