@@ -89,7 +89,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     } catch ({ response }) {
       const { data } = response as ResponseError;
 
-      Alert.error(translate(data.message), 'UNHANDLED_ERROR');
+      Alert.error(translate(data.message, 'UNHANDLED_ERROR'));
 
       return false;
     }
@@ -112,7 +112,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     } catch ({ response }) {
       const { data } = response as ResponseError;
 
-      Alert.error(translate(data.message), 'UNHANDLED_ERROR');
+      Alert.error(translate(data.message, 'UNHANDLED_ERROR'));
 
       return false;
     }

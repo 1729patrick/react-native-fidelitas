@@ -43,28 +43,6 @@ const Register: React.ForwardRefRenderFunction<RegisterHandler, RegisterProps> =
       [],
     );
 
-    const ScrollableItem = useMemo(() => {
-      return steps.map((step, index) => (
-        <View key={index} style={[styles.step]}>
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            overScrollMode="never"
-            contentContainerStyle={{ flexGrow: 1 }}>
-            <View style={styles.logo}>{logo}</View>
-            {step}
-          </ScrollView>
-        </View>
-      ));
-    }, [steps]);
-
-    const ViewItem = useMemo(() => {
-      return steps.map((step, index) => (
-        <View key={index} style={[styles.step, style]}>
-          {step}
-        </View>
-      ));
-    }, [steps]);
-
     return (
       <>
         <ScrollView
@@ -77,7 +55,18 @@ const Register: React.ForwardRefRenderFunction<RegisterHandler, RegisterProps> =
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.contentContainer}
           scrollEnabled={false}>
-          {scrollable ? ScrollableItem : ViewItem}
+          {steps.map((step, index) => (
+            <View key={index} style={[styles.step]}>
+              <ScrollView
+                scrollEnabled={scrollable}
+                showsVerticalScrollIndicator={false}
+                overScrollMode="never"
+                contentContainerStyle={[{ flexGrow: 1 }, style]}>
+                {logo && <View style={styles.logo}>{logo}</View>}
+                {step}
+              </ScrollView>
+            </View>
+          ))}
         </ScrollView>
       </>
     );

@@ -8,8 +8,6 @@ export default () => {
     `restaurants/${restaurantId}/details`,
   );
 
-  console.log(data);
-
   return {
     restaurant: data,
     isError: error,

@@ -46,4 +46,12 @@ export default {
   delivery: 'Delivery',
   takeAway: 'Takeaway',
   local: 'Local',
+
+  breakfast: 'BreakFast',
+  lunch: 'Lunch',
+  dinner: 'Dinner',
+
+  date: 'Date',
+  time: 'Time',
+  peoples: 'Peoples',
 };

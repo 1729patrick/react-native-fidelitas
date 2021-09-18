@@ -6,7 +6,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import useStatusBar from '~/hooks/useStatusBar';
 import Register, { RegisterHandler } from '~/components/templates/Register';
 import Header from '~/components/atoms/Header';
-import { Step2, Step3 } from '~/components/organisms/forms/Reservation';
+import { Step2, Step3, Step4 } from '~/components/organisms/forms/Reservation';
 import RegisterStep from '~/components/organisms/RegisterStep';
 import useHideTabBar from '~/hooks/useHideTabBar';
 import Calendar from '~/components/atoms/Calendar';
@@ -15,7 +15,6 @@ import { useBackHandler } from '~/hooks/useBackHandler';
 import { CONTENT_HEIGHT } from './constants';
 import { formatHumanTime2Time } from '~/util/Formatters';
 import api from '~/util/api';
-import { log } from 'react-native-reanimated';
 import { mutate } from 'swr';
 import { isToday } from 'date-fns';
 import { ResponseError } from '~/types/Api';
@@ -31,6 +30,7 @@ export default () => {
     kids: 0,
     babies: 0,
     type: '' as 'breakfast' | 'lunch' | 'dinner',
+    clientNotes: '',
   });
 
   useStatusBar(true);
@@ -46,7 +46,6 @@ export default () => {
       ...values,
       time: formatHumanTime2Time(values.time),
     };
-    console.log(valuesFormatted);
 
     try {
       await api.put('user/reservations', valuesFormatted);
@@ -55,7 +54,7 @@ export default () => {
     } catch ({ response }) {
       const { data } = response as ResponseError;
 
-      Alert.error(translate(data.message), 'UNHANDLED_ERROR');
+      Alert.error(translate(data.message, 'UNHANDLED_ERROR'));
     }
   };
 
@@ -100,7 +99,7 @@ export default () => {
       />
       <Register
         ref={registerRef}
-        scrollable={false}
+        scrollable={currentIndex === 3}
         style={{ paddingTop: 80 }}
         steps={[
           <RegisterStep
@@ -138,8 +137,8 @@ export default () => {
           />,
           <RegisterStep
             title="Número de pessoas"
-            confirmTitle={'Finalizar'}
-            confirmIcon={<Icon name="check" size={23} color="#fff" />}
+            confirmTitle={'Prosseguir'}
+            confirmIcon={<Icon name="arrowright" size={23} color="#fff" />}
             form={
               <Step3
                 onChange={onChange}
@@ -150,6 +149,16 @@ export default () => {
                 }}
               />
             }
+            onNext={() => onScrollTo(3)}
+            contentStyle={styles.stepContainer}
+            titleStyle={styles.stepTitle}
+            nextEnabled={!!+values.kids || !!+values.adults}
+          />,
+          <RegisterStep
+            title="Confirmação"
+            confirmTitle={'Finalizar'}
+            confirmIcon={<Icon name="check" size={23} color="#fff" />}
+            form={<Step4 onChange={onChange} values={values} />}
             onNext={onComplete}
             contentStyle={styles.stepContainer}
             titleStyle={styles.stepTitle}

@@ -7,7 +7,11 @@ import TextButton from '~/components/atoms/buttons/TextButton';
 import Header from '~/components/atoms/Header';
 import Input from '~/components/atoms/Input';
 import useHideTabBar from '~/hooks/useHideTabBar';
-import { formatDate, formatTime } from '~/util/Formatters';
+import {
+  formatDate,
+  formatNumberOfPerson,
+  formatTime,
+} from '~/util/Formatters';
 import styles from './styles';
 
 type RootStackParamList = {
@@ -25,24 +29,7 @@ const ReservationForm = () => {
   useHideTabBar();
 
   const size = useMemo(() => {
-    let numberOfPeople: string[] = [];
-
-    if (reservation.adults) {
-      let suffix = reservation.adults > 1 ? 'adultos' : 'adulto';
-      numberOfPeople = [...numberOfPeople, `${reservation.adults} ${suffix}`];
-    }
-
-    if (reservation.kids) {
-      let suffix = reservation.kids > 1 ? 'crianças' : 'criança';
-      numberOfPeople = [...numberOfPeople, `${reservation.kids} ${suffix}`];
-    }
-
-    if (reservation.babies) {
-      let suffix = reservation.babies > 1 ? 'bebê' : 'bebês';
-      numberOfPeople = [...numberOfPeople, `${reservation.babies} ${suffix}`];
-    }
-
-    return numberOfPeople.join(', ');
+    return formatNumberOfPerson(reservation);
   }, []);
 
   const openReservationDate = () => {

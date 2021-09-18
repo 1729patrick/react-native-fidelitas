@@ -91,3 +91,32 @@ export const formatDate2ISO8601 = (date: Date) => {
 
   return format(date, 'yyyy-MM-dd');
 };
+
+export const formatNumberOfPerson = ({
+  adults,
+  kids,
+  babies,
+}: {
+  adults: number;
+  kids: number;
+  babies: number;
+}) => {
+  let numberOfPeople: string[] = [];
+
+  if (adults) {
+    let suffix = adults > 1 ? 'adultos' : 'adulto';
+    numberOfPeople = [...numberOfPeople, `${adults} ${suffix}`];
+  }
+
+  if (kids) {
+    let suffix = kids > 1 ? 'crianças' : 'criança';
+    numberOfPeople = [...numberOfPeople, `${kids} ${suffix}`];
+  }
+
+  if (babies) {
+    let suffix = babies > 1 ? 'bebê' : 'bebês';
+    numberOfPeople = [...numberOfPeople, `${babies} ${suffix}`];
+  }
+
+  return numberOfPeople.join(', ');
+};

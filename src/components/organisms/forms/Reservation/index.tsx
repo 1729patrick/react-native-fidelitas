@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import styles from './styles';
 
 import TimeSelect from '~/components/atoms/TimeSelect';
@@ -7,7 +7,13 @@ import IncrementDecrement from '~/components/atoms/IncrementDecrement';
 import { useRestaurant } from '~/contexts/Restaurant';
 import { getDay } from '~/util/Date';
 import { add } from 'date-fns';
-import { formatHumanTime } from '~/util/Formatters';
+import {
+  formatDate,
+  formatHumanTime,
+  formatNumberOfPerson,
+} from '~/util/Formatters';
+import Input from '~/components/atoms/Input';
+import { translate, TranslationKeyType } from '~/i18n';
 
 type Step2Props = {
   value: {
@@ -55,7 +61,7 @@ export const Step2: React.FC<Step2Props> = ({
 
     let date = startDate;
 
-    while (date <= endDate) {
+    while (date < endDate) {
       slots.push(formatHumanTime(date));
       date = add(date, { minutes: 30 });
     }
@@ -136,6 +142,51 @@ export const Step3: React.FC<Step3Props> = ({ value, onChange }) => {
         style={styles.incrementDecrement}
         onChange={value => onChange('babies', value)}
         value={value.babies}
+      />
+    </View>
+  );
+};
+
+type Step4Props = {
+  onChange: (key: 'clientNotes', value: string) => void;
+  values: any;
+};
+
+export const Step4: React.FC<Step4Props> = ({ values, onChange }) => {
+  const data = [
+    {
+      title: 'date',
+      value: formatDate(values.date),
+    },
+    {
+      title: 'time',
+      value: values.time,
+    },
+    {
+      title: 'peoples',
+      value: formatNumberOfPerson(values),
+    },
+  ];
+  return (
+    <View style={[styles.container]}>
+      <View>
+        {data.map(({ title, value }) => (
+          <View style={styles.line} key={title}>
+            <Text style={styles.title}>
+              {translate(title as TranslationKeyType)}
+            </Text>
+            <Text style={styles.description}>{value}</Text>
+          </View>
+        ))}
+      </View>
+      <Input
+        placeholder="Notas (Opcional)"
+        value={values.clientNotes}
+        multiline
+        style={{ height: 70 }}
+        returnKeyType="next"
+        autoCompleteType="name"
+        onChangeText={value => onChange('clientNotes', value)}
       />
     </View>
   );

@@ -22,8 +22,6 @@ export default ({
     onChange(date.toISOString());
   };
 
-  console.log(value);
-
   const current = useMemo(() => {
     if (!value) {
       return '';
@@ -39,9 +37,6 @@ export default ({
         width: '100%',
       }}>
       <CalendarList
-        onVisibleMonthsChange={months => {
-          console.log('now these months are visible', months);
-        }}
         pastScrollRange={0}
         firstDay={0}
         onDayPress={onDayPress}
