@@ -32,8 +32,8 @@ const RegisterStep: React.FC<RegisterProps> = ({
 }) => {
   return (
     <View style={styles.container}>
-      <Text style={[styles.title, titleStyle]}>{title}</Text>
-      <Text style={styles.description}>{description}</Text>
+      {!!title && <Text style={[styles.title, titleStyle]}>{title}</Text>}
+      {!!description && <Text style={styles.description}>{description}</Text>}
 
       <View style={[styles.content, contentStyle]}>
         {form}

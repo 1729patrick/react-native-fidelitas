@@ -1,0 +1,1 @@
+export const DISTANCE_BETWEEN_RESERVE_AND_NOW = 15;

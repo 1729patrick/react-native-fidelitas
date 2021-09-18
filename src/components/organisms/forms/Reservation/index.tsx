@@ -14,6 +14,7 @@ import {
 } from '~/util/Formatters';
 import Input from '~/components/atoms/Input';
 import { translate, TranslationKeyType } from '~/i18n';
+import { DISTANCE_BETWEEN_RESERVE_AND_NOW } from './constants';
 
 type Step2Props = {
   value: {
@@ -45,13 +46,10 @@ export const Step2: React.FC<Step2Props> = ({
     const [startHours, startMinutes] = start.split(':');
     const [endHours, endMinutes] = end.split(':');
 
-    let startDate = new Date();
-    const now = new Date();
-    startDate.setHours(+startHours, +startMinutes);
+    let now = new Date();
 
-    if (isToday && now > startDate) {
-      startDate = add(now, { minutes: 30 });
-    }
+    let startDate = new Date();
+    startDate.setHours(+startHours, +startMinutes);
 
     let endDate = new Date();
     endDate.setHours(+endHours, +endMinutes);
@@ -61,8 +59,15 @@ export const Step2: React.FC<Step2Props> = ({
 
     let date = startDate;
 
-    while (date < endDate) {
-      slots.push(formatHumanTime(date));
+    while (date <= endDate) {
+      if (
+        !isToday ||
+        (isToday &&
+          date >= add(now, { minutes: DISTANCE_BETWEEN_RESERVE_AND_NOW }))
+      ) {
+        slots.push(formatHumanTime(date));
+      }
+
       date = add(date, { minutes: 30 });
     }
 
@@ -98,7 +103,7 @@ export const Step2: React.FC<Step2Props> = ({
             !!time.slots?.length && (
               <TimeSelect
                 key={time.title}
-                title={time.title}
+                title={translate(time.title as TranslationKeyType)}
                 value={value.time}
                 onChange={value => {
                   onChange('time', value);

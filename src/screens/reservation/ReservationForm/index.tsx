@@ -1,6 +1,6 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { ScrollView, View, TouchableOpacity } from 'react-native';
 import { ReservationType } from '~/api/useReservation';
 import TextButton from '~/components/atoms/buttons/TextButton';
@@ -23,25 +23,38 @@ type RootStackParamList = {
 type RouteProps = RouteProp<RootStackParamList, 'ReservationForm'>;
 
 const ReservationForm = () => {
-  const { navigate } = useNavigation<StackNavigationProp<any>>();
+  const { navigate, pop } = useNavigation<StackNavigationProp<any>>();
   const { params } = useRoute<RouteProps>();
-  const { reservation } = params;
+  const [values, setValues] = useState(params.reservation);
   useHideTabBar();
 
   const size = useMemo(() => {
-    return formatNumberOfPerson(reservation);
-  }, []);
+    return formatNumberOfPerson(values);
+  }, [values]);
+
+  const onConfirm = (values: ReservationType) => {
+    setValues(values);
+  };
 
   const openReservationDate = () => {
-    navigate('ReservationDate');
+    navigate('ReservationDate', { reservation: values, onConfirm });
   };
 
   const openReservationTime = () => {
-    navigate('ReservationTime');
+    navigate('ReservationTime', { reservation: values, onConfirm });
   };
 
   const openReservationMembers = () => {
-    navigate('ReservationMembers');
+    navigate('ReservationMembers', { reservation: values, onConfirm });
+  };
+
+  const onChange = (key: string, date: string) => {
+    setValues({ ...values, [key]: date });
+  };
+
+  const onSave = () => {
+    console.log(values);
+    pop();
   };
 
   return (
@@ -50,7 +63,7 @@ const ReservationForm = () => {
         title="Editar reserva"
         close
         RightContent={
-          <TextButton title="Salvar" onPress={() => {}} disabled={false} />
+          <TextButton title="Salvar" onPress={onSave} disabled={false} />
         }
       />
       <ScrollView contentContainerStyle={styles.container}>
@@ -64,7 +77,7 @@ const ReservationForm = () => {
             <View pointerEvents="none">
               <Input
                 placeholder="Data"
-                value={formatDate(reservation.date)}
+                value={formatDate(values.date)}
                 returnKeyType="next"
                 autoCompleteType="name"
                 editable={false}
@@ -77,7 +90,7 @@ const ReservationForm = () => {
             <View pointerEvents="none">
               <Input
                 placeholder="Horário"
-                value={formatTime(reservation.time)}
+                value={formatTime(values.time)}
                 returnKeyType="next"
                 autoCompleteType="name"
                 editable={false}
@@ -98,11 +111,12 @@ const ReservationForm = () => {
         </TouchableOpacity>
         <Input
           placeholder="Notas"
-          value={reservation.clientNotes}
+          value={values.clientNotes}
           multiline
           style={{ height: 70 }}
           returnKeyType="next"
           autoCompleteType="name"
+          onChangeText={value => onChange('clientNotes', value)}
         />
       </ScrollView>
     </>

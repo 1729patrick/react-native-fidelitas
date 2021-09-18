@@ -1,5 +1,5 @@
 import { useFetch } from '~/hooks/useFetch';
-import { formatDate, formatDate2ISO8601 } from '~/util/Formatters';
+import { formatDate2ISO8601 } from '~/util/Formatters';
 import qs from 'qs';
 export type ReservationType = {
   id: number;

@@ -114,7 +114,7 @@ export const formatNumberOfPerson = ({
   }
 
   if (babies) {
-    let suffix = babies > 1 ? 'bebê' : 'bebês';
+    let suffix = babies > 1 ? 'bebés' : 'bebé';
     numberOfPeople = [...numberOfPeople, `${babies} ${suffix}`];
   }
 

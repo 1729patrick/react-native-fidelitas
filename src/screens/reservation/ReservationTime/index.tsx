@@ -1,20 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StatusBar, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import useStatusBar from '~/hooks/useStatusBar';
 import Header from '~/components/atoms/Header';
 import RegisterStep from '~/components/organisms/RegisterStep';
 import useHideTabBar from '~/hooks/useHideTabBar';
-import Calendar from '~/components/atoms/Calendar';
 import styles from './styles';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useNavigation } from '@react-navigation/core';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/core';
 import { Step2 } from '~/components/organisms/forms/Reservation';
+import { ReservationType } from '~/api/useReservation';
+import { CONTENT_HEIGHT } from './constants';
+import { isToday } from 'date-fns';
+import { formatHumanTime2Time, formatTime } from '~/util/Formatters';
+
+type RootStackParamList = {
+  ReservationForm: {
+    reservation: ReservationType;
+    onConfirm: (reservation: ReservationType) => void;
+  };
+};
+
+type RouteProps = RouteProp<RootStackParamList, 'ReservationForm'>;
 
 export default () => {
-  const { pop } = useNavigation<StackNavigationProp<any>>();
   useStatusBar(true);
   useHideTabBar();
+  const { pop } = useNavigation<StackNavigationProp<any>>();
+  const { params } = useRoute<RouteProps>();
+
+  const [values, setValues] = useState({
+    ...params.reservation,
+    time: formatTime(params.reservation.time),
+  });
+
+  const onChange = (key: string, value: string) => {
+    setValues(values => ({ ...values, [key]: value }));
+  };
+
+  const onConfirm = () => {
+    const valuesFormatted = {
+      ...values,
+      time: formatHumanTime2Time(values.time),
+    };
+
+    params.onConfirm(valuesFormatted);
+    pop();
+  };
 
   return (
     <View style={styles.container}>
@@ -28,11 +60,20 @@ export default () => {
         title=""
         confirmTitle={'Confirmar'}
         confirmIcon={<Icon name="check" size={23} color="#fff" />}
-        form={<Step2 />}
-        onNext={() => pop(2)}
-        contentStyle={styles.stepContainer}
-        titleStyle={styles.stepTitle}
-        nextEnabled={false}
+        form={
+          <Step2
+            value={{
+              type: values.type,
+              time: values.time,
+            }}
+            onChange={onChange}
+            height={CONTENT_HEIGHT}
+            isToday={isToday(new Date(values.date))}
+          />
+        }
+        onNext={onConfirm}
+        contentStyle={styles.content}
+        nextEnabled={values.time !== params.reservation.time}
       />
     </View>
   );
