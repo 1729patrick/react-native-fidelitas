@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import styles from './styles';
 
 import TimeSelect from '~/components/atoms/TimeSelect';
@@ -10,11 +10,21 @@ import { add } from 'date-fns';
 import { formatHumanTime } from '~/util/Formatters';
 
 type Step2Props = {
-  value: string;
-  onChange: (value: string) => void;
+  value: {
+    type: 'breakfast' | 'lunch' | 'dinner';
+    time: string;
+  };
+  onChange: (key: string, value: string) => void;
+  height: number;
+  isToday: boolean;
 };
 
-export const Step2: React.FC<Step2Props> = ({ value, onChange }) => {
+export const Step2: React.FC<Step2Props> = ({
+  value,
+  onChange,
+  height,
+  isToday,
+}) => {
   const { restaurant } = useRestaurant();
 
   const hours = useMemo(() => {
@@ -29,8 +39,13 @@ export const Step2: React.FC<Step2Props> = ({ value, onChange }) => {
     const [startHours, startMinutes] = start.split(':');
     const [endHours, endMinutes] = end.split(':');
 
-    const startDate = new Date();
+    let startDate = new Date();
+    const now = new Date();
     startDate.setHours(+startHours, +startMinutes);
+
+    if (isToday && now > startDate) {
+      startDate = add(now, { minutes: 30 });
+    }
 
     let endDate = new Date();
     endDate.setHours(+endHours, +endMinutes);
@@ -48,40 +63,48 @@ export const Step2: React.FC<Step2Props> = ({ value, onChange }) => {
     return slots;
   };
 
-  const times = [
-    {
-      title: 'Pequeno almoço',
-      style: {},
-      slots: getSlots(hours.breakfast || []),
-    },
-    {
-      title: 'Almoço',
-      style: styles.dinner,
-      slots: getSlots(hours.lunch || []),
-    },
-    {
-      title: 'Jantar',
-      style: styles.dinner,
-      slots: getSlots(hours.dinner || []),
-    },
-  ];
+  const times = useMemo(
+    () => [
+      {
+        title: 'breakfast',
+        style: styles.content,
+        slots: getSlots(hours.breakfast || []),
+      },
+      {
+        title: 'lunch',
+        style: styles.content,
+        slots: getSlots(hours.lunch || []),
+      },
+      {
+        title: 'dinner',
+        style: styles.content,
+        slots: getSlots(hours.dinner || []),
+      },
+    ],
+    [isToday],
+  );
 
   return (
-    <>
-      {times.map(time => (
-        <View>
-          {time.slots && (
-            <TimeSelect
-              title={time.title}
-              value={value}
-              onChange={onChange}
-              slots={time.slots}
-              style={time.style}
-            />
-          )}
-        </View>
-      ))}
-    </>
+    <View style={{ height }}>
+      <ScrollView overScrollMode="never" showsVerticalScrollIndicator={false}>
+        {times.map(
+          time =>
+            !!time.slots?.length && (
+              <TimeSelect
+                key={time.title}
+                title={time.title}
+                value={value.time}
+                onChange={value => {
+                  onChange('time', value);
+                  onChange('type', time.title);
+                }}
+                slots={time.slots}
+                style={time.style}
+              />
+            ),
+        )}
+      </ScrollView>
+    </View>
   );
 };
 

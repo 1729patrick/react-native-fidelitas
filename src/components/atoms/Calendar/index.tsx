@@ -1,19 +1,19 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { CalendarList, DateObject } from 'react-native-calendars';
 import StyleGuide from '~/util/StyleGuide';
 import useStatusBar from '~/hooks/useStatusBar';
 import { format } from 'date-fns';
 import { DATE_CALENDAR_FORMAT } from '~/util/Constants';
-import { Dimensions, View } from 'react-native';
-
-const { height } = Dimensions.get('window');
+import { View } from 'react-native';
 
 export default ({
   onChange,
   value,
+  height,
 }: {
   value: string;
   onChange: (value: string) => void;
+  height: number;
 }) => {
   useStatusBar(true);
 
@@ -21,6 +21,8 @@ export default ({
     const date = new Date(timestamp);
     onChange(date.toISOString());
   };
+
+  console.log(value);
 
   const current = useMemo(() => {
     if (!value) {
@@ -32,7 +34,10 @@ export default ({
 
   return (
     <View
-      style={{ height: height - 250, width: '100%', backgroundColor: 'blue' }}>
+      style={{
+        height,
+        width: '100%',
+      }}>
       <CalendarList
         onVisibleMonthsChange={months => {
           console.log('now these months are visible', months);
@@ -51,16 +56,16 @@ export default ({
           },
         }}
         theme={{
-          backgroundColor: '#ffffff',
-          calendarBackground: '#ffffff',
+          backgroundColor: StyleGuide.navigation.colors.background,
+          calendarBackground: StyleGuide.navigation.colors.background,
           textSectionTitleColor: StyleGuide.palette.secondary,
           selectedDayBackgroundColor: StyleGuide.palette.app,
-          selectedDayTextColor: '#ffffff',
+          selectedDayTextColor: StyleGuide.navigation.colors.background,
           todayTextColor: StyleGuide.palette.blue,
           dayTextColor: StyleGuide.palette.primary,
           textDisabledColor: '#d9e1e8',
           dotColor: StyleGuide.palette.app,
-          selectedDotColor: '#ffffff',
+          selectedDotColor: StyleGuide.navigation.colors.background,
           arrowColor: 'orange',
           monthTextColor: StyleGuide.palette.primary,
           textDayFontFamily: 'Montserrat-Medium',

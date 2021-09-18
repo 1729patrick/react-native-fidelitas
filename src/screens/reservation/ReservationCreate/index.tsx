@@ -12,6 +12,16 @@ import useHideTabBar from '~/hooks/useHideTabBar';
 import Calendar from '~/components/atoms/Calendar';
 import styles from './styles';
 import { useBackHandler } from '~/hooks/useBackHandler';
+import { CONTENT_HEIGHT } from './constants';
+import { formatHumanTime2Time } from '~/util/Formatters';
+import api from '~/util/api';
+import { log } from 'react-native-reanimated';
+import { mutate } from 'swr';
+import { isToday } from 'date-fns';
+import { ResponseError } from '~/types/Api';
+import { translate } from '~/i18n';
+import { Alert } from '~/util/Alert';
+import { GET_RESERVATION_URL } from '~/api/useReservation';
 
 export default () => {
   const [values, setValues] = useState({
@@ -20,6 +30,7 @@ export default () => {
     adults: 0,
     kids: 0,
     babies: 0,
+    type: '' as 'breakfast' | 'lunch' | 'dinner',
   });
 
   useStatusBar(true);
@@ -30,8 +41,22 @@ export default () => {
   const registerRef = useRef<RegisterHandler>(null);
   const { pop } = useNavigation<StackNavigationProp<any>>();
 
-  const onComplete = () => {
-    pop();
+  const onComplete = async () => {
+    const valuesFormatted = {
+      ...values,
+      time: formatHumanTime2Time(values.time),
+    };
+    console.log(valuesFormatted);
+
+    try {
+      await api.put('user/reservations', valuesFormatted);
+      mutate(GET_RESERVATION_URL);
+      pop();
+    } catch ({ response }) {
+      const { data } = response as ResponseError;
+
+      Alert.error(translate(data.message), 'UNHANDLED_ERROR');
+    }
   };
 
   const onScrollTo = (index: number) => {
@@ -75,6 +100,8 @@ export default () => {
       />
       <Register
         ref={registerRef}
+        scrollable={false}
+        style={{ paddingTop: 80 }}
         steps={[
           <RegisterStep
             title="Escolha a data"
@@ -82,6 +109,7 @@ export default () => {
             confirmIcon={<Icon name="arrowright" size={23} color="#fff" />}
             form={
               <Calendar
+                height={CONTENT_HEIGHT}
                 value={values.date}
                 onChange={value => onChange('date', value)}
               />
@@ -97,8 +125,10 @@ export default () => {
             confirmIcon={<Icon name="arrowright" size={23} color="#fff" />}
             form={
               <Step2
-                onChange={value => onChange('time', value)}
-                value={values.time}
+                height={CONTENT_HEIGHT}
+                onChange={onChange}
+                value={{ time: values.time, type: values.type }}
+                isToday={isToday(new Date(values.date))}
               />
             }
             onNext={() => onScrollTo(2)}

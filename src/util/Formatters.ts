@@ -73,3 +73,21 @@ export const formatHumanTime = (time?: Date) => {
 
   return format(time, "HH'h':mm'm'");
 };
+
+export const formatHumanTime2Time = (humanTime: string) => {
+  if (!humanTime) {
+    return '';
+  }
+
+  const hoursAndMinutes = humanTime.replace(/[^0-9:]+/g, '');
+
+  return `${hoursAndMinutes}`;
+};
+
+export const formatDate2ISO8601 = (date: Date) => {
+  if (!date) {
+    return;
+  }
+
+  return format(date, 'yyyy-MM-dd');
+};
