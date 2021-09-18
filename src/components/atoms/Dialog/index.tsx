@@ -2,11 +2,13 @@ import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import { View } from 'react-native';
 import RNDialog from 'react-native-dialog';
 import StyleGuide from '~/util/StyleGuide';
+import Loader from '../Loader';
 import styles from './styles';
 
 export type DialogHandler = {
   show: () => void;
   hidden: () => void;
+  setLoading: (loading: boolean) => void;
 };
 
 type DialogProps = {
@@ -21,9 +23,11 @@ const Dialog: React.ForwardRefRenderFunction<DialogHandler, DialogProps> = (
   ref,
 ) => {
   const [visible, setVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const hidden = () => {
     setVisible(false);
+    setLoading(false);
   };
 
   const show = () => {
@@ -35,6 +39,7 @@ const Dialog: React.ForwardRefRenderFunction<DialogHandler, DialogProps> = (
     () => ({
       show,
       hidden,
+      setLoading,
     }),
     [],
   );
@@ -67,12 +72,21 @@ const Dialog: React.ForwardRefRenderFunction<DialogHandler, DialogProps> = (
           style={styles.button}
           onPress={hidden}
         />
-        <RNDialog.Button
-          label={confirmTitle}
-          color={StyleGuide.palette.red}
-          style={styles.button}
-          onPress={onConfirm}
-        />
+        {!loading && (
+          <RNDialog.Button
+            label={confirmTitle}
+            color={StyleGuide.palette.red}
+            style={styles.button}
+            onPress={onConfirm}
+          />
+        )}
+        {loading && (
+          <Loader
+            style={styles.loader}
+            color={StyleGuide.palette.red}
+            size={'large'}
+          />
+        )}
       </View>
     </RNDialog.Container>
   );

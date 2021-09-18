@@ -14,4 +14,5 @@ export default StyleSheet.create({
   button: {
     ...StyleGuide.typography.caption,
   },
+  loader: { marginLeft: StyleGuide.spacing },
 });

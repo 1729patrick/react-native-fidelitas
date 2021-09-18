@@ -2,13 +2,20 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useMemo, useState } from 'react';
 import { ScrollView, View, TouchableOpacity } from 'react-native';
-import { ReservationType } from '~/api/useReservation';
+import { mutate } from 'swr';
+import { GET_RESERVATION_URL, ReservationType } from '~/api/useReservation';
 import TextButton from '~/components/atoms/buttons/TextButton';
 import Header from '~/components/atoms/Header';
 import Input from '~/components/atoms/Input';
 import useHideTabBar from '~/hooks/useHideTabBar';
+import { translate } from '~/i18n';
+import { ResponseError } from '~/types/Api';
+import { Alert } from '~/util/Alert';
+import api from '~/util/api';
 import {
   formatDate,
+  formatHumanDate,
+  formatHumanTime2Time,
   formatNumberOfPerson,
   formatTime,
 } from '~/util/Formatters';
@@ -26,6 +33,7 @@ const ReservationForm = () => {
   const { navigate, pop } = useNavigation<StackNavigationProp<any>>();
   const { params } = useRoute<RouteProps>();
   const [values, setValues] = useState(params.reservation);
+  const [loading, setLoading] = useState(false);
   useHideTabBar();
 
   const size = useMemo(() => {
@@ -52,10 +60,40 @@ const ReservationForm = () => {
     setValues({ ...values, [key]: date });
   };
 
-  const onSave = () => {
-    console.log(values);
-    pop();
+  const onSave = async () => {
+    try {
+      setLoading(true);
+      const { date, type, adults, kids, babies, clientNotes } = values;
+      const valuesFormatted = {
+        date,
+        type,
+        adults,
+        kids,
+        babies,
+        clientNotes,
+        time: formatHumanTime2Time(values.time),
+      };
+
+      await api.put(`user/reservations/${values.id}`, valuesFormatted);
+      mutate(GET_RESERVATION_URL);
+      pop();
+      Alert.success(translate('reservationUpdated'));
+    } catch ({ response }) {
+      const { data } = response as ResponseError;
+
+      Alert.error(translate(data.message, 'UNHANDLED_ERROR'));
+      setLoading(false);
+    }
   };
+
+  const isValid =
+    formatDate(values.date) !== formatDate(params.reservation.date) ||
+    params.reservation.time !== values.time ||
+    params.reservation.adults !== values.adults ||
+    params.reservation.kids !== values.kids ||
+    params.reservation.babies !== values.babies ||
+    params.reservation.type !== values.type ||
+    params.reservation.clientNotes !== values.clientNotes;
 
   return (
     <>
@@ -63,7 +101,12 @@ const ReservationForm = () => {
         title="Editar reserva"
         close
         RightContent={
-          <TextButton title="Salvar" onPress={onSave} disabled={false} />
+          <TextButton
+            title="Salvar"
+            onPress={onSave}
+            disabled={!isValid}
+            loading={loading}
+          />
         }
       />
       <ScrollView contentContainerStyle={styles.container}>

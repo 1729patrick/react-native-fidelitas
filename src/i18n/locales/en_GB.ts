@@ -54,4 +54,8 @@ export default {
   date: 'Date',
   time: 'Time',
   peoples: 'Peoples',
+
+  reservationUpdated: 'Reservation updated successfully',
+  reservationCreated: 'Reservation created successfully',
+  reservationCanceled: 'Reservation canceled successfully',
 };

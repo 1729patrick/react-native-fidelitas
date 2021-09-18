@@ -34,7 +34,7 @@ export default {
   currentPassword: 'Current Password',
   newPassword: 'New Password',
 
-  portuguese: 'Portugués',
+  portuguese: 'Português',
   english: 'Inglés',
   spanish: 'Español',
 
@@ -46,4 +46,8 @@ export default {
   delivery: 'Delivery',
   takeAway: 'Takeaway',
   local: 'Local',
+
+  reservationUpdated: 'Reservation updated successfully',
+  reservationCreated: 'Reservation created successfully',
+  reservationCanceled: 'Reservation canceled successfully',
 };

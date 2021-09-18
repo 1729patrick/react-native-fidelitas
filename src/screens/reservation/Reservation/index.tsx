@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { StatusBar } from 'react-native';
 import FloatingButton, {
   FloatingButtonHandler,
@@ -11,11 +11,20 @@ import Reservation from '~/components/templates/Reservation';
 import useStatusBar from '~/hooks/useStatusBar';
 import Icon from 'react-native-vector-icons/AntDesign';
 import styles from './styles';
-import useReservation, { ReservationType } from '~/api/useReservation';
+import useReservation, {
+  GET_RESERVATION_URL,
+  ReservationType,
+} from '~/api/useReservation';
 import ModalList from '~/components/organisms/lists/Modal';
 import Dialog, { DialogHandler } from '~/components/atoms/Dialog';
 import Modal, { ModalHandler } from '~/components/molecules/modals/FlatList';
 import { ModalTypes } from '~/components/molecules/items/ModalItem';
+import api from '~/util/api';
+import { mutate } from 'swr';
+import { Alert } from '~/util/Alert';
+import { translate } from '~/i18n';
+import { ResponseError } from '~/types/Api';
+import { formatHumanTime2Time } from '~/util/Formatters';
 
 export enum Status {
   Canceled,
@@ -40,6 +49,36 @@ export default () => {
 
   const openReservationForm = () => {
     navigate('ReservationForm', { reservation: reservationRef.current });
+  };
+
+  const onCancel = async () => {
+    try {
+      dialogRef.current?.setLoading(true);
+      const { date, type, adults, kids, babies, clientNotes, time, id } =
+        reservationRef.current!;
+
+      const valuesFormatted = {
+        date,
+        type,
+        adults,
+        kids,
+        babies,
+        clientNotes,
+        time: formatHumanTime2Time(time),
+        status: 'canceled',
+      };
+
+      await api.put(`user/reservations/${id}`, valuesFormatted);
+
+      dialogRef.current?.hidden();
+      Alert.success(translate('reservationCanceled'));
+      mutate(GET_RESERVATION_URL);
+    } catch ({ response }) {
+      const { data } = response as ResponseError;
+
+      Alert.error(translate(data.message, 'UNHANDLED_ERROR'));
+      dialogRef.current?.setLoading(false);
+    }
   };
 
   const onModalPress = (type: ModalTypes) => {
@@ -97,7 +136,7 @@ export default () => {
           title="Book table cancel"
           description="Do you want to cancel this book table? You cannot undo this action."
           confirmTitle="Cancel"
-          onConfirm={() => {}}
+          onConfirm={onCancel}
         />
       }
     />

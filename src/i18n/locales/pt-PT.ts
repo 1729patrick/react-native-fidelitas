@@ -46,4 +46,8 @@ export default {
   delivery: 'Delivery',
   takeAway: 'Takeaway',
   local: 'Local',
+
+  reservationUpdated: 'Reservation updated successfully',
+  reservationCreated: 'Reservation created successfully',
+  reservationCanceled: 'Reservation canceled successfully',
 };

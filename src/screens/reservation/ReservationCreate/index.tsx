@@ -48,9 +48,11 @@ export default () => {
     };
 
     try {
-      await api.put('user/reservations', valuesFormatted);
+      await api.post('user/reservations', valuesFormatted);
       mutate(GET_RESERVATION_URL);
       pop();
+
+      Alert.success(translate('reservationCreated'));
     } catch ({ response }) {
       const { data } = response as ResponseError;
 

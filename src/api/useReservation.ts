@@ -17,7 +17,7 @@ export type ReservationType = {
 
 const startDate = formatDate2ISO8601(new Date());
 
-const query = qs.stringify({ startDate });
+const query = qs.stringify({ startDate, status: ['inReview', 'confirmed'] });
 
 export const GET_RESERVATION_URL = `user/reservations?${query}`;
 export default () => {
