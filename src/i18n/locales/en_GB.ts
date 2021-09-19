@@ -58,4 +58,6 @@ export default {
   reservationUpdated: 'Reservation updated successfully',
   reservationCreated: 'Reservation created successfully',
   reservationCanceled: 'Reservation canceled successfully',
+
+  codeCopied: 'Referral code copied',
 };

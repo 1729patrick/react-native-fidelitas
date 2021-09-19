@@ -43,6 +43,7 @@ import ReservationDate from '~/screens/reservation/ReservationDate';
 import ReservationTime from '~/screens/reservation/ReservationTime';
 import ReservationMembers from '~/screens/reservation/ReservationMembers';
 import Reward from '~/screens/achievements/Reward';
+import ShareApp from '~/screens/achievements/ShareApp';
 
 type TransitionSpecType = {
   open: TransitionSpec;
@@ -190,6 +191,11 @@ const AchievementsNavigator = () => {
       <AchievementsStack.Screen
         name="Reward"
         component={Reward}
+        options={optionsVertical}
+      />
+      <AchievementsStack.Screen
+        name="ShareApp"
+        component={ShareApp}
         options={optionsVertical}
       />
     </AchievementsStack.Navigator>

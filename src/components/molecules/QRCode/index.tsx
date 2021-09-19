@@ -37,6 +37,11 @@ const QRCode = () => {
     addListener('transitionStart', () => setLoaded(false));
   }, [addListener]);
 
+  useEffect(() => {
+    // "A:502607920*B:303023864*C:PT*D:FT*E:N*F:20210919*G:FT 0270392021090000035559*H:0*I1:PT*I3:18.79*I4:1.13*I7:7.66*I8:1.76*N:2.89*O:29.34*Q:ljs/*R:1140"
+    console.log({ text });
+  }, [text]);
+
   const renderCamera = useCallback(() => {
     if (!loaded) {
       return null;

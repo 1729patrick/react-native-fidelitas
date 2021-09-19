@@ -1,17 +1,19 @@
 import { useFetch } from '~/hooks/useFetch';
-import { ProductType } from '~/screens/menu/Menu';
 
 export type AchievementType = {
   id: string;
   title: string;
   description: string;
-  type: 'cash' | 'product' | 'discount';
-  reward: string;
+  type: 'shareApp' | 'visitRestaurant' | 'purchasePrice' | 'purchaseEvaluation';
+  rewardTitle: string;
+  rewardType: 'cash' | 'product' | 'discount';
   rewardValue: number;
+  purchasePrice?: number;
   cost: number;
+  status: 'ACTIVE' | 'DELETED';
   restaurantId: number;
   createdAt: string;
-  product: ProductType;
+  updatedAt: string;
 };
 
 export default () => {

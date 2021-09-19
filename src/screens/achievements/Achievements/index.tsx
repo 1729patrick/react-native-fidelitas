@@ -32,10 +32,20 @@ export default () => {
   };
 
   const onModalPress = () => {
+    modalRef.current?.hidden();
     navigate('Reward');
   };
 
+  const openShareApp = () => {
+    navigate('ShareApp');
+  };
+
   const onAchievementPress = (achievement: AchievementType) => {
+    if (achievement.type === 'shareApp') {
+      openShareApp();
+      return;
+    }
+
     modalRef.current?.show();
     // dialogRef.current?.show();
   };
