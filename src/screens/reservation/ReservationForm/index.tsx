@@ -76,8 +76,13 @@ const ReservationForm = () => {
 
       await api.put(`user/reservations/${values.id}`, valuesFormatted);
       mutate(GET_RESERVATION_URL);
+      Alert.success(
+        translate('reservationUpdated'),
+        undefined,
+        undefined,
+        false,
+      );
       pop();
-      Alert.success(translate('reservationUpdated'));
     } catch ({ response }) {
       const { data } = response as ResponseError;
 

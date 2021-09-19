@@ -44,6 +44,7 @@ export default () => {
   useHideTabBar();
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const registerRef = useRef<RegisterHandler>(null);
   const { pop } = useNavigation<StackNavigationProp<any>>();
@@ -55,12 +56,13 @@ export default () => {
   }, [restaurant?.workHours]);
 
   const onComplete = async () => {
-    const valuesFormatted = {
-      ...values,
-      time: formatHumanTime2Time(values.time),
-    };
-
     try {
+      setLoading(true);
+      const valuesFormatted = {
+        ...values,
+        time: formatHumanTime2Time(values.time),
+      };
+
       await api.post('user/reservations', valuesFormatted);
       mutate(GET_RESERVATION_URL);
       pop();
@@ -70,6 +72,8 @@ export default () => {
       const { data } = response as ResponseError;
 
       Alert.error(translate(data.message, 'UNHANDLED_ERROR'));
+
+      setLoading(false);
     }
   };
 
@@ -190,7 +194,7 @@ export default () => {
             onNext={() => onScrollTo(3)}
             contentStyle={styles.stepContainer}
             titleStyle={styles.stepTitle}
-            nextEnabled={!!+values.kids || !!+values.adults}
+            nextEnabled={!!+values.adults}
           />,
           <RegisterStep
             title="Confirmação"
@@ -201,6 +205,7 @@ export default () => {
             contentStyle={styles.stepContainer}
             titleStyle={styles.stepTitle}
             nextEnabled={!!+values.kids || !!+values.adults}
+            loading={loading}
           />,
         ]}
       />

@@ -62,7 +62,7 @@ export default () => {
         }
         onNext={onConfirm}
         nextEnabled={
-          !!values.adults &&
+          !!+values.adults &&
           (params.reservation.adults !== values.adults ||
             params.reservation.kids !== values.kids ||
             params.reservation.babies !== values.babies)

@@ -68,7 +68,7 @@ export default ({
         minDate={minDate}
         futureScrollRange={2}
         scrollEnabled={true}
-        current={value}
+        current={minDate}
         markedDates={{
           [current]: {
             selected: true,

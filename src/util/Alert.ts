@@ -24,9 +24,16 @@ export class Alert {
     StatusBar.setBarStyle(statusBarStyle);
   }
 
-  static success(title: string, message?: string, barStyle: BarType = 'dark') {
+  static success(
+    title: string,
+    message?: string,
+    barStyle: BarType = 'dark',
+    updateBar: boolean = true,
+  ) {
     this.ref.alertWithType('success', title, message);
-    StatusBar.setBarStyle('light-content');
+    if (updateBar) {
+      StatusBar.setBarStyle('light-content');
+    }
 
     this.barStyle = barStyle;
   }

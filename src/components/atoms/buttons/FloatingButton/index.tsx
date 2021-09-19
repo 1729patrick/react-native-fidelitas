@@ -1,5 +1,6 @@
 import React, { forwardRef, useImperativeHandle, ReactElement } from 'react';
 import { useCallback } from 'react';
+import { TouchableOpacity } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import Animated, {
   useAnimatedStyle,
@@ -47,9 +48,12 @@ const FloatingButton: React.ForwardRefRenderFunction<
 
   return (
     <Animated.View style={[styles.container, containerStyle]}>
-      <RectButton style={styles.button} onPress={onPress}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={onPress}
+        activeOpacity={0.7}>
         {icon}
-      </RectButton>
+      </TouchableOpacity>
     </Animated.View>
   );
 };
