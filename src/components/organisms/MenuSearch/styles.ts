@@ -1,14 +1,15 @@
-import { StyleSheet } from 'react-native';
+import { StatusBar, StyleSheet } from 'react-native';
 import StyleGuide from '~/util/StyleGuide';
+import { HEADER_HEIGHT, SEARCH_HEIGHT } from './constants';
 
 export default StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
     top: 70,
-    height: 48 + 20 + 25,
+    height: SEARCH_HEIGHT,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 25,
+    paddingTop: HEADER_HEIGHT,
     backgroundColor: StyleGuide.palette.background,
     borderColor: StyleGuide.palette.border,
     borderBottomWidth: 1,

@@ -1,6 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { StatusBar, StyleSheet } from 'react-native';
 import { BOTTOM_TAB_BAR_HEIGHT } from '~/components/organisms/TabBar/Bottom/constants';
 import StyleGuide from '~/util/StyleGuide';
+import { HEADER_HEIGHT } from './constants';
 
 export default StyleSheet.create({
   image: {
@@ -14,7 +15,7 @@ export default StyleSheet.create({
     left: 0,
     right: 0,
     zIndex: 1,
-    height: 25,
+    height: HEADER_HEIGHT,
     backgroundColor: StyleGuide.navigation.colors.background,
   },
   contentContainer: {

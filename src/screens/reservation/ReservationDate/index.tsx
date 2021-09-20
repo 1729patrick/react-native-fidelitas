@@ -9,7 +9,7 @@ import Calendar from '~/components/atoms/Calendar';
 import styles from './styles';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/core';
-import { CALENDAR_HEIGHT } from './constants';
+import { FOOTER_HEIGHT } from './constants';
 import { ReservationType } from '~/api/useReservation';
 import { formatDate } from '~/util/Formatters';
 import {
@@ -19,6 +19,8 @@ import {
 import add from 'date-fns/add';
 import { useRestaurant } from '~/contexts/Restaurant';
 import { getDay } from '~/util/Date';
+import { TOTAL_HEADER_HEIGHT } from '~/components/atoms/Header/constants';
+import { useSafeAreaFrame } from 'react-native-safe-area-context';
 
 type RootStackParamList = {
   ReservationForm: {
@@ -30,6 +32,10 @@ type RootStackParamList = {
 type RouteProps = RouteProp<RootStackParamList, 'ReservationForm'>;
 
 export default () => {
+  const { height } = useSafeAreaFrame();
+
+  const CONTENT_HEIGHT = height - TOTAL_HEADER_HEIGHT - FOOTER_HEIGHT;
+
   useStatusBar(true);
   useHideTabBar();
   const { pop } = useNavigation<StackNavigationProp<any>>();
@@ -76,7 +82,7 @@ export default () => {
   return (
     <View style={styles.container}>
       <StatusBar
-        translucent
+        translucent={true}
         backgroundColor="rgba(0, 0, 0, 0)"
         barStyle="dark-content"
       />
@@ -88,7 +94,7 @@ export default () => {
         confirmIcon={<Icon name="check" size={23} color="#fff" />}
         form={
           <Calendar
-            height={CALENDAR_HEIGHT}
+            height={CONTENT_HEIGHT}
             value={values.date}
             onChange={onChange}
             minDate={minDate}

@@ -57,11 +57,11 @@ const MenuSearch: React.FC<MenuSearchProps> = ({
 
     const backgroundColor = interpolateColor(
       translationY.value,
-      [34.99, 35],
+      [39.99, 40],
       ['transparent', 'white'],
     );
 
-    runOnJS(setDark)(translationY.value >= 34.99);
+    runOnJS(setDark)(translationY.value >= 39.99);
 
     return {
       top,

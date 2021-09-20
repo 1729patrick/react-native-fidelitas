@@ -31,7 +31,10 @@ const RegisterStep: React.FC<RegisterProps> = ({
   loading = false,
 }) => {
   return (
-    <View style={styles.container}>
+    <View
+      style={styles.container}
+      // onLayout={e => console.log('------', e.nativeEvent.layout.height)}
+    >
       {!!title && <Text style={[styles.title, titleStyle]}>{title}</Text>}
       {!!description && <Text style={styles.description}>{description}</Text>}
 

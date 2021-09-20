@@ -10,7 +10,6 @@ export default StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,
     height: INDICATOR_HEIGHT + StyleGuide.spacing * 2,
-    backgroundColor: 'blue',
   },
   indicator: {
     height: INDICATOR_HEIGHT,

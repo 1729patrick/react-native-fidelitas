@@ -100,7 +100,7 @@ export default () => {
     <Reservation
       statusBar={
         <StatusBar
-          translucent
+          translucent={true}
           backgroundColor="rgba(0, 0, 0, 0)"
           barStyle="dark-content"
         />

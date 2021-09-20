@@ -50,7 +50,7 @@ export default () => {
   return (
     <>
       <StatusBar
-        translucent
+        translucent={true}
         backgroundColor="rgba(0, 0, 0, 0)"
         barStyle="light-content"
       />

@@ -18,6 +18,5 @@ export default StyleSheet.create({
   },
   contentContainer: {
     paddingTop: 35 + StyleGuide.spacing * 4,
-    paddingBottom: StyleGuide.spacing + BASKET_HEIGHT + StyleGuide.spacing * 4,
   },
 });

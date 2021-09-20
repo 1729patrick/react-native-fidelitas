@@ -9,7 +9,6 @@ export default StyleSheet.create({
   },
   nextButton: { marginRight: StyleGuide.spacing * 2.5 },
   content: {
-    paddingTop: StyleGuide.spacing * 2,
     paddingHorizontal: StyleGuide.spacing * 2,
   },
 });

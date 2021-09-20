@@ -7,13 +7,14 @@ import {
   Text,
   GestureResponderEvent,
   BackHandler,
+  StatusBar,
 } from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
 import Indicators, { IndicatorsHandler } from '../../molecules/Indicators';
 import styles from './styles';
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 type SlidesProps = {
   items: { component: ReactNode; description: string }[];

@@ -97,14 +97,12 @@ export default () => {
   };
 
   const paddingBottom = useMemo(() => {
-    const basketLength = 1;
-
-    if (basketLength) {
+    if (basket.length) {
       return StyleGuide.spacing + BASKET_HEIGHT + StyleGuide.spacing * 4;
     }
 
     return StyleGuide.spacing * 4;
-  }, []);
+  }, [basket.length]);
 
   const openBasket = () => {
     navigate('Basket');
@@ -155,7 +153,6 @@ export default () => {
       searchContent={
         <SearchContent
           searchContentAnimation={searchContentAnimation}
-          data={[]}
           searchTerm={searchTerm}
           basket={basket}
           addToBasket={addToBasket}

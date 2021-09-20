@@ -10,9 +10,12 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/core';
 import { Step2 } from '~/components/organisms/forms/Reservation';
 import { ReservationType } from '~/api/useReservation';
-import { CONTENT_HEIGHT } from './constants';
+
 import { isToday } from 'date-fns';
 import { formatHumanTime2Time, formatTime } from '~/util/Formatters';
+import { useSafeAreaFrame } from 'react-native-safe-area-context';
+import { FOOTER_HEIGHT } from './constants';
+import { TOTAL_HEADER_HEIGHT } from '~/components/atoms/Header/constants';
 
 type RootStackParamList = {
   ReservationForm: {
@@ -24,6 +27,10 @@ type RootStackParamList = {
 type RouteProps = RouteProp<RootStackParamList, 'ReservationForm'>;
 
 export default () => {
+  const { height } = useSafeAreaFrame();
+
+  const CONTENT_HEIGHT = height - TOTAL_HEADER_HEIGHT - FOOTER_HEIGHT;
+
   useStatusBar(true);
   useHideTabBar();
   const { pop } = useNavigation<StackNavigationProp<any>>();
@@ -51,7 +58,7 @@ export default () => {
   return (
     <View style={styles.container}>
       <StatusBar
-        translucent
+        translucent={true}
         backgroundColor="rgba(0, 0, 0, 0)"
         barStyle="dark-content"
       />

@@ -17,6 +17,7 @@ import Animated, {
   useAnimatedStyle,
   withDecay,
 } from 'react-native-reanimated';
+import { SEARCH_HEIGHT } from '~/components/organisms/MenuSearch/constants';
 import { translate, TranslationKeyType } from '~/i18n';
 import { CategoryType } from '~/screens/menu/Menu';
 import { IMAGE_HEIGHT } from '~/screens/menu/Menu/constants';
@@ -104,20 +105,20 @@ const CategoryIndicator: React.ForwardRefRenderFunction<
   const categoryIndicatorStyle = useAnimatedStyle(() => {
     const top = interpolate(
       translationY.value,
-      [0, IMAGE_HEIGHT - 93],
-      [IMAGE_HEIGHT, 93],
+      [0, IMAGE_HEIGHT - SEARCH_HEIGHT],
+      [IMAGE_HEIGHT, SEARCH_HEIGHT],
       Extrapolate.CLAMP,
     );
 
     const borderColor = interpolateColor(
       translationY.value,
-      [IMAGE_HEIGHT - 93.1, IMAGE_HEIGHT - 93],
+      [IMAGE_HEIGHT - SEARCH_HEIGHT - 0.1, IMAGE_HEIGHT - SEARCH_HEIGHT],
       ['transparent', StyleGuide.palette.border],
     );
 
     const backgroundColor = interpolateColor(
       translationY.value,
-      [IMAGE_HEIGHT - 93.1, IMAGE_HEIGHT - 93],
+      [IMAGE_HEIGHT - SEARCH_HEIGHT - 0.1, IMAGE_HEIGHT - SEARCH_HEIGHT],
       ['transparent', 'white'],
     );
 

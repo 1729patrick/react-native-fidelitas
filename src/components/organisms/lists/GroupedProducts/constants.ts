@@ -1,8 +1,6 @@
 import { Dimensions } from 'react-native';
-import {
-  CATEGORY_INDICATOR_HEIGHT,
-  SEARCH_HEIGHT,
-} from '~/screens/menu/Menu/constants';
+import { CATEGORY_INDICATOR_HEIGHT } from '~/screens/menu/Menu/constants';
+import { SEARCH_HEIGHT } from '../../MenuSearch/constants';
 import { BOTTOM_TAB_BAR_HEIGHT } from '../../TabBar/Bottom/constants';
 
 const { height } = Dimensions.get('window');

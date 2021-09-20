@@ -44,6 +44,8 @@ import ReservationTime from '~/screens/reservation/ReservationTime';
 import ReservationMembers from '~/screens/reservation/ReservationMembers';
 import Reward from '~/screens/achievements/Reward';
 import ShareApp from '~/screens/achievements/ShareApp';
+import { Text, View } from 'react-native';
+import Loader from '~/components/atoms/Loader';
 
 type TransitionSpecType = {
   open: TransitionSpec;
@@ -275,7 +277,28 @@ export default () => {
   }
 
   return (
-    <NavigationContainer theme={StyleGuide.navigation}>
+    <NavigationContainer
+      theme={StyleGuide.navigation}
+      linking={{
+        prefixes: ['fidelitas://'],
+        config: {
+          screens: {
+            Register: {
+              path: 'referral/:referralCode',
+            },
+          },
+        },
+      }}
+      fallback={
+        <View
+          style={{
+            flexGrow: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Loader />
+        </View>
+      }>
       <PublicStack.Navigator screenOptions={{ headerShown: false }}>
         {!token ? (
           <>

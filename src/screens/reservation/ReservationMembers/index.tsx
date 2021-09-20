@@ -40,7 +40,7 @@ export default () => {
   return (
     <View style={styles.container}>
       <StatusBar
-        translucent
+        translucent={true}
         backgroundColor="rgba(0, 0, 0, 0)"
         barStyle="dark-content"
       />

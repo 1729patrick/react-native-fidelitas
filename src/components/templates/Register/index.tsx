@@ -50,6 +50,7 @@ const Register: React.ForwardRefRenderFunction<RegisterHandler, RegisterProps> =
           horizontal
           overScrollMode="never"
           keyboardShouldPersistTaps="always"
+          showsHorizontalScrollIndicator={false}
           snapToInterval={width}
           disableIntervalMomentum
           showsVerticalScrollIndicator={false}

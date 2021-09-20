@@ -8,6 +8,6 @@ export default StyleSheet.create({
   stepTitle: {
     textAlign: 'left',
     paddingLeft: StyleGuide.spacing * 2.5,
-    marginBottom: StyleGuide.spacing * 4,
+    marginBottom: StyleGuide.spacing * 2,
   },
 });

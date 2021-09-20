@@ -12,7 +12,7 @@ import useHideTabBar from '~/hooks/useHideTabBar';
 import Calendar from '~/components/atoms/Calendar';
 import styles from './styles';
 import { useBackHandler } from '~/hooks/useBackHandler';
-import { CONTENT_HEIGHT } from './constants';
+import { CONTENT_HEIGHT, FOOTER_AND_TITLE } from './constants';
 import { formatHumanTime2Time } from '~/util/Formatters';
 import api from '~/util/api';
 import { mutate } from 'swr';
@@ -28,8 +28,14 @@ import {
   DURATION_BETWEEN_RESERVE_AND_NOW,
   DURATION_BETWEEN_RESERVE_AND_RESTAURANT_CLOSE,
 } from '~/components/organisms/forms/Reservation/constants';
+import { useSafeAreaFrame } from 'react-native-safe-area-context';
+import { TOTAL_HEADER_HEIGHT } from '~/components/atoms/Header/constants';
 
 export default () => {
+  const { height } = useSafeAreaFrame();
+
+  const CONTENT_HEIGHT = height - TOTAL_HEADER_HEIGHT - FOOTER_AND_TITLE;
+
   const [values, setValues] = useState({
     date: '',
     time: '',
@@ -129,7 +135,7 @@ export default () => {
   return (
     <View style={styles.container}>
       <StatusBar
-        translucent
+        translucent={true}
         backgroundColor="rgba(0, 0, 0, 0)"
         barStyle="dark-content"
       />

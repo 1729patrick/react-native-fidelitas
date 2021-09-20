@@ -21,6 +21,7 @@ export default StyleSheet.create({
   button: {
     marginLeft: 'auto',
     height: 38,
-    marginBottom: 20,
+    marginBottom: StyleGuide.spacing * 2,
+    marginTop: StyleGuide.spacing * 2,
   },
 });

@@ -21,6 +21,7 @@ export default StyleSheet.create({
   top: {
     ...StyleSheet.absoluteFillObject,
     flexDirection: 'row',
+    marginTop: StyleGuide.spacing * 2,
   },
   linearGradient: {
     ...StyleSheet.absoluteFillObject,

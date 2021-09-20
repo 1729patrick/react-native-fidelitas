@@ -1,3 +1,4 @@
+import { RouteProp, useRoute } from '@react-navigation/core';
 import { useNavigation } from '@react-navigation/native';
 import React, { useRef, useState } from 'react';
 import { StatusBar } from 'react-native';
@@ -13,6 +14,9 @@ import RegisterStep from '~/components/organisms/RegisterStep';
 import { useBackHandler } from '~/hooks/useBackHandler';
 import { useAuth } from '~/contexts/Auth';
 import { validateEmail, validatePhone } from '~/util/validations';
+import { ResponseError } from '~/types/Api';
+import { translate } from '~/i18n';
+import { Alert } from '~/util/Alert';
 
 export type RegisterFormType = {
   firstName: string;
@@ -24,13 +28,24 @@ export type RegisterFormType = {
   restaurantId: number;
 };
 
+type RootStackParamList = {
+  Register: {
+    referralCode: string;
+  };
+};
+
+type RouteProps = RouteProp<RootStackParamList, 'Register'>;
+
 export default () => {
   useStatusBar(true);
+  const { params } = useRoute<RouteProps>();
+  console.log({ params });
 
   const [loading, setLoading] = useState(false);
   const currentIndexRef = useRef(0);
   const registerRef = useRef<RegisterHandler>(null);
-  const { pop } = useNavigation<StackNavigationProp<any>>();
+  const { pop, navigate, canGoBack } =
+    useNavigation<StackNavigationProp<any>>();
   const { register } = useAuth();
 
   const [values, setValues] = useState<RegisterFormType>({
@@ -43,11 +58,16 @@ export default () => {
   });
 
   const onComplete = async () => {
-    setLoading(true);
+    try {
+      setLoading(true);
+      const success = await register(values);
+      setLoading(success);
+    } catch ({ response }) {
+      const { data } = response as ResponseError;
 
-    const success = await register(values);
-
-    setLoading(success);
+      Alert.error(translate(data.message, 'UNHANDLED_ERROR'));
+      setLoading(false);
+    }
   };
 
   const onScrollTo = (index: number) => {
@@ -57,7 +77,12 @@ export default () => {
 
   const onBack = () => {
     if (currentIndexRef.current - 1 < 0) {
-      pop();
+      if (canGoBack()) {
+        pop();
+      } else {
+        navigate('Welcome');
+      }
+
       return;
     }
 
@@ -92,7 +117,7 @@ export default () => {
   return (
     <>
       <StatusBar
-        translucent
+        translucent={true}
         backgroundColor="rgba(0, 0, 0, 0)"
         barStyle="dark-content"
       />

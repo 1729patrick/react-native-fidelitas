@@ -8,7 +8,5 @@ export default StyleSheet.create({
     paddingTop: TOTAL_HEADER_HEIGHT,
   },
   nextButton: { marginRight: StyleGuide.spacing * 2.5 },
-  content: {
-    paddingTop: StyleGuide.spacing * 2,
-  },
+  content: {},
 });

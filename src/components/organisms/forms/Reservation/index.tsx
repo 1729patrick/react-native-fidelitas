@@ -15,7 +15,6 @@ import {
 import Input from '~/components/atoms/Input';
 import { translate, TranslationKeyType } from '~/i18n';
 import {
-  DISTANCE_BETWEEN_RESERVE_AND_NOW,
   DURATION_BETWEEN_RESERVE_AND_NOW,
   DURATION_BETWEEN_RESERVE_AND_RESTAURANT_CLOSE,
 } from './constants';
@@ -103,7 +102,10 @@ export const Step2: React.FC<Step2Props> = ({
 
   return (
     <View style={{ height }}>
-      <ScrollView overScrollMode="never" showsVerticalScrollIndicator={false}>
+      <ScrollView
+        overScrollMode="never"
+        showsVerticalScrollIndicator={false}
+        style={styles.contentContainer}>
         {times.map(
           time =>
             !!time.slots?.length && (
@@ -115,6 +117,7 @@ export const Step2: React.FC<Step2Props> = ({
                   onChange('time', value);
                   onChange('type', time.title);
                 }}
+                // slots={[...time.slots, ...time.slots]}
                 slots={time.slots}
                 style={time.style}
               />

@@ -18,4 +18,5 @@ export default StyleSheet.create({
     ...StyleGuide.typography.caption,
     color: StyleGuide.palette.secondary,
   },
+  contentContainer: { paddingTop: StyleGuide.spacing * 2 },
 });

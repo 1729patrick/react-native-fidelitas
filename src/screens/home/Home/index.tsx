@@ -25,6 +25,7 @@ import Line from '~/components/atoms/Line';
 
 import SplashScreen from '~/components/atoms/SplashScreen';
 import { useRestaurant } from '~/contexts/Restaurant';
+import { HEADER_HEIGHT } from './constants';
 
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
@@ -52,14 +53,14 @@ export default () => {
   const animatedHeader = useAnimatedStyle(() => {
     const opacity = interpolate(
       translationY.value,
-      [275, 300],
+      [300 - HEADER_HEIGHT, 300],
       [0, 1],
       Extrapolate.CLAMP,
     );
 
-    if (translationY.value >= 287.5 && !dark) {
+    if (translationY.value >= 300 - HEADER_HEIGHT / 2 && !dark) {
       runOnJS(setDark)(true);
-    } else if (translationY.value <= 287.5 && dark) {
+    } else if (translationY.value <= 300 - HEADER_HEIGHT / 2 && dark) {
       runOnJS(setDark)(false);
     }
 
@@ -84,7 +85,7 @@ export default () => {
     <Home
       statusBar={
         <StatusBar
-          translucent
+          translucent={true}
           backgroundColor="rgba(0, 0, 0, 0)"
           barStyle={dark ? 'dark-content' : 'light-content'}
         />
