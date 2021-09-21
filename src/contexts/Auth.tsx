@@ -32,6 +32,7 @@ type ContextProps = {
   login: (args: LoginArgs) => Promise<boolean>;
   register: (args: RegisterFormType) => Promise<boolean>;
   logout: () => void;
+  setReferralCode: (referralCode: string) => void;
 };
 
 const AuthContext = createContext<ContextProps>({
@@ -41,11 +42,13 @@ const AuthContext = createContext<ContextProps>({
   login: async () => false,
   register: async () => false,
   logout: () => undefined,
+  setReferralCode: () => undefined,
 });
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<UserType>();
   const [token, setToken] = useState<string>();
+  const [referralCode, setReferralCode] = useState<string>();
   const [userLoaded, setUserLoaded] = useState<boolean>(false);
 
   const { setStorage: setStorageUser, removeStorage: removeStorageUser } =
@@ -99,7 +102,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     try {
       const { data } = await api.post<{ user: any; token: string }>(
         'auth/register',
-        user,
+        { ...user, referralCode },
       );
 
       setUser(data.user);
@@ -127,7 +130,15 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, token, userLoaded, login, logout, register }}>
+      value={{
+        user,
+        token,
+        userLoaded,
+        login,
+        logout,
+        register,
+        setReferralCode,
+      }}>
       {children}
     </AuthContext.Provider>
   );

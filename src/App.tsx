@@ -42,6 +42,7 @@ const App = () => {
               closeInterval={2000}
               renderImage={() => null}
               titleStyle={styles.alertTitle}
+              titleNumOfLines={2}
             />
             <StatusBar
               translucent={true}

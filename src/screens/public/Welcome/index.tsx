@@ -1,5 +1,5 @@
-import { useNavigation } from '@react-navigation/core';
-import React from 'react';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/core';
+import React, { useEffect } from 'react';
 import { StatusBar, View } from 'react-native';
 
 import styles from './styles';
@@ -14,8 +14,21 @@ import {
   Screen3,
   Screen4,
 } from '~/components/molecules/slides/Welcome';
+import { useAuth } from '~/contexts/Auth';
+import { Alert } from '~/util/Alert';
+
+type RootStackParamList = {
+  Register?: {
+    referralCode: string;
+  };
+};
+
+type RouteProps = RouteProp<RootStackParamList, 'Register'>;
 
 export default () => {
+  const { params } = useRoute<RouteProps>();
+  const { setReferralCode } = useAuth();
+
   useStatusBar(false);
   const { navigate } = useNavigation<StackNavigationProp<any>>();
 
@@ -26,6 +39,19 @@ export default () => {
   const onRegister = () => {
     navigate('Register');
   };
+
+  useEffect(() => {
+    if (params?.referralCode) {
+      const { referralCode } = params;
+
+      setReferralCode(referralCode);
+      Alert.success(
+        `Você está usado o código de referência ${referralCode}`,
+        undefined,
+        'light',
+      );
+    }
+  }, []);
 
   const buttons = (
     <View style={styles.buttons}>

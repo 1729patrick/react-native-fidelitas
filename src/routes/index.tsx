@@ -283,7 +283,7 @@ export default () => {
         prefixes: ['fidelitas://'],
         config: {
           screens: {
-            Register: {
+            Welcome: {
               path: 'referral/:referralCode',
             },
           },

@@ -28,18 +28,8 @@ export type RegisterFormType = {
   restaurantId: number;
 };
 
-type RootStackParamList = {
-  Register: {
-    referralCode: string;
-  };
-};
-
-type RouteProps = RouteProp<RootStackParamList, 'Register'>;
-
 export default () => {
   useStatusBar(true);
-  const { params } = useRoute<RouteProps>();
-  console.log({ params });
 
   const [loading, setLoading] = useState(false);
   const currentIndexRef = useRef(0);

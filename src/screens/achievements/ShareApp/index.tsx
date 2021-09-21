@@ -11,15 +11,16 @@ import { Alert } from '~/util/Alert';
 import { translate } from '~/i18n';
 import useHideTabBar from '~/hooks/useHideTabBar';
 import Header from '~/components/atoms/Header';
+import { baseURL } from '~/util/api';
 
 const code = 'patrick113';
-const shareMessage = `Hey! Sign un for Fidelitas with my referral code and get 15€ free on your first purchase. Use ${code}`;
+const shareMessage = `Hey! Sign up for Fidelitas with my referral code and get 15€ free on your first purchase. Use ${baseURL}/referral/${code}`;
 
 export default () => {
   useHideTabBar();
 
   const onCopy = () => {
-    Clipboard.setString(shareMessage);
+    Clipboard.setString(`${baseURL}/referral/${code}`);
     Alert.success(translate('codeCopied'));
   };
 
