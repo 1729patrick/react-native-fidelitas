@@ -12,15 +12,17 @@ import { translate } from '~/i18n';
 import useHideTabBar from '~/hooks/useHideTabBar';
 import Header from '~/components/atoms/Header';
 import { baseURL } from '~/util/api';
+import { useAuth } from '~/contexts/Auth';
 
-const code = 'patrick113';
-const shareMessage = `Hey! Sign up for Fidelitas with my referral code and get 15€ free on your first purchase. Use ${baseURL}/referral/${code}`;
+const getMessage = (code: string) =>
+  `Hey! Sign up for Fidelitas with my referral code and get 15€ free on your first purchase. Use ${baseURL}/referral/${code}`;
 
 export default () => {
+  const { user } = useAuth();
   useHideTabBar();
 
   const onCopy = () => {
-    Clipboard.setString(`${baseURL}/referral/${code}`);
+    Clipboard.setString(getMessage(user!.referralCode));
     Alert.success(translate('codeCopied'));
   };
 
@@ -28,7 +30,7 @@ export default () => {
     try {
       const result = await Share.share(
         {
-          message: shareMessage,
+          message: getMessage(user!.referralCode),
         },
         {
           dialogTitle: 'Invite your friends',
@@ -83,10 +85,10 @@ export default () => {
           </View>
         </View>
 
-        <View style={styles.referralCode}>
+        <View style={styles.invitationCode}>
           <Text style={styles.referralTitle}>Your referral code</Text>
           <View style={styles.code}>
-            <Text style={styles.referral}>{code}</Text>
+            <Text style={styles.referral}>{user!.referralCode}</Text>
             <RoundButton
               onPress={onCopy}
               name={'copy-outline'}

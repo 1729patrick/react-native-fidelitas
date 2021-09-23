@@ -21,6 +21,8 @@ type UserType = {
   phone: string;
   email: string;
   restaurantId: number;
+  invitationCode?: string;
+  referralCode: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -32,7 +34,7 @@ type ContextProps = {
   login: (args: LoginArgs) => Promise<boolean>;
   register: (args: RegisterFormType) => Promise<boolean>;
   logout: () => void;
-  setReferralCode: (referralCode: string) => void;
+  setInvitationCode: (invitationCode: string) => void;
 };
 
 const AuthContext = createContext<ContextProps>({
@@ -42,13 +44,13 @@ const AuthContext = createContext<ContextProps>({
   login: async () => false,
   register: async () => false,
   logout: () => undefined,
-  setReferralCode: () => undefined,
+  setInvitationCode: () => undefined,
 });
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<UserType>();
   const [token, setToken] = useState<string>();
-  const [referralCode, setReferralCode] = useState<string>();
+  const [invitationCode, setInvitationCode] = useState<string>();
   const [userLoaded, setUserLoaded] = useState<boolean>(false);
 
   const { setStorage: setStorageUser, removeStorage: removeStorageUser } =
@@ -102,7 +104,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     try {
       const { data } = await api.post<{ user: any; token: string }>(
         'auth/register',
-        { ...user, referralCode },
+        { ...user, invitationCode },
       );
 
       setUser(data.user);
@@ -137,7 +139,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         login,
         logout,
         register,
-        setReferralCode,
+        setInvitationCode,
       }}>
       {children}
     </AuthContext.Provider>

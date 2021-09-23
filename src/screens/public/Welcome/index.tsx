@@ -19,7 +19,7 @@ import { Alert } from '~/util/Alert';
 
 type RootStackParamList = {
   Register?: {
-    referralCode: string;
+    invitationCode: string;
   };
 };
 
@@ -27,7 +27,7 @@ type RouteProps = RouteProp<RootStackParamList, 'Register'>;
 
 export default () => {
   const { params } = useRoute<RouteProps>();
-  const { setReferralCode } = useAuth();
+  const { setInvitationCode } = useAuth();
 
   useStatusBar(false);
   const { navigate } = useNavigation<StackNavigationProp<any>>();
@@ -41,12 +41,12 @@ export default () => {
   };
 
   useEffect(() => {
-    if (params?.referralCode) {
-      const { referralCode } = params;
+    if (params?.invitationCode) {
+      const { invitationCode } = params;
 
-      setReferralCode(referralCode);
+      setInvitationCode(invitationCode);
       Alert.success(
-        `Você está usado o código de referência ${referralCode}`,
+        `Você está usado o código de referência ${invitationCode}`,
         undefined,
         'light',
       );

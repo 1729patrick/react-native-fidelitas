@@ -284,7 +284,7 @@ export default () => {
         config: {
           screens: {
             Welcome: {
-              path: 'referral/:referralCode',
+              path: 'referral/:invitationCode',
             },
           },
         },

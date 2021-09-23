@@ -49,7 +49,7 @@ export default StyleSheet.create({
     textAlign: 'center',
     marginRight: StyleGuide.spacing,
   },
-  referralCode: {
+  invitationCode: {
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
